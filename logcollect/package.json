@@ -1,0 +1,8 @@
+{
+    "name": "logcollect",
+    "version": "0.1.0",
+    "devDependencies": {},
+    "dependencies": {
+        "socket.io": "^2.1.1"
+    }
+}
