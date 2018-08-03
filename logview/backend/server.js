@@ -12,8 +12,6 @@ const
     port = 3060;
 
 const app = express();
-// console.log(`\n\n${JSON.stringify(webpackConfig)}\n\n\n`);
-console.log(`\n\n${webpackConfig.output}\n\n\n`);
 
 // empty arrays don't throw 404 response error
 apiResponse.options({
