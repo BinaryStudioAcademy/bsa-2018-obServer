@@ -1,8 +1,26 @@
 {
-    "name": "logcollect",
-    "version": "0.1.0",
-    "devDependencies": {},
-    "dependencies": {
-        "socket.io": "^2.1.1"
+  "name": "logcollect",
+  "version": "0.1.0",
+  "devDependencies": {
+    "husky": "^1.0.0-rc.13",
+    "lint-staged": "^7.2.0",
+    "prettier": "^1.14.0"
+  },
+  "scripts": {
+    "prettify": "prettier --write  './*.{js,tsx,json,css,md}'"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
     }
+  },
+  "lint-staged": {
+    "*.{js,tsx,json,css,md}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "dependencies": {
+    "socket.io": "^2.1.1"
+  }
 }

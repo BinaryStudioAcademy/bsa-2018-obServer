@@ -1,5 +1,6 @@
 #yarn
 **/yarn-error.log
+**/yarn.lock
 # compiled output
 **/dist
 
