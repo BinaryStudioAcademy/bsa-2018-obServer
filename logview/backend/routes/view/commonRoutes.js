@@ -6,8 +6,6 @@ module.exports = app => {
     "*",
     (req, res, next) => {
       injectedData(req, res, {}, false);
-      console.log("Request from: ");
-      console.log(req.user);
     },
     apiResponse
   );
