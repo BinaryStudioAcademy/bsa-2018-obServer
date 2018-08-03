@@ -9,7 +9,7 @@
         "webpack-hot-middleware": "^2.22.3"
     },
     "scripts": {
-        "start": "node ./backend/server.js",
+        "start": "nodemon ./backend/server.js",
         "build": "webpack --config webpack.config.js"
     },
     "dependencies": {
@@ -25,6 +25,7 @@
         "express": "^4.16.3",
         "express-api-response": "^0.4.0",
         "express-session": "^1.15.6",
+        "nodemon": "^1.18.3",
         "react": "^16.4.1",
         "react-dom": "^16.4.1",
         "replacestream": "^4.0.3",
