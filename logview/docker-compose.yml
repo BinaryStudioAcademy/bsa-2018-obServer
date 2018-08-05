@@ -6,3 +6,5 @@ services:
         - "./:/src/"
       ports:
         - 3060:3060
+      # command: ls
+      command: /src/node_modules/.bin/nodemon --legacy-watch /src/backend/server.js

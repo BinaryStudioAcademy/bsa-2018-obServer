@@ -5,13 +5,13 @@ const bodyParser = require("body-parser"),
   session = require("express-session"),
   sessionSecret = require("./config/session").secret,
   webpack = require("webpack"),
-  // webpackConfig = require("../webpack.config.js"),
-  // webpackDevMiddleware = require("webpack-dev-middleware"),
-  // webpackHotMiddleware = require("webpack-hot-middleware"),
+  webpackConfig = require("../webpack.config.js"),
+  webpackDevMiddleware = require("webpack-dev-middleware"),
+  webpackHotMiddleware = require("webpack-hot-middleware"),
   port = 3060;
-  
+
 const app = express();
-// const compiler = webpack(webpackConfig);
+const compiler = webpack(webpackConfig);
 const distPath = path.resolve(__dirname + "/../dist");
 const resourcesPath = path.resolve(__dirname + "/../resources");
 
@@ -19,18 +19,18 @@ apiResponse.options({
   emptyArrayIsOk: true
 });
 
-// if (process.env.NODE_ENV !== "production") {
-//   app.use(
-//     webpackDevMiddleware(compiler, {
-//       noInfo: true,
-//       publicPath: webpackConfig.output.publicPath,
-//       watchOptions: {
-//           poll: 1000
-//       }
-//     })
-//   );
-//   app.use(webpackHotMiddleware(compiler));
-// }
+if (process.env.NODE_ENV !== "production") {
+  app.use(
+    webpackDevMiddleware(compiler, {
+      noInfo: true,
+      publicPath: webpackConfig.output.publicPath,
+      watchOptions: {
+        poll: 1000
+      }
+    })
+  );
+  app.use(webpackHotMiddleware(compiler));
+}
 
 app.use(
   session({

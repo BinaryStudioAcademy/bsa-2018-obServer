@@ -13,7 +13,7 @@
     "webpack-hot-middleware": "^2.22.3"
   },
   "scripts": {
-    "start": "nodemon ./backend/server.js",
+    "start": "nodemon --legacy-watch ./backend/server.js",
     "build": "webpack --config webpack.config.js",
     "watch": "webpack --watch --config webpack.config.js",
     "prettify": "prettier --write  './frontend/**/*.{js,tsx,json,css,md}' './backend/**/*.{js,json,css,md}'"
