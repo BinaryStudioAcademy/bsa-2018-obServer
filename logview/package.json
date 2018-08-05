@@ -15,6 +15,7 @@
   "scripts": {
     "start": "nodemon ./backend/server.js",
     "build": "webpack --config webpack.config.js",
+    "watch": "webpack --watch --config webpack.config.js",
     "prettify": "prettier --write  './frontend/**/*.{js,tsx,json,css,md}' './backend/**/*.{js,json,css,md}'"
   },
   "husky": {
@@ -41,6 +42,8 @@
     "express": "^4.16.3",
     "express-api-response": "^0.4.0",
     "express-session": "^1.15.6",
+    "pg": "^7.4.3",
+    "pg-hstore": "^2.3.2",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "replacestream": "^4.0.3",

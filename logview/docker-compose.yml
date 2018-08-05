@@ -1,0 +1,8 @@
+version: "3"
+services:
+    app:
+      build: .
+      volumes:
+        - "./:/src/"
+      ports:
+        - 3060:3060

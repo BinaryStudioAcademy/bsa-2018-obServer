@@ -8,6 +8,17 @@ module.exports = {
         path: __dirname + "/dist"
     },
 
+    devServer: {
+        historyApiFallback: true,
+        noInfo: false,
+        overlay: true,
+        host: '0.0.0.0',
+        watchOptions: {
+          aggregateTimeout: 300,
+          poll: 300
+        }
+      },
+
     // Enable sourcemaps for debugging webpack's output.
     // devtool: "source-map",
     devtool: "eval-source-map",
