@@ -6,5 +6,26 @@ services:
         - "./:/src/"
       ports:
         - 3060:3060
-      # command: ls
+      environment:
+        - NODE_ENV=development
       command: /src/node_modules/.bin/nodemon --legacy-watch /src/backend/server.js
+      links:
+          - mongo
+          - postgres
+    postgres:
+      image: postgres:9.6-alpine
+      container_name: logview-postgres
+      working_dir: /src/
+      volumes:
+        - ./postgresdata:/src/
+      environment:
+        - POSTGRES_USER=root
+        - POSTGRES_PASSWORD=qwerty
+        - POSTGRES_DB=observerDb    
+    mongo:
+        container_name: logview-mongo
+        image: mongo
+        volumes:
+          - ./mongovolume:/data/db"
+        ports:
+          - "27019:27017"
