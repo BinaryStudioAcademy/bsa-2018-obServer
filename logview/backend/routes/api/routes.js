@@ -1,3 +1,6 @@
 module.exports = app => {
-  return {};
+  return {
+    userRoutes: require("./userRoutes")(app),
+    logRoutes: require("./logRoutes")
+  };
 };

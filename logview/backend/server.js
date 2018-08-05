@@ -1,3 +1,4 @@
+require("dotenv").config();
 const bodyParser = require("body-parser"),
   express = require("express"),
   apiResponse = require("express-api-response"),
@@ -8,13 +9,14 @@ const bodyParser = require("body-parser"),
   webpackConfig = require("../webpack.config.js"),
   webpackDevMiddleware = require("webpack-dev-middleware"),
   webpackHotMiddleware = require("webpack-hot-middleware"),
-  port = 3060;
+  port = process.env.APP_PORT;
 
 const app = express();
 const compiler = webpack(webpackConfig);
 const distPath = path.resolve(__dirname + "/../dist");
 const resourcesPath = path.resolve(__dirname + "/../resources");
 
+const postgresDb = require("./dbconnect/postgres");
 apiResponse.options({
   emptyArrayIsOk: true
 });
@@ -47,12 +49,16 @@ app.use("/resources", express.static(resourcesPath));
 const apiRoutes = require("./routes/api/routes")(app);
 const viewRoutes = require("./routes/view/routes")(app);
 
-const server = app.listen(port);
-server.on("error", err => {
-  console.log(err);
-});
-server.on("listening", () => {
-  console.log(`Log View app is launched on port ${port}`);
+let server = null;
+
+postgresDb.sequelize.sync().then(() => {
+  server = app.listen(port, () => {});
+  server.on("error", err => {
+    console.log(err);
+  });
+  server.on("listening", () => {
+    console.log(`Log View app is launched on port ${port}`);
+  });
 });
 
 module.exports = app;

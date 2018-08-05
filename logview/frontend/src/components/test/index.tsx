@@ -7,7 +7,7 @@ export interface TestProps {
 class Test extends React.PureComponent<TestProps, {}> {
   render() {
     const { msg } = this.props;
-    return <h1>{msg}qqq</h1>;
+    return <h1>{msg}</h1>;
   }
 }
 
