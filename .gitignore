@@ -1,8 +1,12 @@
 #yarn
 **/yarn-error.log
 **/yarn.lock
+
 # compiled output
 **/dist
+
+# Environment
+**/.env
 
 # dependencies
 **/node_modules/
