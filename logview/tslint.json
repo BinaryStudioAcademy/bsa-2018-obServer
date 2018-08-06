@@ -5,7 +5,7 @@
     "curly": true,
     "eofline": false,
     "forin": true,
-    "indent": [true, "spaces"],
+    "indent": [true, "tabs"],
     "max-line-length": [true, 120],
     "no-arg": true,
     "no-bitwise": true,
