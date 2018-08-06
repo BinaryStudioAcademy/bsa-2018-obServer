@@ -57,4 +57,4 @@ import {userAPI} from '.[/frontend]/src/services'
 
 ```userAPI.updateUser(user)``` - update 'user' data
 
-``` userAPI.fetchUser(id)``` - get user by id
+``` userAPI.deleteUser(id)``` - delete user by id
