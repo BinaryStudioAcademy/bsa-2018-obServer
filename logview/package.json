@@ -2,7 +2,14 @@
   "name": "logview",
   "version": "0.1.0",
   "devDependencies": {
+    "@storybook/addon-actions": "^3.4.10",
+    "@storybook/addon-links": "^3.4.10",
+    "@storybook/addons": "^3.4.10",
+    "@storybook/react": "4.0.0-alpha.3",
+    "@types/node": "^10.5.6",
+    "@types/storybook__react": "^3.0.8",
     "awesome-typescript-loader": "^5.2.0",
+    "babel-runtime": "^6.26.0",
     "husky": "^1.0.0-rc.13",
     "lint-staged": "^7.2.0",
     "nodemon": "^1.18.3",
@@ -18,7 +25,8 @@
     "watch-front": "nodemon ./scripts/front.js",
     "build": "webpack --config webpack.config.js",
     "watch": "webpack --watch --config webpack.config.js",
-    "prettify": "prettier --write  './frontend/**/*.{js,tsx,json,css,md}' './backend/**/*.{js,json,css,md}'"
+    "prettify": "prettier --write  './frontend/**/*.{js,tsx,json,css,md}' './backend/**/*.{js,json,css,md}'",
+    "storybook": "start-storybook -p 6006"
   },
   "husky": {
     "hooks": {
