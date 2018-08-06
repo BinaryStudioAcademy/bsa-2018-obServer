@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
+    "baseUrl": "./frontend",
     "outDir": "../dist",
     "target": "es6",
     "sourceMap": true,
@@ -12,5 +12,5 @@
     "skipLibCheck": true, // todo: remove it when @types/lodash is fixed
     "strictNullChecks": false
   },
-  "include": ["./**/*"]
+  "include": ["./frontend/src"]
 }
