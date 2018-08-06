@@ -46,10 +46,10 @@ yarn run storybook
 
 ## Frontend description
 
-### User api frontend (GRUD)
+### User api frontend (GRUD) frontend/src/services
 
 ```
-import {userAPI} from '.[/frontend]/src/services'
+import {userAPI} from './[relative path]/services'
 ```
 ``` userAPI.fetchUser(id) ``` - get user by id
 
