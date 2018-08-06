@@ -1,3 +1,3 @@
 export interface UserState {
-	email: string
+	email: string;
 }
