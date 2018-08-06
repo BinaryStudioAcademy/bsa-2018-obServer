@@ -6,6 +6,7 @@
     "husky": "^1.0.0-rc.13",
     "lint-staged": "^7.2.0",
     "nodemon": "^1.18.3",
+    "opn": "^5.3.0",
     "prettier": "^1.14.0",
     "source-map-loader": "^0.2.3",
     "typescript": "^2.9.2",
@@ -14,6 +15,7 @@
   },
   "scripts": {
     "start": "nodemon --legacy-watch ./backend/server.js",
+    "watch-front": "nodemon ./scripts/front.js",
     "build": "webpack --config webpack.config.js",
     "watch": "webpack --watch --config webpack.config.js",
     "prettify": "prettier --write  './frontend/**/*.{js,tsx,json,css,md}' './backend/**/*.{js,json,css,md}'"

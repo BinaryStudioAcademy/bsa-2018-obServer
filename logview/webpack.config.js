@@ -1,8 +1,12 @@
 const NODE_ENV = process.env.NODE_ENV;
 const path = require('path');
+const webpack = require("webpack");
 
 module.exports = {
-    entry: "./frontend/src/index.tsx",
+    entry: [
+        "webpack-hot-middleware/client?reload=true",
+        "./frontend/src/index.tsx"
+    ],
     output: {
         filename: "bundle.js",
         path: __dirname + "/dist"
@@ -63,5 +67,6 @@ module.exports = {
             }
         ]
     },
+    plugins: [new webpack.HotModuleReplacementPlugin()],
     mode: "development"
 };
