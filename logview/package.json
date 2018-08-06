@@ -14,7 +14,7 @@
     "webpack-hot-middleware": "^2.22.3"
   },
   "scripts": {
-    "start": "nodemon --legacy-watch ./backend/server.js",
+    "start": "yarn && nodemon --legacy-watch ./backend/server.js",
     "watch-front": "nodemon ./scripts/front.js",
     "build": "webpack --config webpack.config.js",
     "watch": "webpack --watch --config webpack.config.js",

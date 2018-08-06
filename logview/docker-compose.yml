@@ -9,7 +9,6 @@ services:
     environment:
       - NODE_ENV=development
       - DATABASE_URL=postgres://${POSTGRES_USER}:${POSTGRES_PWD}@postgres/${POSTGRES_DB}
-    # command: /src/node_modules/.bin/nodemon --legacy-watch /src/backend/server.js
     command: yarn start
     links:
         # - mongo
