@@ -1,5 +1,5 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import Test from "./components/test/index";
+import App from "./containers/App/App";
 
-ReactDOM.render(<Test msg="Hello world" />, document.getElementById("root"));
+ReactDOM.render(<App msg="Hello world" />, document.getElementById("root"));
