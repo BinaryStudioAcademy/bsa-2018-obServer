@@ -43,3 +43,15 @@ To start storybook:
 ```
 yarn run storybook
 ```
+
+## Frontend description
+
+### User api frontend (GRUD)
+
+```
+import {userAPI} from '.[/frontend]/src/services'
+```
+userAPI.fetchUser(id) - get user by id
+userAPI.addUser(user) - add 'user'
+userAPI.updateUser(user) - update 'user' data
+userAPI.fetchUser(id) - get user by id
