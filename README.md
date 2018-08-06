@@ -55,6 +55,6 @@ import {userAPI} from './[relative path]/services'
 
 ``` userAPI.addUser(user)``` - add 'user'
 
-```userAPI.updateUser(user)``` - update 'user' data
+```userAPI.updateUser(user)``` - update 'user' data by 'user.id'
 
 ``` userAPI.deleteUser(id)``` - delete user by id
