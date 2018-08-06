@@ -4,6 +4,7 @@ const bodyParser = require("body-parser"),
   apiResponse = require("express-api-response"),
   path = require("path"),
   session = require("express-session"),
+  passport = require("passport"),
   sessionSecret = require("./config/session").secret,
   webpack = require("webpack"),
   webpackConfig = require("../webpack.config.js"),
@@ -45,6 +46,8 @@ app.use(bodyParser.json({ limit: "5mb" }));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use("/dist", express.static(distPath));
 app.use("/resources", express.static(resourcesPath));
+app.use(passport.initialize());
+app.use(passport.session());
 
 const apiRoutes = require("./routes/api/routes")(app);
 const viewRoutes = require("./routes/view/routes")(app);

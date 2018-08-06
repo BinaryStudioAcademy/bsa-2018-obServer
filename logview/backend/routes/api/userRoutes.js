@@ -1,5 +1,6 @@
-const apiResponse = require("express-api-response");
-const userRepository = require("../../domains/postgres/repositories/userRepository");
+const apiResponse = require("express-api-response"),
+  userRepository = require("../../domains/postgres/repositories/userRepository"),
+  passport = require("passport");
 
 module.exports = app => {
   app.get(
@@ -35,4 +36,17 @@ module.exports = app => {
     },
     apiResponse
   );
+
+  app.post("/signin", async (req, res, next) => {
+    try {
+      passport.authenticate("local.signin", (req, res, next) => {
+        //send SOME data to client
+      });
+    } catch (err) {
+      res.data = null;
+      res.err = err;
+    } finally {
+      next();
+    }
+  });
 };
