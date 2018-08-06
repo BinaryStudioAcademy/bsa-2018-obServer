@@ -12,6 +12,7 @@ import { StoreState } from './types/StoreState';
 if (typeof Storage === 'undefined') {
 	ReactDOM.render(
 		<p>
+			{' '}
 			Your browser does not support Web Storage API. Please update your
 			browser or use another one.
 		</p>,
