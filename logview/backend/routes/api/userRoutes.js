@@ -71,29 +71,55 @@ module.exports = app => {
     apiResponse
   );
 
-  app.post("/signin", (req, res, next) => {
-    try {
-      passport.authenticate("local.signin", (req, res, next) => {
-        //send SOME data to client
-      });
-    } catch (err) {
-      res.data = null;
-      res.err = err;
-    } finally {
-      next();
-    }
-  });
+  app.post(
+    "/signin",
+    (req, res, next) => {
+      try {
+        passport.authenticate("local.signin", (req, res, next) => {
+          //send SOME data to client
+        });
+      } catch (err) {
+        res.data = null;
+        res.err = err;
+      } finally {
+        next();
+      }
+    },
+    apiResponse
+  );
 
-  app.post("/signup", (req, res, next) => {
-    try {
-      passport.authenticate("local.signup", (req, res, next) => {
-        //send SOME data to client
-      });
-    } catch (err) {
-      res.data = null;
-      res.err = err;
-    } finally {
-      next();
-    }
-  });
+  app.post(
+    "/signup",
+    (req, res, next) => {
+      try {
+        passport.authenticate("local.signup", (req, res, next) => {
+          //send SOME data to client
+        });
+      } catch (err) {
+        res.data = null;
+        res.err = err;
+      } finally {
+        next();
+      }
+    },
+    apiResponse
+  );
+
+  //FOR TEST USER OPERATIONS
+  app.get(
+    "/user/:id",
+    async (req, res, next) => {
+      try {
+        const data = await userService.findById(req.params.id);
+        res.data = data;
+        res.err = null;
+      } catch (err) {
+        res.data = null;
+        res.err = err;
+      } finally {
+        next();
+      }
+    },
+    apiResponse
+  );
 };

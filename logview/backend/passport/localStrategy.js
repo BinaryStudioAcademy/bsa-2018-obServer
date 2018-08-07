@@ -1,14 +1,13 @@
 const passport = require("passport"),
   LocalStrategy = require("passport-local").Strategy,
-  userRepository = require("../domains/postgres/repositories/userRepository");
+  userService = require("../services/userService");
 
 passport.serializeUser((user, done) => {
   done(null, user._id);
 });
 
 passport.deserializeUser((id, done) => {
-  userRepository
-    //need to implement method in User Repo
+  userService
     .findById(id)
     .then(user => done(null, user))
     .catch(err => done(err));
@@ -22,10 +21,9 @@ passport.use(
       session: true
     },
     (username, password, done) => {
-      userRepository.findOne({ username: username }, (err, user) => {
+      userService.findByEmail(username).then((err, user) => {
         if (err) return done(err);
         if (!user) return done(null, false, { message: "Wrong username" });
-        //need to implement method in userService - validPassword
         if (!user.validPassword(password))
           return done(null, false, { message: "Wrong password" });
         return done(null, user);
