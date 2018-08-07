@@ -1,16 +1,36 @@
-const bcrypt = require("bcrypt"),
-  saltRounds = 8;
+const //bcrypt = require("bcrypt"),
+UserRepository = require("../domains/postgres/repositories/userRepository");
 
-module.exports = {
-  encryptPassword(password) {
-    bcrypt.hash(password, saltRounds, (err, hash) => {
-      if (!err) return hash;
-    });
-  },
-
-  validPassword(password, hash) {
-    bcrypt.compare(password, hash, (err, res) => {
-      return res;
-    });
+class UserService {
+  static get saltRounds() {
+    return 8;
   }
-};
+  // encryptPassword(password) {
+  //   bcrypt.hash(password, this.saltRounds, (err, hash) => {
+  //     if (!err) return hash;
+  //   });
+  // }
+  // validPassword(password, hash) {
+  //   bcrypt.compare(password, hash, (err, res) => {
+  //     return res;
+  //   });
+  // }
+
+  create(body) {
+    return UserRepository.create(body);
+  }
+
+  findAll() {
+    return UserRepository.read();
+  }
+
+  update(id, body) {
+    return UserRepository.update(id, body);
+  }
+
+  delete(id) {
+    return UserRepository.delete(id);
+  }
+}
+
+module.exports = new UserService();

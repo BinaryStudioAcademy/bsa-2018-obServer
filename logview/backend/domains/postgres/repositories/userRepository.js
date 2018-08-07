@@ -11,7 +11,7 @@ class UserRepository {
     return this.model.findAll();
   }
   update() {}
-  delet() {}
+  delete() {}
 }
 
 module.exports = new UserRepository();

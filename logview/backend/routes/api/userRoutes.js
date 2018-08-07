@@ -1,5 +1,6 @@
 const apiResponse = require("express-api-response"),
   userRepository = require("../../domains/postgres/repositories/userRepository"),
+  userService = require("../../services/userService"),
   passport = require("passport");
 
 module.exports = app => {
@@ -7,7 +8,7 @@ module.exports = app => {
     "/user",
     async (req, res, next) => {
       try {
-        const data = await userRepository.read();
+        const data = await userService.findAll();
         res.data = data;
         res.err = null;
       } catch (err) {
@@ -24,7 +25,7 @@ module.exports = app => {
     "/user",
     async (req, res, next) => {
       try {
-        const data = await userRepository.create(req.body);
+        const data = await userService.create(req.body);
         res.data = data;
         res.err = null;
       } catch (err) {
