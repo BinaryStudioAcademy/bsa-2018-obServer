@@ -46,15 +46,17 @@ yarn run storybook
 
 ## Frontend description
 
-### User api frontend (GRUD) frontend/src/services
+### User api frontend (GRUD) /logview/frontend/src/services
 
 ```javascript
 import {userAPI} from './[relative path]/services'
 ```
-⋅*```javascript userAPI.fetchUser(id) ``` - get user by id
+User API methods:
 
-⋅*```javascript userAPI.addUser(user) ``` - add 'user'
+* ```userAPI.fetchUser(id)```- get user by id
 
-⋅*```javascript userAPI.updateUser(user) ``` - update 'user' data by 'user.id'
+* ```userAPI.addUser(user)```- add 'user'
 
-⋅*```javascript userAPI.deleteUser(id) ``` - delete user by id
+* ```userAPI.updateUser(user)```- update 'user' data by 'user.id'
+
+* ```userAPI.deleteUser(id)```- delete user by id
