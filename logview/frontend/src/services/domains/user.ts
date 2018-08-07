@@ -1,8 +1,14 @@
 import api from '../adapter';
 
 export default {
-	addUser: (user: any) => {
-		return api.makeRequest(`/api/users`, api.requestType.POST, user);
+	registerUser: (user: any) => {
+		return api.makeRequest(`/api/register`, api.requestType.POST, user);
+	},
+	loginUser: (user: any) => {
+		return api.makeRequest(`/api/login`, api.requestType.POST, user);
+	},
+	logoutUser: () => {
+		return api.makeRequest(`/api/logout`, api.requestType.GET);
 	},
 	updateUser: (user: any) => {
 		return api.makeRequest(
