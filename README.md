@@ -26,15 +26,20 @@ yarn run install
 
 ### Launch web app
 
-Run the following command to start server in watch mode:
+Run the following command to start backend+frontend in watch mode:
 
 ```
 yarn run start
 ```
 
-And to launch front-end in watch mode:
+Or to launch just front-end in watch mode:
 
 ```
 yarn run watch-front
 ```
-You can see the web app now here: [http://localhost:3000](http://localhost:3000)
+
+To start storybook:
+
+```
+yarn run storybook
+```

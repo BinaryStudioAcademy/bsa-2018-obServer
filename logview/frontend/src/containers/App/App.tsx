@@ -1,14 +1,14 @@
-import * as React from "react";
+import * as React from 'react';
 
 export interface TestProps {
-  msg: string;
+	msg: string;
 }
 
-class Test extends React.Component<TestProps, {}> {
-  render() {
-    const { msg } = this.props;
-    return <h1>{msg}</h1>;
-  }
+class App extends React.Component<TestProps, {}> {
+	render() {
+		const { msg } = this.props;
+		return <h1>{msg}</h1>;
+	}
 }
 
-export default Test;
+export default App;
