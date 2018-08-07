@@ -15,6 +15,7 @@ app.post('/config', (req, res) => {
   const rawStoreAddress = 'http://localhost:3080'; // need log raw stor
   metricsService.init(rawStoreAddress);
   metricsService.startCPUMonitor(1000);
+  metricsService.startMemoryMonitor(1000);
 
   res.send(req.body); 
 });
