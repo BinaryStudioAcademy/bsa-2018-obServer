@@ -1,15 +1,36 @@
-import { USER_SET_EMAIL } from './constants';
+import { USER_REGISTER, USER_LOGIN } from './constants';
 
-export interface UserSetEmail {
-	type: USER_SET_EMAIL;
-	email: string;
+export interface UserRegister {
+	type: USER_REGISTER;
+	login: string,
+	email: string,
+	password: string,
+	confirmPassword: string
 }
 
-export type UserAction = UserSetEmail;
+export interface UserLogin {
+	type: USER_LOGIN;
+	login: string,
+	password: string,
+}
 
-export function userSetEmail(email: string = ''): UserSetEmail {
+export type UserAction = UserRegister | UserLogin;
+
+export function userRegister(login: string = '', email: string = '', password: string = '', confirmPassword:string=''): UserRegister {
 	return {
-		type: USER_SET_EMAIL,
-		email
+		type: USER_REGISTER,
+		login,
+		email,
+		password,
+		confirmPassword
 	};
 }
+
+export function userLogin(login: string = '', password: string = ''): UserLogin {
+	return {
+		type: USER_LOGIN,
+		login,
+		password,
+	};
+}
+

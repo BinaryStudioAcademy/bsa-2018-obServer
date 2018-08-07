@@ -1,4 +1,4 @@
-import { USER_SET_EMAIL } from './constants';
+import { USER_REGISTER, USER_LOGIN } from './constants';
 import { UserAction } from './actions';
 import { UserState } from '../../types/UserState';
 import { defaultState } from '../defaultState';
@@ -8,8 +8,13 @@ export function userReducer(
 	action: UserAction
 ): UserState {
 	switch (action.type) {
-		case USER_SET_EMAIL:
-			return { ...state, email: action.email };
+		case USER_ENTER:
+			return { ...state, 
+				login: action.login,
+				email: action.email,
+			 };
+		case USER_UPDATE_PROFILE: 
+
 		default:
 			return state;
 	}

@@ -1,3 +1,7 @@
 export interface UserState {
-	email: string;
+	tokenAuth: string,
+	createdAt: Date,
+	servers: string[],
+	login: string,
+	email: string,
 }
