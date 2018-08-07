@@ -1,10 +1,11 @@
 require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
-const metricsService = require('./metricsService');
+const MetricsService = require('./metricsService');
 
 const port = process.env.LOGCOLLECT_PORT;
 const app = express();
+let metricsService;
 
 app.use(bodyParser.json({ limit: '5mb' }));
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -13,7 +14,7 @@ app.post('/config', (req, res) => {
   console.log(req.body);
 
   const rawStoreAddress = 'http://localhost:3080'; // need log raw stor
-  metricsService.init(rawStoreAddress);
+  metricsService = new MetricsService(rawStoreAddress);
   metricsService.startCPUMonitor(1000);
   metricsService.startMemoryMonitor(1000);
 
