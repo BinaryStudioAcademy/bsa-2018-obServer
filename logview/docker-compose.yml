@@ -22,7 +22,7 @@ services:
     volumes:
       - ./postgresdata:/src/postgresdata
     ports:
-      - ${POSTGRES_PORT}:${POSTGRES_PORT}
+      - ${POSTGRES_EXTERNAL_PORT}:${POSTGRES_INTERNAL_PORT}
     networks:
       - postgres
     environment:
