@@ -7,7 +7,7 @@ export default {
 	updateUser: (user: any) => {
 		return api.makeRequest(
 			`/api/users/${user._id}`,
-			api.requestType.PATCH,
+			api.requestType.PUT,
 			user
 		);
 	},

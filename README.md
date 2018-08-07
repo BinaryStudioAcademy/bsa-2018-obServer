@@ -48,13 +48,13 @@ yarn run storybook
 
 ### User api frontend (GRUD) frontend/src/services
 
-```
+```javascript
 import {userAPI} from './[relative path]/services'
 ```
-``` userAPI.fetchUser(id) ``` - get user by id
+⋅*```javascript userAPI.fetchUser(id) ``` - get user by id
 
-``` userAPI.addUser(user)``` - add 'user'
+⋅*```javascript userAPI.addUser(user) ``` - add 'user'
 
-```userAPI.updateUser(user)``` - update 'user' data by 'user.id'
+⋅*```javascript userAPI.updateUser(user) ``` - update 'user' data by 'user.id'
 
-``` userAPI.deleteUser(id)``` - delete user by id
+⋅*```javascript userAPI.deleteUser(id) ``` - delete user by id

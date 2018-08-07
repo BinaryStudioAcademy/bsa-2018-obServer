@@ -1,4 +1,4 @@
-import axios, { AxiosInstance } from 'axios';
+import axios from 'axios';
 import config from '../config';
 
 class Api {
@@ -13,7 +13,7 @@ class Api {
 		this.requestType = {
 			GET: 'get',
 			POST: 'post',
-			PATCH: 'patch',
+			PUT: 'put',
 			DELETE: 'delete'
 		};
 	}
