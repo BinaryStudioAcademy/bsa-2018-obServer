@@ -4,6 +4,7 @@ export default {
 	addUser: (user: any) => {
 		return api.makeRequest(`/api/users`, api.requestType.POST, user);
 	},
+
 	updateUser: (user: any) => {
 		return api.makeRequest(
 			`/api/users/${user._id}`,
@@ -16,5 +17,13 @@ export default {
 	},
 	fetchUser: (id: string | number) => {
 		return api.makeRequest(`/api/users/${id}`, api.requestType.GET);
+	},
+
+	registerUser: (user: any) => {
+		return api.makeRequest(`/api/register`, api.requestType.POST, user);
+	},
+
+	loginUser: (user: any) => {
+		return api.makeRequest(`/api/login`, api.requestType.POST, user);
 	}
 };

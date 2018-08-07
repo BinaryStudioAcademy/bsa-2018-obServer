@@ -1,7 +1,9 @@
 export interface UserState {
-	tokenAuth: string,
-	createdAt: Date,
-	servers: string[],
-	login: string,
-	email: string,
+	id: string;
+	companyId: string;
+	name: string;
+	email: string;
+	password: string;
+	resetPasswordtoken: string;
+	resetPasswordExpires: Date;
 }

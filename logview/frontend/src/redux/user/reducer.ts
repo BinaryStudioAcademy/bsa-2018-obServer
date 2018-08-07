@@ -1,4 +1,11 @@
-import { USER_REGISTER, USER_LOGIN } from './constants';
+import {
+	USER_REGISTER,
+	USER_LOGIN,
+	USER_REGISTER_SUCCESS,
+	USER_REGISTER_FAILED,
+	USER_LOGIN_SUCCESS,
+	USER_LOGIN_FAILED
+} from './constants';
 import { UserAction } from './actions';
 import { UserState } from '../../types/UserState';
 import { defaultState } from '../defaultState';
@@ -8,13 +15,28 @@ export function userReducer(
 	action: UserAction
 ): UserState {
 	switch (action.type) {
-		case USER_ENTER:
-			return { ...state, 
-				login: action.login,
+		case USER_REGISTER_SUCCESS:
+			return {
+				...state,
+				id: action.id,
+				companyId: action.companyId,
+				name: action.name,
 				email: action.email,
-			 };
-		case USER_UPDATE_PROFILE: 
-
+				password: '',
+				resetPasswordtoken: '',
+				resetPasswordExpires: action.resetPasswordExpires
+			};
+		case USER_LOGIN_SUCCESS:
+			return {
+				...state,
+				id: action.id,
+				companyId: action.companyId,
+				name: action.name,
+				email: action.email,
+				password: '',
+				resetPasswordtoken: '',
+				resetPasswordExpires: action.resetPasswordExpires
+			};
 		default:
 			return state;
 	}

@@ -1,36 +1,52 @@
-import { USER_REGISTER, USER_LOGIN } from './constants';
+import {
+	USER_REGISTER,
+	USER_LOGIN,
+	USER_LOGIN_SUCCESS,
+	USER_LOGIN_FAILED,
+	USER_REGISTER_SUCCESS,
+	USER_REGISTER_FAILED
+} from './constants';
+import { UserState } from '../../types/UserState';
 
 export interface UserRegister {
-	type: USER_REGISTER;
-	login: string,
-	email: string,
-	password: string,
-	confirmPassword: string
+	type: USER_REGISTER | USER_REGISTER_FAILED;
+	name: string;
+	email: string;
+	password: string;
 }
 
 export interface UserLogin {
-	type: USER_LOGIN;
-	login: string,
-	password: string,
+	type: USER_LOGIN | USER_LOGIN_FAILED;
+	email: string;
+	password: string;
 }
 
-export type UserAction = UserRegister | UserLogin;
+export interface UserSuccess extends UserState {
+	type: USER_LOGIN_SUCCESS | USER_REGISTER_SUCCESS;
+}
 
-export function userRegister(login: string = '', email: string = '', password: string = '', confirmPassword:string=''): UserRegister {
+export type UserAction = UserRegister | UserLogin | UserSuccess;
+
+export function userRegister(
+	name: string = '',
+	email: string = '',
+	password: string = ''
+): UserRegister {
 	return {
 		type: USER_REGISTER,
-		login,
+		name,
 		email,
-		password,
-		confirmPassword
+		password
 	};
 }
 
-export function userLogin(login: string = '', password: string = ''): UserLogin {
+export function userLogin(
+	email: string = '',
+	password: string = ''
+): UserLogin {
 	return {
 		type: USER_LOGIN,
-		login,
-		password,
+		email,
+		password
 	};
 }
-
