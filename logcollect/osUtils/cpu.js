@@ -1,6 +1,6 @@
 const os = require("os");
 
-function cpuAverage() {
+const cpuAverage = () => {
   const cpusTimes = [];
   const cpus = os.cpus();
 
@@ -17,10 +17,10 @@ function cpuAverage() {
   return cpusTimes;
 }
 
-module.exports = function cpuLoad(callback) { 
+module.exports = (callback) => { 
   const startMeasure = cpuAverage();
 
-  setTimeout(function() { 
+  setTimeout(() => { 
     const endMeasure = cpuAverage();
     const percentageCPU = [];
     
