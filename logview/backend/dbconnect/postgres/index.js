@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const { POSTGRES_DB, POSTGRES_USER, POSTGRES_PWD } = process.env;
 const sequelize = new Sequelize(POSTGRES_DB, POSTGRES_USER, POSTGRES_PWD, {
-	host: 'postgres',
+	host: 'localhost',
 	dialect: 'postgres',
 	operatorsAliases: false,
 	pool: {
