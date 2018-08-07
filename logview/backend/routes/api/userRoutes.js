@@ -1,6 +1,7 @@
-const apiResponse = require('express-api-response');
-const userRepository = require('../../domains/postgres/repositories/userRepository');
-const userService = require('../../services/userService');
+const apiResponse = require('express-api-response'),
+	passport = require('passport'),
+	userRepository = require('../../domains/postgres/repositories/userRepository'),
+	userService = require('../../services/userService');
 
 module.exports = app => {
 	app.get(
@@ -73,39 +74,21 @@ module.exports = app => {
 
 	app.post(
 		'/signin',
+		passport.authenticate('local.signin'),
 		(req, res, next) => {
-			try {
-				passport.authenticate('local.signin', (req, res, next) => {
-					//send SOME data to client
-				});
-			} catch (err) {
-				res.data = null;
-				res.err = err;
-			} finally {
-				next();
-			}
+			console.log(res);
 		},
 		apiResponse
 	);
 
 	app.post(
 		'/signup',
-		(req, res, next) => {
-			try {
-				passport.authenticate('local.signup', (req, res, next) => {
-					//send SOME data to client
-				});
-			} catch (err) {
-				res.data = null;
-				res.err = err;
-			} finally {
-				next();
-			}
-		},
+		passport.authenticate('local.signup'),
+		(req, res, next) => {},
 		apiResponse
 	);
 
-	//FOR TEST USER OPERATIONS
+	//FOR TEST USER FIND OPERATIONS
 	app.get(
 		'/user/:id',
 		async (req, res, next) => {

@@ -1,4 +1,5 @@
 const Sequelize = require('sequelize');
+
 const user = (sequilize, DataTypes) => {
 	const User = sequilize.define('User', {
 		id: {
@@ -32,7 +33,9 @@ const user = (sequilize, DataTypes) => {
 		},
 		companyId: {
 			type: DataTypes.UUID,
-			allowNull: true
+			allowNull: false,
+			//delete when company model will exist
+			defaultValue: DataTypes.UUIDV4
 		}
 	});
 	return User;
