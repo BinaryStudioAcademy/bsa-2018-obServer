@@ -53,9 +53,14 @@ import {userAPI} from './[relative path]/services'
 ```
 User API methods:
 
-* ``` userAPI.fetchUser(id) ```- get user by id
 
-* ``` userAPI.addUser(user) ```- add 'user'
+* ``` userAPI.registerUser(user) ```- register new 'user'
+
+* ``` userAPI.loginUser(user) ```- login by 'user'
+
+* ``` userAPI.logoutUser() ```- logout
+
+* ``` userAPI.fetchUser(id) ```- get user by id
 
 * ``` userAPI.updateUser(user) ```- update 'user' data by 'user.id'
 
