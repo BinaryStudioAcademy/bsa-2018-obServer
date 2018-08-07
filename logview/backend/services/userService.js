@@ -1,47 +1,52 @@
-const //bcrypt = require("bcrypt"),
-UserRepository = require("../domains/postgres/repositories/userRepository");
+const bcrypt = require('bcrypt'),
+	UserRepository = require('../domains/postgres/repositories/userRepository');
 
 class UserService {
-  static get saltRounds() {
-    return 8;
-  }
+	constructor() {
+		this.saltRounds = 8;
+	}
 
-  // encryptPassword(password) {
-  //   bcrypt.hash(password, this.saltRounds, (err, hash) => {
-  //     if (!err) return hash;
-  //   });
-  // }
+	encryptPassword(password) {
+		return bcrypt.hash(password, this.saltRounds).then(hash => {
+			return hash;
+		});
+	}
 
-  // validPassword(password, hash) {
-  //   bcrypt.compare(password, hash, (err, res) => {
-  //     return res;
-  //   });
-  // }
+	validPassword(password, hash) {
+		return bcrypt.compare(password, hash).then(res => {
+			return res;
+		});
+	}
 
-  create(body) {
-    //body.password = this.encryptPassword(body.password);
-    return UserRepository.create(body);
-  }
+	async create(body) {
+		if (!this.findByEmail(body.email)) {
+			const hash = await this.encryptPassword(body.password);
+			body.password = hash;
+			return UserRepository.create(body);
+		} else {
+			throw new Error(`${body.email} is already in use`);
+		}
+	}
 
-  findAll() {
-    return UserRepository.read();
-  }
+	findAll() {
+		return UserRepository.read();
+	}
 
-  update(id, newBody) {
-    return UserRepository.update(id, newBody);
-  }
+	update(id, newBody) {
+		return UserRepository.update(id, newBody);
+	}
 
-  delete(id) {
-    return UserRepository.delete(id);
-  }
+	delete(id) {
+		return UserRepository.delete(id);
+	}
 
-  findById(id) {
-    return UserRepository.findById(id);
-  }
+	findById(id) {
+		return UserRepository.findById(id);
+	}
 
-  findByEmail(email) {
-    return UserRepository.findByEmail(email);
-  }
+	findByEmail(email) {
+		return UserRepository.findByEmail(email);
+	}
 }
 
 module.exports = new UserService();

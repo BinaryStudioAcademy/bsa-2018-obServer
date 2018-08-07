@@ -93,7 +93,7 @@ module.exports = app => {
 		'/user/:id',
 		async (req, res, next) => {
 			try {
-				const data = await userService.findById(req.params.id);
+				const data = await userService.findByEmail(req.params.id);
 				res.data = data;
 				res.err = null;
 			} catch (err) {
