@@ -1,5 +1,6 @@
 const apiResponse = require('express-api-response');
 const userRepository = require('../../domains/postgres/repositories/userRepository');
+const userService = require('../../services/userService');
 
 module.exports = app => {
 	app.get(
