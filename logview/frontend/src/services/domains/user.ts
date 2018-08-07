@@ -8,7 +8,7 @@ export default {
 		return api.makeRequest(`/api/login`, api.requestType.POST, user);
 	},
 	logoutUser: () => {
-		return api.makeRequest(`/api/logout`, api.requestType.GET);
+		return api.makeRequest(`/api/logout`, api.requestType.POST);
 	},
 	updateUser: (user: any) => {
 		return api.makeRequest(
