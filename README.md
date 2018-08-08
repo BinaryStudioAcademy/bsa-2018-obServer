@@ -43,3 +43,25 @@ To start storybook:
 ```
 yarn run storybook
 ```
+
+## Frontend description
+
+### User api frontend (GRUD) /logview/frontend/src/services
+
+```javascript
+import {userAPI} from './[relative path]/services'
+```
+User API methods:
+
+
+* ``` userAPI.registerUser(user) ```- register new 'user'
+
+* ``` userAPI.loginUser(user) ```- login by 'user'
+
+* ``` userAPI.logoutUser() ```- logout
+
+* ``` userAPI.fetchUser(id) ```- get user by id
+
+* ``` userAPI.updateUser(user) ```- update 'user' data by 'user.id'
+
+* ``` userAPI.deleteUser(id) ```- delete user by id
