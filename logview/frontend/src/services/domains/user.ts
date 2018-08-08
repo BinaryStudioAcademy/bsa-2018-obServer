@@ -12,15 +12,15 @@ export default {
 	},
 	updateUser: (user: any) => {
 		return api.makeRequest(
-			`/api/users/${user._id}`,
+			`/api/user/${user._id}`,
 			api.requestType.PUT,
 			user
 		);
 	},
 	deleteUser: (id: string | number) => {
-		return api.makeRequest(`/api/users/${id}`, api.requestType.DELETE);
+		return api.makeRequest(`/api/user/${id}`, api.requestType.DELETE);
 	},
 	fetchUser: (id: string | number) => {
-		return api.makeRequest(`/api/users/${id}`, api.requestType.GET);
+		return api.makeRequest(`/api/user/${id}`, api.requestType.GET);
 	}
 };
