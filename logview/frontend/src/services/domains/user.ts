@@ -1,29 +1,27 @@
 import api from '../adapter';
 
 export default {
-	addUser: (user: any) => {
-		return api.makeRequest(`/api/users`, api.requestType.POST, user);
+	registerUser: (user: any) => {
+		return api.makeRequest(`/api/register`, api.requestType.POST, user);
+	},
+	loginUser: (user: any) => {
+		return api.makeRequest(`/api/login`, api.requestType.POST, user);
+	},
+	logoutUser: () => {
+		return api.makeRequest(`/api/logout`, api.requestType.POST);
 	},
 
 	updateUser: (user: any) => {
 		return api.makeRequest(
-			`/api/users/${user._id}`,
+			`/api/user/${user._id}`,
 			api.requestType.PUT,
 			user
 		);
 	},
 	deleteUser: (id: string | number) => {
-		return api.makeRequest(`/api/users/${id}`, api.requestType.DELETE);
+		return api.makeRequest(`/api/user/${id}`, api.requestType.DELETE);
 	},
 	fetchUser: (id: string | number) => {
-		return api.makeRequest(`/api/users/${id}`, api.requestType.GET);
-	},
-
-	registerUser: (user: any) => {
-		return api.makeRequest(`/api/register`, api.requestType.POST, user);
-	},
-
-	loginUser: (user: any) => {
-		return api.makeRequest(`/api/login`, api.requestType.POST, user);
+		return api.makeRequest(`/api/user/${id}`, api.requestType.GET);
 	}
 };

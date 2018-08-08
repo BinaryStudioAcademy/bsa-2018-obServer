@@ -9,6 +9,7 @@ const bodyParser = require('body-parser'),
 	webpackConfig = require('../webpack.config.js'),
 	webpackDevMiddleware = require('webpack-dev-middleware'),
 	webpackHotMiddleware = require('webpack-hot-middleware'),
+	passport = require('passport'),
 	port = process.env.APP_PORT;
 
 const app = express();
@@ -45,6 +46,8 @@ app.use(bodyParser.json({ limit: '5mb' }));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/dist', express.static(distPath));
 app.use('/resources', express.static(resourcesPath));
+app.use(passport.initialize());
+app.use(passport.session());
 
 const apiRoutes = require('./routes/api/routes')(app);
 const viewRoutes = require('./routes/view/routes')(app);
