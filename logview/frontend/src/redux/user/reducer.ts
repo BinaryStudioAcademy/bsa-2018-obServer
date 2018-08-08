@@ -22,9 +22,7 @@ export function userReducer(
 				companyId: action.companyId,
 				name: action.name,
 				email: action.email,
-				password: '',
-				resetPasswordtoken: '',
-				resetPasswordExpires: action.resetPasswordExpires
+				password: ''
 			};
 		case USER_LOGIN_SUCCESS:
 			return {
@@ -33,9 +31,7 @@ export function userReducer(
 				companyId: action.companyId,
 				name: action.name,
 				email: action.email,
-				password: '',
-				resetPasswordtoken: '',
-				resetPasswordExpires: action.resetPasswordExpires
+				password: ''
 			};
 		default:
 			return state;
