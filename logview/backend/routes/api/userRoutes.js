@@ -1,9 +1,13 @@
-const apiResponse = require('express-api-response');
-const userRepository = require('../../domains/postgres/repositories/userRepository');
+const apiResponse = require('express-api-response'),
+	passport = require('passport'),
+	userRepository = require('../../domains/postgres/repositories/userRepository'),
+	passportStrategy = require('../../passport/localStrategy'),
+	userService = require('../../services/userService'),
+	baseUrl = '/api/user/';
 
 module.exports = app => {
 	app.get(
-		'/user',
+		baseUrl,
 		async (req, res, next) => {
 			try {
 				const data = await userRepository.read();
@@ -19,11 +23,63 @@ module.exports = app => {
 		apiResponse
 	);
 
-	app.post(
-		'/user',
+	app.get(
+		`${baseUrl}:id`,
 		async (req, res, next) => {
 			try {
-				const data = await userRepository.create(req.body);
+				const data = await userService.findById(req.params.id);
+				res.data = data;
+				res.err = null;
+			} catch (err) {
+				res.data = null;
+				res.err = err;
+			} finally {
+				next();
+			}
+		},
+		apiResponse
+	);
+
+	app.post(
+		baseUrl,
+		async (req, res, next) => {
+			try {
+				const data = await userService.create(req.body);
+				res.data = data;
+				res.err = null;
+			} catch (err) {
+				res.data = null;
+				res.err = err;
+			} finally {
+				next();
+			}
+		},
+		apiResponse
+	);
+
+	app.patch(
+		//test on postmen put and patch - works the same way
+		`${baseUrl}:id`,
+		async (req, res, next) => {
+			try {
+				const data = await userService.update(req.params.id, req.body);
+				res.data = data;
+				res.err = null;
+			} catch (err) {
+				res.data = null;
+				res.err = err;
+			} finally {
+				next();
+			}
+		},
+		apiResponse
+	);
+
+	app.delete(
+		`${baseUrl}:id`,
+		async (req, res, next) => {
+			try {
+				const data = await userService.delete(req.params.id);
 				res.data = data;
 				res.err = null;
 			} catch (err) {
