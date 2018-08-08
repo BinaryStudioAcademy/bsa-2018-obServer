@@ -14,7 +14,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.post('/config', (req, res) => {
   console.log(req.body);
 
-  const rawStoreAddress = 'http://localhost:3080'; // need log raw stor
+  const rawStoreAddress = 'http://localhost:3080/api/logs'; // need log raw stor
   metricsService = new MetricsService(rawStoreAddress, token);
   metricsService.startCPUMonitor(1000);
   metricsService.startMemoryMonitor(1000);
