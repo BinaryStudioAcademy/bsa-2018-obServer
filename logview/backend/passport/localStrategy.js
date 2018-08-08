@@ -23,10 +23,15 @@ passport.use(
 		(username, password, done) => {
 			userService
 				.findByEmail(username)
-				.then(user => {
+				.then(async user => {
 					if (!user)
 						return done(null, false, { message: 'Wrong username' });
-					if (!userService.validPassword(password, user.password))
+					if (
+						!(await userService.validPassword(
+							password,
+							user.password
+						))
+					)
 						return done(null, false, { message: 'Wrong password' });
 					console.log(`USER: ${user}`);
 					return done(null, user);

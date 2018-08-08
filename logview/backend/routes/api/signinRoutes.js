@@ -17,9 +17,7 @@ module.exports = app => {
 	app.get(
 		`${baseUrl}/logout`,
 		(req, res, next) => {
-			console.log(`Before Logout: ${req.user}`);
 			req.logout();
-			console.log(`After Logout: ${req.user}`);
 			next();
 		},
 		apiResponse
