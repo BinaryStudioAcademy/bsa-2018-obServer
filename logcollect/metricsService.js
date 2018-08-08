@@ -3,9 +3,9 @@ const cpuLoad = require('./osUtils/cpu');
 const memoryStats = require('./osUtils/memory');
 
 module.exports = class MetricsService {
-  constructor(url) {
+  constructor(url, token) {
     this.timersId = {};
-    this.sendMetrics = sendHelper(url);
+    this.sendMetrics = sendHelper(url, token);
   }
 
   newMetrics(data) {
