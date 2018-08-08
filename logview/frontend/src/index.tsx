@@ -4,8 +4,8 @@ import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
+import Router from './routes';
 
-import App from './containers/App/App';
 import reducer from './redux/reducer';
 import { StoreState } from './types/StoreState';
 
@@ -26,7 +26,7 @@ if (typeof Storage === 'undefined') {
 
 	ReactDOM.render(
 		<Provider store={store}>
-			<App msg="Hello World" />
+			<Router />
 		</Provider>,
 		document.getElementById('root')
 	);
