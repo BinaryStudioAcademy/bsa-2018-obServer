@@ -19,7 +19,7 @@ class UserService {
 	}
 
 	async create(body) {
-		if (!this.findByEmail(body.email)) {
+		if (!(await this.findByEmail(body.email))) {
 			const hash = await this.encryptPassword(body.password);
 			body.password = hash;
 			return UserRepository.create(body);

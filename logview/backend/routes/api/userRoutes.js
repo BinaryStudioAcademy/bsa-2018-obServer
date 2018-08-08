@@ -23,6 +23,23 @@ module.exports = app => {
 		apiResponse
 	);
 
+	app.get(
+		`${baseUrl}:id`,
+		async (req, res, next) => {
+			try {
+				const data = await userService.findById(req.params.id);
+				res.data = data;
+				res.err = null;
+			} catch (err) {
+				res.data = null;
+				res.err = err;
+			} finally {
+				next();
+			}
+		},
+		apiResponse
+	);
+
 	app.post(
 		baseUrl,
 		async (req, res, next) => {
@@ -40,25 +57,9 @@ module.exports = app => {
 		apiResponse
 	);
 
-	app.delete(
-		`${baseUrl}:id`,
-		async (req, res, next) => {
-			try {
-				const data = await userService.delete(req.params.id);
-				res.data = data;
-				res.err = null;
-			} catch (err) {
-				res.data = null;
-				res.err = err;
-			} finally {
-				next();
-			}
-		},
-		apiResponse
-	);
-
 	app.patch(
-		`${baseUrl}/:id`,
+		//test on postmen put and patch - works the same way
+		`${baseUrl}:id`,
 		async (req, res, next) => {
 			try {
 				const data = await userService.update(req.params.id, req.body);
@@ -74,19 +75,11 @@ module.exports = app => {
 		apiResponse
 	);
 
-	// app.post(
-	// 	'/signup',
-	// 	passport.authenticate('local.signup'),
-	// 	(req, res, next) => {},
-	// 	apiResponse
-	// );
-
-	//FOR TEST USER FIND OPERATIONS
-	app.get(
+	app.delete(
 		`${baseUrl}:id`,
 		async (req, res, next) => {
 			try {
-				const data = await userService.findByEmail(req.params.id);
+				const data = await userService.delete(req.params.id);
 				res.data = data;
 				res.err = null;
 			} catch (err) {

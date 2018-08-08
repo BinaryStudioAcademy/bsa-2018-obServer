@@ -1,14 +1,26 @@
-const baseUrl = '/api/signin',
+const baseUrl = '/api',
 	apiResponse = require('express-api-response'),
 	passport = require('passport'),
 	passportStrategy = require('../../passport/localStrategy');
 
 module.exports = app => {
 	app.post(
-		baseUrl,
+		`${baseUrl}/login`,
 		passport.authenticate('local.signin'),
 		(req, res, next) => {
-			console.log(res);
+			res.data = req.user.dataValues;
+			next();
+		},
+		apiResponse
+	);
+
+	app.get(
+		`${baseUrl}/logout`,
+		(req, res, next) => {
+			console.log(`Before Logout: ${req.user}`);
+			req.logout();
+			console.log(`After Logout: ${req.user}`);
+			next();
 		},
 		apiResponse
 	);
