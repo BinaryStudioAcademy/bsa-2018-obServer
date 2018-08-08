@@ -7,7 +7,7 @@ import { TextLink } from '../styles/TextStyles';
 import { Link } from 'react-router-dom';
 
 interface ILoginFormProps {
-	// someDefaultValue: string
+	onSubmit: Function;
 }
 
 interface ILoginFormState {
