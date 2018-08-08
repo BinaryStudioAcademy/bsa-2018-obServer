@@ -18,9 +18,12 @@ passport.use(
 	new LocalStrategy(
 		{
 			usernameField: 'email',
+			passwordField: 'password',
 			session: true
 		},
 		(username, password, done) => {
+			console.log(`username: ${username}`);
+			console.log(`password: ${password}`);
 			userService.findByEmail(username).then((err, user) => {
 				if (err) return done(err);
 				if (!user)
@@ -33,13 +36,13 @@ passport.use(
 	)
 );
 
-passport.use(
-	'local.signup',
-	new LocalStrategy(
-		{
-			usernameField: 'email',
-			passReqToCallback: true
-		},
-		(req, username, password, done) => {}
-	)
-);
+// passport.use(
+// 	'local.signup',
+// 	new LocalStrategy(
+// 		{
+// 			usernameField: 'email',
+// 			passReqToCallback: true
+// 		},
+// 		(req, username, password, done) => {}
+// 	)
+// );

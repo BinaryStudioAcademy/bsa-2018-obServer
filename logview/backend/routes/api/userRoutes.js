@@ -1,11 +1,13 @@
 const apiResponse = require('express-api-response'),
 	passport = require('passport'),
 	userRepository = require('../../domains/postgres/repositories/userRepository'),
-	userService = require('../../services/userService');
+	passportStrategy = require('../../passport/localStrategy'),
+	userService = require('../../services/userService'),
+	baseUrl = '/api/user/';
 
 module.exports = app => {
 	app.get(
-		'/user',
+		baseUrl,
 		async (req, res, next) => {
 			try {
 				const data = await userRepository.read();
@@ -22,7 +24,7 @@ module.exports = app => {
 	);
 
 	app.post(
-		'/user',
+		baseUrl,
 		async (req, res, next) => {
 			try {
 				const data = await userService.create(req.body);
@@ -39,7 +41,7 @@ module.exports = app => {
 	);
 
 	app.delete(
-		'/user/:id',
+		`${baseUrl}:id`,
 		async (req, res, next) => {
 			try {
 				const data = await userService.delete(req.params.id);
@@ -56,7 +58,7 @@ module.exports = app => {
 	);
 
 	app.patch(
-		'/user/:id',
+		`${baseUrl}/:id`,
 		async (req, res, next) => {
 			try {
 				const data = await userService.update(req.params.id, req.body);
@@ -72,25 +74,16 @@ module.exports = app => {
 		apiResponse
 	);
 
-	app.post(
-		'/signin',
-		passport.authenticate('local.signin'),
-		(req, res, next) => {
-			console.log(res);
-		},
-		apiResponse
-	);
-
-	app.post(
-		'/signup',
-		passport.authenticate('local.signup'),
-		(req, res, next) => {},
-		apiResponse
-	);
+	// app.post(
+	// 	'/signup',
+	// 	passport.authenticate('local.signup'),
+	// 	(req, res, next) => {},
+	// 	apiResponse
+	// );
 
 	//FOR TEST USER FIND OPERATIONS
 	app.get(
-		'/user/:id',
+		`${baseUrl}:id`,
 		async (req, res, next) => {
 			try {
 				const data = await userService.findByEmail(req.params.id);
