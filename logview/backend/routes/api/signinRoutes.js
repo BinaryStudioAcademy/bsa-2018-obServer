@@ -1,6 +1,7 @@
 const baseUrl = '/api',
 	apiResponse = require('express-api-response'),
 	passport = require('passport'),
+	userRepository = require('../../domains/postgres/repositories/userRepository'),
 	passportStrategy = require('../../passport/localStrategy');
 
 module.exports = app => {
