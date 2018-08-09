@@ -19,7 +19,7 @@ app.post(`${baseUrl}/logs`, (req, res) => {
   logService.create(req.body, (err, logMessage) => {
     if (!err) {
       const { logType, data, timestamp, serverId } = logMessage;
-      // sendMetrics({ logType, data, timestamp, serverId });      
+      sendMetrics({ logType, data, timestamp, serverId });      
       res.status(200);
     } else {
       res.status(400).end();
