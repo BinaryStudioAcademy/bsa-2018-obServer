@@ -17,8 +17,14 @@ interface ILoginFormProps {
 }
 
 class Login extends React.Component<ILoginFormProps, {}> {
+	constructor(props: any) {
+		super(props);
+
+		this.handleSubmit = this.handleSubmit.bind(this);
+	}
+
 	handleSubmit(data: any) {
-		this.props.actions.userLogin(data);
+		this.props.actions.userLogin(data.email, data.password);
 	}
 
 	render() {

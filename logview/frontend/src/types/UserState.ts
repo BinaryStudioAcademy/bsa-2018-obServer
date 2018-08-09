@@ -4,3 +4,8 @@ export interface UserState {
 	password: string;
 	company: string;
 }
+
+export interface UserLoginState {
+	email: string;
+	password: string;
+}

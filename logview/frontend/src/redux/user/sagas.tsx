@@ -39,9 +39,11 @@ function* userRegister(action: UserRegister) {
 
 function* userLogin(action: UserLogin) {
 	try {
+		console.log(action);
+
 		const currentUser = yield call(userApi.loginUser, {
-			email: action.email,
-			password: action.password
+			// email: action.email,
+			// password: action.password
 		});
 		yield put({
 			type: USER_LOGIN_SUCCESS,

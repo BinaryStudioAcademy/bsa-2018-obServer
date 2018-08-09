@@ -43,8 +43,11 @@ class LoginForm extends React.Component<LoginFormProps, LoginFormState> {
 
 	handleSubmit(e: any) {
 		e.preventDefault();
-		console.log(this.state);
-		this.props.onSubmit(this.state);
+		let obj: Object = {
+			email: this.state.email,
+			password: this.state.password
+		};
+		this.props.onSubmit(obj);
 	}
 
 	handleCheckbox() {

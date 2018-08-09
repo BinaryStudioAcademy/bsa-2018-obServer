@@ -2,9 +2,16 @@ import { StoreState } from '../types/StoreState';
 
 export const defaultState: StoreState = {
 	user: {
-		company: '',
 		name: '',
 		email: '',
-		password: ''
+		password: '',
+		company: ''
+	},
+
+	userLogin: {
+		user: {
+			email: '',
+			password: ''
+		}
 	}
 };
