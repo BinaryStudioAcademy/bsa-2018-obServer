@@ -69,6 +69,7 @@
 		"redux-saga": "^0.16.0",
 		"replacestream": "^4.0.3",
 		"sequelize": "^4.38.0",
+		"sequelize-cli": "^4.0.0",
 		"socket.io": "^2.1.1",
 		"styled-components": "^3.4.2",
 		"ts-loader": "^4.4.2",

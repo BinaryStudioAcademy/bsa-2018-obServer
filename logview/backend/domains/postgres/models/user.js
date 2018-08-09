@@ -38,6 +38,7 @@ const user = (sequilize, DataTypes) => {
 			defaultValue: DataTypes.UUIDV4
 		}
 	});
+	//add association, when Company model will exist
 	return User;
 };
 
