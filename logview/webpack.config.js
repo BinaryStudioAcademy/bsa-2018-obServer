@@ -1,12 +1,18 @@
 const NODE_ENV = process.env.NODE_ENV;
 const path = require('path');
 
+// const stats = {
+// 	context: '/frontend/src/'
+// };
+
 module.exports = {
 	entry: './frontend/src/index.tsx',
 	output: {
 		filename: 'bundle.js',
 		path: __dirname + '/dist'
 	},
+
+	// stats: stats,
 
 	devServer: {
 		historyApiFallback: true,
@@ -25,9 +31,9 @@ module.exports = {
 
 	resolve: {
 		alias: {
-			components: path.resolve(__dirname, './frontend/src')
+			src: path.resolve(__dirname, './frontend/src')
 		},
-		extensions: ['.js', '.ts', '.tsx', 'json'],
+		extensions: ['.js', '.ts', '.tsx', 'json', 'jpg', 'png', 'svg'],
 		modules: [path.resolve(__dirname, './node_modules/')],
 		symlinks: true
 	},
@@ -60,6 +66,14 @@ module.exports = {
 						}
 					}
 				]
+			},
+			{
+				exclude: /node_modules/,
+				test: /\.(jpg|png|svg)$/,
+				loader: 'file-loader',
+				options: {
+					name: '[path][name].[hash].[ext]'
+				}
 			}
 		]
 	},

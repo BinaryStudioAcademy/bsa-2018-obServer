@@ -27,7 +27,7 @@ export const Input = styled.input`
 		color: #3d3d3d;
 	}
 `;
-export const SignUp = styled.button`
+export const SignUp = styled.input`
 	display: block;
 	background: linear-gradient(
 		45deg,

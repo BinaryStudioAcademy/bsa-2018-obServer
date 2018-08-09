@@ -6,7 +6,7 @@ import {
 	USER_REGISTER_SUCCESS,
 	USER_REGISTER_FAILED
 } from './constants';
-import { UserState } from '../../types/UserState';
+import { UserState } from 'src/types/UserState';
 
 export interface UserRegister {
 	type: USER_REGISTER | USER_REGISTER_FAILED;
