@@ -1,9 +1,14 @@
 import * as React from 'react';
-import { Submit } from '../styles/ButtonStyles';
+import {
+	Submit,
+	CheckboxInput,
+	CheckboxLabel,
+	CheckboxSpan
+} from '../styles/ButtonStyles';
 import { Input } from '../styles/InputStyles';
 import { Form } from '../styles/FormStyles';
-import { Row } from '../styles/ContainerStyles';
-import { TextLink } from '../styles/TextStyles';
+import { Row, RedirectContainer } from '../styles/ContainerStyles';
+import { TextLink, ForgotPassword } from '../styles/TextStyles';
 import { Link } from 'react-router-dom';
 
 interface ILoginFormProps {
@@ -11,14 +16,10 @@ interface ILoginFormProps {
 }
 
 interface ILoginFormState {
-	username: string;
-	email: string;
-	password: string;
-	remember: boolean;
-}
-
-interface SyntheticEvent<T> {
-	currentTarget: EventTarget & T;
+	username?: string;
+	email?: string;
+	password?: string;
+	remember?: boolean;
 }
 
 class LoginForm extends React.Component<ILoginFormProps, ILoginFormState> {
@@ -33,27 +34,18 @@ class LoginForm extends React.Component<ILoginFormProps, ILoginFormState> {
 		};
 	}
 
-	handleFieldChange = (e: React.FormEvent<HTMLInputElement>): void => {
-		this.setState(state => ({
-			...state,
-			[e.currentTarget.name]: e.currentTarget.value
-		}));
+	handleFieldChange = (e: any) => {
+		let obj: Object = { [e.target.name]: e.target.value };
+		this.setState(obj);
 	};
-	/*
-	handleFieldChange = ({ target }) => {
-		this.setState( state => ({
-			...state,
-			[target.name]: target.value
-		}))
-	}
-	*/
+
 	handleSubmit = () => {
 		if (this.props.onSubmit) {
 			this.props.onSubmit(this.state);
 		}
 	};
 
-	handleCheckbox = ({ target }) => {
+	handleCheckbox = () => {
 		this.setState({ remember: !this.state.remember });
 	};
 
@@ -63,32 +55,28 @@ class LoginForm extends React.Component<ILoginFormProps, ILoginFormState> {
 				<h2>obServer</h2>
 				<p>Welcome back, please login to your account</p>
 				<Input
-					type="text"
-					name="username"
-					placeholder="username"
-					value={this.state.username}
-					onChange={() => this.handleFieldChange()}
-				/>
-				<Input
 					type="email"
 					name="email"
 					placeholder="email"
 					value={this.state.email}
-					onChange={this.handleFieldChange}
+					onChange={e => this.handleFieldChange(e)}
 				/>
 				<Input
 					type="password"
 					name="password"
 					placeholder="password"
 					value={this.state.password}
-					onChange={this.handleFieldChange}
+					onChange={e => this.handleFieldChange(e)}
 				/>
 				<Row>
-					<input
+					<CheckboxInput
 						type="checkbox"
 						checked={this.state.remember}
 						onClick={this.handleCheckbox}
 					/>
+					<CheckboxLabel htmlFor={this.refs.checkbox}>
+						<CheckboxSpan />
+					</CheckboxLabel>
 					<span>Remember me</span>
 				</Row>
 				<Submit
@@ -96,13 +84,15 @@ class LoginForm extends React.Component<ILoginFormProps, ILoginFormState> {
 					type="submit"
 					value="sign in"
 				/>
-				<div>
-					Don't have an account yet?
+				<ForgotPassword>
+					<Link to="passwordreset">Forgot password?🦄</Link>
+				</ForgotPassword>
+				<RedirectContainer>
+					<p>Don't have an account yet?</p>
 					<TextLink>
 						<Link to="register">sign up</Link>
 					</TextLink>
-				</div>
-				<Link to="passwordreset">Forgot password?</Link>
+				</RedirectContainer>
 			</Form>
 		);
 	}

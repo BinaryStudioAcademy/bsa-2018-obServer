@@ -8,9 +8,10 @@ export const Form = styled.form`
 	flex-direction: column;
 	width: 60%;
 	height: calc(100vh - 200px);
-	margin: auto;
+	/* margin: auto; */
+	flex: 1;
 	margin-top: 100px;
 	font-family: 'Quicksand', sans-serif;
-	background-color: #f2f2f2;
-	box-shadow: 0px 0px 20px -2px rgba(0, 0, 0, 0.2);
+	/* background-color: #f2f2f2; */
+	/* box-shadow: 0px 0px 20px -2px rgba(0, 0, 0, 0.2); */
 `;

@@ -3,27 +3,45 @@ import LoginForm from '../../components/LoginForm';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { userLogin } from '../../redux/user/actions';
-import { Layout } from '../../styles/ContainerStyles';
+import {
+	Wrapper,
+	BackgroundContainer,
+	Box
+} from '../../styles/ContainerStyles';
+import { LoginBackground } from '../../styles/ImageStyles';
+import { LogoText } from '../../styles/TextStyles';
 
-class Login extends React.Component {
-	handleSubmit = data => {
+interface ILoginFormProps {
+	onSubmit: Function;
+	actions: { userLogin: Function };
+	data: any;
+}
+
+class Login extends React.Component<ILoginFormProps, {}> {
+	handleSubmit = (data: any) => {
+		console.log(data);
 		this.props.actions.userLogin(data);
 	};
 
 	render() {
 		return (
-			<React.Fragment>
+			<Wrapper>
 				<LoginForm onSubmit={this.handleSubmit} />
-			</React.Fragment>
+				<BackgroundContainer>
+					<Box>
+						<LogoText>obServer</LogoText>
+					</Box>
+				</BackgroundContainer>
+			</Wrapper>
 		);
 	}
 }
 
-// const mapStateToProps = state => ({
+// const mapStateToProps = (state: any) => ({
 
 // });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch: any) => ({
 	actions: bindActionCreators({ userLogin }, dispatch)
 });
 

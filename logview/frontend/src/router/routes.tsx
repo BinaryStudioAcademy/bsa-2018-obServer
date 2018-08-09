@@ -6,6 +6,7 @@ import Home from '../containers/Home/Home';
 import Register from '../containers/Register/Register';
 import PasswordReset from '../containers/PasswordReset/PasswordReset';
 import history from './history';
+import '../styles/GlobalStyles';
 
 class Router extends React.Component {
 	render() {
