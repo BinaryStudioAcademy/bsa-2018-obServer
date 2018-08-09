@@ -2,9 +2,9 @@ const { POSTGRES_DB, POSTGRES_USER, POSTGRES_PWD } = process.env;
 
 module.exports = {
 	development: {
-		username: POSTGRES_USER,
-		password: POSTGRES_PWD,
-		database: POSTGRES_DB,
+		username: 'root',
+		password: 'qwerty',
+		database: 'observer-postgres',
 		host: 'localhost',
 		dialect: 'postgres',
 

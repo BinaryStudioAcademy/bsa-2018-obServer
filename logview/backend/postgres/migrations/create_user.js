@@ -4,40 +4,44 @@ module.exports = {
 	up: (queryInterface, Sequelize) => {
 		return queryInterface.createTable('Users', {
 			id: {
-				type: DataTypes.UUID,
+				type: Sequelize.UUID,
 				primaryKey: true,
 				defaultValue: Sequelize.UUIDV4
 			},
 			name: {
-				type: DataTypes.STRING,
+				type: Sequelize.STRING,
 				allowNull: false
 			},
 			email: {
-				type: DataTypes.STRING,
+				type: Sequelize.STRING,
 				allowNull: false,
 				unique: true,
 				validate: {
 					isEmail: true
 				}
 			},
+			active: {
+				type: Sequelize.BOOLEAN,
+				defaultValue: false
+			},
 			password: {
-				type: DataTypes.STRING,
+				type: Sequelize.STRING,
 				allowNull: false
 			},
 			resetPasswordToken: {
-				type: DataTypes.STRING,
+				type: Sequelize.STRING,
 				allowNull: true
 			},
 			resetPasswordExpires: {
-				type: DataTypes.DATE,
+				type: Sequelize.DATE,
 				allowNull: true
 			},
 			companyId: {
 				//add reference when Company will exist
-				type: DataTypes.UUID,
+				type: Sequelize.UUID,
 				allowNull: false,
 				//delete when company model will exist
-				defaultValue: DataTypes.UUIDV4
+				defaultValue: Sequelize.UUIDV4
 			}
 		});
 	},

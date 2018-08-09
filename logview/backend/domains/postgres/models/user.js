@@ -26,7 +26,7 @@ const user = (sequilize, DataTypes) => {
 				allowNull: false
 			},
 			active: {
-				type: DataTypes.BOLLEAN,
+				type: DataTypes.BOOLEAN,
 				defaultValue: false
 			},
 			resetPasswordToken: {
