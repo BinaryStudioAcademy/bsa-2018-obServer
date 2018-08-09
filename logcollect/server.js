@@ -14,7 +14,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.post('/config', (req, res) => {
   console.log(req.body);
 
-  const rawStoreAddress = 'http://localhost:3080/api/logs'; // need log raw stor
+  const rawStorePort = process.env.RAWSTORAGE_PORT;
+  const rawStoreAddress = `http://localhost:${rawStorePort}/api/logs`; // raw store address we will get from config request
   metricsService = new MetricsService(rawStoreAddress, token);
   metricsService.startCPUMonitor(1000);
   metricsService.startMemoryMonitor(1000);
