@@ -1,9 +1,8 @@
-const password = await require('../../services/userService').encryptPassword(
-	'123'
-);
+const userService = require('../../services/userService');
 
 module.exports = {
-	up: (queryInterface, Sequelize) => {
+	up: async (queryInterface, Sequelize) => {
+		const password = await userService.encryptPassword('123');
 		return queryInterface.bulkInsert('Users', [
 			{
 				name: 'Boguslav Barna',
