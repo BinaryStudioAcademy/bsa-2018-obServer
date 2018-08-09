@@ -54,14 +54,14 @@ module.exports = app => {
 					return new Promise((resolve, reject) => {
 						const msg = {
 							subject: 'Password Reset. Observer BSA 2018',
-							text: `Hi, ${
+							html: `<p>Hi, ${
 								user.name
-							}! You are receiving this because you (or someone else) have requested the reset of the password for your account.
-                Please click on the following link, or paste this into your browser to complete the process:
+							}! You are receiving this because you (or someone else) have requested the reset of the password for your account.</p>
+                <p>Please click on the following link, or paste this into your browser to complete the process:</p>
                 http://${req.headers.host}/signin/change/?resetToken=${
 								user.resetPasswordToken
-							} 
-                If you did not request this, please ignore this email and your password will remain unchanged.`
+							}<br>
+                <p>If you did not request this, please ignore this email and your password will remain unchanged.</p>`
 						};
 						emailService.sendEmail(msg, user.email);
 						res.err = null;
@@ -131,7 +131,7 @@ module.exports = app => {
 					return new Promise((resolve, reject) => {
 						const msg = {
 							subject: `Password changed successfully! Observer BSA 2018`,
-							text: `This is a confirmation that the password for your account http://${
+							html: `This is a confirmation that the password for your account http://${
 								req.headers.host
 							} has just been changed.`
 						};

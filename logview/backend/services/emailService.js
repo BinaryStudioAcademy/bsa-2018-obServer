@@ -11,7 +11,7 @@ class EmailService {
 			to: reciver,
 			from: sender,
 			subject: msg.subject,
-			text: msg.text
+			html: msg.html
 		});
 	}
 }
