@@ -16,7 +16,6 @@ interface ILoginFormProps {
 }
 
 interface ILoginFormState {
-	username?: string;
 	email?: string;
 	password?: string;
 	remember?: boolean;
@@ -27,7 +26,6 @@ class LoginForm extends React.Component<ILoginFormProps, ILoginFormState> {
 		super(props);
 
 		this.state = {
-			username: '',
 			email: '',
 			password: '',
 			remember: false
