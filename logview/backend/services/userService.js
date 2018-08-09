@@ -47,6 +47,10 @@ class UserService {
 	findByEmail(email) {
 		return UserRepository.findByEmail(email);
 	}
+
+	findByResetPasswordToken(token) {
+		return UserRepository.findByResetPasswordToken(token);
+	}
 }
 
 module.exports = new UserService();

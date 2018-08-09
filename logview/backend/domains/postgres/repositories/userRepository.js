@@ -22,6 +22,9 @@ class UserRepository {
 	findByEmail(email) {
 		return this.model.findOne({ where: { email: email } });
 	}
+	findByResetPasswordToken(token) {
+		return this.model.findOne({ where: { resetPasswordToken: token } });
+	}
 }
 
 module.exports = new UserRepository();
