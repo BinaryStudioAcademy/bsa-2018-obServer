@@ -3,7 +3,7 @@ import RegistrationForm from './RegistrationForm';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { userRegister } from '../../redux/user/actions';
-import { Wrapper } from './RegistrationStyles';
+import { Wrapper } from '../../components/RegistrationStyles';
 
 class Registration extends React.Component {
 	handleSumbit = data => {
