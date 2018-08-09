@@ -2,11 +2,11 @@ import * as React from 'react';
 import RegistrationForm from '../../components/RegistrationForm';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { userRegister } from '../../redux/user/actions';
+//import { userRegister } from '../../redux/user/actions';
 import { Wrapper } from '../../components/RegistrationStyles';
 
 class Registration extends React.Component {
-	handleSumbit = data => {
+	handleSubmit = data: any => {
 		this.props.actions.userRegister(data);
 	};
 	render() {
@@ -18,8 +18,8 @@ class Registration extends React.Component {
 	}
 }
 
-const mapDispatchToProps = dispatch => ({
+/* const mapDispatchToProps = dispatch => ({
 	actions: bindActionCreators({ userRegister }, dispatch)
-});
+}); */
 
 export default connect(mapDispatchToProps)(Registration);
