@@ -1,4 +1,4 @@
-import api from '../adapter';
+import api from 'src/services/adapter';
 
 export default {
 	registerUser: (user: any) => {
@@ -10,6 +10,7 @@ export default {
 	logoutUser: () => {
 		return api.makeRequest(`/api/logout`, api.requestType.POST);
 	},
+
 	updateUser: (user: any) => {
 		return api.makeRequest(
 			`/api/user/${user._id}`,
