@@ -1,14 +1,12 @@
 import * as constants from './constants';
 import { UserAction } from './actions';
-import { UserState, UserLoginState } from '../../types/UserState';
+import { UserState } from '../../types/UserState';
 import { defaultState } from '../defaultState';
 
 export function userReducer(
-	// loginState: UserLoginState = defaultState.userLogin,
 	state: UserState = defaultState.user,
 	action: UserAction
 ): UserState {
-	console.log(action);
 	switch (action.type) {
 		case constants.USER_REGISTER:
 			return {
@@ -18,13 +16,12 @@ export function userReducer(
 				email: action.email,
 				password: action.password
 			};
-		// case constants.USER_LOGIN:
-		// return {
-		// ...loginState,
-		// email: action.email,
-		// password: action.password,
-		// user: action.user
-		// };
+		case constants.USER_LOGIN:
+			return {
+				...state,
+				email: action.email,
+				password: action.password
+			};
 		default:
 			return state;
 	}

@@ -9,7 +9,6 @@ import {
 	Box
 } from '../../styles/ContainerStyles';
 import { LogoText } from '../../styles/TextStyles';
-// import autobind from 'autobind-decorator';
 
 interface ILoginFormProps {
 	onSubmit: Function;

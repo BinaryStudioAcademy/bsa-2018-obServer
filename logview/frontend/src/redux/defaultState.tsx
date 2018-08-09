@@ -6,12 +6,5 @@ export const defaultState: StoreState = {
 		email: '',
 		password: '',
 		company: ''
-	},
-
-	userLogin: {
-		user: {
-			email: '',
-			password: ''
-		}
 	}
 };

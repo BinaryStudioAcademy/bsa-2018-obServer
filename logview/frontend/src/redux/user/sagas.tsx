@@ -15,6 +15,8 @@ import {
 
 function* userRegister(action: UserRegister) {
 	try {
+		console.log(action);
+
 		const currentUser = yield call(userApi.registerUser, {
 			name: action.name,
 			email: action.email,
@@ -42,8 +44,8 @@ function* userLogin(action: UserLogin) {
 		console.log(action);
 
 		const currentUser = yield call(userApi.loginUser, {
-			// email: action.email,
-			// password: action.password
+			email: action.email,
+			password: action.password
 		});
 		yield put({
 			type: USER_LOGIN_SUCCESS,

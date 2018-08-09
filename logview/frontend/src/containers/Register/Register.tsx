@@ -18,17 +18,15 @@ class Register extends React.Component<ILoginFormProps, {}> {
 	}
 	// @autobind
 	handleSubmit(data: any) {
-		this.props.actions.userRegister(data);
+		this.props.actions.userRegister(
+			data.name,
+			data.email,
+			data.password,
+			data.company
+		);
 	}
 
 	render() {
-		this.props.actions.userRegister({
-			company: '',
-			name: '',
-			email: '',
-			password: ''
-		});
-
 		return (
 			<React.Fragment>
 				<RegisterForm onSubmit={this.handleSubmit} />
