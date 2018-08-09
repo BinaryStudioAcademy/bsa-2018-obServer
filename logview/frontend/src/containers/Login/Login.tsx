@@ -1,15 +1,11 @@
 import * as React from 'react';
-import LoginForm from '../../components/LoginForm';
+import LoginForm from 'src/components/LoginForm';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { userLogin } from 'src/redux/user/actions';
-import {
-	Wrapper,
-	BackgroundContainer,
-	Box
-} from '../../styles/ContainerStyles';
-import { LoginBackground } from '../../styles/ImageStyles';
-import { LogoText } from '../../styles/TextStyles';
+import { Wrapper, BackgroundContainer, Box } from 'src/styles/ContainerStyles';
+import { LoginBackground } from 'src/styles/ImageStyles';
+import { LogoText } from 'src/styles/TextStyles';
 import autobind from 'autobind-decorator';
 
 interface ILoginFormProps {

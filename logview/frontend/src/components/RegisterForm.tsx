@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { Submit } from '../styles/ButtonStyles';
-import { Input } from '../styles/InputStyles';
-import { Form } from '../styles/FormStyles';
+import { Submit } from 'src/styles/ButtonStyles';
+import { Input } from 'src/styles/InputStyles';
+import { Form } from 'src/styles/FormStyles';
 import autobind from 'autobind-decorator';
 
 interface RegFormState {

@@ -1,8 +1,8 @@
 import * as React from 'react';
-import RegisterForm from '../../components/RegisterForm';
+import RegisterForm from 'src/components/RegisterForm';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { userRegister } from '../../redux/user/actions';
+import { userRegister } from 'src/redux/user/actions';
 import autobind from 'autobind-decorator';
 
 interface ILoginFormProps {

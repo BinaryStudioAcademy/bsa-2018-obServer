@@ -1,7 +1,7 @@
 import 'regenerator-runtime/runtime';
 import { takeLatest, put, call, all } from 'redux-saga/effects';
-import userApi from '../../services/domains/user';
-import { UserState } from '../../types/UserState';
+import userApi from 'src/services/domains/user';
+import { UserState } from 'src/types/UserState';
 import { UserRegister, UserLogin } from './actions';
 import { push } from 'connected-react-router';
 import {

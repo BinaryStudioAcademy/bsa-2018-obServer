@@ -4,11 +4,11 @@ import {
 	CheckboxInput,
 	CheckboxLabel,
 	CheckboxSpan
-} from '../styles/ButtonStyles';
-import { Input } from '../styles/InputStyles';
-import { Form } from '../styles/FormStyles';
-import { Row, RedirectContainer } from '../styles/ContainerStyles';
-import { TextLink, ForgotPassword } from '../styles/TextStyles';
+} from 'src/styles/ButtonStyles';
+import { Input } from 'src/styles/InputStyles';
+import { Form } from 'src/styles/FormStyles';
+import { Row, RedirectContainer } from 'src/styles/ContainerStyles';
+import { TextLink, ForgotPassword } from 'src/styles/TextStyles';
 import { Link } from 'react-router-dom';
 import autobind from 'autobind-decorator';
 
