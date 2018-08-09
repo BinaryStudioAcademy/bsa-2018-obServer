@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Form, Input, SignUp } from './RegistrationStyles';
+import autobind from 'autobind-decorator';
 
 interface IRegFormState {
 	name?: string;
@@ -23,16 +24,18 @@ class RegisterForm extends React.Component<IRegFormProps, IRegFormState> {
 		};
 	}
 
-	handleFieldChange = (e: any) => {
+	@autobind
+	handleFieldChange(e: any) {
 		let obj: Object = { [e.target.name]: e.target.value };
 		this.setState(obj);
-	};
+	}
 
-	handleSubmit = () => {
+	@autobind
+	handleSubmit() {
 		if (this.props.onSubmit) {
 			this.props.onSubmit(this.state);
 		}
-	};
+	}
 
 	render() {
 		const { name, email, password, company } = this.state;
