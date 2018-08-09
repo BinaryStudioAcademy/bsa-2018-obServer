@@ -3,6 +3,7 @@ const apiResponse = require('express-api-response'),
 	userRepository = require('../../domains/postgres/repositories/userRepository'),
 	passportStrategy = require('../../passport/localStrategy'),
 	userService = require('../../services/userService'),
+	companyService = require('../../services/companyService'),
 	baseUrl = '/api/user/';
 
 module.exports = app => {
@@ -45,6 +46,23 @@ module.exports = app => {
 		async (req, res, next) => {
 			try {
 				const data = await userService.create(req.body);
+				res.data = data;
+				res.err = null;
+			} catch (err) {
+				res.data = null;
+				res.err = err;
+			} finally {
+				next();
+			}
+		},
+		apiResponse
+	);
+
+	app.put(
+		`${baseUrl}:id`,
+		async (req, res, next) => {
+			try {
+				const data = await userService.update(req.params.id, req.body);
 				res.data = data;
 				res.err = null;
 			} catch (err) {

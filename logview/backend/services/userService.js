@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt'),
-	UserRepository = require('../domains/postgres/repositories/userRepository');
+	companyService = require('./companyService'),
+	userRepository = require('../domains/postgres/repositories/userRepository');
 
 class UserService {
 	constructor() {
@@ -22,30 +23,34 @@ class UserService {
 		if (!(await this.findByEmail(body.email))) {
 			const hash = await this.encryptPassword(body.password);
 			body.password = hash;
-			return UserRepository.create(body);
+			const companyInfo = await companyService.create(body.companyName);
+			body.companyId = companyInfo.id;
+			body.companyToken = companyInfo.token;
+			return userRepository.create(body);
 		} else {
+			// probably, method validateEmail is needed; errs from companyService will confuse
 			throw new Error(`${body.email} is already in use`);
 		}
 	}
 
 	findAll() {
-		return UserRepository.read();
+		return userRepository.read();
 	}
 
 	update(id, newBody) {
-		return UserRepository.update(id, newBody);
+		return userRepository.update(id, newBody);
 	}
 
 	delete(id) {
-		return UserRepository.delete(id);
+		return userRepository.delete(id);
 	}
 
 	findById(id) {
-		return UserRepository.findById(id);
+		return userRepository.findById(id);
 	}
 
 	findByEmail(email) {
-		return UserRepository.findByEmail(email);
+		return userRepository.findByEmail(email);
 	}
 }
 

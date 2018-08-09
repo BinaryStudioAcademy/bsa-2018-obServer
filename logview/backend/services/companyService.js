@@ -1,62 +1,43 @@
-const companyRepository = require('../domains/postgres/repositories/companyRepository')
-	.model;
+const companyRepository = require('../domains/postgres/repositories/companyRepository'),
+	bcrypt = require('bcrypt');
 
 class CompanyService {
-	constructor() {}
-
-	async create(data) {
-		if (!(await this.findByName(data.name))) {
-			// return companyRepository.create(bodydata);
-			return companyRepository.create(data);
-		} else {
-			throw new Error(`${data.name} is already in use`);
-		}
-		// // decide wether name is unique; if not:
-		// // return companyRepository.create(data);
-		// // leveled up variant:
-		// return companyRepository.create(data);
-	}
-
-	findAll() {
-		// return companyRepository.read();
-		return companyRepository.findAll();
-	}
-
-	findById(id) {
-		// return companyRepository.findById(id);
-		return companyRepository.findById(id);
+	constructor() {
+		this.saltRounds = 8;
 	}
 
 	/**
-	 * Method is used for verification of the provided name - it should be unique
+	 * Creates random unique token for company-database
 	 * @param {*} name
 	 */
-	findByName(name) {
-		// return companyRepository.findByName(name);
-		return companyRepository.findOne({ where: { name: name } });
+	createToken(name) {
+		return bcrypt.hash(name, this.saltRounds).then(hash => {
+			return hash;
+		});
+	}
+
+	async create(name) {
+		const newCompany = {};
+		newCompany.name = name;
+		newCompany.token = await this.createToken(name);
+		return companyRepository.create(newCompany);
+	}
+
+	findAll() {
+		return companyRepository.read();
+	}
+
+	findById(id) {
+		return companyRepository.findById(id);
 	}
 
 	update(id, newData) {
-		// return companyRepository.update(id, newData);
-		return companyRepository.update(newData, { where: { id: id } });
+		return companyRepository.update(id, newData);
 	}
 
 	delete(id) {
-		// return companyRepository.delete(id);
-		return companyRepository.destroy({ where: { id: id } });
+		return companyRepository.delete(id);
 	}
-
-	// alternating services by id-or-name
-
-	// updateByName(name, newData) {
-	//     // return companyRepository.updateByName(name, newData);
-	//     return companyRepository.update(newData, { where: { name: name } });
-	// }
-
-	// deleteByName(name) {
-	//     // return companyRepository.deleteByName(name);
-	//     return companyRepository.destroy({ where: { name: name } });
-	// }
 }
 
 module.exports = new CompanyService();
