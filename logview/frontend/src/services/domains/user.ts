@@ -10,6 +10,7 @@ export default {
 	logoutUser: () => {
 		return api.makeRequest(`/api/logout`, api.requestType.POST);
 	},
+
 	updateUser: (user: any) => {
 		return api.makeRequest(
 			`/api/user/${user._id}`,

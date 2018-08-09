@@ -2,12 +2,15 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
-import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
+import createSagaMiddleware from 'redux-saga';
 
 import App from './containers/App/App';
 import reducer from './redux/reducer';
 import { StoreState } from './types/StoreState';
+import sagas from './redux/sagas';
+
+const sagaMiddleware = createSagaMiddleware();
 
 if (typeof Storage === 'undefined') {
 	ReactDOM.render(
@@ -21,8 +24,10 @@ if (typeof Storage === 'undefined') {
 } else {
 	const store = createStore<StoreState, any, {}, {}>(
 		reducer,
-		composeWithDevTools(applyMiddleware(thunk))
+		composeWithDevTools(applyMiddleware(sagaMiddleware))
 	);
+
+	sagaMiddleware.run(sagas);
 
 	ReactDOM.render(
 		<Provider store={store}>
