@@ -42,7 +42,7 @@ module.exports = app => {
 
 	app.post(
 		// fix baseUrl
-		'api/signin/register',
+		'/api/signin/register/',
 		async (req, res, next) => {
 			try {
 				const data = await userService.create(req.body);
