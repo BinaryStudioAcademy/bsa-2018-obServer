@@ -32,10 +32,12 @@ const user = (sequilize, DataTypes) => {
 			allowNull: true
 		},
 		companyId: {
-			type: DataTypes.UUID,
-			allowNull: false,
-			//delete when company model will exist
-			defaultValue: DataTypes.UUIDV4
+			type: DataTypes.STRING,
+			allowNull: false
+		},
+		companyToken: {
+			type: DataTypes.STRING,
+			allowNull: false
 		}
 	});
 	return User;

@@ -9,18 +9,12 @@ const company = (sequilize, DataTypes) => {
 		},
 		name: {
 			type: DataTypes.STRING,
-			allowNull: false,
-			// decide wether name is unique
-			unique: true
+			allowNull: false
 		},
 		token: {
 			type: DataTypes.STRING,
 			allowNull: false,
-			unique: true,
-			defaultValue: Sequelize.UUIDV4
-			// validate: {
-			// 	isToken: true
-			// }
+			unique: true
 		}
 	});
 	return Company;
