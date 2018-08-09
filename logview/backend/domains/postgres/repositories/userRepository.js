@@ -5,13 +5,23 @@ class UserRepository {
 		this.model = ctx.sequelize.models.User;
 	}
 	create(data) {
-		this.model.create(data);
+		return this.model.create(data);
 	}
 	read() {
 		return this.model.findAll();
 	}
-	update() {}
-	delet() {}
+	update(id, newData) {
+		return this.model.update(newData, { where: { id: id } });
+	}
+	delete(id) {
+		return this.model.destroy({ where: { id: id } });
+	}
+	findById(id) {
+		return this.model.findById(id);
+	}
+	findByEmail(email) {
+		return this.model.findOne({ where: { email: email } });
+	}
 }
 
 module.exports = new UserRepository();

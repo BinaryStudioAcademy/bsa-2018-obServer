@@ -4,6 +4,4 @@ export interface UserState {
 	name: string;
 	email: string;
 	password: string;
-	resetPasswordtoken: string;
-	resetPasswordExpires: Date;
 }

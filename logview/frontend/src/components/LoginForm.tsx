@@ -58,6 +58,7 @@ class LoginForm extends React.Component<ILoginFormProps, ILoginFormState> {
 					type="email"
 					name="email"
 					placeholder="email"
+					autoComplete="off"
 					value={this.state.email}
 					onChange={e => this.handleFieldChange(e)}
 				/>
@@ -74,9 +75,9 @@ class LoginForm extends React.Component<ILoginFormProps, ILoginFormState> {
 						checked={this.state.remember}
 						onClick={this.handleCheckbox}
 					/>
-					<CheckboxLabel htmlFor={this.refs.checkbox}>
-						<CheckboxSpan />
-					</CheckboxLabel>
+					{/* <CheckboxLabel> */}
+					{/* <CheckboxSpan /> */}
+					{/* </CheckboxLabel> */}
 					<span>Remember me</span>
 				</Row>
 				<Submit

@@ -1,8 +1,9 @@
-const apiResponse = require('express-api-response');
+const apiResponse = require('express-api-response'),
+	baseUrl = `/api/log/`;
 
 module.exports = app => {
 	app.get(
-		'/log',
+		baseUrl,
 		(req, res, next) => {
 			console.log('DATA LOG!!!');
 			res.data = null;

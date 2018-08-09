@@ -12,4 +12,10 @@ export const Input = styled.input`
 	&::placeholder {
 		color: #3d3d3d;
 	}
+
+	&:focus {
+		border-bottom: 1px solid transparent;
+		border-image: linear-gradient(to left, #0099cc 0%, #f27280 100%);
+		border-image-slice: 1;
+	}
 `;

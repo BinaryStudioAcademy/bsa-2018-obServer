@@ -9,6 +9,8 @@ const bodyParser = require('body-parser'),
 	webpackConfig = require('../webpack.config.js'),
 	webpackDevMiddleware = require('webpack-dev-middleware'),
 	webpackHotMiddleware = require('webpack-hot-middleware'),
+	passport = require('passport'),
+	Sequelize = require('sequelize'),
 	port = process.env.APP_PORT;
 
 const app = express();
@@ -17,6 +19,14 @@ const distPath = path.resolve(__dirname + '/../dist');
 const resourcesPath = path.resolve(__dirname + '/../resources');
 
 const postgresDb = require('./dbconnect/postgres');
+const SequelizeStore = require('connect-session-sequelize')(session.Store);
+
+const sessionStore = new SequelizeStore({
+	db: postgresDb.sequelize,
+	checkExpirationInterval: 30 * 60 * 1000,
+	expiration: 24 * 60 * 60 * 1000
+});
+
 apiResponse.options({
 	emptyArrayIsOk: true
 });
@@ -38,13 +48,16 @@ app.use(
 	session({
 		secret: sessionSecret,
 		resave: true,
-		saveUninitialized: true
+		saveUninitialized: true,
+		store: sessionStore
 	})
 );
 app.use(bodyParser.json({ limit: '5mb' }));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/dist', express.static(distPath));
 app.use('/resources', express.static(resourcesPath));
+app.use(passport.initialize());
+app.use(passport.session());
 
 const apiRoutes = require('./routes/api/routes')(app);
 const viewRoutes = require('./routes/view/routes')(app);

@@ -14,12 +14,10 @@ import { LogoText } from '../../styles/TextStyles';
 interface ILoginFormProps {
 	onSubmit: Function;
 	actions: { userLogin: Function };
-	data: any;
 }
 
 class Login extends React.Component<ILoginFormProps, {}> {
 	handleSubmit = (data: any) => {
-		console.log(data);
 		this.props.actions.userLogin(data);
 	};
 

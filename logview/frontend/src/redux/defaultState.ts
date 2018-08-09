@@ -6,8 +6,6 @@ export const defaultState: StoreState = {
 		companyId: '',
 		name: '',
 		email: '',
-		password: '',
-		resetPasswordtoken: '',
-		resetPasswordExpires: new Date()
+		password: ''
 	}
 };

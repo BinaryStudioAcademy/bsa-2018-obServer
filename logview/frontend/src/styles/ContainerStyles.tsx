@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import background from '../assets/login-background-alt.jpg';
+import background from '../assets/login-background.jpg';
 
 export const Wrapper = styled.div`
 	display: flex;
