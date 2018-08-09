@@ -1,9 +1,8 @@
 const apiResponse = require('express-api-response'),
-	passport = require('passport'),
+	// passport = require('passport'),
 	userRepository = require('../../domains/postgres/repositories/userRepository'),
-	passportStrategy = require('../../passport/localStrategy'),
+	// passportStrategy = require('../../passport/localStrategy'),
 	userService = require('../../services/userService'),
-	companyService = require('../../services/companyService'),
 	baseUrl = '/api/user/';
 
 module.exports = app => {
@@ -42,7 +41,8 @@ module.exports = app => {
 	);
 
 	app.post(
-		baseUrl,
+		// fix baseUrl
+		'api/signin/register',
 		async (req, res, next) => {
 			try {
 				const data = await userService.create(req.body);

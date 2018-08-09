@@ -28,7 +28,7 @@ class UserService {
 			body.companyToken = companyInfo.token;
 			return userRepository.create(body);
 		} else {
-			// probably, method validateEmail is needed; errs from companyService will confuse
+			// probably, validation as separate method is needed; errs from companyService will confuse
 			throw new Error(`${body.email} is already in use`);
 		}
 	}
