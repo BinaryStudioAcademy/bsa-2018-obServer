@@ -1,11 +1,10 @@
 const mongoose = require('mongoose');
-// temp general log schema
-const logMessage = mongoose.Schema({
-  logType: {
+
+const errorLog = mongoose.Schema({
+  errorMessage: {
     type: String,
     required: true
   },
-  data: { any: Object },
   timestamp: {
     type: Date,
     required: true
@@ -16,6 +15,6 @@ const logMessage = mongoose.Schema({
   }
 });
 
-const LogMessage = mongoose.model('LogMessage', logMessage);
+const ErrorLog = mongoose.model('errorLogs', errorLog);
 
-module.exports = LogMessage;
+module.exports = ErrorLog;
