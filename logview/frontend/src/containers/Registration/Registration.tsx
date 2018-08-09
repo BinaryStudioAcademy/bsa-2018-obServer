@@ -1,5 +1,5 @@
 import * as React from 'react';
-import RegistrationForm from './RegistrationForm';
+import RegistrationForm from '../../components/RegistrationForm';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { userRegister } from '../../redux/user/actions';
