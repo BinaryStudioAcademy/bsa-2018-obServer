@@ -1,8 +1,5 @@
 const { POSTGRES_DB, POSTGRES_USER, POSTGRES_PWD } = process.env;
 
-//sequelize db:migrate --env dev
-//sequelize db:migrate:undo
-
 module.exports = {
 	development: {
 		username: POSTGRES_USER,

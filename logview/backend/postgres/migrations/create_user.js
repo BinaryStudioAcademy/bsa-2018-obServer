@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = {
 	up: (queryInterface, Sequelize) => {
 		return queryInterface.createTable('Users', {
@@ -31,6 +33,7 @@ module.exports = {
 				allowNull: true
 			},
 			companyId: {
+				//add reference when Company will exist
 				type: DataTypes.UUID,
 				allowNull: false,
 				//delete when company model will exist
