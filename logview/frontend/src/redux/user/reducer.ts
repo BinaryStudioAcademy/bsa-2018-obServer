@@ -18,20 +18,18 @@ export function userReducer(
 		case USER_REGISTER_SUCCESS:
 			return {
 				...state,
-				id: action.id,
-				companyId: action.companyId,
+				company: action.company,
 				name: action.name,
 				email: action.email,
-				password: ''
+				password: action.password
 			};
 		case USER_LOGIN_SUCCESS:
 			return {
 				...state,
-				id: action.id,
-				companyId: action.companyId,
+				company: action.company,
 				name: action.name,
 				email: action.email,
-				password: ''
+				password: action.password
 			};
 		default:
 			return state;

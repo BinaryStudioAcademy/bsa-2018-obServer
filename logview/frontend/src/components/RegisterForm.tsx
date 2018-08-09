@@ -25,15 +25,17 @@ class RegisterForm extends React.Component<RegFormProps, RegFormState> {
 		};
 
 		this.handleFieldChange = this.handleFieldChange.bind(this);
+		this.handleSubmit = this.handleSubmit.bind(this);
 	}
 
-	handleFieldChange = (e: any) => {
+	handleFieldChange(e: any) {
 		this.setState({ [e.target.name]: e.target.value });
-	};
+	}
 
-	handleSubmit = () => {
+	handleSubmit(e: any) {
+		e.preventDefault();
 		this.props.onSubmit(this.state);
-	};
+	}
 
 	render() {
 		const { name, email, password, company } = this.state;
@@ -64,7 +66,7 @@ class RegisterForm extends React.Component<RegFormProps, RegFormState> {
 					placeholder="Company"
 					onChange={this.handleFieldChange}
 				/>
-				<Submit type="submit" value="sign up" />
+				<Submit onClick={this.handleSubmit}>sign up</Submit>
 			</Form>
 		);
 	}

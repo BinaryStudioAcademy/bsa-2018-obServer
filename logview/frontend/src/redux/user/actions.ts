@@ -1,10 +1,16 @@
 import {
 	USER_REGISTER,
+	USER_REGISTER_SUCCESS,
+	USER_REGISTER_FAILED,
 	USER_LOGIN,
 	USER_LOGIN_SUCCESS,
 	USER_LOGIN_FAILED,
-	USER_REGISTER_SUCCESS,
-	USER_REGISTER_FAILED
+	USER_RESET_PASSWORD,
+	USER_RESET_PASSWORD_SUCCESS,
+	USER_RESET_PASSWORD_FAILED,
+	USER_RESET_CHANGE,
+	USER_RESET_CHANGE_SECCESS,
+	USER_RESET_CHANGE_FAILED
 } from './constants';
 import { UserState } from '../../types/UserState';
 
@@ -13,6 +19,7 @@ export interface UserRegister {
 	name: string;
 	email: string;
 	password: string;
+	company: string;
 }
 
 export interface UserLogin {
@@ -30,13 +37,15 @@ export type UserAction = UserRegister | UserLogin | UserSuccess;
 export function userRegister(
 	name: string = '',
 	email: string = '',
-	password: string = ''
+	password: string = '',
+	company: string = ''
 ): UserRegister {
 	return {
 		type: USER_REGISTER,
 		name,
 		email,
-		password
+		password,
+		company
 	};
 }
 

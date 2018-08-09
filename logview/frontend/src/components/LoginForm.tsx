@@ -34,15 +34,18 @@ class LoginForm extends React.Component<LoginFormProps, LoginFormState> {
 
 		this.handleFieldChange = this.handleFieldChange.bind(this);
 		this.handleCheckbox = this.handleCheckbox.bind(this);
+		this.handleSubmit = this.handleSubmit.bind(this);
 	}
 
-	handleFieldChange = (e: any) => {
+	handleFieldChange(e: any) {
 		this.setState({ [e.target.name]: e.target.value });
-	};
+	}
 
-	handleSubmit = () => {
+	handleSubmit(e: any) {
+		e.preventDefault();
+		console.log(this.state);
 		this.props.onSubmit(this.state);
-	};
+	}
 
 	handleCheckbox() {
 		this.setState({ remember: !this.state.remember });
@@ -79,11 +82,7 @@ class LoginForm extends React.Component<LoginFormProps, LoginFormState> {
 					{/* </CheckboxLabel> */}
 					<span>Remember me</span>
 				</Row>
-				<Submit
-					onClick={this.handleSubmit}
-					type="submit"
-					value="sign in"
-				/>
+				<Submit onClick={this.handleSubmit}>sign in</Submit>
 				<ForgotPassword>
 					<Link to="passwordreset">Forgot password?🦄</Link>
 				</ForgotPassword>

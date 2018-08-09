@@ -11,12 +11,24 @@ interface ILoginFormProps {
 }
 
 class Register extends React.Component<ILoginFormProps, {}> {
-	@autobind
+	constructor(props: any) {
+		super(props);
+
+		this.handleSubmit = this.handleSubmit.bind(this);
+	}
+	// @autobind
 	handleSubmit(data: any) {
 		this.props.actions.userRegister(data);
 	}
 
 	render() {
+		this.props.actions.userRegister({
+			company: '',
+			name: '',
+			email: '',
+			password: ''
+		});
+
 		return (
 			<React.Fragment>
 				<RegisterForm onSubmit={this.handleSubmit} />
@@ -29,6 +41,9 @@ const mapDispatchToProps = (dispatch: any) => ({
 	actions: bindActionCreators({ userRegister }, dispatch)
 });
 
-const RegisterConnected = connect(mapDispatchToProps)(Register);
+const RegisterConnected = connect(
+	null,
+	mapDispatchToProps
+)(Register);
 
 export default RegisterConnected;

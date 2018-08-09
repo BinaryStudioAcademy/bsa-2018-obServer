@@ -8,9 +8,8 @@ import {
 	BackgroundContainer,
 	Box
 } from '../../styles/ContainerStyles';
-import { LoginBackground } from '../../styles/ImageStyles';
 import { LogoText } from '../../styles/TextStyles';
-import autobind from 'autobind-decorator';
+// import autobind from 'autobind-decorator';
 
 interface ILoginFormProps {
 	onSubmit: Function;
@@ -48,4 +47,5 @@ const LoginConnected = connect(
 	null,
 	mapDispatchToProps
 )(Login);
+
 export default LoginConnected;

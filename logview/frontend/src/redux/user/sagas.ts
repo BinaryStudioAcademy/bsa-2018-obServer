@@ -18,18 +18,21 @@ function* userRegister(action: UserRegister) {
 		const currentUser = yield call(userApi.registerUser, {
 			name: action.name,
 			email: action.email,
-			password: action.password
+			password: action.password,
+			company: action.company
 		});
+
 		yield put({
 			type: USER_REGISTER_SUCCESS,
-			...currentUser
+			payload: {
+				...currentUser
+			}
 		});
 
 		yield put(push('/login'));
 	} catch (error) {
 		yield put({
-			type: USER_REGISTER_FAILED,
-			error: error.message
+			type: USER_REGISTER_FAILED
 		});
 	}
 }
@@ -42,14 +45,15 @@ function* userLogin(action: UserLogin) {
 		});
 		yield put({
 			type: USER_LOGIN_SUCCESS,
-			...currentUser
+			payload: {
+				...currentUser
+			}
 		});
 
 		yield put(push('/'));
 	} catch (error) {
 		yield put({
-			type: USER_LOGIN_FAILED,
-			error: error.message
+			type: USER_LOGIN_FAILED
 		});
 	}
 }

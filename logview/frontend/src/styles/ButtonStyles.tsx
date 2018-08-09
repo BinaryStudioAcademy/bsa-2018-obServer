@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Submit = styled.input`
+export const Submit = styled.button`
 	display: block;
 	/* background: linear-gradient(45deg, rgba(103,94,205,1) 0%, rgba(90,162,251,1) 100%); */
 	background: linear-gradient(
