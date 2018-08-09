@@ -14,6 +14,7 @@ interface ILoginFormProps {
 }
 
 class Login extends React.Component<ILoginFormProps, {}> {
+	@autobind
 	handleSubmit(data: any) {
 		this.props.actions.userLogin(data);
 	}
