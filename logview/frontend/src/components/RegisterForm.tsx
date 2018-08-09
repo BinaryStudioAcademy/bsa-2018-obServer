@@ -2,6 +2,8 @@ import * as React from 'react';
 import { Submit } from '../styles/ButtonStyles';
 import { Input } from '../styles/InputStyles';
 import { Form } from '../styles/FormStyles';
+import { RedirectLink } from '../styles/TextStyles';
+import { Link } from 'react-router-dom';
 
 interface RegFormState {
 	name?: string;
@@ -41,32 +43,45 @@ class RegisterForm extends React.Component<RegFormProps, RegFormState> {
 		const { name, email, password, company } = this.state;
 		return (
 			<Form>
-				<h2>Register</h2>
+				<h2>Welcome to obServer</h2>
+				<p>Web-service dedicated to monitor your server in real-time</p>
 				<Input
+					autoComplete="off"
+					type="text"
 					name="name"
 					value={name}
 					placeholder="name"
 					onChange={this.handleFieldChange}
 				/>
 				<Input
+					type="email"
 					name="email"
 					value={email}
 					placeholder="Email"
 					onChange={this.handleFieldChange}
+					autoComplete="off"
 				/>
 				<Input
+					type="password"
 					name="password"
 					value={password}
 					placeholder="Password"
 					onChange={this.handleFieldChange}
+					autoComplete="off"
 				/>
 				<Input
+					type="company"
 					name="company"
 					value={company}
 					placeholder="Company"
 					onChange={this.handleFieldChange}
+					autoComplete="off"
 				/>
 				<Submit onClick={this.handleSubmit}>sign up</Submit>
+
+				<RedirectLink>
+					<Link to="login"> Back to login </Link>
+				</RedirectLink>
 			</Form>
 		);
 	}

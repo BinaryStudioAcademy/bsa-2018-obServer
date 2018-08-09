@@ -6,5 +6,7 @@ export const defaultState: StoreState = {
 		email: '',
 		password: '',
 		company: ''
-	}
+	},
+
+	fetching: 'unstarted'
 };

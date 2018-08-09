@@ -8,7 +8,7 @@ import {
 import { Input } from '../styles/InputStyles';
 import { Form } from '../styles/FormStyles';
 import { Row, RedirectContainer } from '../styles/ContainerStyles';
-import { TextLink, ForgotPassword } from '../styles/TextStyles';
+import { TextLink, RedirectLink } from '../styles/TextStyles';
 import { Link } from 'react-router-dom';
 // import autobind from 'autobind-decorator';
 
@@ -86,9 +86,9 @@ class LoginForm extends React.Component<LoginFormProps, LoginFormState> {
 					<span>Remember me</span>
 				</Row>
 				<Submit onClick={this.handleSubmit}>sign in</Submit>
-				<ForgotPassword>
+				<RedirectLink>
 					<Link to="passwordreset">Forgot password?🦄</Link>
-				</ForgotPassword>
+				</RedirectLink>
 				<RedirectContainer>
 					<p>Don't have an account yet?</p>
 					<TextLink>

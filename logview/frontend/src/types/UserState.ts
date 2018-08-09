@@ -9,3 +9,7 @@ export interface UserLoginState {
 	email: string;
 	password: string;
 }
+
+export interface FetchingState {
+	fetching: string;
+}

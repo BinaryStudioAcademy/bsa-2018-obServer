@@ -2,6 +2,7 @@ import * as constants from './constants';
 import { UserAction } from './actions';
 import { UserState } from '../../types/UserState';
 import { defaultState } from '../defaultState';
+// import { combineReducers } from 'redux';
 
 export function userReducer(
 	state: UserState = defaultState.user,
@@ -27,21 +28,26 @@ export function userReducer(
 	}
 }
 
-/*
-export function fetchingState(
-	state: UserState = defaultState.user,
-	action: UserAction
-): UserState {
+export function fetchingState(state = 'unstarted', action: UserAction) {
 	switch (action.type) {
 		case constants.USER_REGISTER_SUCCESS:
 		case constants.USER_LOGIN_SUCCESS:
-		case constants.USER_CHANGE_PASSWORD_SUCCESS:
 		case constants.USER_RESET_PASSWORD_SUCCESS:
-			return {
-				fetchingState: 'success';
-			}
-		case 
-
+		case constants.USER_RESET_PASSWORD_SUCCESS:
+			return 'success';
+		case constants.USER_REGISTER_FAILED:
+		case constants.USER_LOGIN_FAILED:
+		case constants.USER_RESET_PASSWORD_FAILED:
+		case constants.USER_RESET_PASSWORD_FAILED:
+			return 'failed';
+		case constants.USER_REGISTER:
+		case constants.USER_LOGIN:
+		case constants.USER_RESET_PASSWORD:
+		case constants.USER_RESET_PASSWORD:
+			return 'pending';
+		default:
+			return state;
 	}
 }
-*/
+
+// export default combineReducers({userReducer, fetchingState})

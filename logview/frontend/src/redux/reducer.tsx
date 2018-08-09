@@ -1,7 +1,8 @@
 import { combineReducers } from 'redux';
 import { StoreState } from '../types/StoreState';
-import { userReducer } from './user/reducer';
+import { userReducer, fetchingState } from './user/reducer';
 
 export default combineReducers<StoreState>({
-	user: userReducer
+	user: userReducer,
+	fetching: fetchingState
 });

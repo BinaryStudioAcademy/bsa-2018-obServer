@@ -63,7 +63,13 @@ export type UserAction =
 	| UserRegisterSuccess
 	| UserLogin
 	| UserLoginFail
-	| UserLoginSuccess;
+	| UserLoginSuccess
+	| UserChangePassword
+	| UserChangePasswordFail
+	| UserChangePasswordSuccess
+	| UserResetPassword
+	| UserResetPasswordFail
+	| UserResetPasswordSuccess;
 
 export function userRegister(
 	name: string = '',
@@ -115,15 +121,16 @@ export function userLoginSuccess(): UserLoginSuccess {
 	};
 }
 
-/* 
 export function userResetPassword(
-	email: string = ''
+	email: string = '',
+	password: string = ''
 ): UserResetPassword {
 	return {
 		type: constants.USER_RESET_PASSWORD,
-		email
+		email,
+		password
 	};
-} */
+}
 
 export function userResetPasswordFail(): UserResetPasswordFail {
 	return {

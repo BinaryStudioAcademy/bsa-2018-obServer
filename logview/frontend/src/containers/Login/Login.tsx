@@ -6,9 +6,12 @@ import { userLogin } from 'src/redux/user/actions';
 import {
 	Wrapper,
 	BackgroundContainer,
-	Box
+	Box,
+	LogoContainer
 } from '../../styles/ContainerStyles';
 import { LogoText } from '../../styles/TextStyles';
+import { Logo } from '../../styles/ImageStyles';
+const logo = require('src/assets/logo.png');
 
 interface ILoginFormProps {
 	onSubmit: Function;
@@ -32,7 +35,10 @@ class Login extends React.Component<ILoginFormProps, {}> {
 				<LoginForm onSubmit={this.handleSubmit} />
 				<BackgroundContainer>
 					<Box>
-						<LogoText>obServer</LogoText>
+						<LogoContainer>
+							<Logo src={logo} />
+							<LogoText>bServer</LogoText>
+						</LogoContainer>
 					</Box>
 				</BackgroundContainer>
 			</Wrapper>
