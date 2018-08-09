@@ -3,6 +3,7 @@ import RegisterForm from '../../components/RegisterForm';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { userRegister } from '../../redux/user/actions';
+// import autobind from 'autobind-decorator';
 
 interface ILoginFormProps {
 	onSubmit: Function;
@@ -10,9 +11,10 @@ interface ILoginFormProps {
 }
 
 class Register extends React.Component<ILoginFormProps, {}> {
-	handleSubmit = (data: any) => {
+	@autobind
+	handleSubmit(data: any) {
 		this.props.actions.userRegister(data);
-	};
+	}
 
 	render() {
 		return (
@@ -27,4 +29,6 @@ const mapDispatchToProps = (dispatch: any) => ({
 	actions: bindActionCreators({ userRegister }, dispatch)
 });
 
-export default connect(mapDispatchToProps)(Register);
+const RegisterConnected = connect(mapDispatchToProps)(Register);
+
+export default RegisterConnected;

@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { ConnectedRouter } from 'connected-react-router';
-import Login from '../containers/Login/Login';
-import Home from '../containers/Home/Home';
-import Register from '../containers/Register/Register';
-import PasswordReset from '../containers/PasswordReset/PasswordReset';
+import Login from 'src/containers/Login/Login';
+import Home from 'src/containers/Home/Home';
+import Register from 'src/containers/Register/Register';
+import PasswordReset from 'src/containers/PasswordReset/PasswordReset';
 import history from './history';
-import '../styles/GlobalStyles';
+import 'src/styles/GlobalStyles';
 
 class Router extends React.Component {
 	render() {

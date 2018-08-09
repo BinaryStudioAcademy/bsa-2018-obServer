@@ -2,7 +2,7 @@ import * as React from 'react';
 import LoginForm from '../../components/LoginForm';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { userLogin } from '../../redux/user/actions';
+import { userLogin } from 'src/redux/user/actions';
 import {
 	Wrapper,
 	BackgroundContainer,
@@ -10,6 +10,7 @@ import {
 } from '../../styles/ContainerStyles';
 import { LoginBackground } from '../../styles/ImageStyles';
 import { LogoText } from '../../styles/TextStyles';
+import autobind from 'autobind-decorator';
 
 interface ILoginFormProps {
 	onSubmit: Function;
@@ -17,9 +18,9 @@ interface ILoginFormProps {
 }
 
 class Login extends React.Component<ILoginFormProps, {}> {
-	handleSubmit = (data: any) => {
+	handleSubmit(data: any) {
 		this.props.actions.userLogin(data);
-	};
+	}
 
 	render() {
 		return (
@@ -43,4 +44,8 @@ const mapDispatchToProps = (dispatch: any) => ({
 	actions: bindActionCreators({ userLogin }, dispatch)
 });
 
-export default connect(mapDispatchToProps)(Login);
+const LoginConnected = connect(
+	null,
+	mapDispatchToProps
+)(Login);
+export default LoginConnected;
