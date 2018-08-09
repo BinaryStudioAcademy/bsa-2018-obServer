@@ -3,6 +3,7 @@ import { takeLatest, put, call, all } from 'redux-saga/effects';
 import userApi from '../../services/domains/user';
 import { UserState } from '../../types/UserState';
 import { UserRegister, UserLogin } from './actions';
+import { push } from 'connected-react-router';
 import {
 	USER_LOGIN_SUCCESS,
 	USER_LOGIN_FAILED,
@@ -23,6 +24,8 @@ function* userRegister(action: UserRegister) {
 			type: USER_REGISTER_SUCCESS,
 			...currentUser
 		});
+
+		yield put(push('/login'));
 	} catch (error) {
 		yield put({
 			type: USER_REGISTER_FAILED,
@@ -41,6 +44,8 @@ function* userLogin(action: UserLogin) {
 			type: USER_LOGIN_SUCCESS,
 			...currentUser
 		});
+
+		yield put(push('/'));
 	} catch (error) {
 		yield put({
 			type: USER_LOGIN_FAILED,
