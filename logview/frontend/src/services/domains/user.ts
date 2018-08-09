@@ -1,4 +1,4 @@
-import api from 'src/adapter';
+import api from 'src/services/adapter';
 
 export default {
 	registerUser: (user: any) => {
