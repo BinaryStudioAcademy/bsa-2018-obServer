@@ -85,14 +85,8 @@ module.exports = app => {
 				const user = await userService.findByResetPasswordToken(
 					req.params.resetToken
 				);
-				if (!user) {
-					res.data = null;
-					res.err = new Error('No account with that token exists.');
-					res.shouldNotHaveData = false;
-					res.failureStatus = 404;
-					next();
-					reject();
-				}
+				if (!user)
+					reject(new Error('No account with that token exists.'));
 				resolve(user);
 			})
 				.then(user => {
