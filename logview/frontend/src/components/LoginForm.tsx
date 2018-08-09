@@ -11,17 +11,17 @@ import { Row, RedirectContainer } from '../styles/ContainerStyles';
 import { TextLink, ForgotPassword } from '../styles/TextStyles';
 import { Link } from 'react-router-dom';
 
-interface ILoginFormProps {
+interface LoginFormProps {
 	onSubmit: Function;
 }
 
-interface ILoginFormState {
+interface LoginFormState {
 	email?: string;
 	password?: string;
 	remember?: boolean;
 }
 
-class LoginForm extends React.Component<ILoginFormProps, ILoginFormState> {
+class LoginForm extends React.Component<LoginFormProps, LoginFormState> {
 	constructor(props: any) {
 		super(props);
 
@@ -30,17 +30,17 @@ class LoginForm extends React.Component<ILoginFormProps, ILoginFormState> {
 			password: '',
 			remember: false
 		};
+
+		this.handleFieldChange = this.handleFieldChange.bind(this);
+		this.handleCheckbox = this.handleCheckbox.bind(this);
 	}
 
 	handleFieldChange = (e: any) => {
-		let obj: Object = { [e.target.name]: e.target.value };
-		this.setState(obj);
+		this.setState({ [e.target.name]: e.target.value });
 	};
 
 	handleSubmit = () => {
-		if (this.props.onSubmit) {
-			this.props.onSubmit(this.state);
-		}
+		this.props.onSubmit(this.state);
 	};
 
 	handleCheckbox = () => {
@@ -58,14 +58,14 @@ class LoginForm extends React.Component<ILoginFormProps, ILoginFormState> {
 					placeholder="email"
 					autoComplete="off"
 					value={this.state.email}
-					onChange={e => this.handleFieldChange(e)}
+					onChange={this.handleFieldChange}
 				/>
 				<Input
 					type="password"
 					name="password"
 					placeholder="password"
 					value={this.state.password}
-					onChange={e => this.handleFieldChange(e)}
+					onChange={this.handleFieldChange}
 				/>
 				<Row>
 					<CheckboxInput
