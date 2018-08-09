@@ -13,7 +13,7 @@ module.exports = {
 				})
 			);
 		}
-		return queryInterface.bulkInsert('Users', users);
+		// return queryInterface.bulkInsert('Users', users);
 	},
 
 	down: (queryInterface, Sequelize) => {
@@ -29,35 +29,39 @@ function createData() {
 		},
 		{
 			name: 'Bogdan Koldun',
-			email: 'boguslavbarna@gmail.com'
+			email: 'koldunbohdan@gmail.com'
 		},
 		{
 			name: 'Dmitriy Beseda',
-			email: 'boguslavbarna@gmail.com'
+			email: 'besedadg@gmail.com'
 		},
 		{
 			name: 'Ihor Pankiv',
-			email: 'boguslavbarna@gmail.com'
+			email: 'harry.pankiv@gmail.com'
 		},
 		{
 			name: 'Maksym Kostiuk',
-			email: 'boguslavbarna@gmail.com'
+			email: 'maksim.kostyuk@binary-studio.com'
 		},
 		{
 			name: 'Nataliia Chernomortseva',
-			email: 'boguslavbarna@gmail.com'
+			email: 'natic2471@gmail.com'
 		},
 		{
 			name: 'Volodymyr Vorobets',
-			email: 'boguslavbarna@gmail.com'
+			email: 'vvorobets@gmail.com'
 		},
 		{
 			name: 'Yelyzaveta Havrylenko',
-			email: 'boguslavbarna@gmail.com'
+			email: 'lizagavrilenkooo@gmail.com'
 		},
 		{
 			name: 'Yuliia Kuznietsova',
-			email: 'boguslavbarna@gmail.com'
+			email: 'kuznietsova.j@gmail.com'
+		},
+		{
+			name: 'Taras Dubyk',
+			email: 'tarass.dubyk@gmail.com'
 		}
 	];
 	return data;

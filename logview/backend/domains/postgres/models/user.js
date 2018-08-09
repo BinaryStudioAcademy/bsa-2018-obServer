@@ -36,13 +36,13 @@ const user = (sequilize, DataTypes) => {
 			resetPasswordExpires: {
 				type: DataTypes.DATE,
 				allowNull: true
-			},
-			companyId: {
-				type: DataTypes.UUID,
-				allowNull: false,
-				//delete when company model will exist
-				defaultValue: DataTypes.UUIDV4
 			}
+			// companyId: {
+			// 	type: DataTypes.UUID,
+			// 	allowNull: false,
+			// 	//delete when company model will exist
+			// 	defaultValue: DataTypes.UUIDV4
+			// }
 		} /* , {//add association, when Company model will exist
 		classMethods: {
 			associate: (models) => {

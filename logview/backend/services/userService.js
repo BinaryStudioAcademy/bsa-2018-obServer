@@ -6,10 +6,8 @@ class UserService {
 		this.saltRounds = 8;
 	}
 
-	encryptPassword(password) {
-		return bcrypt.hash(password, this.saltRounds).then(hash => {
-			return hash;
-		});
+	async encryptPassword(password, callback) {
+		return await bcrypt.hash(password.toString(), this.saltRounds);
 	}
 
 	validPassword(password, hash) {
@@ -21,6 +19,7 @@ class UserService {
 	async create(body) {
 		if (!(await this.findByEmail(body.email))) {
 			const hash = await this.encryptPassword(body.password);
+			console.log(`hash ${hash}`);
 			body.password = hash;
 			return UserRepository.create(body);
 		} else {
