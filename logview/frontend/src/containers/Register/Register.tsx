@@ -3,7 +3,7 @@ import RegisterForm from '../../components/RegisterForm';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { userRegister } from '../../redux/user/actions';
-// import autobind from 'autobind-decorator';
+import autobind from 'autobind-decorator';
 
 interface ILoginFormProps {
 	onSubmit: Function;

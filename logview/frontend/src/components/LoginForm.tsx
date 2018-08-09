@@ -10,7 +10,7 @@ import { Form } from '../styles/FormStyles';
 import { Row, RedirectContainer } from '../styles/ContainerStyles';
 import { TextLink, ForgotPassword } from '../styles/TextStyles';
 import { Link } from 'react-router-dom';
-// import autobind from 'autobind-decorator';
+import autobind from 'autobind-decorator';
 
 interface LoginFormProps {
 	onSubmit: Function;
@@ -36,14 +36,17 @@ class LoginForm extends React.Component<LoginFormProps, LoginFormState> {
 		this.handleCheckbox = this.handleCheckbox.bind(this);
 	}
 
-	handleFieldChange = (e: any) => {
+	@autobind
+	handleFieldChange(e: any) {
 		this.setState({ [e.target.name]: e.target.value });
-	};
+	}
 
-	handleSubmit = () => {
+	@autobind
+	handleSubmit() {
 		this.props.onSubmit(this.state);
-	};
+	}
 
+	@autobind
 	handleCheckbox() {
 		this.setState({ remember: !this.state.remember });
 	}

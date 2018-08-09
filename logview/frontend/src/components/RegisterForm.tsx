@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Submit } from '../styles/ButtonStyles';
 import { Input } from '../styles/InputStyles';
 import { Form } from '../styles/FormStyles';
+import autobind from 'autobind-decorator';
 
 interface RegFormState {
 	name?: string;
@@ -27,13 +28,15 @@ class RegisterForm extends React.Component<RegFormProps, RegFormState> {
 		this.handleFieldChange = this.handleFieldChange.bind(this);
 	}
 
-	handleFieldChange = (e: any) => {
+	@autobind
+	handleFieldChange(e: any) {
 		this.setState({ [e.target.name]: e.target.value });
-	};
+	}
 
-	handleSubmit = () => {
+	@autobind
+	handleSubmit() {
 		this.props.onSubmit(this.state);
-	};
+	}
 
 	render() {
 		const { name, email, password, company } = this.state;
