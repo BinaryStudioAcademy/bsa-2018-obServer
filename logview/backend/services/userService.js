@@ -1,4 +1,5 @@
 const bcrypt = require('bcrypt'),
+	crypto = require('crypto'),
 	UserRepository = require('../domains/postgres/repositories/userRepository');
 
 class UserService {
@@ -15,6 +16,16 @@ class UserService {
 	validPassword(password, hash) {
 		return bcrypt.compare(password, hash).then(res => {
 			return res;
+		});
+	}
+
+	generateUserToken() {
+		return new Promise((resolve, reject) => {
+			crypto.randomBytes(20, (err, buf) => {
+				const token = buf.toString('hex');
+				if (err) reject(err);
+				resolve(token);
+			});
 		});
 	}
 
