@@ -23,12 +23,14 @@ class UserService {
 		if (!(await this.findByEmail(body.email))) {
 			const hash = await this.encryptPassword(body.password);
 			body.password = hash;
-			const companyInfo = await companyService.create(body.companyName);
-			body.companyId = companyInfo.id;
-			body.companyToken = companyInfo.token;
+			if (body.companyName) {
+				const newCompany = await companyService.create(
+					body.companyName
+				);
+				body.companyId = newCompany.id;
+			}
 			return userRepository.create(body);
 		} else {
-			// probably, validation as separate method is needed; errs from companyService will confuse
 			throw new Error(`${body.email} is already in use`);
 		}
 	}

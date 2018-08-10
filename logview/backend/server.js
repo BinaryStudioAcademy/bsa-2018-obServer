@@ -59,7 +59,7 @@ app.use('/resources', express.static(resourcesPath));
 app.use(passport.initialize());
 app.use(passport.session());
 
-const apiRoutes = require('./routes/api/routes')(app);
+const apiRoutes = require('./routes/api').init(app);
 const viewRoutes = require('./routes/view/routes')(app);
 
 let server = null;
