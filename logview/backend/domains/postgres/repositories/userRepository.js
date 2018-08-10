@@ -25,6 +25,9 @@ class UserRepository {
 	findByResetPasswordToken(token) {
 		return this.model.findOne({ where: { resetPasswordToken: token } });
 	}
+	findByUserActivationToken(token) {
+		return this.model.findOne({ where: { userActivationToken: token } });
+	}
 }
 
 module.exports = new UserRepository();

@@ -64,6 +64,10 @@ class UserService {
 	findByResetPasswordToken(token) {
 		return UserRepository.findByResetPasswordToken(token);
 	}
+
+	findByUserActivationToken(token) {
+		return UserRepository.findByUserActivationToken(token);
+	}
 }
 
 module.exports = new UserService();
