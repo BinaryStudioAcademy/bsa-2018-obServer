@@ -1,7 +1,7 @@
-const baseUrl = '/api',
-	apiResponse = require('express-api-response'),
-	passport = require('passport');
-const router = express.Router();
+const apiResponse = require('express-api-response'),
+	passport = require('passport'),
+	router = require('express').Router(),
+	passportStrategy = require('../../passport/localStrategy');
 
 router.post(
 	`/login`,
@@ -22,4 +22,4 @@ router.get(
 	apiResponse
 );
 
-export default router;
+module.exports = router;
