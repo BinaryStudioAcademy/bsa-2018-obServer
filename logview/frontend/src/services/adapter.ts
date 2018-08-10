@@ -7,7 +7,10 @@ class Api {
 
 	constructor() {
 		this.adapter = axios.create({
-			baseURL: config.baseURL
+			baseURL: config.baseURL,
+			headers: {
+				'Content-Type': 'application/json'
+			}
 		});
 
 		this.requestType = {

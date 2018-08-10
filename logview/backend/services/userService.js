@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt'),
 	crypto = require('crypto'),
-	UserRepository = require('../domains/postgres/repositories/userRepository');
+	userRepository = require('../domains/postgres/repositories/userRepository'),
+	companyService = require('./companyService');
 
 class UserService {
 	constructor() {
@@ -35,30 +36,38 @@ class UserService {
 			const token = await this.generateUserToken();
 			body.password = hash;
 			body.userActivationToken = token;
-			return UserRepository.create(body);
+
+			if (body.companyName) {
+				const newCompany = await companyService.create(
+					body.companyName
+				);
+				body.companyId = newCompany.id;
+			}
+
+			return userRepository.create(body);
 		} else {
 			throw new Error(`${body.email} is already in use`);
 		}
 	}
 
 	findAll() {
-		return UserRepository.read();
+		return userRepository.read();
 	}
 
 	update(id, newBody) {
-		return UserRepository.update(id, newBody);
+		return userRepository.update(id, newBody);
 	}
 
 	delete(id) {
-		return UserRepository.delete(id);
+		return userRepository.delete(id);
 	}
 
 	findById(id) {
-		return UserRepository.findById(id);
+		return userRepository.findById(id);
 	}
 
 	findByEmail(email) {
-		return UserRepository.findByEmail(email);
+		return userRepository.findByEmail(email);
 	}
 }
 

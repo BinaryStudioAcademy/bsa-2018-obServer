@@ -28,7 +28,7 @@ if (typeof Storage === 'undefined') {
 
 	const store = createStore<StoreState, any, {}, {}>(
 		connectRouter(history)(reducer),
-		composeWithDevTools(applyMiddleware(sagaMiddleware))
+		composeWithDevTools(applyMiddleware(...middleware))
 	);
 
 	sagaMiddleware.run(sagas);
