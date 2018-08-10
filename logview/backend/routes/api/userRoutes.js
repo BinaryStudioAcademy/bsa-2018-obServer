@@ -6,7 +6,7 @@ router.get(
 	'/',
 	async (req, res, next) => {
 		try {
-			const data = await userService.read();
+			const data = await userService.findAll();
 			res.data = data;
 			res.err = null;
 		} catch (err) {
