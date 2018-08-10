@@ -3,7 +3,6 @@ import RegisterForm from '../../components/RegisterForm';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { userRegister } from '../../redux/user/actions';
-import { fetchingState } from '../../redux/user/reducer';
 import {
 	RegisterContainer,
 	RegisterBox,

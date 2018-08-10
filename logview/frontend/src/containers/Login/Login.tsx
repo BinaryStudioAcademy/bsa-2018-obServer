@@ -46,10 +46,6 @@ class Login extends React.Component<ILoginFormProps, {}> {
 	}
 }
 
-// const mapStateToProps = (state: any) => ({
-
-// });
-
 const mapDispatchToProps = (dispatch: any) => ({
 	actions: bindActionCreators({ userLogin }, dispatch)
 });

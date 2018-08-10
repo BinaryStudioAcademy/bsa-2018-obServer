@@ -1,16 +1,10 @@
 import * as React from 'react';
-import {
-	Submit,
-	CheckboxInput,
-	CheckboxLabel,
-	CheckboxSpan
-} from '../styles/ButtonStyles';
+import { Submit, CheckboxInput } from '../styles/ButtonStyles';
 import { Input } from '../styles/InputStyles';
 import { Form } from '../styles/FormStyles';
 import { Row, RedirectContainer } from '../styles/ContainerStyles';
 import { TextLink, RedirectLink } from '../styles/TextStyles';
 import { Link } from 'react-router-dom';
-// import autobind from 'autobind-decorator';
 
 interface LoginFormProps {
 	onSubmit: Function;
@@ -80,9 +74,6 @@ class LoginForm extends React.Component<LoginFormProps, LoginFormState> {
 						checked={this.state.remember}
 						onClick={this.handleCheckbox}
 					/>
-					{/* <CheckboxLabel> */}
-					{/* <CheckboxSpan /> */}
-					{/* </CheckboxLabel> */}
 					<span>Remember me</span>
 				</Row>
 				<Submit onClick={this.handleSubmit}>sign in</Submit>

@@ -50,7 +50,7 @@ class RegisterForm extends React.Component<RegFormProps, RegFormState> {
 					type="text"
 					name="name"
 					value={name}
-					placeholder="name"
+					placeholder="Name"
 					onChange={this.handleFieldChange}
 				/>
 				<Input

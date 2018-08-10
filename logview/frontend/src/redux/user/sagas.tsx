@@ -1,7 +1,6 @@
 import 'regenerator-runtime/runtime';
 import { takeLatest, put, call, all, take } from 'redux-saga/effects';
 import userApi from '../../services/domains/user';
-import { UserState } from '../../types/UserState';
 import {
 	UserRegister,
 	UserLogin,
@@ -52,17 +51,16 @@ function* userRegister(action: UserRegister) {
 
 function* userLogin(action: UserLogin) {
 	try {
-		console.log(action);
-
 		const currentUser = yield call(userApi.loginUser, {
 			email: action.email,
 			password: action.password
 		});
+
 		yield put({
-			type: USER_LOGIN_SUCCESS,
-			payload: {
-				...currentUser
-			}
+			type: USER_LOGIN_SUCCESS
+			// payload: {
+			// ...currentUser
+			// }
 		});
 
 		yield put(push('/'));

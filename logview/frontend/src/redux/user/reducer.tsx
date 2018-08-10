@@ -1,8 +1,7 @@
 import * as constants from './constants';
 import { UserAction } from './actions';
-import { UserState } from '../../types/UserState';
+import { UserState } from 'src/types/UserState';
 import { defaultState } from '../defaultState';
-// import { combineReducers } from 'redux';
 
 export function userReducer(
 	state: UserState = defaultState.user,
@@ -49,5 +48,3 @@ export function fetchingState(state = 'unstarted', action: UserAction) {
 			return state;
 	}
 }
-
-// export default combineReducers({userReducer, fetchingState})
