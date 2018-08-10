@@ -23,6 +23,10 @@ const user = (sequilize, DataTypes) => {
 			type: DataTypes.STRING,
 			allowNull: false
 		},
+		active: {
+			type: DataTypes.BOOLEAN,
+			defaultValue: false
+		},
 		resetPasswordToken: {
 			type: DataTypes.STRING,
 			allowNull: true
@@ -36,6 +40,10 @@ const user = (sequilize, DataTypes) => {
 			allowNull: false,
 			//delete when company model will exist
 			defaultValue: DataTypes.UUIDV4
+		},
+		userActivationToken: {
+			type: DataTypes.STRING,
+			allowNull: true
 		}
 	});
 	return User;

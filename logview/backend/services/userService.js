@@ -1,4 +1,5 @@
 const bcrypt = require('bcrypt'),
+	crypto = require('crypto'),
 	UserRepository = require('../domains/postgres/repositories/userRepository');
 
 class UserService {
@@ -18,10 +19,22 @@ class UserService {
 		});
 	}
 
+	generateUserToken() {
+		return new Promise((resolve, reject) => {
+			crypto.randomBytes(20, (err, buf) => {
+				const token = buf.toString('hex');
+				if (err) reject(err);
+				resolve(token);
+			});
+		});
+	}
+
 	async create(body) {
 		if (!(await this.findByEmail(body.email))) {
 			const hash = await this.encryptPassword(body.password);
+			const token = await this.generateUserToken();
 			body.password = hash;
+			body.userActivationToken = token;
 			return UserRepository.create(body);
 		} else {
 			throw new Error(`${body.email} is already in use`);
