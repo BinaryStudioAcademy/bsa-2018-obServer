@@ -1,5 +1,6 @@
 const companyRepository = require('../domains/postgres/repositories/companyRepository'),
-	bcrypt = require('bcrypt');
+	bcrypt = require('bcrypt'),
+	crypto = require('crypto');
 
 class CompanyService {
 	constructor() {
@@ -17,7 +18,7 @@ class CompanyService {
 	 *  дужки /( )/, апостроф ('), дефіс (-), тире (-), коса риска (/), знак оклику (!), знак питання (?),
 	 *  номер (№), плюс (+), знак рівняння (=), зірочка (*), ет комерційна (@).
 	 */
-	checkName(name) {
+	validateName(name) {
 		if (!name || name.search(/\S/g) < 0) {
 			throw new Error(`The Company's name should not be empty`);
 		}
@@ -34,17 +35,21 @@ class CompanyService {
 	 * @param {*} name
 	 * 	(!) Needed service to check if company already is in db
 	 */
-	createToken(name) {
-		return bcrypt.hash(name, this.saltRounds).then(hash => {
-			return hash;
+	generateToken() {
+		return new Promise((resolve, reject) => {
+			crypto.randomBytes(20, (err, buf) => {
+				const token = buf.toString('hex');
+				if (err) reject(err);
+				resolve(token);
+			});
 		});
 	}
 
 	async create(name) {
-		if (this.checkName(name)) {
+		if (this.validateName(name)) {
 			const newCompany = {};
 			newCompany.name = name;
-			newCompany.token = await this.createToken(name);
+			newCompany.token = await this.generateToken(name);
 			return companyRepository.create(newCompany);
 		}
 	}
