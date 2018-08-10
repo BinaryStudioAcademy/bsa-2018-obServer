@@ -1,15 +1,15 @@
-const apiResponse = require('express-api-response'),
-	baseUrl = `/api/log/`;
+const apiResponse = require('express-api-response');
+const router = express.Router();
 
-module.exports = app => {
-	app.get(
-		baseUrl,
-		(req, res, next) => {
-			console.log('DATA LOG!!!');
-			res.data = null;
-			res.err = null;
-			next();
-		},
-		apiResponse
-	);
-};
+router.get(
+	'/',
+	(req, res, next) => {
+		console.log('DATA LOG!!!');
+		res.data = null;
+		res.err = null;
+		next();
+	},
+	apiResponse
+);
+
+module.exports = router;
