@@ -2,13 +2,15 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
+import { connectRouter, routerMiddleware } from 'connected-react-router';
 import { composeWithDevTools } from 'redux-devtools-extension';
+import Router from 'src/router/routes';
 import createSagaMiddleware from 'redux-saga';
+import history from 'src/router/history';
 
-import App from './containers/App/App';
-import reducer from './redux/reducer';
-import { StoreState } from './types/StoreState';
-import sagas from './redux/sagas';
+import reducer from 'src/redux/reducer';
+import { StoreState } from 'src/types/StoreState';
+import sagas from 'src/redux/sagas';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -22,8 +24,10 @@ if (typeof Storage === 'undefined') {
 		document.getElementById('root')
 	);
 } else {
+	const middleware = [sagaMiddleware, routerMiddleware(history)];
+
 	const store = createStore<StoreState, any, {}, {}>(
-		reducer,
+		connectRouter(history)(reducer),
 		composeWithDevTools(applyMiddleware(sagaMiddleware))
 	);
 
@@ -31,7 +35,7 @@ if (typeof Storage === 'undefined') {
 
 	ReactDOM.render(
 		<Provider store={store}>
-			<App msg="Hello World" />
+			<Router />
 		</Provider>,
 		document.getElementById('root')
 	);

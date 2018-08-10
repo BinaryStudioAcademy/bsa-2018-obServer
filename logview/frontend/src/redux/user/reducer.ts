@@ -7,8 +7,8 @@ import {
 	USER_LOGIN_FAILED
 } from './constants';
 import { UserAction } from './actions';
-import { UserState } from '../../types/UserState';
-import { defaultState } from '../defaultState';
+import { UserState } from 'src/types/UserState';
+import { defaultState } from 'src/redux/defaultState';
 
 export function userReducer(
 	state: UserState = defaultState.user,

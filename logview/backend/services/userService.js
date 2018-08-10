@@ -32,7 +32,9 @@ class UserService {
 	async create(body) {
 		if (!(await this.findByEmail(body.email))) {
 			const hash = await this.encryptPassword(body.password);
+			const token = await this.generateUserToken();
 			body.password = hash;
+			body.userActivationToken = token;
 			return UserRepository.create(body);
 		} else {
 			throw new Error(`${body.email} is already in use`);
