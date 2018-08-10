@@ -1,5 +1,5 @@
-const apiResponse = require('express-api-response');
-const router = express.Router();
+const apiResponse = require('express-api-response'),
+	router = require('express').Router();
 
 router.get(
 	'/',
