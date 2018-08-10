@@ -1,16 +1,10 @@
 import * as React from 'react';
-import {
-	Submit,
-	CheckboxInput,
-	CheckboxLabel,
-	CheckboxSpan
-} from 'src/styles/ButtonStyles';
-import { Input } from 'src/styles/InputStyles';
-import { Form } from 'src/styles/FormStyles';
-import { Row, RedirectContainer } from 'src/styles/ContainerStyles';
-import { TextLink, ForgotPassword } from 'src/styles/TextStyles';
+import { Submit, CheckboxInput } from '../styles/ButtonStyles';
+import { Input } from '../styles/InputStyles';
+import { Form } from '../styles/FormStyles';
+import { Row, RedirectContainer } from '../styles/ContainerStyles';
+import { TextLink, RedirectLink } from '../styles/TextStyles';
 import { Link } from 'react-router-dom';
-import autobind from 'autobind-decorator';
 
 interface LoginFormProps {
 	onSubmit: Function;
@@ -34,19 +28,22 @@ class LoginForm extends React.Component<LoginFormProps, LoginFormState> {
 
 		this.handleFieldChange = this.handleFieldChange.bind(this);
 		this.handleCheckbox = this.handleCheckbox.bind(this);
+		this.handleSubmit = this.handleSubmit.bind(this);
 	}
 
-	@autobind
 	handleFieldChange(e: any) {
 		this.setState({ [e.target.name]: e.target.value });
 	}
 
-	@autobind
-	handleSubmit() {
-		this.props.onSubmit(this.state);
+	handleSubmit(e: any) {
+		e.preventDefault();
+		let obj: Object = {
+			email: this.state.email,
+			password: this.state.password
+		};
+		this.props.onSubmit(obj);
 	}
 
-	@autobind
 	handleCheckbox() {
 		this.setState({ remember: !this.state.remember });
 	}
@@ -77,19 +74,12 @@ class LoginForm extends React.Component<LoginFormProps, LoginFormState> {
 						checked={this.state.remember}
 						onClick={this.handleCheckbox}
 					/>
-					{/* <CheckboxLabel> */}
-					{/* <CheckboxSpan /> */}
-					{/* </CheckboxLabel> */}
 					<span>Remember me</span>
 				</Row>
-				<Submit
-					onClick={this.handleSubmit}
-					type="submit"
-					value="sign in"
-				/>
-				<ForgotPassword>
+				<Submit onClick={this.handleSubmit}>sign in</Submit>
+				<RedirectLink>
 					<Link to="passwordreset">Forgot password?🦄</Link>
-				</ForgotPassword>
+				</RedirectLink>
 				<RedirectContainer>
 					<p>Don't have an account yet?</p>
 					<TextLink>

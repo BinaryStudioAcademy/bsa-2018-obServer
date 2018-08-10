@@ -21,7 +21,7 @@ export const TextLink = styled.p`
 	}
 `;
 
-export const ForgotPassword = styled.p`
+export const RedirectLink = styled.p`
 	margin: 0px;
 
 	a {
@@ -34,14 +34,13 @@ export const ForgotPassword = styled.p`
 export const LogoText = styled.h3`
 	text-align: center;
 	position: absolute;
-	left: 50%;
-	top: 50%;
+	left: 58%;
+	top: 45%;
 	transform: translate(-50%, -50%);
 	background: 0;
 	width: 200px;
 	outline: 0;
 	border: 0;
-	border-bottom: 2px solid rgba(255, 255, 255, 0.3);
 	margin: 20px 0;
 	padding-bottom: 10px;
 	font-size: 46px;
