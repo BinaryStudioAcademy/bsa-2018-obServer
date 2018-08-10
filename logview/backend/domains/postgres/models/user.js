@@ -25,6 +25,10 @@ const user = (sequilize, DataTypes) => {
 				type: DataTypes.STRING,
 				allowNull: false
 			},
+			active: {
+				type: DataTypes.BOOLEAN,
+				defaultValue: false
+			},
 			resetPasswordToken: {
 				type: DataTypes.STRING,
 				allowNull: true
@@ -33,8 +37,12 @@ const user = (sequilize, DataTypes) => {
 				type: DataTypes.DATE,
 				allowNull: true
 			},
-			companyId: {
+			userActivationToken: {
 				type: DataTypes.STRING,
+				allowNull: true
+			},
+			companyId: {
+				type: DataTypes.UUID,
 				allowNull: true
 			}
 		},
