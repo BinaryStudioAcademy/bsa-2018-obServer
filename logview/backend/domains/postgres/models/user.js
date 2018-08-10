@@ -43,7 +43,7 @@ const user = (sequilize, DataTypes) => {
 		},
 		userActivationToken: {
 			type: DataTypes.STRING,
-			allowNull: false
+			allowNull: true
 		}
 	});
 	return User;
