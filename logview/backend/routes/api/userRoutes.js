@@ -47,7 +47,7 @@ router.post(
 				subject: 'Confirm email address. Observer BSA 2018',
 				html: `<p>You are receiving this because you (or someone else) have requested the registration new account.</p>
 		               <p>Please click on the following link, or paste this into your browser to complete the activation:</p>
-		               <p>http://${req.headers.host}/confirm/${
+		               <p>http://${req.headers.host}/confirm/?activationToken=${
 					data.userActivationToken
 				}</p>
 		               <p>If you did not request this, please ignore this email.</p>`
