@@ -12,7 +12,6 @@ import {
 import { LogoText } from '../../styles/TextStyles';
 import { Logo } from '../../styles/ImageStyles';
 const logo = require('src/assets/logo.png');
-import { userAPI } from '../../services';
 
 interface LoginFormProps {
 	onSubmit: Function;
@@ -42,7 +41,6 @@ class Register extends React.Component<LoginFormProps, LoginFormState> {
 	}
 
 	render() {
-		userAPI.activateUser('b6320b56fe00d05e1be31d7350646d147314f145');
 		console.log(this.props);
 		return (
 			<Wrapper>
