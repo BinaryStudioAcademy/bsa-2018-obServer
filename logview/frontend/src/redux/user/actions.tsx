@@ -1,5 +1,10 @@
 import * as constants from './constants';
-import { UserState, UserLoginState } from '../../types/UserState';
+import {
+	UserState,
+	UserLoginState,
+	UserResetPasswordState,
+	UserChangePasswordState
+} from '../../types/UserState';
 
 /* user register */
 export interface UserRegister extends UserState {
@@ -28,10 +33,8 @@ export interface UserLoginSuccess {
 }
 
 /* password reset */
-export interface UserResetPassword {
+export interface UserResetPassword extends UserResetPasswordState {
 	type: constants.USER_RESET_PASSWORD;
-	email: string;
-	password: string;
 }
 
 export interface UserResetPasswordFail {
@@ -43,10 +46,8 @@ export interface UserResetPasswordSuccess {
 }
 
 /* password change */
-export interface UserChangePassword {
+export interface UserChangePassword extends UserChangePasswordState {
 	type: constants.USER_CHANGE_PASSWORD;
-	email: string;
-	password: string;
 }
 
 export interface UserChangePasswordFail {
@@ -127,8 +128,7 @@ export function userResetPassword(
 ): UserResetPassword {
 	return {
 		type: constants.USER_RESET_PASSWORD,
-		email,
-		password
+		email
 	};
 }
 
@@ -146,13 +146,13 @@ export function userResetPasswordSuccess(): UserResetPasswordSuccess {
 
 /* */
 export function userChangePassword(
-	email: string = '',
-	password: string = ''
+	newPassword: string = '',
+	resetToken: string = ''
 ): UserChangePassword {
 	return {
 		type: constants.USER_CHANGE_PASSWORD,
-		email,
-		password
+		newPassword,
+		resetToken
 	};
 }
 

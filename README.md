@@ -64,8 +64,6 @@ User API methods:
 
 * ``` userAPI.updateUser(id, updatedData) ```- update user data by 'id'
 
-* ``` userAPI.deleteUser(id) ```- delete user by id
-
 * ``` userAPI.resetPasswordEmail(email) ```- send reset password link with token to email
 
 * ``` userAPI.changePassword(resetToken, newPassword) ```- change user password on 'newPassword' if token is valid

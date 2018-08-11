@@ -10,6 +10,19 @@ export interface UserLoginState {
 	password: string;
 }
 
+export interface UserResetPasswordState {
+	email: string;
+}
+
+export interface UserChangePasswordState {
+	newPassword: string;
+	resetToken: string;
+}
+
+export interface UserActivationState {
+	activationToken: string;
+}
+
 export interface FetchingState {
 	fetching: string;
 }
