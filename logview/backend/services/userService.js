@@ -37,10 +37,8 @@ class UserService {
 			body.password = hash;
 			body.userActivationToken = token;
 
-			if (body.companyName) {
-				const newCompany = await companyService.create(
-					body.companyName
-				);
+			if (body.company) {
+				const newCompany = await companyService.create(body.company);
 				body.companyId = newCompany.id;
 			}
 
@@ -68,6 +66,14 @@ class UserService {
 
 	findByEmail(email) {
 		return userRepository.findByEmail(email);
+	}
+
+	findByResetPasswordToken(token) {
+		return UserRepository.findByResetPasswordToken(token);
+	}
+
+	findByUserActivationToken(token) {
+		return UserRepository.findByUserActivationToken(token);
 	}
 }
 
