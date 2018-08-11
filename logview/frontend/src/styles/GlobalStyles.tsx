@@ -9,5 +9,7 @@ injectGlobal`
 
     body {
         margin: 0;
+        background-color: rgba(255,255,255,0.8);
+        
     }
 `;

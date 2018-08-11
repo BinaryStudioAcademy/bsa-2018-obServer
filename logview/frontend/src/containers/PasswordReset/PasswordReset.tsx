@@ -1,11 +1,37 @@
 import * as React from 'react';
+import PasswordResetForm from 'src/components/PasswordResetForm';
+import PasswordResetSent from 'src/components/PasswordResetSent';
 
-class PasswordReset extends React.Component {
+interface LoginFormProps {}
+
+interface LoginFormState {
+	sent: boolean;
+}
+
+class PasswordReset extends React.Component<LoginFormProps, LoginFormState> {
+	constructor(props: any) {
+		super(props);
+
+		this.state = {
+			sent: false
+		};
+
+		this.handleSubmit = this.handleSubmit.bind(this);
+	}
+
+	handleSubmit() {
+		this.setState({ sent: !this.state.sent });
+	}
+
 	render() {
 		return (
-			<div>
-				<div>password reset component</div>
-			</div>
+			<React.Fragment>
+				{this.state.sent ? (
+					<PasswordResetSent />
+				) : (
+					<PasswordResetForm onSubmit={this.handleSubmit} />
+				)}
+			</React.Fragment>
 		);
 	}
 }
