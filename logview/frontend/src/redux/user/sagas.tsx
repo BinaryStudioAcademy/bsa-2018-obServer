@@ -1,6 +1,6 @@
 import 'regenerator-runtime/runtime';
 import { takeLatest, put, call, all, take } from 'redux-saga/effects';
-import userApi from '../../services/domains/user';
+import { userAPI } from '../../services';
 import {
 	UserRegister,
 	UserLogin,
@@ -12,9 +12,7 @@ import * as constants from './constants';
 
 function* userRegister(action: UserRegister) {
 	try {
-		console.log(action);
-
-		const currentUser = yield call(userApi.registerUser, {
+		const currentUser = yield call(userAPI.registerUser, {
 			name: action.name,
 			email: action.email,
 			password: action.password,
@@ -38,9 +36,9 @@ function* userRegister(action: UserRegister) {
 
 function* userLogin(action: UserLogin) {
 	try {
-		yield put(push('/'));
-
-		const currentUser = yield call(userApi.loginUser, {
+		sessionStorage.setItem('user', action.email);
+		/*
+		const currentUser = yield call(userAPI.loginUser, {
 			email: action.email,
 			password: action.password
 		});
@@ -51,6 +49,8 @@ function* userLogin(action: UserLogin) {
 				// ...currentUser
 			}
 		});
+		*/
+		yield put(push('/'));
 	} catch (error) {
 		yield put({
 			type: constants.USER_LOGIN_FAILED
@@ -60,7 +60,7 @@ function* userLogin(action: UserLogin) {
 
 function* userResetPassword(action: UserResetPassword) {
 	try {
-		const currentUser = yield call(userApi.loginUser, {
+		const currentUser = yield call(userAPI.resetPasswordEmail, {
 			email: action.email
 		});
 
@@ -79,10 +79,13 @@ function* userResetPassword(action: UserResetPassword) {
 
 function* userChangePassword(action: UserChangePassword) {
 	try {
-		const currentUser = yield call(userApi.loginUser, {
-			email: action.email,
-			password: action.password
-		});
+		const currentUser = yield call(
+			userAPI.changePassword,
+			action.resetToken,
+			{
+				newPassword: action.newPassword
+			}
+		);
 		yield put({
 			type: constants.USER_CHANGE_PASSWORD_SUCCESS,
 			payload: {

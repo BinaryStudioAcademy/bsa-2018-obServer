@@ -53,10 +53,9 @@ export function isLogged(
 	state: UserState = defaultState.user,
 	action: UserAction
 ) {
-	switch (
-		action.type
-		// case
-	) {
+	switch (action.type) {
+		case constants.USER_LOGIN_SUCCESS:
+			return 'logged';
 	}
 }
 

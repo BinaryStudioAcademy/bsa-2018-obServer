@@ -71,11 +71,11 @@ class UserService {
 	}
 
 	findByResetPasswordToken(token) {
-		return UserRepository.findByResetPasswordToken(token);
+		return userRepository.findByResetPasswordToken(token);
 	}
 
 	findByUserActivationToken(token) {
-		return UserRepository.findByUserActivationToken(token);
+		return userRepository.findByUserActivationToken(token);
 	}
 }
 

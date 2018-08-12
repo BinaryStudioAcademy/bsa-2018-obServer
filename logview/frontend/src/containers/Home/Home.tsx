@@ -1,17 +1,25 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
+import { bindActionCreators } from '../../../../node_modules/redux';
+import { connect } from 'react-redux';
 
-class Home extends React.Component {
+interface HomeProps {}
+
+interface HomeState {}
+
+class Home extends React.Component<HomeProps, HomeState> {
 	constructor(props: any) {
 		super(props);
 	}
 
 	componentDidMount() {
-		!localStorage.getItem('user')
+		sessionStorage.getItem('user') === undefined
 			? this.props.history.push('/login')
 			: undefined;
 	}
 	render() {
+		console.log(this.props);
+		console.log(sessionStorage);
 		return (
 			<React.Fragment>
 				<div>Home component</div>
@@ -23,4 +31,15 @@ class Home extends React.Component {
 	}
 }
 
-export default Home;
+const mapStateToProps = ({ fetching }) => ({});
+
+const mapDispatchToProps = (dispatch: any) => ({
+	actions: bindActionCreators({}, dispatch)
+});
+
+const HomeConnected = connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(Home);
+
+export default HomeConnected;

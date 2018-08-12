@@ -1,27 +1,52 @@
 import api from 'src/services/adapter';
+import {
+	UserState,
+	UserLoginState,
+	UserResetPasswordState,
+	UserChangePasswordState
+} from '../../types/UserState';
 
 export default {
-	registerUser: (user: any) => {
-		return api.makeRequest(`/api/register`, api.requestType.POST, user);
+	registerUser: (user: UserState) => {
+		return api.makeRequest(`/api/user`, api.requestType.POST, user);
 	},
-	loginUser: (user: any) => {
-		return api.makeRequest(`/api/login`, api.requestType.POST, user);
+	loginUser: (loginData: UserLoginState) => {
+		return api.makeRequest(`/api/login`, api.requestType.POST, loginData);
 	},
 	logoutUser: () => {
 		return api.makeRequest(`/api/logout`, api.requestType.POST);
 	},
-
-	updateUser: (user: any) => {
+	updateUser: (id: string, updatedData: UserState) => {
 		return api.makeRequest(
-			`/api/user/${user._id}`,
+			`/api/user/${id}`,
 			api.requestType.PUT,
-			user
+			updatedData
 		);
 	},
-	deleteUser: (id: string | number) => {
-		return api.makeRequest(`/api/user/${id}`, api.requestType.DELETE);
-	},
-	fetchUser: (id: string | number) => {
+	fetchUser: (id: string) => {
 		return api.makeRequest(`/api/user/${id}`, api.requestType.GET);
+	},
+	resetPasswordEmail: (email: UserResetPasswordState) => {
+		return api.makeRequest(
+			`/api/user/resetpassword`,
+			api.requestType.POST,
+			email
+		);
+	},
+	changePassword: (
+		resetToken: string,
+		newPassword: UserChangePasswordState
+	) => {
+		return api.makeRequest(
+			`/api/user/changepassword/${resetToken}`,
+			api.requestType.POST,
+			newPassword
+		);
+	},
+	activateUser: (activationToken: string) => {
+		return api.makeRequest(
+			`/api/user/activate/${activationToken}`,
+			api.requestType.POST
+		);
 	}
 };
