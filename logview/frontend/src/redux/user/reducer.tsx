@@ -48,3 +48,39 @@ export function fetchingState(state = 'unstarted', action: UserAction) {
 			return state;
 	}
 }
+
+export function isLogged(
+	state: UserState = defaultState.user,
+	action: UserAction
+) {
+	switch (action.type) {
+		case constants.USER_LOGIN_SUCCESS:
+			return 'logged';
+	}
+}
+
+/*
+let user = JSON.parse(localStorage.getItem('user'));
+const initialState = user ? { loggedIn: true, user } : {};
+ 
+export function authentication(state = initialState, action) {
+  switch (action.type) {
+    case userConstants.LOGIN_REQUEST:
+      return {
+        loggingIn: true,
+        user: action.user
+      };
+    case userConstants.LOGIN_SUCCESS:
+      return {
+        loggedIn: true,
+        user: action.user
+      };
+    case userConstants.LOGIN_FAILURE:
+      return {};
+    case userConstants.LOGOUT:
+      return {};
+    default:
+      return state
+  }
+}
+*/

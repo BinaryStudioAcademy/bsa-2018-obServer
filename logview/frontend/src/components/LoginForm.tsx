@@ -78,7 +78,7 @@ class LoginForm extends React.Component<LoginFormProps, LoginFormState> {
 				</Row>
 				<Submit onClick={this.handleSubmit}>sign in</Submit>
 				<RedirectLink>
-					<Link to="passwordreset">Forgot password?🦄</Link>
+					<Link to="reset">Forgot password?🦄</Link>
 				</RedirectLink>
 				<RedirectContainer>
 					<p>Don't have an account yet?</p>
