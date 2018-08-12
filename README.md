@@ -65,3 +65,82 @@ User API methods:
 * ``` userAPI.updateUser(user) ```- update 'user' data by 'user.id'
 
 * ``` userAPI.deleteUser(id) ```- delete user by id
+
+## Backend description
+
+### Back-end routes
+
+
+
+### Posgre tables schemes and relations
+
+#### Model information
+
+- Name: `Company`
+  - Datasource: `db (memory)`
+  - Base class: `PersistedModel`
+  - Expose via REST: `No`
+  - Custom plural form: *companys*
+  - Properties
+    - `id`
+      - UUID
+      - Required
+      - PrimaryKey
+    - `name`
+      - String
+      - Required
+    - `token`
+      - Number
+      - Required
+      - Unique
+- Name: `User`
+  - Datasource: `db (memory)`
+  - Base class: `PersistedModel`
+  - Expose via REST: `Yes`
+  - Custom plural form: *users*
+  - Properties
+    - `id`
+      - UUID
+      - Required
+      - PrimaryKey
+    - `name`
+      - String
+      - Required
+    - `email`
+      - String
+      - Required
+      - Unique
+    - `password`
+      - String
+      - Required
+    - `active`
+      - Boolean
+    - `resetPasswordToken`
+      - String
+    - `resetPasswordExpires`
+      - Date
+    - `userActivationToken`
+      - String
+    - `companyId`
+      - UUID
+      - Required
+      - ForeignKey
+
+#### Model relation information
+
+- `Company`
+  - has many
+      - `User`
+        - Property name for the relation: `users`
+        - Custom foreign key: `companyId`
+        - Require a through model: No
+
+- `User`
+  - belongs to
+    - `Company`
+      - Property name for the relation: `company`
+      - Custom foreign key: `companyId`
+      - Require a through model: No
+
+![Schemes relations](https://drive.google.com/file/d/1Dt9NCCV1kFu_mufDfLzE1AC1MoigFLTi/view)
+
