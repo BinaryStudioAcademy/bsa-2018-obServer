@@ -28,11 +28,13 @@ router.post(
 router.post(
 	`/login`,
 	passport.authenticate('local.signin'),
+	userService.isLoggedIn,
 	(req, res, next) => {
 		res.data = {
 			status: 200,
 			message: 'success login',
-			user: req.user.dataValues
+			user: req.user.dataValues,
+			isAuth: true
 		};
 		res.err = null;
 		next();
@@ -42,11 +44,13 @@ router.post(
 
 router.get(
 	`/logout`,
+	userService.isLoggedIn,
 	(req, res, next) => {
 		req.logout();
 		res.data = {
 			status: 200,
-			message: 'success logout'
+			message: 'success logout',
+			isAuth: false
 		};
 		res.err = null;
 		next();

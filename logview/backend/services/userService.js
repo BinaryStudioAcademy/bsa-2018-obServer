@@ -35,7 +35,11 @@ class UserService {
 		if (req.isAuthenticated()) {
 			next();
 		} else {
-			res.data = null;
+			res.data = {
+				status: 403,
+				message: 'failed login',
+				isAuth: false
+			};
 			res.err = new Error('you are not logged in');
 			apiResponse(req, res, next);
 		}
