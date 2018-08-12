@@ -43,6 +43,16 @@ router.post(
 	async (req, res, next) => {
 		try {
 			const data = await userService.create(req.body);
+			const msg = {
+				subject: 'Confirm email address. Observer BSA 2018',
+				html: `<p>You are receiving this because you (or someone else) have requested the registration new account.</p>
+		               <p>Please click on the following link, or paste this into your browser to complete the activation:</p>
+		               <p>http://${req.headers.host}/confirm/?activationToken=${
+					data.userActivationToken
+				}</p>
+		               <p>If you did not request this, please ignore this email.</p>`
+			};
+			emailService.sendEmail(msg, data.email);
 			res.data = data;
 			res.err = null;
 		} catch (err) {
@@ -113,9 +123,7 @@ router.post(
 					user.name
 				}! You are receiving this because you (or someone else) have requested the reset of the password for your account.</p>
 		               <p>Please click on the following link, or paste this into your browser to complete the process:</p>
-		               <p>http://${
-							req.headers.host
-						}/signin/change/?resetToken=${token}</p>
+		               <p>http://${req.headers.host}/change/?resetToken=${token}</p>
 		               <p>If you did not request this, please ignore this email and your password will remain unchanged.</p>`
 			};
 			emailService.sendEmail(msg, user.email);
