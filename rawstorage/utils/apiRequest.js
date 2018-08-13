@@ -1,12 +1,11 @@
 const axios = require('axios');
 
-module.exports = (url, token) => {
+module.exports = (url) => {
   return (data) => {
     return axios({
       method: 'post',
       url: url,
       data: data,
-      headers: { 'X-ACCESS-TOKEN': token },
     }).catch((error) => {
       console.log(error.message);
     });
