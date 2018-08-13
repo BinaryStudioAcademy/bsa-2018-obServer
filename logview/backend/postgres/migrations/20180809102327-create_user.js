@@ -34,13 +34,15 @@ module.exports = {
 				type: Sequelize.DATE,
 				allowNull: true
 			},
-			// companyId: {
-			// 	//add reference when Company will exist
-			// 	type: Sequelize.UUID,
-			// 	allowNull: false,
-			// 	//delete when company model will exist
-			// 	defaultValue: Sequelize.UUIDV4
-			// },
+			companyId: {
+				type: Sequelize.UUID,
+				onDelete: 'CASCADE',
+				references: {
+					model: 'Company',
+					key: 'id'
+				},
+				allowNull: false
+			},
 			createdAt: {
 				type: Sequelize.DATE,
 				defaultValue: Date.now()
