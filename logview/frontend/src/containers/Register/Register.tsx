@@ -3,14 +3,7 @@ import RegisterForm from 'src/components/RegisterForm';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { userRegister } from '../../redux/user/actions';
-import {
-	RegisterContainer,
-	RegisterBox,
-	Wrapper,
-	LogoContainer
-} from '../../styles/ContainerStyles';
-import { LogoText } from '../../styles/TextStyles';
-import { Logo } from '../../styles/ImageStyles';
+import { Wrapper, RegisterContainer, RegisterBox, LogoContainer, LogoText, Logo } from 'src/styles/Styles';
 const logo = require('src/assets/logo.png');
 
 interface LoginFormProps {

@@ -3,14 +3,7 @@ import LoginForm from 'src/components/LoginForm';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { userLogin } from 'src/redux/user/actions';
-import {
-	Wrapper,
-	BackgroundContainer,
-	Box,
-	LogoContainer
-} from '../../styles/ContainerStyles';
-import { LogoText } from '../../styles/TextStyles';
-import { Logo } from '../../styles/ImageStyles';
+import { Wrapper, BackgroundContainer, Box, LogoContainer, LogoText, Logo } from 'src/styles/Styles';
 const logo = require('src/assets/logo.png');
 
 interface ILoginFormProps {

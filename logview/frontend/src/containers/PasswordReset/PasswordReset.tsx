@@ -1,6 +1,7 @@
 import * as React from 'react';
 import PasswordResetForm from 'src/components/PasswordResetForm';
 import PasswordResetSent from 'src/components/PasswordResetSent';
+import { Submit, Background, PasswordResetContainer } from 'src/styles/Styles';
 
 interface LoginFormProps {}
 
@@ -25,13 +26,18 @@ class PasswordReset extends React.Component<LoginFormProps, LoginFormState> {
 
 	render() {
 		return (
-			<React.Fragment>
+			<Background>
+				<PasswordReset>
 				{this.state.sent ? (
-					<PasswordResetSent />
+					<React.Fragment>
+						<PasswordResetSent />
+						<Submit onClick={this.handleSubmit}>Try again</Submit>
+					</React.Fragment>
 				) : (
 					<PasswordResetForm onSubmit={this.handleSubmit} />
 				)}
-			</React.Fragment>
+				</PasswordReset>
+			</Background>
 		);
 	}
 }

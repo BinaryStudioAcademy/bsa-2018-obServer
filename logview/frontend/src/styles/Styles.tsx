@@ -8,7 +8,8 @@ import {
 	RegisterContainer,
 	LogoContainer,
     RedirectContainer,
-    RegisterBox
+    RegisterBox,
+    PasswordResetContainer
 } from './ContainerStyles';
 import { Form } from './FormStyles';
 import { Title, TextLink, RedirectLink, LogoText } from './TextStyles';
@@ -34,5 +35,6 @@ export {
 	RedirectContainer,
     LogoContainer,
     CheckboxInput,
-    RegisterBox
+    RegisterBox,
+    PasswordResetContainer
 };

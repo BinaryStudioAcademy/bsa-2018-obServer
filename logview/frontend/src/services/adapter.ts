@@ -1,5 +1,4 @@
 import axios from 'axios';
-import config from 'src/config';
 
 class Api {
 	adapter: any;
@@ -7,7 +6,7 @@ class Api {
 
 	constructor() {
 		this.adapter = axios.create({
-			baseURL: config.baseURL,
+			baseURL: 'http://localhost:3060',
 			headers: {
 				'Content-Type': 'application/json'
 			}
