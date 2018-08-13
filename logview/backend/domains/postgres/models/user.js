@@ -43,7 +43,7 @@ const user = (sequilize, DataTypes) => {
 			},
 			companyId: {
 				type: DataTypes.UUID,
-				allowNull: true
+				allowNull: false
 			}
 		},
 		{
@@ -52,6 +52,7 @@ const user = (sequilize, DataTypes) => {
 					User.belongsTo(models.Company),
 						{
 							foreignKey: 'companyId',
+							onUpdate: 'CASCADE',
 							onDelete: 'CASCADE'
 						};
 				}

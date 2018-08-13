@@ -1,5 +1,4 @@
 const companyRepository = require('../domains/postgres/repositories/companyRepository'),
-	bcrypt = require('bcrypt'),
 	crypto = require('crypto');
 
 class CompanyService {
@@ -33,7 +32,7 @@ class CompanyService {
 		if (this.validateName(name)) {
 			const newCompany = {};
 			newCompany.name = name;
-			newCompany.token = await this.generateToken(name);
+			newCompany.token = await this.generateToken();
 			return companyRepository.create(newCompany);
 		}
 	}
