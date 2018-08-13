@@ -38,7 +38,7 @@ module.exports = {
 				type: Sequelize.UUID,
 				onDelete: 'CASCADE',
 				references: {
-					model: 'Company',
+					model: 'Companies',
 					key: 'id'
 				},
 				allowNull: false
