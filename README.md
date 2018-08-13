@@ -56,12 +56,16 @@ User API methods:
 
 * ``` userAPI.registerUser(user) ```- register new 'user'
 
-* ``` userAPI.loginUser(user) ```- login by 'user'
+* ``` userAPI.loginUser(loginData) ```- login by 'loginData'
 
 * ``` userAPI.logoutUser() ```- logout
 
 * ``` userAPI.fetchUser(id) ```- get user by id
 
-* ``` userAPI.updateUser(user) ```- update 'user' data by 'user.id'
+* ``` userAPI.updateUser(id, updatedData) ```- update user data by 'id'
 
-* ``` userAPI.deleteUser(id) ```- delete user by id
+* ``` userAPI.resetPasswordEmail(email) ```- send reset password link with token to email
+
+* ``` userAPI.changePassword(resetToken, newPassword) ```- change user password on 'newPassword' if token is valid
+
+* ``` userAPI.activateUser(activationToken) ```- activate new user if 'activationToken' is valid
