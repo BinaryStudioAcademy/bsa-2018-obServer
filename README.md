@@ -70,7 +70,62 @@ User API methods:
 
 ### Back-end routes
 
-
+```js
+POST /api/user // route which allows for creation of additional user
+```
+| Method | Data received | Data sent | Description |
+| ------- | ------- | ------- | ----------- |
+| [`create`](https://github.com/BinaryStudioAcademy/bsa-2018-obServer/blob/dev/logview/backend/services/userService.js#L44-L61) _(userService)_ | `req.body`: `name`, `email`, `password` and (optional) `company` | new user entity in db | Validates input data and creates new user entity in the database |
+| [`findByEmail`](https://github.com/BinaryStudioAcademy/bsa-2018-obServer/blob/dev/logview/backend/services/userService.js#L79-L81) | `req.body.email` | result of the search of users with the same email in db | Searches for user entity with the same email in the database |
+| [`encryptPassword`](https://github.com/BinaryStudioAcademy/bsa-2018-obServer/blob/dev/logview/backend/services/userService.js#L12-L16) | number of `saltRounds` | hashed password | Hashes input password with `bcrypt` |
+| [`generateUserToken`](https://github.com/BinaryStudioAcademy/bsa-2018-obServer/blob/dev/logview/backend/services/userService.js#L24-L32) | number of `randomBytes` | random n-bytes string | Generates user token with `crypto` |
+| [`create`](https://github.com/BinaryStudioAcademy/bsa-2018-obServer/blob/dev/logview/backend/services/userService.js#L32-L39) _(companyService)_ | `req.body.company` | new company entity in db | When company name provided, validates this name and creates new company entity in the database |
+| [`validateName`](https://github.com/BinaryStudioAcademy/bsa-2018-obServer/blob/dev/logview/backend/services/userService.js#L10-L20) | `req.body.company` | `true` or `false` | Validates provided company name |
+| [`generateToken`](https://github.com/BinaryStudioAcademy/bsa-2018-obServer/blob/dev/logview/backend/services/userService.js#L24-L30) | number of randomBytes | random n-bytes string | Generates company token with `crypto` |
+```js
+POST /api/user/resetpassword // route which resets password for the specified user
+```
+| Method | Data received | Data sent | Description |
+| ------- | ------- | ------- | ----------- |
+| `generateUserToken` | number of `randomBytes` | random n-bytes string | Generates user token with `crypto` |
+| `findByEmail` | `req.body.email` | result of the search of users with the same email in db | Searches for user entity with the same email in the database |
+| `update` | `id`, `{ resetPasswordToken, resetPasswordExpires }` | updated user entity in db | Updates that user entity with new resetPasswordToken and resetPasswordExpires date |
+| `sendEmail` | `msg`, userData | sent email with reset password info | Sends email with `sgMail` |
+```js
+POST /api/user/changepassword/:resetToken // route which updates password for the specified user
+```
+| Method | Data received | Data sent | Description |
+| ------- | ------- | ------- | ----------- |
+| `findByResetPasswordToken` | `req.params.resetToken` | result of the search of users with the same resetPasswordToken in db | Searches for user entity with the same resetPasswordToken in the database |
+| `encryptPassword` | number of `saltRounds` | hashed password | Hashes input password with `bcrypt` |
+| `update` | `id`, `{resetPasswordToken, resetPasswordExpires, password}` | updated user entity in db | Updates that user entity with new hashed password and null resetPasswordToken and resetPasswordExpires properties |
+| `sendEmail` | `msg`, userData | sent email with reset password report | Sends email with `sgMail` |
+###### Notes
+_These routes and methods are yet unnecessary and(or) unsecure:_
+```js
+GET /api/user // route which retrieves data about all users
+```
+| Method | Data received | Data sent | Description |
+| ------- | ------- | ------- | ----------- |
+| `findAll` | - | all user entities in db | Searches for all user entities in the database |
+```js
+GET /api/user/:id // route which retrieves data about specified user
+```
+| Method | Data received | Data sent | Description |
+| ------- | ------- | ------- | ----------- |
+| `findById` | `req.params.id` | user entity with same id in db | Searches for user entity with the same id in the database |
+```js
+POST /api/user/delete/:id // route which deletes specified user
+```
+| Method | Data received | Data sent | Description |
+| ------- | ------- | ------- | ----------- |
+| `delete` | `req.params.id` | - | Deletes for user entity with the same id in the database |
+```js
+PUT /api/user/:id // route which updates data about specified user
+```
+| Method | Data received | Data sent | Description |
+| ------- | ------- | ------- | ----------- |
+| `update` | `req.params.id`, `req.body` | updated user entity in db | Updates user entity with the same id in the database |
 
 ### Posgre tables schemes and relations
 
@@ -142,5 +197,5 @@ User API methods:
       - Custom foreign key: `companyId`
       - Require a through model: No
 
-![Schemes relations](https://drive.google.com/file/d/1Dt9NCCV1kFu_mufDfLzE1AC1MoigFLTi/view)
+![Schemes relations](http://drive.google.com/uc?export=view&id=1Dt9NCCV1kFu_mufDfLzE1AC1MoigFLTi)
 
