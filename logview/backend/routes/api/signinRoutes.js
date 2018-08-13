@@ -5,10 +5,36 @@ const apiResponse = require('express-api-response'),
 	passportStrategy = require('../../passport/localStrategy');
 
 router.post(
+	`/register`,
+	async (req, res, next) => {
+		try {
+			const data = await userService.create(req.body);
+			res.data = {
+				status: 200,
+				message: 'success register',
+				user: data
+			};
+			res.err = null;
+		} catch (err) {
+			res.data = null;
+			res.err = err;
+		} finally {
+			next();
+		}
+	},
+	apiResponse
+);
+
+router.post(
 	`/login`,
 	passport.authenticate('local.signin'),
 	(req, res, next) => {
-		res.data = req.user.dataValues;
+		res.data = {
+			status: 200,
+			message: 'success login',
+			user: req.user.dataValues
+		};
+		res.err = null;
 		next();
 	},
 	apiResponse
@@ -18,6 +44,11 @@ router.get(
 	`/logout`,
 	(req, res, next) => {
 		req.logout();
+		res.data = {
+			status: 200,
+			message: 'success logout'
+		};
+		res.err = null;
 		next();
 	},
 	apiResponse

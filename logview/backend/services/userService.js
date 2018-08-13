@@ -1,7 +1,8 @@
 const bcrypt = require('bcrypt'),
 	crypto = require('crypto'),
 	userRepository = require('../domains/postgres/repositories/userRepository'),
-	companyService = require('./companyService');
+	companyService = require('./companyService'),
+	apiResponse = require('express-api-response');
 
 class UserService {
 	constructor() {
@@ -30,6 +31,16 @@ class UserService {
 		});
 	}
 
+	isLoggedIn(req, res, next) {
+		if (req.isAuthenticated()) {
+			next();
+		} else {
+			res.data = null;
+			res.err = new Error('you are not logged in');
+			apiResponse(req, res, next);
+		}
+	}
+
 	async create(body) {
 		if (!(await this.findByEmail(body.email))) {
 			const hash = await this.encryptPassword(body.password);
@@ -37,10 +48,9 @@ class UserService {
 			body.password = hash;
 			body.userActivationToken = token;
 
-			if (body.companyName) {
-				const newCompany = await companyService.create(
-					body.companyName
-				);
+			if (body.company) {
+				//on front company name sends in req.body.company
+				const newCompany = await companyService.create(body.company);
 				body.companyId = newCompany.id;
 			}
 
@@ -71,11 +81,11 @@ class UserService {
 	}
 
 	findByResetPasswordToken(token) {
-		return UserRepository.findByResetPasswordToken(token);
+		return userRepository.findByResetPasswordToken(token);
 	}
 
 	findByUserActivationToken(token) {
-		return UserRepository.findByUserActivationToken(token);
+		return userRepository.findByUserActivationToken(token);
 	}
 }
 
