@@ -2,11 +2,11 @@ const { POSTGRES_DB, POSTGRES_USER, POSTGRES_PWD } = process.env;
 
 module.exports = {
 	development: {
-		username: 'root',
-		password: 'qwerty',
-		database: 'observer-postgres',
-		host: 'localhost',
-		dialect: 'postgres',
+		username: process.env.POSTGRES_USER,
+		password: process.env.POSTGRES_PWD,
+		database: process.env.POSTGRES_DB,
+		host: process.env.HOST,
+		dialect: process.env.DB_DIALECT,
 
 		migrationStorage: 'json',
 		migrationStoragePath: 'sequelize_meta.json',
