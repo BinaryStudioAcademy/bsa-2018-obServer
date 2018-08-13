@@ -41,7 +41,7 @@ module.exports = {
 					model: 'Companies',
 					key: 'id'
 				},
-				allowNull: false
+				allowNull: true
 			},
 			createdAt: {
 				type: Sequelize.DATE,
