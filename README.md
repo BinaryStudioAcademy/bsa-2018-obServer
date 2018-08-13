@@ -74,18 +74,59 @@ User API methods:
 
 ### Back-end routes
 
+##### Registering a new user
 ```js
 POST /api/user // route which allows for creation of additional user
 ```
 | Method | Data received | Data sent | Description |
 | ------- | ------- | ------- | ----------- |
-| [`create`](https://github.com/BinaryStudioAcademy/bsa-2018-obServer/blob/dev/logview/backend/services/userService.js#L44-L61) _(userService)_ | `req.body`: `name`, `email`, `password` and (optional) `company` | new user entity in db | Validates input data and creates new user entity in the database |
+| [`create`](https://github.com/BinaryStudioAcademy/bsa-2018-obServer/blob/dev/logview/backend/services/userService.js#L44-L61) _(userService)_ | `req.body`: `name`, `email`, `password`, `company` | new user entity in db | Validates input data and creates new user entity in the database |
 | [`findByEmail`](https://github.com/BinaryStudioAcademy/bsa-2018-obServer/blob/dev/logview/backend/services/userService.js#L79-L81) | `req.body.email` | result of the search of users with the same email in db | Searches for user entity with the same email in the database |
 | [`encryptPassword`](https://github.com/BinaryStudioAcademy/bsa-2018-obServer/blob/dev/logview/backend/services/userService.js#L12-L16) | number of `saltRounds` | hashed password | Hashes input password with `bcrypt` |
 | [`generateUserToken`](https://github.com/BinaryStudioAcademy/bsa-2018-obServer/blob/dev/logview/backend/services/userService.js#L24-L32) | number of `randomBytes` | random n-bytes string | Generates user token with `crypto` |
 | [`create`](https://github.com/BinaryStudioAcademy/bsa-2018-obServer/blob/dev/logview/backend/services/userService.js#L32-L39) _(companyService)_ | `req.body.company` | new company entity in db | When company name provided, validates this name and creates new company entity in the database |
 | [`validateName`](https://github.com/BinaryStudioAcademy/bsa-2018-obServer/blob/dev/logview/backend/services/userService.js#L10-L20) | `req.body.company` | `true` or `false` | Validates provided company name |
 | [`generateToken`](https://github.com/BinaryStudioAcademy/bsa-2018-obServer/blob/dev/logview/backend/services/userService.js#L24-L30) | number of `randomBytes` | random n-bytes string | Generates company token with `crypto` |
+| `sendEmail` | `msg`, `userActivationToken` | sent email with token | Sends email with `sgMail` to confirm registration |
+```js
+POST /api/register // route which allows for creation of additional user
+```
+| Method | Data received | Data sent | Description |
+| ------- | ------- | ------- | ----------- |
+| [`create`](https://github.com/BinaryStudioAcademy/bsa-2018-obServer/blob/dev/logview/backend/services/userService.js#L44-L61) _(userService)_ | `req.body` | new user entity in db | Validates received data and creates new user entity in the database |
+| [`findByEmail`](https://github.com/BinaryStudioAcademy/bsa-2018-obServer/blob/dev/logview/backend/services/userService.js#L79-L81) | `req.body.email` | result of the search of users with the same email in db | Searches for user entity with the same email in the database |
+| [`encryptPassword`](https://github.com/BinaryStudioAcademy/bsa-2018-obServer/blob/dev/logview/backend/services/userService.js#L12-L16) | number of `saltRounds` | hashed password | Hashes input password with `bcrypt` |
+| [`generateUserToken`](https://github.com/BinaryStudioAcademy/bsa-2018-obServer/blob/dev/logview/backend/services/userService.js#L24-L32) | number of `randomBytes` | random n-bytes string | Generates user token with `crypto` |
+| [`create`](https://github.com/BinaryStudioAcademy/bsa-2018-obServer/blob/dev/logview/backend/services/userService.js#L32-L39) _(companyService)_ | `req.body.company` | new company entity in db | When company name provided, validates this name and creates new company entity in the database |
+| [`validateName`](https://github.com/BinaryStudioAcademy/bsa-2018-obServer/blob/dev/logview/backend/services/userService.js#L10-L20) | `req.body.company` | `true` or `false` | Validates provided company name |
+| [`generateToken`](https://github.com/BinaryStudioAcademy/bsa-2018-obServer/blob/dev/logview/backend/services/userService.js#L24-L30) | number of `randomBytes` | random n-bytes string | Generates company token with `crypto` |
+
+##### User activation
+```js
+POST /api/user/activate/:activationToken // route which allows for user authentification
+```
+| Method | Data received | Data sent | Description |
+| ------- | ------- | ------- | ----------- |
+| `findByUserActivationToken` | `req.params.activationToken` | result of the search of users in db | Searches for user entity with the same `userActivationToken` in the database |
+| `update` | `id`, `{ active: true }` | updated user entity in db | Provides user activation in the database |
+
+##### Login & Logout
+```js
+POST /api/login // route which allows for user login
+```
+| Method | Data received | Data sent | Description |
+| ------- | ------- | ------- | ----------- |
+| `passport.authenticate` | `email`, `password` | user entity in db or err message | Checks received email and password for login with `passport` |
+| `findByEmail` | `email` | result of the search of users with the same email in db | Searches for user entity with the same email in the database |
+| `validPassword` | `password`, `user.password` | `true` or `false` | Compares hashed passwords with `bcrypt` |
+```js
+GET /api/logout // route which allows for user logout
+```
+| Method | Data received | Data sent | Description |
+| ------- | ------- | ------- | ----------- |
+| `passport.logout` | - | - | Provides logout with `passport` |
+
+##### Password reset
 ```js
 POST /api/user/resetpassword // route which resets password for the specified user
 ```
@@ -104,6 +145,7 @@ POST /api/user/changepassword/:resetToken // route which updates password for th
 | `encryptPassword` | number of `saltRounds` | hashed password | Hashes input password with `bcrypt` |
 | `update` | `id`, `{resetPasswordToken, resetPasswordExpires, password}` | updated user entity in db | Updates that user entity with new hashed password and null resetPasswordToken and resetPasswordExpires properties |
 | `sendEmail` | `msg`, userData | sent email with reset password report | Sends email with `sgMail` |
+
 ###### Notes
 _These routes and methods are yet unnecessary and(or) unsecure:_
 ```js
