@@ -57,6 +57,7 @@
 		"connect-mongo": "^2.0.1",
 		"connect-session-sequelize": "^5.2.2",
 		"connected-react-router": "^4.3.0",
+		"cors": "^2.8.4",
 		"dotenv": "^6.0.0",
 		"express": "^4.16.3",
 		"express-api-response": "^0.4.0",
