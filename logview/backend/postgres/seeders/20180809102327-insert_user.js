@@ -1,10 +1,11 @@
 const userService = require('../../services/userService');
+const companyService = require('../../services/companyService');
 
 module.exports = {
 	up: async (queryInterface, Sequelize) => {
 		const data = generateData();
 		const users = [];
-		for (let i = 0; i < 10; i++) {
+		for (let i = 0; i < data.length; i++) {
 			users.push(
 				await userService.create({
 					name: data[i].name,
@@ -13,7 +14,7 @@ module.exports = {
 				})
 			);
 		}
-		return queryInterface.bulkInsert('Users', users);
+		// return queryInterface.bulkInsert('Users', users);
 	},
 
 	down: (queryInterface, Sequelize) => {
@@ -22,58 +23,60 @@ module.exports = {
 };
 
 async function generateData() {
-	const academyId = await companyService.findByName('Binary Studio Academy');
-	const companyID = await companyService.findByName('Binary Studio Company');
+	const academy = await companyService.findByName('Binary Studio Academy');
+	const company = await companyService.findByName('Binary Studio Company');
+	console.log(`\n\n\nacademyId:${academy.id}`);
+	console.log(`\n\n\nacademy:${academy}`);
 	const data = [
 		{
 			name: 'Boguslav Barna',
 			email: 'boguslavbarna@gmail.com',
-			companyID: academyId
+			companyId: academy.id
 		},
 		{
 			name: 'Bogdan Koldun',
 			email: 'koldunbohdan@gmail.com',
-			companyID: academyId
+			companyId: academy.id
 		},
 		{
 			name: 'Dmitriy Beseda',
 			email: 'besedadg@gmail.com',
-			companyID: companyID
+			companyId: company.id
 		},
 		{
 			name: 'Ihor Pankiv',
 			email: 'harry.pankiv@gmail.com',
-			companyID: academyId
+			companyId: academy.id
 		},
 		{
 			name: 'Maksym Kostiuk',
 			email: 'maksim.kostyuk@binary-studio.com',
-			companyID: companyID
+			companyId: company.id
 		},
 		{
 			name: 'Nataliia Chernomortseva',
 			email: 'natic2471@gmail.com',
-			companyID: academyId
+			companyId: academy.id
 		},
 		{
 			name: 'Volodymyr Vorobets',
 			email: 'vvorobets@gmail.com',
-			companyID: academyId
+			companyId: academy.id
 		},
 		{
 			name: 'Yelyzaveta Havrylenko',
 			email: 'lizagavrilenkooo@gmail.com',
-			companyID: academyId
+			companyId: academy.id
 		},
 		{
 			name: 'Yuliia Kuznietsova',
 			email: 'kuznietsova.j@gmail.com',
-			companyID: academyId
+			companyId: academy.id
 		},
 		{
 			name: 'Taras Dubyk',
 			email: 'tarass.dubyk@gmail.com',
-			companyID: academyId
+			companyId: academy.id
 		}
 	];
 	return data;
