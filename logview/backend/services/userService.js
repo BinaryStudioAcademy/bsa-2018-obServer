@@ -1,17 +1,16 @@
 const bcrypt = require('bcrypt'),
 	crypto = require('crypto'),
 	userRepository = require('../domains/postgres/repositories/userRepository'),
-	companyService = require('./companyService');
+	companyService = require('./companyService'),
+	apiResponse = require('express-api-response');
 
 class UserService {
 	constructor() {
 		this.saltRounds = 8;
 	}
 
-	encryptPassword(password) {
-		return bcrypt.hash(password, this.saltRounds).then(hash => {
-			return hash;
-		});
+	async encryptPassword(password, callback) {
+		return await bcrypt.hash(password.toString(), this.saltRounds);
 	}
 
 	validPassword(password, hash) {
@@ -30,20 +29,24 @@ class UserService {
 		});
 	}
 
+	isLoggedIn(req, res, next) {
+		if (req.isAuthenticated()) {
+			next();
+		} else {
+			res.data = null;
+			res.err = new Error('you are not logged in');
+			apiResponse(req, res, next);
+		}
+	}
+
 	async create(body) {
 		if (!(await this.findByEmail(body.email))) {
 			const hash = await this.encryptPassword(body.password);
 			const token = await this.generateUserToken();
+			const newCompany = await companyService.create(body.company);
 			body.password = hash;
 			body.userActivationToken = token;
-
-			if (body.companyName) {
-				const newCompany = await companyService.create(
-					body.companyName
-				);
-				body.companyId = newCompany.id;
-			}
-
+			body.companyId = newCompany.id;
 			return userRepository.create(body);
 		} else {
 			throw new Error(`${body.email} is already in use`);
