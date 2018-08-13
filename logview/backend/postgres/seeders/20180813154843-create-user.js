@@ -1,20 +1,18 @@
 const userService = require('../../services/userService');
+const userRepository = require('../../domains/postgres/repositories/userRepository');
 const companyService = require('../../services/companyService');
 
 module.exports = {
 	up: async (queryInterface, Sequelize) => {
-		const data = generateData();
-		const users = [];
+		const data = await generateData();
 		for (let i = 0; i < data.length; i++) {
-			users.push(
-				await userService.create({
-					name: data[i].name,
-					password: 123,
-					email: data[i].email
-				})
-			);
+			await userRepository.create({
+				name: data[i].name,
+				password: 123,
+				email: data[i].email,
+				companyId: data[i].companyId
+			});
 		}
-		// return queryInterface.bulkInsert('Users', users);
 	},
 
 	down: (queryInterface, Sequelize) => {

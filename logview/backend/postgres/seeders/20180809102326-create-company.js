@@ -5,9 +5,8 @@ module.exports = {
 		const data = generateData();
 		const companies = [];
 		for (let i = 0; i < data.length; i++) {
-			companies.push(await companyService.create(data[i].name));
+			await companyService.create(data[i].name);
 		}
-		// return queryInterface.bulkInsert('Companies', companies);
 	},
 
 	down: (queryInterface, Sequelize) => {
