@@ -81,7 +81,7 @@ POST /api/user // route which allows for creation of additional user
 | [`generateUserToken`](https://github.com/BinaryStudioAcademy/bsa-2018-obServer/blob/dev/logview/backend/services/userService.js#L24-L32) | number of `randomBytes` | random n-bytes string | Generates user token with `crypto` |
 | [`create`](https://github.com/BinaryStudioAcademy/bsa-2018-obServer/blob/dev/logview/backend/services/userService.js#L32-L39) _(companyService)_ | `req.body.company` | new company entity in db | When company name provided, validates this name and creates new company entity in the database |
 | [`validateName`](https://github.com/BinaryStudioAcademy/bsa-2018-obServer/blob/dev/logview/backend/services/userService.js#L10-L20) | `req.body.company` | `true` or `false` | Validates provided company name |
-| [`generateToken`](https://github.com/BinaryStudioAcademy/bsa-2018-obServer/blob/dev/logview/backend/services/userService.js#L24-L30) | number of randomBytes | random n-bytes string | Generates company token with `crypto` |
+| [`generateToken`](https://github.com/BinaryStudioAcademy/bsa-2018-obServer/blob/dev/logview/backend/services/userService.js#L24-L30) | number of `randomBytes` | random n-bytes string | Generates company token with `crypto` |
 ```js
 POST /api/user/resetpassword // route which resets password for the specified user
 ```
