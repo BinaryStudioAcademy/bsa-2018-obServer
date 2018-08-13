@@ -36,23 +36,28 @@ const user = (sequilize, DataTypes) => {
 			resetPasswordExpires: {
 				type: DataTypes.DATE,
 				allowNull: true
+			},
+			userActivationToken: {
+				type: DataTypes.STRING,
+				allowNull: true
+			},
+			companyId: {
+				type: DataTypes.UUID,
+				allowNull: false
 			}
-			// companyId: {
-			// 	type: DataTypes.UUID,
-			// 	allowNull: false,
-			// 	//delete when company model will exist
-			// 	defaultValue: DataTypes.UUIDV4
-			// }
-		} /* , {//add association, when Company model will exist
-		classMethods: {
-			associate: (models) => {
-				User.belongsTo(models.Company), {
-					foreignKey: 'companyId',
-					onDelete: 'CASCADE'
+		},
+		{
+			classMethods: {
+				associate: models => {
+					User.belongsTo(models.Company),
+						{
+							foreignKey: 'companyId',
+							onUpdate: 'CASCADE',
+							onDelete: 'CASCADE'
+						};
 				}
 			}
 		}
-	} */
 	);
 	return User;
 };

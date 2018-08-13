@@ -1,5 +1,8 @@
 const bcrypt = require('bcrypt'),
-	UserRepository = require('../domains/postgres/repositories/userRepository');
+	crypto = require('crypto'),
+	userRepository = require('../domains/postgres/repositories/userRepository'),
+	companyService = require('./companyService'),
+	apiResponse = require('express-api-response');
 
 class UserService {
 	constructor() {
@@ -16,35 +19,66 @@ class UserService {
 		});
 	}
 
+	generateUserToken() {
+		return new Promise((resolve, reject) => {
+			crypto.randomBytes(20, (err, buf) => {
+				const token = buf.toString('hex');
+				if (err) reject(err);
+				resolve(token);
+			});
+		});
+	}
+
+	isLoggedIn(req, res, next) {
+		if (req.isAuthenticated()) {
+			next();
+		} else {
+			res.data = null;
+			res.err = new Error('you are not logged in');
+			apiResponse(req, res, next);
+		}
+	}
+
 	async create(body) {
 		if (!(await this.findByEmail(body.email))) {
 			const hash = await this.encryptPassword(body.password);
-			console.log(`hash ${hash}`);
+			const token = await this.generateUserToken();
+			const newCompany = await companyService.create(body.company);
 			body.password = hash;
-			return UserRepository.create(body);
+			body.userActivationToken = token;
+			body.companyId = newCompany.id;
+			return userRepository.create(body);
 		} else {
 			throw new Error(`${body.email} is already in use`);
 		}
 	}
 
 	findAll() {
-		return UserRepository.read();
+		return userRepository.read();
 	}
 
 	update(id, newBody) {
-		return UserRepository.update(id, newBody);
+		return userRepository.update(id, newBody);
 	}
 
 	delete(id) {
-		return UserRepository.delete(id);
+		return userRepository.delete(id);
 	}
 
 	findById(id) {
-		return UserRepository.findById(id);
+		return userRepository.findById(id);
 	}
 
 	findByEmail(email) {
-		return UserRepository.findByEmail(email);
+		return userRepository.findByEmail(email);
+	}
+
+	findByResetPasswordToken(token) {
+		return userRepository.findByResetPasswordToken(token);
+	}
+
+	findByUserActivationToken(token) {
+		return userRepository.findByUserActivationToken(token);
 	}
 }
 

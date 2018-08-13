@@ -33,6 +33,6 @@ module.exports = (callback) => {
       // console.log(`core${i} load ${percentageCoreCPU}%`);
     }
 
-    callback(percentageCPU);
+    callback({ cpuStats: percentageCPU });
   }, 200);
 }
