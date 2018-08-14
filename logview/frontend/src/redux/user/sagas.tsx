@@ -5,7 +5,8 @@ import {
 	UserRegister,
 	UserLogin,
 	UserChangePassword,
-	UserResetPassword
+	UserResetPassword,
+	UserEmailActivation
 } from './actions';
 import { push } from 'connected-react-router';
 import * as constants from './constants';
@@ -101,11 +102,33 @@ function* userChangePassword(action: UserChangePassword) {
 	}
 }
 
+function* userEmailActivation(action: UserEmailActivation) {
+	try {
+		const currentUser = yield call(userAPI.activateUser, action.token);
+
+		/*
+		yield put({
+			type: constants.USER_EMAIL_ACTIVATION_SUCCESS,
+			payload: {
+				...currentUser
+			}
+		});
+		*/
+
+		yield put(push('/login'));
+	} catch (error) {
+		yield put({
+			type: constants.USER_EMAIL_ACTIVATION_FAILED
+		});
+	}
+}
+
 export default function* userSaga() {
 	yield all([
 		takeLatest(constants.USER_REGISTER, userRegister),
 		takeLatest(constants.USER_LOGIN, userLogin),
 		takeLatest(constants.USER_CHANGE_PASSWORD, userChangePassword),
-		takeLatest(constants.USER_RESET_PASSWORD, userResetPassword)
+		takeLatest(constants.USER_RESET_PASSWORD, userResetPassword),
+		takeLatest(constants.USER_EMAIL_ACTIVATION, userEmailActivation)
 	]);
 }

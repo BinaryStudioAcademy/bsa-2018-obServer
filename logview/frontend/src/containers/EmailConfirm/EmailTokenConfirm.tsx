@@ -5,24 +5,51 @@ import {
 	PasswordResetContainer,
 	PasswordWrapper
 } from '../../styles/Styles';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { userEmailActivation } from 'src/redux/user/actions';
 const sendIcon = require('src/assets/confirm-icon.png');
 
-class EmailTokenConfirm extends React.Component {
+interface EmailTokenProps {
+	actions: { userEmailActivation: Function };
+}
+
+interface EmailTokenState {}
+
+class EmailTokenConfirm extends React.Component<
+	EmailTokenProps,
+	EmailTokenState
+> {
 	constructor(props: any) {
 		super(props);
 	}
 
-	componentDidMount() {}
+	componentDidMount() {
+		this.props.actions.userEmailActivation(
+			this.props.history.location.search.split('=')[1]
+		);
+	}
 
 	render() {
 		return (
 			<Background>
 				<PasswordResetContainer>
-					<PasswordWrapper>nub</PasswordWrapper>
+					<PasswordWrapper>Email Confirm Component </PasswordWrapper>
 				</PasswordResetContainer>
 			</Background>
 		);
 	}
 }
 
-export default EmailTokenConfirm;
+const mapStateToProps = ({}) => ({});
+
+const mapDispatchToProps = (dispatch: any) => ({
+	actions: bindActionCreators({ userEmailActivation }, dispatch)
+});
+
+const EmailTokenConfirmConnected = connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(EmailTokenConfirm);
+
+export default EmailTokenConfirmConnected;
