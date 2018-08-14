@@ -3,6 +3,7 @@ const background = require('src/assets/login-background.jpg');
 
 export const Wrapper = styled.div`
 	display: flex;
+	background-color: white;
 `;
 
 export const Row = Wrapper.extend``;

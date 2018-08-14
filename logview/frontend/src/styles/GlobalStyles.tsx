@@ -1,4 +1,5 @@
 import { injectGlobal } from 'styled-components';
+const background = require('src/assets/login-background.jpg');
 
 // tslint:disable-next-line:no-unused-expression
 injectGlobal`
@@ -10,6 +11,5 @@ injectGlobal`
     body {
         margin: 0;
         background-color: rgba(255,255,255,0.8);
-        
     }
 `;

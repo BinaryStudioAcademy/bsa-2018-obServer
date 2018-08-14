@@ -7,8 +7,13 @@ import {
 	PasswordResetContainer,
 	PasswordWrapper
 } from 'src/styles/Styles';
+import { userResetPassword } from '../../redux/user/actions';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
-interface LoginFormProps {}
+interface LoginFormProps {
+	actions: { userResetPassword: Function };
+}
 
 interface LoginFormState {
 	sent: boolean;
@@ -25,30 +30,42 @@ class PasswordReset extends React.Component<LoginFormProps, LoginFormState> {
 		this.handleSubmit = this.handleSubmit.bind(this);
 	}
 
-	handleSubmit() {
+	handleSubmit(data) {
 		this.setState({ sent: !this.state.sent });
+		this.props.actions.userResetPassword(data);
 	}
 
 	render() {
 		return (
-			<Background>
-				<PasswordResetContainer>
-					<PasswordWrapper>
-						{this.state.sent ? (
-							<React.Fragment>
-								<PasswordResetSent />
-								<Submit onClick={this.handleSubmit}>
-									Try again
-								</Submit>
-							</React.Fragment>
-						) : (
-							<PasswordResetForm onSubmit={this.handleSubmit} />
-						)}
-					</PasswordWrapper>
-				</PasswordResetContainer>
-			</Background>
+			<PasswordResetContainer>
+				<PasswordWrapper>
+					{this.state.sent ? (
+						<React.Fragment>
+							<PasswordResetSent />
+							<Submit onClick={this.handleSubmit}>
+								Try again
+							</Submit>
+						</React.Fragment>
+					) : (
+						<PasswordResetForm onSubmit={this.handleSubmit} />
+					)}
+				</PasswordWrapper>
+			</PasswordResetContainer>
 		);
 	}
 }
 
-export default PasswordReset;
+const mapStateToProps = ({ fetching }) => ({
+	fetching
+});
+
+const mapDispatchToProps = (dispatch: any) => ({
+	actions: bindActionCreators({ userResetPassword }, dispatch)
+});
+
+const PasswordResetConnected = connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(PasswordReset);
+
+export default PasswordResetConnected;

@@ -31,7 +31,7 @@ class PasswordResetForm extends React.Component<
 
 	handleSubmit(e: any) {
 		e.preventDefault();
-		this.props.onSubmit();
+		this.props.onSubmit(this.state.email);
 	}
 
 	render() {
