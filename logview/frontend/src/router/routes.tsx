@@ -20,8 +20,8 @@ class Router extends React.Component<any, any> {
 		this.setState({ isLoggedIn: await isLoggedIn() });
 	}
 
-	redirectNoAuth() {
-		return !this.state.isLoggedIn ? <Redirect to="/login" /> : <Home />;
+	redirectNoAuth(Component) {
+		return this.state.isLoggedIn ? <Component /> : <Redirect to="/login" />;
 	}
 
 	render() {
@@ -32,7 +32,7 @@ class Router extends React.Component<any, any> {
 						exact
 						path="/"
 						render={() => {
-							return this.redirectNoAuth();
+							return this.redirectNoAuth(Home);
 						}}
 					/>
 					<Route exact path="/login" component={Login} />
