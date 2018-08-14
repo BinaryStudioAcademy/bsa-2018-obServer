@@ -38,8 +38,12 @@ class PasswordChange extends React.Component<
 	componentDidMount() {}
 
 	handleSubmit() {
+		let token = this.props.history.location.search.split('=')[1];
 		this.state.newpassword === this.state.confirmpassword
-			? this.props.actions.userChangePassword(this.state.newpassword)
+			? this.props.actions.userChangePassword(
+					token,
+					this.state.newpassword
+			  )
 			: console.log("passwords doesn't match");
 	}
 

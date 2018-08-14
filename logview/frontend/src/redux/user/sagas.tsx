@@ -80,6 +80,7 @@ function* userResetPassword(action: UserResetPassword) {
 
 function* userChangePassword(action: UserChangePassword) {
 	try {
+		console.log();
 		const currentUser = yield call(
 			userAPI.changePassword,
 			action.resetToken,

@@ -5,7 +5,6 @@ import {
 	UserResetPasswordState,
 	UserChangePasswordState
 } from '../../types/UserState';
-import { func } from '../../../../node_modules/@types/prop-types';
 
 /* user register */
 export interface UserRegister extends UserState {
@@ -196,7 +195,7 @@ export function fetchUser(): FetchUser {
 	};
 }
 
-export function userEmailActivation(token: 'string'): UserEmailActivation {
+export function userEmailActivation(token: string = ''): UserEmailActivation {
 	return {
 		type: constants.USER_EMAIL_ACTIVATION,
 		token
