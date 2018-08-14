@@ -9,8 +9,18 @@ import history from './history';
 import 'src/styles/GlobalStyles';
 import { isLoggedIn } from '../services';
 
-class Router extends React.Component {
+class Router extends React.Component<any, any> {
+	constructor(props: any) {
+		super(props);
+		this.state = { isLoggedIn };
+	}
+
+	async componentDidMount() {
+		this.setState({ isLoggedIn: await isLoggedIn() });
+	}
+
 	render() {
+		console.log(this.state.isLoggedIn);
 		return (
 			<ConnectedRouter history={history}>
 				<Switch>
@@ -18,7 +28,11 @@ class Router extends React.Component {
 						exact
 						path="/"
 						render={() =>
-							!isLoggedIn ? <Redirect to="/login" /> : <Home />
+							!this.state.isLoggedIn ? (
+								<Redirect to="/login" />
+							) : (
+								<Home />
+							)
 						}
 					/>
 					<Route exact path="/login" component={Login} />
