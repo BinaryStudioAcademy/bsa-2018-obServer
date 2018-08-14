@@ -15,7 +15,6 @@ class Quickstart extends React.Component {
 	render() {
 		return (
 			<React.Fragment>
-
 				<Link to="/">Home</Link>
 				<div>
 					<h1>Quick Start</h1>
@@ -37,6 +36,27 @@ class Quickstart extends React.Component {
 					<pre>
 						<code>yarn add observer</code>
 					</pre>
+					<p>
+						<strong>
+							Adding observer to different categories of
+							dependencies
+						</strong>
+					</p>
+					<p>
+						Add to <code>devDependencies</code>,{' '}
+						<code>peerDependencies</code>, and{' '}
+						<code>optionalDependencies</code> respectively:
+					</p>
+					<pre>
+						<code>
+							yarn add observer --dev
+							<br />
+							yarn add observer --peer
+							<br />
+							yarn add observer --optional
+						</code>
+					</pre>
+
 					<hr />
 				</div>
 			</React.Fragment>
