@@ -17,6 +17,7 @@ class Home extends React.Component<HomeProps, HomeState> {
 			? this.props.history.push('/login')
 			: undefined;
 	}
+
 	render() {
 		console.log(this.props);
 		console.log(sessionStorage);
@@ -26,6 +27,8 @@ class Home extends React.Component<HomeProps, HomeState> {
 				<Link to="login">Link to login</Link>
 				<div />
 				<Link to="register">Link to register</Link>
+				<br />
+				<Link to="/dashboard/quickstart">Quickstart</Link>
 			</React.Fragment>
 		);
 	}
