@@ -5,9 +5,7 @@ export const Wrapper = styled.div`
 	display: flex;
 `;
 
-export const Row = styled.div`
-	display: flex;
-`;
+export const Row = Wrapper.extend``;
 
 export const Background = styled.div`
 	background-image: url(${background});
@@ -18,13 +16,8 @@ export const Background = styled.div`
 	background-size: cover;
 `;
 
-export const BackgroundContainer = styled.div`
-	background-image: url(${background});
-	background-attachment: fixed;
-	background-repeat: no-repeat;
-	height: 100vh;
+export const BackgroundContainer = Background.extend`
 	width: 56%;
-	background-size: cover;
 `;
 
 export const Box = styled.div`
@@ -52,45 +45,35 @@ export const Box = styled.div`
 	}
 `;
 
-export const RegisterContainer = styled.div`
-	background-image: url(${background});
-	background-attachment: fixed;
-	background-repeat: no-repeat;
-	height: 100vh;
-	width: 56%;
-	background-size: cover;
-`;
-
-export const RegisterBox = styled.div`
-	width: 300px;
-	height: 300px;
-	background: inherit;
-	position: absolute;
-	overflow: hidden;
-	left: 15%;
+export const RegisterBox = Box.extend`
+	left: calc(28% - 150px);
 	top: calc(50% - 150px);
-	border-radius: 8px;
-
-	&:before {
-		width: 400px;
-		height: 550px;
-		content: '';
-		position: absolute;
-		top: -25px;
-		left: -25px;
-		bottom: 0;
-		right: 0;
-		background: inherit;
-		box-shadow: inset 0 0 0 200px rgba(255, 255, 255, 0.2);
-		filter: blur(8px);
-	}
 `;
 
 export const PasswordResetContainer = styled.div`
-	width: 400px;
-	position: absolute;
-	left: calc(100% - 200px);
-`
+	position: relative;
+	width: 350px;
+	height: 450px;
+	top: calc(50% - 250px);
+	left: calc(50% - 175px);
+	background: inherit;
+	border-radius: 8px;
+	overflow: hidden;
+
+	&:before {
+		content: '';
+		width: 400px;
+		height: 500px;
+		background: inherit;
+		position: absolute;
+		left: -25px;
+		right: 0;
+		top: -25px;
+		bottom: 0;
+		box-shadow: inset 0 0 0 200px rgba(255, 255, 255, 0.4);
+		filter: blur(8px);
+	}
+`;
 
 export const LogoContainer = styled.div`
 	display: flex;
@@ -98,4 +81,13 @@ export const LogoContainer = styled.div`
 
 export const RedirectContainer = styled.div`
 	margin-top: 20px;
+`;
+
+export const PasswordWrapper = styled.div`
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	position: relative;
 `;

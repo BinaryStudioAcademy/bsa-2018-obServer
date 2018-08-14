@@ -5,11 +5,11 @@ import {
 	Background,
 	BackgroundContainer,
 	Box,
-	RegisterContainer,
 	LogoContainer,
-    RedirectContainer,
-    RegisterBox,
-    PasswordResetContainer
+	RedirectContainer,
+	RegisterBox,
+	PasswordResetContainer,
+	PasswordWrapper
 } from './ContainerStyles';
 import { Form } from './FormStyles';
 import { Title, TextLink, RedirectLink, LogoText } from './TextStyles';
@@ -30,11 +30,11 @@ export {
 	Background,
 	BackgroundContainer,
 	Box,
-	RegisterContainer,
 	Form,
 	RedirectContainer,
-    LogoContainer,
-    CheckboxInput,
-    RegisterBox,
-    PasswordResetContainer
+	LogoContainer,
+	CheckboxInput,
+	RegisterBox,
+	PasswordResetContainer,
+	PasswordWrapper
 };

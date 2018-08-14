@@ -37,7 +37,7 @@ function* userRegister(action: UserRegister) {
 function* userLogin(action: UserLogin) {
 	try {
 		sessionStorage.setItem('user', action.email);
-		/*
+
 		const currentUser = yield call(userAPI.loginUser, {
 			email: action.email,
 			password: action.password
@@ -49,7 +49,7 @@ function* userLogin(action: UserLogin) {
 				// ...currentUser
 			}
 		});
-		*/
+
 		yield put(push('/'));
 	} catch (error) {
 		yield put({
