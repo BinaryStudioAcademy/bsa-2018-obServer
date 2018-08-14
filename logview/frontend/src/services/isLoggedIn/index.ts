@@ -6,10 +6,9 @@ function isLoggedInRequest() {
 
 export default async function() {
 	try {
-		const response = await isLoggedInRequest();
+		await isLoggedInRequest();
 		return true;
 	} catch (error) {
-		console.log('tt', error);
 		return false;
 	}
 }

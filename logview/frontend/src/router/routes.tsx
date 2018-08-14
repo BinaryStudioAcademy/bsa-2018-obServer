@@ -13,27 +13,27 @@ class Router extends React.Component<any, any> {
 	constructor(props: any) {
 		super(props);
 		this.state = { isLoggedIn };
+		this.redirectNoAuth = this.redirectNoAuth.bind(this);
 	}
 
 	async componentDidMount() {
 		this.setState({ isLoggedIn: await isLoggedIn() });
 	}
 
+	redirectNoAuth() {
+		return !this.state.isLoggedIn ? <Redirect to="/login" /> : <Home />;
+	}
+
 	render() {
-		console.log(this.state.isLoggedIn);
 		return (
 			<ConnectedRouter history={history}>
 				<Switch>
 					<Route
 						exact
 						path="/"
-						render={() =>
-							!this.state.isLoggedIn ? (
-								<Redirect to="/login" />
-							) : (
-								<Home />
-							)
-						}
+						render={() => {
+							return this.redirectNoAuth();
+						}}
 					/>
 					<Route exact path="/login" component={Login} />
 					<Route exact path="/register" component={Register} />
