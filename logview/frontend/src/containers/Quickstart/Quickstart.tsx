@@ -56,7 +56,18 @@ class Quickstart extends React.Component {
 							yarn add observer --optional
 						</code>
 					</pre>
-
+					<p>
+						<strong>Upgrading observer</strong>
+					</p>
+					<pre>
+						<code>
+							yarn upgrade observer
+							<br />
+							yarn upgrade observer@[version]
+							<br />
+							yarn upgrade observer@[tag]
+						</code>
+					</pre>
 					<hr />
 				</div>
 			</React.Fragment>
