@@ -8,7 +8,7 @@ module.exports = {
 		for (let i = 0; i < data.length; i++) {
 			await userRepository.create({
 				name: data[i].name,
-				password: 123,
+				password: userService.encryptPassword('123'),
 				email: data[i].email,
 				companyId: data[i].companyId
 			});
