@@ -34,7 +34,9 @@ class EmailTokenConfirm extends React.Component<
 		return (
 			<Background>
 				<PasswordResetContainer>
-					<PasswordWrapper>Email Confirm Component </PasswordWrapper>
+					<PasswordWrapper>
+						Email Successfully Confirmed
+					</PasswordWrapper>
 				</PasswordResetContainer>
 			</Background>
 		);
