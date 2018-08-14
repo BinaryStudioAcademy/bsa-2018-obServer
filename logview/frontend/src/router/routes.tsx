@@ -13,7 +13,6 @@ class Router extends React.Component<any, any> {
 	constructor(props: any) {
 		super(props);
 		this.state = { isLoggedIn };
-		this.PrivateRoute = this.PrivateRoute.bind(this);
 	}
 
 	async componentDidMount() {
@@ -24,7 +23,12 @@ class Router extends React.Component<any, any> {
 		return (
 			<ConnectedRouter history={history}>
 				<Switch>
-					<this.PrivateRoute exact path="/" component={Home} />
+					<PrivateRoute
+						exact
+						path="/"
+						component={Home}
+						isLoggedIn={this.state.isLoggedIn}
+					/>
 					<Route exact path="/login" component={Login} />
 					<Route exact path="/register" component={Register} />
 					<Route
@@ -36,26 +40,30 @@ class Router extends React.Component<any, any> {
 			</ConnectedRouter>
 		);
 	}
-
-	PrivateRoute({ component: Component, ...rest }) {
-		return (
-			<Route
-				{...rest}
-				render={props =>
-					this.state.isLoggedIn ? (
-						<Component {...props} />
-					) : (
-						<Redirect
-							to={{
-								pathname: '/login',
-								state: { from: props.location }
-							}}
-						/>
-					)
-				}
-			/>
-		);
-	}
 }
+
+const PrivateRoute = ({
+	component: Component,
+	isLoggedIn: isLoggedIn,
+	...rest
+}) => {
+	return (
+		<Route
+			{...rest}
+			render={props =>
+				isLoggedIn ? (
+					<Component {...props} />
+				) : (
+					<Redirect
+						to={{
+							pathname: '/login',
+							state: { from: props.location }
+						}}
+					/>
+				)
+			}
+		/>
+	);
+};
 
 export default Router;
