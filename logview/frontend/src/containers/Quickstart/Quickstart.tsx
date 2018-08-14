@@ -34,6 +34,9 @@ class Quickstart extends React.Component {
 						in observer npm package. To add them into your project,
 						do the following:
 					</p>
+					<pre>
+						<code>yarn add observer</code>
+					</pre>
 					<hr />
 				</div>
 			</React.Fragment>
