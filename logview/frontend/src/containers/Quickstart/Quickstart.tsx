@@ -64,7 +64,10 @@ class Quickstart extends React.Component {
 						<code>
 							const logconnect = require("observer").logconnect;
 							<br />
-							... <br />
+							<br />
+							... <i>(your code here)</i>
+							<br />
+							<br />
 							app.use(logconnect);
 						</code>
 					</pre>
@@ -76,9 +79,11 @@ class Quickstart extends React.Component {
 						<code>
 							const logcollect = require("observer").logcollect;
 							<br />
-							logcollect.start("8080", <br />
-							...options, <br />
-							token: "123af12345b1a12345a6aa1234e123456ae1234b"
+							logcollect.start("8080", &#123;
+							<br />
+							&#9;...options, <br />
+							&#9;token:
+							"123af12345b1a12345a6aa1234e123456ae1234b"
 							<br />
 							})
 						</code>
