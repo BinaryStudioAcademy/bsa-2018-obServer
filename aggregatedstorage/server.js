@@ -18,8 +18,6 @@ const baseUrl = '/api'
 app.post(`${baseUrl}/logs`, (req, res) => {
   logService.create(req.body, (err, result) => {
     if(!err) {
-      console.log('ok!!');
-      console.log(result);
       res.send('ok');
     } else {
       console.log(err);
