@@ -1,9 +1,5 @@
 import * as React from 'react';
-import { Submit, CheckboxInput } from '../styles/ButtonStyles';
-import { Input } from '../styles/InputStyles';
-import { Form } from '../styles/FormStyles';
-import { Row, RedirectContainer } from '../styles/ContainerStyles';
-import { TextLink, RedirectLink } from '../styles/TextStyles';
+import { Submit, CheckboxInput, Input, Form, Row, RedirectContainer, TextLink, RedirectLink } from 'src/styles/Styles';
 import { Link } from 'react-router-dom';
 
 interface LoginFormProps {

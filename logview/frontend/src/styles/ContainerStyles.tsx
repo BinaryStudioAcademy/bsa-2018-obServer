@@ -9,6 +9,15 @@ export const Row = styled.div`
 	display: flex;
 `;
 
+export const Background = styled.div`
+	background-image: url(${background});
+	background-attachment: fixed;
+	background-repeat: no-repeat;
+	height: 100vh;
+	width: 100%;
+	background-size: cover;
+`;
+
 export const BackgroundContainer = styled.div`
 	background-image: url(${background});
 	background-attachment: fixed;
@@ -76,6 +85,12 @@ export const RegisterBox = styled.div`
 		filter: blur(8px);
 	}
 `;
+
+export const PasswordResetContainer = styled.div`
+	width: 400px;
+	position: absolute;
+	left: calc(100% - 200px);
+`
 
 export const LogoContainer = styled.div`
 	display: flex;
