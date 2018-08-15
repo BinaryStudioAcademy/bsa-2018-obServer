@@ -18,6 +18,61 @@ export const Submit = styled.button`
 	cursor: pointer;
 `;
 
+export const LinkButton = Submit.extend`
+	padding: 0;
+	margin: 10px;
+	a {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		text-decoration: none;
+		color: white;
+		font-size: 16px;
+		height: 36px;
+		width: 140px;
+	}
+
+	a:hover {
+		background: linear-gradient(
+			45deg,
+			rgba(124, 184, 252, 1),
+			rgba(127, 120, 206, 1)
+		);
+		border-radius: 15px;
+	}
+`;
+
+export const TextLink = styled.p`
+	cursor: pointer;
+	border-bottom: 3px solid transparent;
+	text-align: center;
+	transition-duration: 0.3s ease;
+
+	a {
+		text-decoration: none;
+		color: rgba(127, 120, 206, 1);
+		border: 3px solid rgba(127, 120, 206, 1);
+		border-image-slice: 1;
+		border-radius: 15px;
+		transition-duration: 0.3s;
+		padding: 10px 67px;
+		font-size: 16px;
+	}
+
+	a:hover {
+		color: white;
+		background: linear-gradient(
+			to right,
+			rgba(124, 184, 252, 1),
+			rgba(127, 120, 206, 1)
+		);
+		padding: 13px 71px;
+		border: none;
+		transition-duration: 0.3s;
+		border-radius: 15px;
+	}
+`;
+
 export const CheckboxLabel = styled.label`
 	position: relative;
 	display: inline-block;

@@ -6,7 +6,9 @@ export const Wrapper = styled.div`
 	background-color: white;
 `;
 
-export const Row = Wrapper.extend``;
+export const Row = Wrapper.extend`
+	background-color: transparent;
+`;
 
 export const Background = styled.div`
 	background-image: url(${background});
@@ -85,6 +87,7 @@ export const RedirectContainer = styled.div`
 `;
 
 export const PasswordWrapper = styled.div`
+	margin: 20px;
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;

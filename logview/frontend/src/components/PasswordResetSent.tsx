@@ -4,11 +4,11 @@ class PasswordReset extends React.Component {
 	render() {
 		return (
 			<React.Fragment>
-				<div>Email sent!</div>
-				<div>
+				<h2>Email sent!</h2>
+				<p>
 					We've sent a message to *mail* so you can pick your new
 					password.
-				</div>
+				</p>
 				<div>Not your email address?</div>
 			</React.Fragment>
 		);

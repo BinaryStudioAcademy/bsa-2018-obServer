@@ -1,16 +1,14 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import {
-	Background,
-	PasswordResetContainer,
-	PasswordWrapper
-} from '../../styles/Styles';
+import { PasswordResetContainer, PasswordWrapper } from '../../styles/Styles';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { userEmailActivation } from 'src/redux/user/actions';
+import { History } from 'history';
 const sendIcon = require('src/assets/confirm-icon.png');
 
 interface EmailTokenProps {
+	history: History;
 	actions: { userEmailActivation: Function };
 }
 
@@ -32,13 +30,9 @@ class EmailTokenConfirm extends React.Component<
 
 	render() {
 		return (
-			<Background>
-				<PasswordResetContainer>
-					<PasswordWrapper>
-						Email Successfully Confirmed
-					</PasswordWrapper>
-				</PasswordResetContainer>
-			</Background>
+			<PasswordResetContainer>
+				<PasswordWrapper>Email Successfully Confirmed</PasswordWrapper>
+			</PasswordResetContainer>
 		);
 	}
 }
