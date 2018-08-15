@@ -4,5 +4,5 @@ import { userReducer, fetchingState } from './user/reducer';
 
 export default combineReducers<StoreState>({
 	user: userReducer,
-	fetching: fetchingState
+	fetchingUserStatus: fetchingState
 });

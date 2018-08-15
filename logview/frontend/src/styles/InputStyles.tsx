@@ -7,9 +7,12 @@ export const Input = styled.input`
 	padding: 15px;
 	margin: 5px;
 	background: transparent;
+	font-family: 'Muli', sans-serif;
 	border-bottom: 1px solid black;
-	font-family: 'Quicksand', sans-serif;
 	&::placeholder {
+		font-family: 'Muli', sans-serif;
+		font-size: 14px;
+		letter-spacing: 0.5px;
 		color: #3d3d3d;
 	}
 

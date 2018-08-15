@@ -3,13 +3,15 @@ import PasswordResetForm from 'src/components/PasswordResetForm';
 import PasswordResetSent from 'src/components/PasswordResetSent';
 import {
 	Submit,
-	Background,
 	PasswordResetContainer,
-	PasswordWrapper
+	PasswordWrapper,
+	LinkButton,
+	Row
 } from 'src/styles/Styles';
 import { userResetPassword } from '../../redux/user/actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { Link } from 'react-router-dom';
 
 interface LoginFormProps {
 	actions: { userResetPassword: Function };
@@ -49,6 +51,14 @@ class PasswordReset extends React.Component<LoginFormProps, LoginFormState> {
 					) : (
 						<PasswordResetForm onSubmit={this.handleSubmit} />
 					)}
+					<Row>
+						<LinkButton>
+							<Link to="/login">sign in</Link>
+						</LinkButton>
+						<LinkButton>
+							<Link to="/register">sign up</Link>
+						</LinkButton>
+					</Row>
 				</PasswordWrapper>
 			</PasswordResetContainer>
 		);

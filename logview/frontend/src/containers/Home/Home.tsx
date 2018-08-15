@@ -12,12 +12,6 @@ class Home extends React.Component<HomeProps, HomeState> {
 		super(props);
 	}
 
-	componentDidMount() {
-		sessionStorage.getItem('user') === undefined
-			? this.props.history.push('/login')
-			: undefined;
-	}
-
 	render() {
 		console.log(this.props);
 		console.log(sessionStorage);
@@ -34,7 +28,7 @@ class Home extends React.Component<HomeProps, HomeState> {
 	}
 }
 
-const mapStateToProps = ({ fetching }) => ({});
+const mapStateToProps = ({}) => ({});
 
 const mapDispatchToProps = (dispatch: any) => ({
 	actions: bindActionCreators({}, dispatch)

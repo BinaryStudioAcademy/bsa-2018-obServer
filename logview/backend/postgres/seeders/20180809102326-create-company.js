@@ -2,12 +2,11 @@ const companyService = require('../../services/companyService');
 
 module.exports = {
 	up: async (queryInterface, Sequelize) => {
-		const data = generateData();
+		const data = await generateData();
 		const companies = [];
 		for (let i = 0; i < data.length; i++) {
-			companies.push(await companyService.create(data[i].name));
+			await companyService.create(data[i].name);
 		}
-		// return queryInterface.bulkInsert('Companies', companies);
 	},
 
 	down: (queryInterface, Sequelize) => {

@@ -1,5 +1,15 @@
 import * as React from 'react';
-import { Submit, CheckboxInput, Input, Form, Row, RedirectContainer, TextLink, RedirectLink } from 'src/styles/Styles';
+import {
+	Submit,
+	CheckboxInput,
+	Input,
+	Form,
+	Row,
+	RedirectContainer,
+	TextLink,
+	RedirectLink,
+	Title
+} from 'src/styles/Styles';
 import { Link } from 'react-router-dom';
 
 interface LoginFormProps {
@@ -47,7 +57,7 @@ class LoginForm extends React.Component<LoginFormProps, LoginFormState> {
 	render() {
 		return (
 			<Form>
-				<h2>obServer</h2>
+				<Title>obServer</Title>
 				<p>Welcome back, please login to your account</p>
 				<Input
 					type="email"
