@@ -1,5 +1,10 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
+import {
+	Background,
+	PasswordResetContainer,
+	PasswordWrapper
+} from '../../styles/Styles';
 const sendIcon = require('src/assets/confirm-icon.png');
 
 class EmailConfirm extends React.Component {
@@ -11,13 +16,16 @@ class EmailConfirm extends React.Component {
 
 	render() {
 		return (
-			<React.Fragment>
-				<div>
-					We've sent email to *here will be email* to confirm validity
-					of your email address. After receiving the email, follow the
-					link provided to complete the registration
-				</div>
-			</React.Fragment>
+			<Background>
+				<PasswordResetContainer>
+					<PasswordWrapper>
+						We've sent an email to *here will be email* to confirm
+						validity of your email address. After receiving the
+						email, follow the link provided to complete the
+						registration
+					</PasswordWrapper>
+				</PasswordResetContainer>
+			</Background>
 		);
 	}
 }
