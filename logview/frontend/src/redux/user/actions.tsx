@@ -58,6 +58,10 @@ export interface UserChangePasswordSuccess {
 	type: constants.USER_CHANGE_PASSWORD_SUCCESS;
 }
 
+export interface FetchUser {
+	type: constants.FETCH_USER;
+}
+
 export type UserAction =
 	| UserRegister
 	| UserRegisterFail
@@ -70,7 +74,8 @@ export type UserAction =
 	| UserChangePasswordSuccess
 	| UserResetPassword
 	| UserResetPasswordFail
-	| UserResetPasswordSuccess;
+	| UserResetPasswordSuccess
+	| FetchUser;
 
 export function userRegister(
 	name: string = '',
@@ -165,5 +170,11 @@ export function userChangePasswordFail(): UserChangePasswordFail {
 export function userChangePasswordSuccess(): UserChangePasswordSuccess {
 	return {
 		type: constants.USER_CHANGE_PASSWORD_SUCCESS
+	};
+}
+
+export function fetchUser(): FetchUser {
+	return {
+		type: constants.FETCH_USER
 	};
 }

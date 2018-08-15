@@ -9,10 +9,8 @@ class UserService {
 		this.saltRounds = 8;
 	}
 
-	encryptPassword(password) {
-		return bcrypt.hash(password, this.saltRounds).then(hash => {
-			return hash;
-		});
+	async encryptPassword(password, callback) {
+		return await bcrypt.hash(password.toString(), this.saltRounds);
 	}
 
 	validPassword(password, hash) {

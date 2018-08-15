@@ -1,6 +1,7 @@
 #yarn
 **/package-lock.json
 **/yarn-error.log
+**/debug.log
 **/yarn.lock
 
 # compiled output
