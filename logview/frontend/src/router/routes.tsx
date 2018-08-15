@@ -7,6 +7,9 @@ import Register from 'src/containers/Register/Register';
 import PasswordReset from 'src/containers/PasswordReset/PasswordReset';
 import PasswordChange from 'src/containers/PasswordChange/PasswordChange';
 import EmailConfirm from 'src/containers/EmailConfirm/EmailConfirm';
+
+import Socket from 'src/containers/Socket';
+
 import history from './history';
 import 'src/styles/GlobalStyles';
 
@@ -21,6 +24,8 @@ class Router extends React.Component {
 					<Route exact path="/reset" component={PasswordReset} />
 					<Route exact path="/change/" component={PasswordChange} />
 					<Route exact path="/confirm/" component={EmailConfirm} />
+
+					<Route exact path="/socket" component={Socket} />
 				</Switch>
 			</ConnectedRouter>
 		);

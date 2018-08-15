@@ -10,6 +10,8 @@ function* fetchLogs(action: FetchLogs) {
 	try {
 		const logs = yield call(fetchAllLogs); //sockets
 
+		console.log(logs);
+
 		yield put({
 			type: constants.FETCH_LOGS_SUCCESS,
 			payload: {

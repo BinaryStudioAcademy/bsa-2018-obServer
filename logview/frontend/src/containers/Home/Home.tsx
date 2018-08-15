@@ -24,6 +24,7 @@ class Home extends React.Component<HomeProps, HomeState> {
 			<React.Fragment>
 				<div>Home component</div>
 				<Link to="login">Link to login</Link>
+				<Link to="socket">Socket</Link>
 				<div />
 				<Link to="register">Link to register</Link>
 			</React.Fragment>
