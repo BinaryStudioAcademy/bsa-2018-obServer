@@ -1,19 +1,20 @@
 const mongoose = require('mongoose');
-// temp general log schema
+const cpuServer = require('./cpuServer');
+const memoryServer = require('./memoryServer');
+
 const logMessage = mongoose.Schema({
-  logType: {
+  companyId: {
     type: String,
     required: true
   },
-  data: { any: Object },
-  timestamp: {
-    type: Date,
-    required: true
-  },
-  serverId: {
-    type: String,
-    required: true
-  }
+  appsData: [{
+    appId: String,
+    appName: String,
+    logs: { 
+      cpuServer: [cpuServer],
+      memoryServer: [memoryServer]
+    }
+  }]   
 });
 
 const LogMessage = mongoose.model('LogMessage', logMessage);
