@@ -17,7 +17,7 @@ const logMessage = mongoose.Schema({
   app: {
     id: {
       type: String,
-      required: true
+      required: false
     },
     name: {
       type: String,

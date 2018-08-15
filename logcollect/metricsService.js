@@ -3,11 +3,9 @@ const cpuLoad = require('./osUtils/cpu');
 const memoryStats = require('./osUtils/memory');
 
 module.exports = class MetricsService {
-  constructor(url, companyToken, appId = 'serverAppId', appName = 'serverApp') {
+  constructor(url, companyToken) {
     this.timersId = {};
     this.sendMetrics = sendHelper(url, companyToken);
-    this.appId = appId;
-    this.appName = appName;
   }
 
   newMetrics(data) {
@@ -20,7 +18,7 @@ module.exports = class MetricsService {
     if(!this.timersId.cpu) {
       this.timersId.cpu = setInterval(() => {
         cpuLoad((cpuData) => {
-          this.sendMetrics(MetricsService.createMetricObject('cpuServer', cpuData, this.appId, this.appName));
+          this.sendMetrics(MetricsService.createMetricObject('CPU_SERVER', cpuData));
         });
       }, delay);
     }
@@ -34,7 +32,7 @@ module.exports = class MetricsService {
   startMemoryMonitor(delay = 1000) {
     if(!this.timersId.memory) {
       this.timersId.memory = setInterval(() => {
-        this.sendMetrics(MetricsService.createMetricObject('memoryServer', memoryStats(), this.appId, this.appName));
+        this.sendMetrics(MetricsService.createMetricObject('MEMORY_SERVER', memoryStats()));
       }, delay);
     }
   }
@@ -44,15 +42,11 @@ module.exports = class MetricsService {
     delete timersId.memory;
   }
 
-  static createMetricObject(name, data, appId, appName) {
+  static createMetricObject(name, data) {
     return {
       logType: name,
       data: data,
-      timestamp: new Date(),
-      app: {
-        id: appId,
-        name: appName
-      }
+      timestamp: new Date()
     };
   }
 }
