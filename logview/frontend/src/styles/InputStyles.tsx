@@ -15,7 +15,11 @@ export const Input = styled.input`
 
 	&:focus {
 		border-bottom: 1px solid transparent;
-		border-image: linear-gradient(to left, #0099cc 0%, #f27280 100%);
+		border-image: linear-gradient(
+			to left,
+			rgb(127, 120, 206) 0%,
+			rgb(124, 184, 252) 100%
+		);
 		border-image-slice: 1;
 	}
 `;
