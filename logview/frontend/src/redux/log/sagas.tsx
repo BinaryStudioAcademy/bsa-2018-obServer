@@ -4,10 +4,11 @@ import { logAPI } from '../../services';
 import { LogState } from '../../types/LogState';
 import * as constants from './constants';
 import { FetchLogs } from './actions';
+import { fetchLogs as fetchAllLogs } from 'src/services/websockets/logs';
 
 function* fetchLogs(action: FetchLogs) {
 	try {
-		const logs = yield call(logAPI.fetchLogs);
+		const logs = yield call(fetchAllLogs); //sockets
 
 		yield put({
 			type: constants.FETCH_LOGS_SUCCESS,
