@@ -3,7 +3,9 @@ import { Link } from 'react-router-dom';
 import {
 	NavAside,
 	Nav,
+	UserInfo,
 	NavLink,
+	UserControl,
 	Main,
 	ContentHeader,
 	ContentSubheader,
@@ -22,36 +24,70 @@ class Quickstart extends React.Component {
 		return (
 			<React.Fragment>
 				<NavAside>
-					<Link to="/">
-						<NavLink>Home</NavLink>
-					</Link>
-					<NavLink>
-						<Link to="/login">Sign In</Link>
-					</NavLink>
-					<NavLink>
-						<Link to="/register">Sign Up</Link>
-					</NavLink>
-					<NavLink>
-						<Link to="/reset">Reset Password</Link>
-					</NavLink>
-					<NavLink>
-						<Link to="/change">Change Password</Link>
-					</NavLink>
-					<NavLink>
-						<Link to="/confirm">Confirm E-mail</Link>
-					</NavLink>
-					<NavLink>
-						<Link
-							style={{ textDecoration: 'none', color: 'white' }}
-							to="/dashboard/quickstart"
-						>
-							Quickstart
-						</Link>
-					</NavLink>
+					<UserInfo>
+						{`CompanyName`}
+						<br />
+						{`UserName`}
+					</UserInfo>
+					<Nav>
+						<UserControl>
+							<Link to="/login">sign in</Link>
+						</UserControl>
+						<UserControl>
+							<Link to="/register">sign up</Link>
+						</UserControl>
+						<UserControl>
+							<Link to="/reset">reset password</Link>
+						</UserControl>
+						<UserControl>
+							<Link to="/change">change password</Link>
+						</UserControl>
+						<UserControl>
+							<Link to="/confirm">confirm e-mail</Link>
+						</UserControl>
+						<UserControl>
+							<Link to="/">log out</Link>
+						</UserControl>
+
+						<NavLink>
+							<Link to="/">home</Link>
+						</NavLink>
+						<NavLink>
+							<Link to="/dashboard/quickstart">quickstart</Link>
+						</NavLink>
+						<NavLink>
+							<Link to="/dashboard">dashboard</Link>
+						</NavLink>
+						<NavLink>
+							<Link to="/dashboard/settings/general">
+								general settings
+							</Link>
+						</NavLink>
+						<NavLink>
+							<Link to="/dashboard/settings/data">
+								tracked data
+							</Link>
+						</NavLink>
+						<NavLink>
+							<Link to="/dashboard/logs">logs</Link>
+						</NavLink>
+						<NavLink>
+							<Link to="/dashboard/resources">
+								server resourses
+							</Link>
+						</NavLink>
+						<NavLink>
+							<Link to="/dashboard/http">http</Link>
+						</NavLink>
+						<NavLink>
+							<Link to="/dashboard/websockets">websockets</Link>
+						</NavLink>
+					</Nav>
 				</NavAside>
 
 				<Main>
 					<ContentHeader>Quick Start</ContentHeader>
+					<Greeting>Welcome, {'User'}!</Greeting>
 					<ContentBlock>
 						Now that you have registered, you can start using
 						Observer. Here are some of the most common commands
@@ -72,17 +108,17 @@ class Quickstart extends React.Component {
 						Adding observer to different categories of dependencies
 					</ContentSubheader>
 					<ContentBlock>
-						Add to <code>devDependencies</code>,{' '}
-						<code>peerDependencies</code>, and{' '}
-						<code>optionalDependencies</code> respectively:
+						Add to <Code>devDependencies</Code>,{' '}
+						<Code>peerDependencies</Code>, and{' '}
+						<Code>optionalDependencies</Code> respectively:
 					</ContentBlock>
 					<Pre>
 						<Code>
-							yarn add observer --dev
+							yarn add observer --dev&nbsp;
 							<br />
-							yarn add observer --peer
+							&nbsp;yarn add observer --peer&nbsp;
 							<br />
-							yarn add observer --optional
+							&nbsp;yarn add observer --optional
 						</Code>
 					</Pre>
 					<ContentSubheader>
@@ -93,13 +129,15 @@ class Quickstart extends React.Component {
 					</ContentBlock>
 					<Pre>
 						<Code>
-							const logconnect = require("observer").logconnect;
+							const logconnect =
+							require("observer").logconnect;&nbsp;
 							<br />
 							<br />
-							... <i>(your code here)</i>
+							&nbsp;... <i>(your code here)</i>
+							&nbsp;
 							<br />
 							<br />
-							app.use(logconnect);
+							&nbsp;app.use(logconnect);
 						</Code>
 					</Pre>
 					<ContentBlock>
@@ -108,15 +146,16 @@ class Quickstart extends React.Component {
 					</ContentBlock>
 					<Pre>
 						<Code>
-							const logcollect = require("observer").logcollect;
+							const logcollect =
+							require("observer").logcollect;&nbsp;
 							<br />
-							logcollect.start("8080", &#123;
+							&nbsp;logcollect.start("8080", &#123;&nbsp;
 							<br />
 							&#9;...options, <br />
-							&#9;token:
-							"123af12345b1a12345a6aa1234e123456ae1234b"
+							&nbsp; &#9;token:&nbsp;
+							"123af12345b1a12345a6aa1234e123456ae1234b"&nbsp;
 							<br />
-							})
+							&nbsp;})
 						</Code>
 					</Pre>
 					<ContentBlock>
@@ -127,11 +166,11 @@ class Quickstart extends React.Component {
 					<ContentSubheader>Upgrading observer</ContentSubheader>
 					<Pre>
 						<Code>
-							yarn upgrade observer
+							yarn upgrade observer&nbsp;
 							<br />
-							yarn upgrade observer@[version]
+							&nbsp;yarn upgrade observer@[version]&nbsp;
 							<br />
-							yarn upgrade observer@[tag]
+							&nbsp;yarn upgrade observer@[tag]
 						</Code>
 					</Pre>
 				</Main>
