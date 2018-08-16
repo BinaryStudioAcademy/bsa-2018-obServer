@@ -8,15 +8,13 @@ import { fetchLogs as fetchAllLogs } from 'src/services/websockets/logs';
 
 function* fetchLogs(action: FetchLogs) {
 	try {
-		const logs = yield call(fetchAllLogs); //sockets
+		const logs = yield call(fetchAllLogs);
 
 		console.log(logs);
 
 		yield put({
 			type: constants.FETCH_LOGS_SUCCESS,
-			payload: {
-				...logs
-			}
+			logs
 		});
 	} catch (err) {
 		yield put({

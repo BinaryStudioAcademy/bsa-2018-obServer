@@ -5,7 +5,7 @@ export interface FetchLogs extends LogState {
 	type: constants.FETCH_LOGS;
 }
 
-export interface FetchLogsSuccess {
+export interface FetchLogsSuccess extends LogState {
 	type: constants.FETCH_LOGS_SUCCESS;
 }
 
@@ -29,9 +29,19 @@ export function fetchLogs(
 	};
 }
 
-export function fetchLogsSuccess(): FetchLogsSuccess {
+export function fetchLogsSuccess(
+	logs: [
+		{
+			logType: string;
+			data: object;
+			timestamp: Date;
+			serverId: string;
+		}
+	]
+): FetchLogsSuccess {
 	return {
-		type: constants.FETCH_LOGS_SUCCESS
+		type: constants.FETCH_LOGS_SUCCESS,
+		logs
 	};
 }
 

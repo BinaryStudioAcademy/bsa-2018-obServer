@@ -9,6 +9,7 @@ export function logReducer(
 ): LogState {
 	switch (action.type) {
 		case constants.FETCH_LOGS:
+		case constants.FETCH_LOGS_SUCCESS:
 			return {
 				...state,
 				logs: action.logs
