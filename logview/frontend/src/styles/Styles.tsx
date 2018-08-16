@@ -1,4 +1,4 @@
-import { Submit, LinkButton, CheckboxInput, TextLink } from './ButtonStyles';
+import { Submit, LinkButton, TextLink } from './ButtonStyles';
 import {
 	Wrapper,
 	Row,
@@ -41,7 +41,6 @@ export {
 	Form,
 	RedirectContainer,
 	LogoContainer,
-	CheckboxInput,
 	RegisterBox,
 	PasswordResetContainer,
 	PasswordWrapper,
