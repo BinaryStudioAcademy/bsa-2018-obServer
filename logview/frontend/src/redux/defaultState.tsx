@@ -10,7 +10,7 @@ export const defaultState: StoreState = {
 
 	logs: {
 		logType: '',
-		data: { message: '' },
+		data: { message: '', status: '' },
 		timestamp: -1,
 		serverId: -1
 	},

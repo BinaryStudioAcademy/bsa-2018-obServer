@@ -83,7 +83,7 @@ postgresDb.sequelize.sync().then(() => {
 	// 		socket.emit('logs',
 	// 			{
 	// 				logType: 'error',
-	// 				data: { message: '1' },
+	// 				data: { message: '1', status: 'good' },
 	// 				timestamp: Date.now(),
 	// 				serverId: 1
 	// 			}

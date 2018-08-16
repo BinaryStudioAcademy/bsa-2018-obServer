@@ -6,6 +6,12 @@ import { fetchingState } from 'src/redux/log/reducer';
 
 interface FetchLogsProps {
 	actions: { fetchLogs: Function; fetchLogsSuccess: Function };
+	logs: {
+		logType: string;
+		data: { message: string; status: string };
+		timestamp: number;
+		serverId: number;
+	};
 }
 
 interface FetchLogsState {
@@ -26,8 +32,28 @@ class FetchLogs extends React.Component<FetchLogsProps, FetchLogsState> {
 	}
 
 	render() {
-		console.log(this.props);
-		return <React.Fragment>SOCKETS</React.Fragment>;
+		const { message, status } = this.props.logs.data
+			? this.props.logs.data
+			: { message: '', status: '' };
+		return (
+			<React.Fragment>
+				SOCKETS DATA:
+				<div>
+					LogType:{' '}
+					{this.props.logs.logType ? this.props.logs.logType : ''}
+					<br />
+					Timestamp:{' '}
+					{this.props.logs.timestamp ? this.props.logs.timestamp : ''}
+					<br />
+					ServerId:{' '}
+					{this.props.logs.serverId ? this.props.logs.serverId : ''}
+					<br />
+					Data Message: {message ? message : ''}
+					<br />
+					Data Status: {status ? status : ''}
+				</div>
+			</React.Fragment>
+		);
 	}
 }
 
