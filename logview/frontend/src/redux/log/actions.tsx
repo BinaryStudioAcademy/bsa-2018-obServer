@@ -14,34 +14,32 @@ export interface FetchLogsFail {
 }
 
 export function fetchLogs(
-	logs: [
-		{
-			logType: string;
-			data: object;
-			timestamp: Date;
-			serverId: string;
-		}
-	]
+	logType: string,
+	data: object,
+	timestamp: Date,
+	serverId: string
 ): FetchLogs {
 	return {
 		type: constants.FETCH_LOGS,
-		logs
+		logType,
+		data,
+		timestamp,
+		serverId
 	};
 }
 
 export function fetchLogsSuccess(
-	logs: [
-		{
-			logType: string;
-			data: object;
-			timestamp: Date;
-			serverId: string;
-		}
-	]
+	logType: string,
+	data: object,
+	timestamp: Date,
+	serverId: string
 ): FetchLogsSuccess {
 	return {
 		type: constants.FETCH_LOGS_SUCCESS,
-		logs
+		logType,
+		data,
+		timestamp,
+		serverId
 	};
 }
 

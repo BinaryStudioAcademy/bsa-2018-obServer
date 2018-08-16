@@ -8,14 +8,12 @@ export const defaultState: StoreState = {
 		company: ''
 	},
 
-	logs: [
-		{
-			logType: '',
-			data: '',
-			timestamp: '',
-			serverId: ''
-		}
-	],
+	logs: {
+		logType: '',
+		data: '',
+		timestamp: '',
+		serverId: ''
+	},
 
 	fetching: 'unstarted'
 };
