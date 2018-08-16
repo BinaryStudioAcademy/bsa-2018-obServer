@@ -26,7 +26,7 @@ class Quickstart extends React.Component {
 				<NavAside>
 					<UserInfo>
 						{`CompanyName`}
-						<br />
+						<hr />
 						{`UserName`}
 					</UserInfo>
 					<Nav>

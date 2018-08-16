@@ -9,6 +9,7 @@ export const NavAside = styled.aside`
 	margin: 20px;
 	background-color: rgba(255, 255, 255, 0.05);
 	border-radius: 15px;
+	padding: 5px;
 `;
 export const UserInfo = styled.h2`
 	font-size: 1.3rem;
@@ -17,7 +18,9 @@ export const UserInfo = styled.h2`
 	font-weight: bold;
 	line-height: 1.7;
 	margin: 0;
-	padding: 0.6rem 0.6rem;
+	padding: 0.3rem 0.6rem;
+	border-radius: 15px;
+	border: 3px solid rgb(127, 120, 206);
 `;
 export const Nav = styled.ul`
 	list-style: none;
@@ -33,10 +36,13 @@ export const NavLink = styled.li`
 	border-radius: 15px;
 	border: none;
 	outline: none;
-	padding: 0.6rem 0.6rem;
 	margin: 0.8rem 0;
 	cursor: pointer;
 	a {
+		display: block;
+		width: 100%;
+		height: 100%;
+		padding: 0.6rem 0.6rem;
 		text-decoration: none;
 		color: white;
 		font-size: 1.2rem;
@@ -53,13 +59,12 @@ export const NavLink = styled.li`
 export const UserControl = NavLink.extend`
 	background: white;
 	border-bottom: 3px solid transparent;
-	color: rgba(127, 120, 206, 1);
+	color: rgb(127, 120, 206);
 	border: 3px solid rgb(127, 120, 206);
 	transition-duration: 0.3s ease;
 
 	a {
 		color: rgb(127, 120, 206);
-		border-image-slice: 1;
 		transition-duration: 0.3s;
 	}
 
@@ -70,14 +75,13 @@ export const UserControl = NavLink.extend`
 			rgba(124, 184, 252, 1),
 			rgba(127, 120, 206, 1)
 		);
-		border: none;
 		transition-duration: 0.3s;
 	}
 `;
 export const Main = styled.main`
 	width: 75vw;
 	border-radius: 8px;
-	background-color: rgba(255, 255, 255, 0.7);
+	background-color: rgba(255, 255, 255, 0.9);
 	position: absolute;
 	right: 0px;
 	top: 20px;
