@@ -1,12 +1,25 @@
 import * as React from 'react';
-import { Submit, Input, Form, RedirectLink } from 'src/styles/Styles';
+import {
+	Submit,
+	Input,
+	Form,
+	RedirectLink,
+	ErrorText
+} from 'src/styles/Styles';
 import { Link } from 'react-router-dom';
+import { validateForm } from 'src/services/validate/validate';
 
 interface RegFormState {
 	name?: string;
 	email?: string;
 	password?: string;
 	company?: string;
+	validatestate?: {
+		name: boolean;
+		email: boolean;
+		password: boolean;
+		company: boolean;
+	};
 }
 interface RegFormProps {
 	onSubmit: Function;
@@ -20,7 +33,13 @@ class RegisterForm extends React.Component<RegFormProps, RegFormState> {
 			name: '',
 			email: '',
 			password: '',
-			company: ''
+			company: '',
+			validatestate: {
+				name: true,
+				email: true,
+				password: true,
+				company: true
+			}
 		};
 
 		this.handleFieldChange = this.handleFieldChange.bind(this);
@@ -33,7 +52,18 @@ class RegisterForm extends React.Component<RegFormProps, RegFormState> {
 
 	handleSubmit(e: any) {
 		e.preventDefault();
-		this.props.onSubmit(this.state);
+		let obj = {
+			name: this.state.name,
+			email: this.state.email,
+			password: this.state.password,
+			company: this.state.company
+		};
+
+		let validatestate = validateForm(obj);
+		this.setState({ validatestate: validatestate });
+		Object.values(validatestate).includes(false)
+			? undefined
+			: this.props.onSubmit(obj);
 	}
 
 	render() {
@@ -50,6 +80,14 @@ class RegisterForm extends React.Component<RegFormProps, RegFormState> {
 					placeholder="Name"
 					onChange={this.handleFieldChange}
 				/>
+				{this.state.validatestate.name ? (
+					undefined
+				) : (
+					<ErrorText>
+						Name should be at least 3 characters long and can only
+						contain letters
+					</ErrorText>
+				)}
 				<Input
 					type="email"
 					name="email"
@@ -58,6 +96,13 @@ class RegisterForm extends React.Component<RegFormProps, RegFormState> {
 					onChange={this.handleFieldChange}
 					autoComplete="off"
 				/>
+				{this.state.validatestate.email ? (
+					undefined
+				) : (
+					<ErrorText>
+						Email is not valid, ex. "email@domain.name"
+					</ErrorText>
+				)}
 				<Input
 					type="password"
 					name="password"
@@ -66,6 +111,13 @@ class RegisterForm extends React.Component<RegFormProps, RegFormState> {
 					onChange={this.handleFieldChange}
 					autoComplete="off"
 				/>
+				{this.state.validatestate.password ? (
+					undefined
+				) : (
+					<ErrorText>
+						Password should be at least 8 characters long
+					</ErrorText>
+				)}
 				<Input
 					type="company"
 					name="company"
@@ -74,6 +126,13 @@ class RegisterForm extends React.Component<RegFormProps, RegFormState> {
 					onChange={this.handleFieldChange}
 					autoComplete="off"
 				/>
+				{this.state.validatestate.company ? (
+					undefined
+				) : (
+					<ErrorText>
+						Company should be at least 3 characters long
+					</ErrorText>
+				)}
 				<Submit onClick={this.handleSubmit}>sign up</Submit>
 
 				<RedirectLink>

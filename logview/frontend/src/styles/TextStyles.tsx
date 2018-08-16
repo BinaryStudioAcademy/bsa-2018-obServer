@@ -1,7 +1,13 @@
 import styled from 'styled-components';
 
 export const Title = styled.h2`
-	font-family: 'Libre Baskerville', serif;
+	font-family: 'Merriweather', serif;
+	text-align: center;
+`;
+
+export const CenteredText = styled.p`
+	text-align: center;
+	margin: 10px;
 `;
 
 export const RedirectLink = styled.p`
@@ -29,4 +35,9 @@ export const LogoText = styled.h3`
 	font-size: 46px;
 	font-weight: bold;
 	color: rgba(255, 255, 255, 0.8);
+`;
+
+export const ErrorText = styled.span`
+	color: #cc0000;
+	font-size: 14px;
 `;
