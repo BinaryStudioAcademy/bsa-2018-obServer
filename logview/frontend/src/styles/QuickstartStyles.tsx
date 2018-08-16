@@ -1,0 +1,125 @@
+import styled from 'styled-components';
+const background = require('src/assets/login-background.jpg');
+
+import { Submit, LinkButton } from 'src/styles/Styles';
+
+export const Wrapper = styled.div`
+	display: flex;
+	background-color: white;
+`;
+
+export const Row = Wrapper.extend`
+	background-color: transparent;
+`;
+
+export const Background = styled.div`
+	background-image: url(${background});
+	background-attachment: fixed;
+	background-repeat: no-repeat;
+	height: 100vh;
+	width: 100%;
+	background-size: cover;
+`;
+
+export const BackgroundContainer = Background.extend`
+	width: 56%;
+`;
+
+export const Box = styled.div`
+	width: 300px;
+	height: 300px;
+	background: inherit;
+	position: absolute;
+	overflow: hidden;
+	left: calc(100% - 26% - 150px);
+	top: calc(50% - 150px);
+	border-radius: 8px;
+
+	&:before {
+		width: 400px;
+		height: 550px;
+		content: '';
+		position: absolute;
+		top: -25px;
+		left: -25px;
+		bottom: 0;
+		right: 0;
+		background: inherit;
+		box-shadow: inset 0 0 0 200px rgba(255, 255, 255, 0.2);
+		filter: blur(8px);
+	}
+`;
+
+export const RegisterBox = Box.extend`
+	left: calc(28% - 150px);
+	top: calc(50% - 150px);
+`;
+
+export const PasswordResetContainer = styled.div`
+	position: relative;
+	width: 350px;
+	height: 450px;
+	top: calc(50% - 250px);
+	left: calc(50% - 175px);
+	background: inherit;
+	border-radius: 8px;
+	overflow: hidden;
+
+	&:before {
+		content: '';
+		width: 400px;
+		height: 500px;
+		background: inherit;
+		position: absolute;
+		left: -25px;
+		right: 0;
+		top: -25px;
+		bottom: 0;
+		box-shadow: inset 0 0 0 200px rgba(255, 255, 255, 0.4);
+		filter: blur(8px);
+	}
+`;
+
+export const LogoContainer = styled.div`
+	display: flex;
+`;
+
+export const RedirectContainer = styled.div`
+	margin-top: 20px;
+`;
+
+export const PasswordWrapper = styled.div`
+	margin: 20px;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	position: relative;
+`;
+
+export const NavAside = styled.aside`
+	width: 20vw;
+	min-width: 200px;
+	margin: 20px;
+	background-color: rgba(255, 255, 255, 0.05);
+	border-radius: 15px;
+`;
+export const Nav = styled.ul`
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: stretch;
+	align-items: center;
+	list-style: none;
+`;
+export const NavLink = LinkButton.extend``;
+export const Main = styled.main`
+	width: 80vw;
+	background-color: white;
+`;
+export const ContentHeader = styled.h1``;
+export const ContentSubheader = styled.h4``;
+export const ContentBlock = styled.p``;
+export const Pre = styled.pre``;
+export const Code = styled.code``;
+export const Greeting = styled.h2``;
