@@ -44,10 +44,15 @@ class Router extends React.Component<any, any> {
 						/>
 						<Route
 							exact
-							path="/confirm/"
+							strict
+							path="/confirm"
 							component={EmailConfirm}
 						/>
-						<Route path="/confirm/" component={EmailTokenConfirm} />
+						<Route
+							exact
+							path="/confirm/"
+							component={EmailTokenConfirm}
+						/>
 					</Background>
 				</Switch>
 			</ConnectedRouter>

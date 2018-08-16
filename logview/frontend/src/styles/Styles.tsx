@@ -9,10 +9,18 @@ import {
 	RedirectContainer,
 	RegisterBox,
 	PasswordResetContainer,
-	PasswordWrapper
+	PasswordWrapper,
+	CenteredContainer,
+	EmailContainer
 } from './ContainerStyles';
 import { Form } from './FormStyles';
-import { Title, RedirectLink, LogoText } from './TextStyles';
+import {
+	Title,
+	RedirectLink,
+	LogoText,
+	ErrorText,
+	CenteredText
+} from './TextStyles';
 import { LoginBackground, Logo } from './ImageStyles';
 import { Input } from './InputStyles';
 
@@ -37,5 +45,9 @@ export {
 	RegisterBox,
 	PasswordResetContainer,
 	PasswordWrapper,
-	LinkButton
+	LinkButton,
+	ErrorText,
+	CenteredContainer,
+	EmailContainer,
+	CenteredText
 };

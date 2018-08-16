@@ -16,11 +16,7 @@ export const Submit = styled.button`
 	color: white;
 	margin-bottom: 8px;
 	cursor: pointer;
-`;
 
-export const LinkButton = Submit.extend`
-	padding: 0;
-	margin: 10px;
 	a {
 		display: flex;
 		align-items: center;
@@ -28,6 +24,13 @@ export const LinkButton = Submit.extend`
 		text-decoration: none;
 		color: white;
 		font-size: 16px;
+	}
+`;
+
+export const LinkButton = Submit.extend`
+	padding: 0;
+	margin: 10px;
+	a {
 		height: 36px;
 		width: 140px;
 	}

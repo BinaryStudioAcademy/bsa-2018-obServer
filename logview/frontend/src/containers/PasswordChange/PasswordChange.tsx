@@ -3,12 +3,19 @@ import {
 	Submit,
 	PasswordResetContainer,
 	PasswordWrapper,
-	Input
+	Input,
+	Title,
+	Row,
+	LinkButton,
+	ErrorText,
+	CenteredContainer
 } from 'src/styles/Styles';
 import { userChangePassword } from '../../redux/user/actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { History } from 'history';
+import { Link } from 'react-router-dom';
+import { validate } from '../../services/validate/validate';
 
 interface PasswordChangeProps {
 	history: History;
@@ -18,6 +25,8 @@ interface PasswordChangeProps {
 interface PasswordChangeState {
 	newpassword?: string;
 	confirmpassword?: string;
+	err?: string;
+	sent?: boolean;
 }
 
 class PasswordChange extends React.Component<
@@ -29,7 +38,9 @@ class PasswordChange extends React.Component<
 
 		this.state = {
 			newpassword: '',
-			confirmpassword: ''
+			confirmpassword: '',
+			err: '',
+			sent: false
 		};
 
 		this.handleSubmit = this.handleSubmit.bind(this);
@@ -40,12 +51,18 @@ class PasswordChange extends React.Component<
 
 	handleSubmit() {
 		let token = this.props.history.location.search.split('=')[1];
-		this.state.newpassword === this.state.confirmpassword
-			? this.props.actions.userChangePassword(
-					this.state.newpassword,
-					token
-			  )
-			: console.log("passwords doesn't match");
+
+		if (!validate('password', this.state.newpassword)) {
+			this.setState({ err: 'password is not valid' });
+		} else if (this.state.newpassword !== this.state.confirmpassword) {
+			this.setState({ err: "passwords doesn't match" });
+		} else {
+			this.setState({ err: '', sent: true });
+			this.props.actions.userChangePassword(
+				this.state.newpassword,
+				token
+			);
+		}
 	}
 
 	handleFieldChange(e: any) {
@@ -56,22 +73,45 @@ class PasswordChange extends React.Component<
 		return (
 			<PasswordResetContainer>
 				<PasswordWrapper>
-					<h2>Change password</h2>
-					<Input
-						name="newpassword"
-						placeholder="new password"
-						type="password"
-						value={this.state.newpassword}
-						onChange={this.handleFieldChange}
-					/>
-					<Input
-						name="confirmpassword"
-						placeholder="confirm password"
-						type="password"
-						value={this.state.confirmpassword}
-						onChange={this.handleFieldChange}
-					/>
-					<Submit onClick={this.handleSubmit}>Change</Submit>
+					<CenteredContainer>
+						{!this.state.sent ? (
+							<React.Fragment>
+								<Title>Change password</Title>
+								<Input
+									name="newpassword"
+									placeholder="new password"
+									type="password"
+									value={this.state.newpassword}
+									onChange={this.handleFieldChange}
+								/>
+								<ErrorText>{this.state.err}</ErrorText>
+								<Input
+									name="confirmpassword"
+									placeholder="confirm password"
+									type="password"
+									value={this.state.confirmpassword}
+									onChange={this.handleFieldChange}
+								/>
+								<Submit onClick={this.handleSubmit}>
+									Change
+								</Submit>
+							</React.Fragment>
+						) : (
+							<React.Fragment>
+								<Title>Changed!</Title>
+								<p>There will be an image here</p>
+							</React.Fragment>
+						)}
+					</CenteredContainer>
+
+					<Row>
+						<LinkButton>
+							<Link to="/login">sign in</Link>
+						</LinkButton>
+						<LinkButton>
+							<Link to="/register">sign up</Link>
+						</LinkButton>
+					</Row>
 				</PasswordWrapper>
 			</PasswordResetContainer>
 		);

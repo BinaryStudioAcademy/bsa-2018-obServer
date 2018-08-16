@@ -20,6 +20,7 @@ interface LoginFormState {
 	email?: string;
 	password?: string;
 	remember?: boolean;
+	validatestate?: Object;
 }
 
 class LoginForm extends React.Component<LoginFormProps, LoginFormState> {
@@ -43,6 +44,7 @@ class LoginForm extends React.Component<LoginFormProps, LoginFormState> {
 
 	handleSubmit(e: any) {
 		e.preventDefault();
+
 		let obj: Object = {
 			email: this.state.email,
 			password: this.state.password

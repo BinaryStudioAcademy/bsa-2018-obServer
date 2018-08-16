@@ -27,7 +27,7 @@ function* userRegister(action: UserRegister) {
 			}
 		});
 
-		yield put(push('/login'));
+		yield put(push('/confirm'));
 	} catch (error) {
 		yield put({
 			type: constants.USER_REGISTER_FAILED
@@ -80,7 +80,6 @@ function* userResetPassword(action: UserResetPassword) {
 
 function* userChangePassword(action: UserChangePassword) {
 	try {
-		console.log(action);
 		const currentUser = yield call(
 			userAPI.changePassword,
 			action.resetToken,
@@ -106,6 +105,10 @@ function* userChangePassword(action: UserChangePassword) {
 function* userEmailActivation(action: UserEmailActivation) {
 	try {
 		yield call(userAPI.activateUser, action.token);
+
+		yield put({
+			type: constants.USER_EMAIL_ACTIVATION_SUCCESS
+		});
 	} catch (error) {
 		yield put({
 			type: constants.USER_EMAIL_ACTIVATION_FAILED

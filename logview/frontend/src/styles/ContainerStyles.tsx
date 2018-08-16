@@ -86,12 +86,20 @@ export const RedirectContainer = styled.div`
 	margin-top: 20px;
 `;
 
-export const PasswordWrapper = styled.div`
-	margin: 20px;
+export const CenteredContainer = styled.div`
 	display: flex;
 	flex-wrap: wrap;
-	justify-content: center;
+	justify-content: space-between;
 	align-items: center;
 	flex-direction: column;
 	position: relative;
+`;
+
+export const PasswordWrapper = CenteredContainer.extend`
+	margin: 20px;
+	height: 400px;
+`;
+
+export const EmailContainer = CenteredContainer.extend`
+	justify-content: flex-start;
 `;

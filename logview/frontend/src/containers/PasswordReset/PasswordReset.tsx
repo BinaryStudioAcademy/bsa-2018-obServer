@@ -6,7 +6,8 @@ import {
 	PasswordResetContainer,
 	PasswordWrapper,
 	LinkButton,
-	Row
+	Row,
+	CenteredContainer
 } from 'src/styles/Styles';
 import { userResetPassword } from '../../redux/user/actions';
 import { connect } from 'react-redux';
@@ -41,16 +42,18 @@ class PasswordReset extends React.Component<LoginFormProps, LoginFormState> {
 		return (
 			<PasswordResetContainer>
 				<PasswordWrapper>
-					{this.state.sent ? (
-						<React.Fragment>
-							<PasswordResetSent />
-							<Submit onClick={this.handleSubmit}>
-								Try again
-							</Submit>
-						</React.Fragment>
-					) : (
-						<PasswordResetForm onSubmit={this.handleSubmit} />
-					)}
+					<CenteredContainer>
+						{this.state.sent ? (
+							<React.Fragment>
+								<PasswordResetSent />
+								<Submit onClick={this.handleSubmit}>
+									Try again
+								</Submit>
+							</React.Fragment>
+						) : (
+							<PasswordResetForm onSubmit={this.handleSubmit} />
+						)}
+					</CenteredContainer>
 					<Row>
 						<LinkButton>
 							<Link to="/login">sign in</Link>
