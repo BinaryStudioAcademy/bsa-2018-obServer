@@ -15,6 +15,7 @@ import { Form } from './FormStyles';
 import { Title, RedirectLink, LogoText } from './TextStyles';
 import { LoginBackground, Logo } from './ImageStyles';
 import { Input } from './InputStyles';
+import { ChartHeader } from './ChartStyles';
 
 export {
 	Submit,
@@ -37,5 +38,6 @@ export {
 	RegisterBox,
 	PasswordResetContainer,
 	PasswordWrapper,
-	LinkButton
+	LinkButton,
+	ChartHeader
 };

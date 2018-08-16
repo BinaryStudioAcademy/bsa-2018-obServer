@@ -9,7 +9,7 @@ import {
 	TextLink,
 	RedirectLink,
 	Title
-} from 'src/styles/Styles';
+} from '../styles/Styles';
 import { Link } from 'react-router-dom';
 
 interface LoginFormProps {
