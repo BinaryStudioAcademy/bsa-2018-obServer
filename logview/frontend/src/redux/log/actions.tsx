@@ -1,12 +1,14 @@
 import * as constants from './constants';
 import { LogState } from 'src/types/LogState';
 
-export interface FetchLogs extends LogState {
+export interface FetchLogs {
 	type: constants.FETCH_LOGS;
+	logs: LogState;
 }
 
-export interface FetchLogsSuccess extends LogState {
+export interface FetchLogsSuccess {
 	type: constants.FETCH_LOGS_SUCCESS;
+	logs: LogState;
 }
 
 export interface FetchLogsFail {
@@ -15,31 +17,35 @@ export interface FetchLogsFail {
 
 export function fetchLogs(
 	logType: string,
-	data: object,
-	timestamp: Date,
-	serverId: string
+	data: { message: string },
+	timestamp: number,
+	serverId: number
 ): FetchLogs {
 	return {
 		type: constants.FETCH_LOGS,
-		logType,
-		data,
-		timestamp,
-		serverId
+		logs: {
+			logType,
+			data,
+			timestamp,
+			serverId
+		}
 	};
 }
 
 export function fetchLogsSuccess(
 	logType: string,
-	data: object,
-	timestamp: Date,
-	serverId: string
+	data: { message: string },
+	timestamp: number,
+	serverId: number
 ): FetchLogsSuccess {
 	return {
 		type: constants.FETCH_LOGS_SUCCESS,
-		logType,
-		data,
-		timestamp,
-		serverId
+		logs: {
+			logType,
+			data,
+			timestamp,
+			serverId
+		}
 	};
 }
 

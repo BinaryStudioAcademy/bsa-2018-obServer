@@ -10,11 +10,9 @@ function* fetchLogs(action: FetchLogs) {
 	try {
 		const logs = yield call(fetchAllLogs);
 
-		console.log(logs);
-
 		yield put({
 			type: constants.FETCH_LOGS_SUCCESS,
-			logs
+			logs: logs
 		});
 	} catch (err) {
 		yield put({

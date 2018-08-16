@@ -1,6 +1,6 @@
 export interface LogState {
 	logType: string;
-	data: object;
-	timestamp: Date;
-	serverId: string;
+	data: { message: string };
+	timestamp: number;
+	serverId: number;
 }

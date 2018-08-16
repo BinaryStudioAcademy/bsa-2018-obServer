@@ -10,9 +10,9 @@ export const defaultState: StoreState = {
 
 	logs: {
 		logType: '',
-		data: '',
-		timestamp: '',
-		serverId: ''
+		data: { message: '' },
+		timestamp: -1,
+		serverId: -1
 	},
 
 	fetching: 'unstarted'

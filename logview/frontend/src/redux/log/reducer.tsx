@@ -12,10 +12,10 @@ export function logReducer(
 		case constants.FETCH_LOGS_SUCCESS:
 			return {
 				...state,
-				logType: action.logType,
-				data: action.data,
-				timestamp: action.timestamp,
-				serverId: action.serverId
+				logType: action.logs.logType,
+				data: action.logs.data,
+				timestamp: action.logs.timestamp,
+				serverId: action.logs.serverId
 			};
 		default:
 			return state;
