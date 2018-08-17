@@ -18,12 +18,6 @@ const cpuServer = mongoose.Schema({
     type: Date,
     required: true
   },
-  serverId: {
-    type: String,
-    required: true
-  }
 });
 
-const CpuServer = mongoose.model('cpuServerStats', cpuServer);
-
-module.exports = CpuServer;
+module.exports = cpuServer;

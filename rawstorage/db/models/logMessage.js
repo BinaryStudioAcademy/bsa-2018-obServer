@@ -5,14 +5,24 @@ const logMessage = mongoose.Schema({
     type: String,
     required: true
   },
-  data: { any: Object },
+  data: mongoose.Schema.Types.Mixed,
   timestamp: {
     type: Date,
     required: true
   },
-  serverId: {
+  companyToken: {
     type: String,
     required: true
+  },
+  app: {
+    id: {
+      type: String,
+      required: false
+    },
+    name: {
+      type: String,
+      required: false
+    }
   }
 });
 

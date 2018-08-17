@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const socketStats = mongoose.Schema({
+const socketsStats = mongoose.Schema({
   rooms: [{
     roomName: {
       type: String,
@@ -34,13 +34,7 @@ const socketStats = mongoose.Schema({
   timestamp: {
     type: Date,
     required: true
-  },
-  serverId: {
-    type: String,
-    required: true
   }
 });
 
-const SocketsStats = mongoose.model('socketsStats', socketStats);
-
-module.exports = SocketsStats;
+module.exports = socketsStats;

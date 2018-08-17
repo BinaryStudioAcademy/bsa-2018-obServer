@@ -31,13 +31,7 @@ const httpStats = mongoose.Schema({
   timestamp: {
     type: Date,
     required: true
-  },
-  serverId: {
-    type: String,
-    required: true
   }
 });
 
-const HttpStats = mongoose.model('httpStats', httpStats);
-
-module.exports = HttpStats;
+module.exports = httpStats;
