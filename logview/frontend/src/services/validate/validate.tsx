@@ -1,11 +1,11 @@
 export function validate(type: string, str: string) {
 	if (type === 'email') {
-		var re = /^([a-zA-Z0-9\.])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+		let re = /^([a-zA-Z0-9\.])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 		return re.test(String(str).toLowerCase());
 	} else if (type === 'password') {
 		return str.length > 7;
 	} else if (type === 'name') {
-		var re = /^[a-zA-Z]+/;
+		let re = /^[a-zA-Z]+/;
 		return str.length > 3 ? re.test(String(str).toLowerCase()) : false;
 	} else if (type === 'company') {
 		return str.length > 3;
@@ -29,7 +29,7 @@ export function validateForm(obj: {
 		password: false,
 		company: false
 	};
-	for (var el in obj) {
+	for (let el in obj) {
 		console.log(el);
 		res[el] = validate(el, obj[el]);
 	}

@@ -1,7 +1,6 @@
 import * as React from 'react';
 import {
 	Submit,
-	CheckboxInput,
 	Input,
 	Form,
 	Row,
@@ -77,7 +76,7 @@ class LoginForm extends React.Component<LoginFormProps, LoginFormState> {
 					onChange={this.handleFieldChange}
 				/>
 				<Row>
-					<CheckboxInput
+					<input
 						type="checkbox"
 						checked={this.state.remember}
 						onClick={this.handleCheckbox}
