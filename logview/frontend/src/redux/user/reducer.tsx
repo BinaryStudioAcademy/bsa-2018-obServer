@@ -48,3 +48,8 @@ export function fetchingState(state = 'unstarted', action: UserAction) {
 			return state;
 	}
 }
+
+export function fetchUser(
+	state: UserState = defaultState.user,
+	action: UserAction
+) {}

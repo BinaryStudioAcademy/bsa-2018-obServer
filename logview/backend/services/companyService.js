@@ -45,6 +45,10 @@ class CompanyService {
 		return companyRepository.findById(id);
 	}
 
+	findByName(name) {
+		return companyRepository.findByName(name);
+	}
+
 	update(id, newData) {
 		return companyRepository.update(id, newData);
 	}

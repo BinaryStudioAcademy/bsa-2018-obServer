@@ -1,8 +1,5 @@
 import * as React from 'react';
-import { Submit } from '../styles/ButtonStyles';
-import { Input } from '../styles/InputStyles';
-import { Form } from '../styles/FormStyles';
-import { RedirectLink } from '../styles/TextStyles';
+import { Submit, Input, Form, RedirectLink } from 'src/styles/Styles';
 import { Link } from 'react-router-dom';
 
 interface RegFormState {

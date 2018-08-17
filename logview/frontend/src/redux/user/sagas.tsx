@@ -5,28 +5,14 @@ import {
 	UserRegister,
 	UserLogin,
 	UserChangePassword,
-	UserResetPassword
+	UserResetPassword,
+	UserEmailActivation
 } from './actions';
 import { push } from 'connected-react-router';
-import {
-	USER_LOGIN_SUCCESS,
-	USER_LOGIN_FAILED,
-	USER_REGISTER_SUCCESS,
-	USER_REGISTER_FAILED,
-	USER_REGISTER,
-	USER_LOGIN,
-	USER_CHANGE_PASSWORD,
-	USER_RESET_PASSWORD,
-	USER_RESET_PASSWORD_FAILED,
-	USER_RESET_PASSWORD_SUCCESS,
-	USER_CHANGE_PASSWORD_SUCCESS,
-	USER_CHANGE_PASSWORD_FAILED
-} from './constants';
+import * as constants from './constants';
 
 function* userRegister(action: UserRegister) {
 	try {
-		console.log(action);
-
 		const currentUser = yield call(userAPI.registerUser, {
 			name: action.name,
 			email: action.email,
@@ -35,7 +21,7 @@ function* userRegister(action: UserRegister) {
 		});
 
 		yield put({
-			type: USER_REGISTER_SUCCESS,
+			type: constants.USER_REGISTER_SUCCESS,
 			payload: {
 				...currentUser
 			}
@@ -44,29 +30,31 @@ function* userRegister(action: UserRegister) {
 		yield put(push('/login'));
 	} catch (error) {
 		yield put({
-			type: USER_REGISTER_FAILED
+			type: constants.USER_REGISTER_FAILED
 		});
 	}
 }
 
 function* userLogin(action: UserLogin) {
 	try {
+		sessionStorage.setItem('user', action.email);
+
 		const currentUser = yield call(userAPI.loginUser, {
 			email: action.email,
 			password: action.password
 		});
 
 		yield put({
-			type: USER_LOGIN_SUCCESS
-			// payload: {
-			// ...currentUser
-			// }
+			type: constants.USER_LOGIN_SUCCESS,
+			payload: {
+				// ...currentUser
+			}
 		});
 
 		yield put(push('/'));
 	} catch (error) {
 		yield put({
-			type: USER_LOGIN_FAILED
+			type: constants.USER_LOGIN_FAILED
 		});
 	}
 }
@@ -78,20 +66,21 @@ function* userResetPassword(action: UserResetPassword) {
 		});
 
 		yield put({
-			type: USER_RESET_PASSWORD_SUCCESS,
+			type: constants.USER_RESET_PASSWORD_SUCCESS,
 			payload: {
 				...currentUser
 			}
 		});
 	} catch (error) {
 		yield put({
-			type: USER_RESET_PASSWORD_FAILED
+			type: constants.USER_RESET_PASSWORD_FAILED
 		});
 	}
 }
 
 function* userChangePassword(action: UserChangePassword) {
 	try {
+		console.log(action);
 		const currentUser = yield call(
 			userAPI.changePassword,
 			action.resetToken,
@@ -100,7 +89,7 @@ function* userChangePassword(action: UserChangePassword) {
 			}
 		);
 		yield put({
-			type: USER_CHANGE_PASSWORD_SUCCESS,
+			type: constants.USER_CHANGE_PASSWORD_SUCCESS,
 			payload: {
 				...currentUser
 			}
@@ -109,16 +98,27 @@ function* userChangePassword(action: UserChangePassword) {
 		yield put(push('/'));
 	} catch (error) {
 		yield put({
-			type: USER_CHANGE_PASSWORD_FAILED
+			type: constants.USER_CHANGE_PASSWORD_FAILED
+		});
+	}
+}
+
+function* userEmailActivation(action: UserEmailActivation) {
+	try {
+		yield call(userAPI.activateUser, action.token);
+	} catch (error) {
+		yield put({
+			type: constants.USER_EMAIL_ACTIVATION_FAILED
 		});
 	}
 }
 
 export default function* userSaga() {
 	yield all([
-		takeLatest(USER_REGISTER, userRegister),
-		takeLatest(USER_LOGIN, userLogin),
-		takeLatest(USER_CHANGE_PASSWORD, userChangePassword),
-		takeLatest(USER_RESET_PASSWORD, userResetPassword)
+		takeLatest(constants.USER_REGISTER, userRegister),
+		takeLatest(constants.USER_LOGIN, userLogin),
+		takeLatest(constants.USER_CHANGE_PASSWORD, userChangePassword),
+		takeLatest(constants.USER_RESET_PASSWORD, userResetPassword),
+		takeLatest(constants.USER_EMAIL_ACTIVATION, userEmailActivation)
 	]);
 }
