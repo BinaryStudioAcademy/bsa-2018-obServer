@@ -3,15 +3,22 @@ import LoginForm from 'src/components/LoginForm';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { userLogin } from 'src/redux/user/actions';
-import { Wrapper, BackgroundContainer, Box, LogoContainer, LogoText, Logo } from 'src/styles/Styles';
+import {
+	Wrapper,
+	BackgroundContainer,
+	Box,
+	LogoContainer,
+	LogoText,
+	Logo
+} from 'src/styles/Styles';
 const logo = require('src/assets/logo.png');
 
-interface ILoginFormProps {
+interface LoginFormProps {
 	onSubmit: Function;
 	actions: { userLogin: Function };
 }
 
-class Login extends React.Component<ILoginFormProps, {}> {
+class Login extends React.Component<LoginFormProps, {}> {
 	constructor(props: any) {
 		super(props);
 

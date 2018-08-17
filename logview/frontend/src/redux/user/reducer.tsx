@@ -33,16 +33,19 @@ export function fetchingState(state = 'unstarted', action: UserAction) {
 		case constants.USER_LOGIN_SUCCESS:
 		case constants.USER_RESET_PASSWORD_SUCCESS:
 		case constants.USER_RESET_PASSWORD_SUCCESS:
+		case constants.USER_EMAIL_ACTIVATION_SUCCESS:
 			return 'success';
 		case constants.USER_REGISTER_FAILED:
 		case constants.USER_LOGIN_FAILED:
 		case constants.USER_RESET_PASSWORD_FAILED:
 		case constants.USER_RESET_PASSWORD_FAILED:
+		case constants.USER_EMAIL_ACTIVATION_FAILED:
 			return 'failed';
 		case constants.USER_REGISTER:
 		case constants.USER_LOGIN:
 		case constants.USER_RESET_PASSWORD:
 		case constants.USER_RESET_PASSWORD:
+		case constants.USER_EMAIL_ACTIVATION:
 			return 'pending';
 		default:
 			return state;
