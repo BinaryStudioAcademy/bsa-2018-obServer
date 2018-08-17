@@ -1,5 +1,6 @@
 import user from './domains/user';
-import log from './domains/log';
+import checkIsLoggedIn from './isLoggedIn';
 
 export const userAPI = user;
-export const logAPI = log;
+
+export const isLoggedIn = checkIsLoggedIn;

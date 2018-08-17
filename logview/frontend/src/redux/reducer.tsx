@@ -9,6 +9,6 @@ import {
 export default combineReducers<StoreState>({
 	user: userReducer,
 	logs: logReducer,
-	fetching: fetchingState,
-	fetchingLog: fetchingLog
+	fetchingLog: fetchingLog,
+	fetchingUserStatus: fetchingState
 });

@@ -8,13 +8,7 @@ const errorLog = mongoose.Schema({
   timestamp: {
     type: Date,
     required: true
-  },
-  serverId: {
-    type: String,
-    required: true
   }
 });
 
-const ErrorLog = mongoose.model('errorLogs', errorLog);
-
-module.exports = ErrorLog;
+module.exports = errorLog;

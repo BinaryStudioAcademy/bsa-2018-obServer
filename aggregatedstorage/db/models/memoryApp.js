@@ -14,13 +14,7 @@ const memoryApp = mongoose.Schema({
   timestamp: {
     type: Date,
     required: true
-  },
-  serverId: {
-    type: String,
-    required: true
   }
 });
 
-const MemoryApp = mongoose.model('memoryAppStats', memoryApp);
-
-module.exports = MemoryApp;
+module.exports = memoryApp;

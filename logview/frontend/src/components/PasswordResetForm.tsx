@@ -1,9 +1,5 @@
 import * as React from 'react';
-import { Submit, CheckboxInput } from '../styles/ButtonStyles';
-import { Input } from '../styles/InputStyles';
-import { Form } from '../styles/FormStyles';
-import { Row, RedirectContainer } from '../styles/ContainerStyles';
-import { TextLink, RedirectLink } from '../styles/TextStyles';
+import { Submit, InputWide, Title } from 'src/styles/Styles';
 import { Link } from 'react-router-dom';
 
 interface PasswordResetFormProps {
@@ -35,15 +31,16 @@ class PasswordResetForm extends React.Component<
 
 	handleSubmit(e: any) {
 		e.preventDefault();
-		this.props.onSubmit();
+		this.props.onSubmit(this.state.email);
 	}
 
 	render() {
 		return (
-			<Form>
-				<h2>Password reset</h2>
+			<React.Fragment>
+				<Title>Password reset</Title>
 				<p />
-				<Input
+				<p />
+				<InputWide
 					type="email"
 					name="email"
 					placeholder="email"
@@ -52,7 +49,7 @@ class PasswordResetForm extends React.Component<
 					onChange={this.handleFieldChange}
 				/>
 				<Submit onClick={this.handleSubmit}>send</Submit>
-			</Form>
+			</React.Fragment>
 		);
 	}
 }

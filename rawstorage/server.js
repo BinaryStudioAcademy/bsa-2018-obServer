@@ -13,13 +13,13 @@ const sendMetrics = sendHelper(aggregatedStorageUrl);
 app.use(bodyParser.json({ limit: '5mb' }));
 app.use(bodyParser.urlencoded({ extended: false }));
 
-const baseUrl = '/api'
+const baseUrl = '/api';
 
 app.post(`${baseUrl}/logs`, (req, res) => {
-  logService.create(req.body, (err, logMessage) => {
+  logService.create({ ...req.body, companyToken: req.header('X-ACCESS-TOKEN') }, (err, logMessage) => {
     if (!err) {
-      const { logType, data, timestamp, serverId } = logMessage;
-      sendMetrics({ logType, data, timestamp, serverId });      
+      const { logType, data, timestamp, app, companyToken } = logMessage;
+      sendMetrics({ logType, data, timestamp, app, companyToken });      
       res.status(200);
     } else {
       res.status(400).end();

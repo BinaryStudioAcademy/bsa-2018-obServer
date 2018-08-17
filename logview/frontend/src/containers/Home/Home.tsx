@@ -12,11 +12,6 @@ class Home extends React.Component<HomeProps, HomeState> {
 		super(props);
 	}
 
-	componentDidMount() {
-		sessionStorage.getItem('user') === undefined
-			? this.props.history.push('/login')
-			: undefined;
-	}
 	render() {
 		console.log(this.props);
 		console.log(sessionStorage);
@@ -27,12 +22,14 @@ class Home extends React.Component<HomeProps, HomeState> {
 				<Link to="socket">Socket</Link>
 				<div />
 				<Link to="register">Link to register</Link>
+				<br />
+				<Link to="/dashboard/quickstart">Quickstart</Link>
 			</React.Fragment>
 		);
 	}
 }
 
-const mapStateToProps = ({ fetching }) => ({});
+const mapStateToProps = ({}) => ({});
 
 const mapDispatchToProps = (dispatch: any) => ({
 	actions: bindActionCreators({}, dispatch)

@@ -1,9 +1,16 @@
 import * as React from 'react';
-import { Submit, CheckboxInput } from '../styles/ButtonStyles';
-import { Input } from '../styles/InputStyles';
-import { Form } from '../styles/FormStyles';
-import { Row, RedirectContainer } from '../styles/ContainerStyles';
-import { TextLink, RedirectLink } from '../styles/TextStyles';
+import {
+	Submit,
+	Input,
+	Form,
+	Row,
+	RedirectContainer,
+	TextLink,
+	RedirectLink,
+	Title,
+	ErrorText,
+	CenteredText
+} from 'src/styles/Styles';
 import { Link } from 'react-router-dom';
 
 interface LoginFormProps {
@@ -14,6 +21,7 @@ interface LoginFormState {
 	email?: string;
 	password?: string;
 	remember?: boolean;
+	err?: boolean;
 }
 
 class LoginForm extends React.Component<LoginFormProps, LoginFormState> {
@@ -23,7 +31,8 @@ class LoginForm extends React.Component<LoginFormProps, LoginFormState> {
 		this.state = {
 			email: '',
 			password: '',
-			remember: false
+			remember: false,
+			err: false
 		};
 
 		this.handleFieldChange = this.handleFieldChange.bind(this);
@@ -37,11 +46,13 @@ class LoginForm extends React.Component<LoginFormProps, LoginFormState> {
 
 	handleSubmit(e: any) {
 		e.preventDefault();
+
 		let obj: Object = {
 			email: this.state.email,
 			password: this.state.password
 		};
 		this.props.onSubmit(obj);
+		this.setState({ err: true });
 	}
 
 	handleCheckbox() {
@@ -51,8 +62,10 @@ class LoginForm extends React.Component<LoginFormProps, LoginFormState> {
 	render() {
 		return (
 			<Form>
-				<h2>obServer</h2>
-				<p>Welcome back, please login to your account</p>
+				<Title>obServer</Title>
+				<CenteredText>
+					Welcome back, please login to your account
+				</CenteredText>
 				<Input
 					type="email"
 					name="email"
@@ -68,8 +81,13 @@ class LoginForm extends React.Component<LoginFormProps, LoginFormState> {
 					value={this.state.password}
 					onChange={this.handleFieldChange}
 				/>
+				{this.state.err ? (
+					<ErrorText>Email or password is incorrect</ErrorText>
+				) : (
+					undefined
+				)}
 				<Row>
-					<CheckboxInput
+					<input
 						type="checkbox"
 						checked={this.state.remember}
 						onClick={this.handleCheckbox}
