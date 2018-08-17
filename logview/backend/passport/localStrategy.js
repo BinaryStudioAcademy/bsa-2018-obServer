@@ -22,7 +22,7 @@ passport.use(
 		},
 		(username, password, done) => {
 			userService
-				.findByEmail(username)
+				.findByEmail(username.toLowerCase())
 				.then(async user => {
 					if (!user)
 						return done(null, false, {
