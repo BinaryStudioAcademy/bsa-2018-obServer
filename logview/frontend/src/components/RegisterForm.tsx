@@ -135,7 +135,6 @@ class RegisterForm extends React.Component<RegFormProps, RegFormState> {
 						Company should be at least 3 characters long
 					</ErrorText>
 				)}
-				{this.props.fetching}
 				<Submit onClick={this.handleSubmit}>sign up</Submit>
 
 				<RedirectLink>
