@@ -11,7 +11,7 @@ import {
 } from 'recharts';
 
 import {
-	convertToHourMinuteSecond,
+	convertXAxisTime,
 	convertToDateTime
 } from '../convertors/tickFormatter';
 
@@ -53,20 +53,19 @@ export default class CoresLoadLineChart extends React.Component<any, any> {
 			<ResponsiveContainer width="100%" aspect={2}>
 				<LineChart
 					data={this.props.data}
-					margin={{ top: 20, right: 0, left: 0, bottom: 0 }}
+					margin={{ top: 20, right: 0, left: -30, bottom: 20 }}
 				>
 					<XAxis
 						dataKey="timestamp"
-						tickFormatter={convertToHourMinuteSecond}
+						tickFormatter={convertXAxisTime(this.props.timeRange)}
 						strokeWidth={0}
 						minTickGap={20}
+						tick={{ transform: 'translate(0, 5)' }}
 					/>
 					<YAxis strokeWidth={0} />
 					<CartesianGrid strokeDasharray="3 3" />
 					<Tooltip content={renderTooltipContent} />
-					<Legend
-						padding={{ top: 50, left: 20, right: 20, bottom: 20 }}
-					/>
+					<Legend wrapperStyle={{ bottom: 10 }} />
 					{this.renderLines()}}
 				</LineChart>
 			</ResponsiveContainer>
@@ -76,7 +75,6 @@ export default class CoresLoadLineChart extends React.Component<any, any> {
 
 const renderTooltipContent = o => {
 	const { payload, label } = o;
-	const total = payload.reduce((result, entry) => result + entry.value, 0);
 
 	return (
 		<div
@@ -87,16 +85,11 @@ const renderTooltipContent = o => {
 			}}
 		>
 			<p className="total">{`${convertToDateTime(label)}`}</p>
-			<ul style={{ padding: '0', listStyle: 'none' }}>
-				{payload.map((entry, index) => (
-					<li
-						key={`item-${index}`}
-						style={{ color: entry.color, padding: '5px' }}
-					>
-						{`${entry.name}: ${entry.value}%`}
-					</li>
-				))}
-			</ul>
+			{payload.map((entry, index) => (
+				<p key={`item-${index}`} style={{ color: entry.color }}>
+					{`${entry.name}: ${entry.value}%`}
+				</p>
+			))}
 		</div>
 	);
 };

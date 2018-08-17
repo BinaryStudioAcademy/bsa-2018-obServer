@@ -10,7 +10,8 @@
 		"noUnusedParameters": false,
 		"noUnusedLocals": false,
 		"skipLibCheck": true, // todo: remove it when @types/lodash is fixed
-		"strictNullChecks": false
+		"strictNullChecks": false,
+		"allowSyntheticDefaultImports": true
 	},
 	"include": ["./frontend/src"]
 }

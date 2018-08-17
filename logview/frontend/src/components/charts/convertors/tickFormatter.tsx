@@ -1,16 +1,19 @@
-export function convertToHourMinute(timestamp) {
-	const date = new Date(timestamp);
-	return `${date.getHours()}:${date.getMinutes()}`;
+import moment from 'moment';
+
+export function convertToDayHourMinute(timestamp) {
+	return moment(timestamp).format('ddd HH:mm');
 }
 
 export function convertToHourMinuteSecond(timestamp) {
-	const date = new Date(timestamp);
-	return `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+	return moment(timestamp).format('HH:mm');
+}
+
+export function convertToMinuteSecond(timestamp) {
+	return moment(timestamp).format('mm:ss');
 }
 
 export function convertToDateTime(timestamp) {
-	const date = new Date(timestamp);
-	return `${date.getFullYear()}-${date.getMonth()}-${date.getDay()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+	return moment(timestamp).format('MMM DD YYYY, h:mm:ss a');
 }
 
 export function convertDecimalToPercent(decimal, fixed = 0) {
@@ -19,4 +22,17 @@ export function convertDecimalToPercent(decimal, fixed = 0) {
 
 export function convertNumberToPercent(number, fixed = 0) {
 	return `${number.toFixed(fixed)}%`;
+}
+
+export function convertXAxisTime(timeRange) {
+	switch (timeRange) {
+		case 'last 10 minutes':
+			return convertToMinuteSecond;
+		case 'last hour':
+			return convertToHourMinuteSecond;
+		case 'last day':
+			return convertToDayHourMinute;
+		default:
+			return convertToDayHourMinute;
+	}
 }

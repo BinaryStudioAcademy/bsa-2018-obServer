@@ -41,7 +41,6 @@ class Register extends React.Component<LoginFormProps, LoginFormState> {
 	}
 
 	render() {
-		console.log(this.props);
 		return (
 			<Wrapper>
 				<BackgroundContainer>

@@ -8,13 +8,7 @@ const cpuApp = mongoose.Schema({
   timestamp: {
     type: Date,
     required: true
-  },
-  serverId: {
-    type: String,
-    required: true
   }
 });
 
-const CpuApp = mongoose.model('cpuAppStats', cpuApp);
-
-module.exports = CpuApp;
+module.exports = cpuApp;

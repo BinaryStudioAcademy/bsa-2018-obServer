@@ -11,7 +11,7 @@ import {
 } from 'recharts';
 
 import {
-	convertToHourMinuteSecond,
+	convertXAxisTime,
 	convertToDateTime,
 	convertDecimalToPercent
 } from '../convertors/tickFormatter';
@@ -23,21 +23,22 @@ export default class PercentMemoryChart extends React.Component<any, any> {
 				<AreaChart
 					data={this.props.data}
 					stackOffset="expand"
-					margin={{ top: 20, right: 0, left: 0, bottom: 0 }}
+					margin={{ top: 20, right: 0, left: -30, bottom: 20 }}
 				>
 					<CartesianGrid strokeDasharray="3 3" />
 					<XAxis
 						dataKey="timestamp"
-						tickFormatter={convertToHourMinuteSecond}
+						tickFormatter={convertXAxisTime(this.props.timeRange)}
 						strokeWidth={0}
 						minTickGap={20}
+						tick={{ transform: 'translate(0, 5)' }}
 					/>
 					<YAxis
 						tickFormatter={convertDecimalToPercent}
 						strokeWidth={0}
 					/>
 					<Tooltip content={renderTooltipContent} />
-					<Legend />
+					<Legend wrapperStyle={{ bottom: 10 }} />
 					<Area
 						type="monotone"
 						dataKey="usedMemory"
@@ -77,20 +78,15 @@ const renderTooltipContent = o => {
 			}}
 		>
 			<p className="total">{`${convertToDateTime(label)}`}</p>
-			<p>{`All memory: ${total}, MB`}</p>
-			<ul style={{ padding: '0', listStyle: 'none' }}>
-				{payload.map((entry, index) => (
-					<li
-						key={`item-${index}`}
-						style={{ color: entry.color, padding: '5px' }}
-					>
-						{`${entry.name}: ${entry.value}(${getPercent(
-							entry.value,
-							total
-						)}%)`}
-					</li>
-				))}
-			</ul>
+			<p>{`all memory: ${total} MB`}</p>
+			{payload.map((entry, index) => (
+				<p key={`item-${index}`} style={{ color: entry.color }}>
+					{`${entry.name}: ${entry.value} MB (${getPercent(
+						entry.value,
+						total
+					)}%)`}
+				</p>
+			))}
 		</div>
 	);
 };

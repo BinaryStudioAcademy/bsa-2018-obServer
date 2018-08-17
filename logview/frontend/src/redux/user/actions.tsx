@@ -91,6 +91,7 @@ export type UserAction =
 	| UserResetPasswordSuccess
 	| UserEmailActivation
 	| UserEmailActivationFail
+	| UserEmailActivationSuccess
 	| UserChangePasswordSuccess
 	| FetchUser;
 
