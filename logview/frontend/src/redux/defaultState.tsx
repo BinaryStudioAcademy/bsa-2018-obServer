@@ -1,4 +1,5 @@
 import { StoreState } from 'src/types/StoreState';
+import { LogState } from '../types/LogState';
 
 export const defaultState: StoreState = {
 	user: {
@@ -6,6 +7,13 @@ export const defaultState: StoreState = {
 		email: '',
 		password: '',
 		company: ''
+	},
+
+	log: {
+		logType: '',
+		data: { message: '', status: '' },
+		timestamp: -1,
+		serverId: -1
 	},
 
 	logs: [
@@ -17,5 +25,7 @@ export const defaultState: StoreState = {
 		}
 	],
 
-	fetchingUserStatus: 'unstarted'
+	fetchingUserStatus: 'unstarted',
+
+	fetchingLogStatus: 'unstarted'
 };

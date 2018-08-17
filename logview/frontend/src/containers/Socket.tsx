@@ -1,17 +1,18 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { fetchLogs } from 'src/redux/log/actions';
-import { fetchingState } from 'src/redux/log/reducer';
+import { fetchLog } from 'src/redux/log/actions';
 
 interface FetchLogsProps {
-	actions: { fetchLogs: Function; fetchLogsSuccess: Function };
-	logs: {
-		logType: string;
-		data: { message: string; status: string };
-		timestamp: number;
-		serverId: number;
-	};
+	actions: { fetchLog: Function; fetchLogSuccess: Function };
+	logs: [
+		{
+			logType: string;
+			data: { message: string; status: string };
+			timestamp: number;
+			serverId: number;
+		}
+	];
 }
 
 interface FetchLogsState {
@@ -28,30 +29,30 @@ class FetchLogs extends React.Component<FetchLogsProps, FetchLogsState> {
 	}
 
 	componentDidMount() {
-		this.props.actions.fetchLogs();
+		this.props.actions.fetchLog();
 	}
 
 	render() {
-		const { message, status } = this.props.logs.data
-			? this.props.logs.data
-			: { message: '', status: '' };
+		const { logs } = this.props;
 		return (
 			<React.Fragment>
 				SOCKETS DATA:
-				<div>
-					LogType:{' '}
-					{this.props.logs.logType ? this.props.logs.logType : ''}
-					<br />
-					Timestamp:{' '}
-					{this.props.logs.timestamp ? this.props.logs.timestamp : ''}
-					<br />
-					ServerId:{' '}
-					{this.props.logs.serverId ? this.props.logs.serverId : ''}
-					<br />
-					Data Message: {message ? message : ''}
-					<br />
-					Data Status: {status ? status : ''}
-				</div>
+				{logs ? (
+					logs.map(log => {
+						return (
+							<div key={log.timestamp}>
+								<p>Log Type: {log.logType}</p>
+								<p>Log Timestamp: {log.timestamp}</p>
+								<p>Log Data:</p>
+								<p> message: {log.data.message}</p>
+								<p> status: {log.data.status}</p>
+								<p>Log Timestamp: {log.serverId}</p>
+							</div>
+						);
+					})
+				) : (
+					<p>no data</p>
+				)}
 			</React.Fragment>
 		);
 	}
@@ -63,7 +64,7 @@ const mapStateToProps = ({ fetching, logs }) => ({
 });
 
 const mapDispatchToProps = (dispatch: any) => ({
-	actions: bindActionCreators({ fetchLogs }, dispatch)
+	actions: bindActionCreators({ fetchLog }, dispatch)
 });
 
 const LogsConnected = connect(

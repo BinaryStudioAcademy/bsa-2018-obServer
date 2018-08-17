@@ -1,29 +1,35 @@
 import * as constants from './constants';
 import { LogState } from 'src/types/LogState';
+import { LogsState } from '../../types/LogsState';
 
-export interface FetchLogs {
-	type: constants.FETCH_LOGS;
-	logs: LogState;
+export interface FetchLog {
+	type: constants.FETCH_LOG;
+	log: LogState;
 }
 
-export interface FetchLogsSuccess {
-	type: constants.FETCH_LOGS_SUCCESS;
-	logs: LogState;
+export interface FetchLogSuccess {
+	type: constants.FETCH_LOG_SUCCESS;
+	log: LogState;
 }
 
-export interface FetchLogsFail {
-	type: constants.FETCH_LOGS_FAILED;
+export interface FetchLogFail {
+	type: constants.FETCH_LOG_FAILED;
 }
 
-export function fetchLogs(
+export interface AddNewLog {
+	type: constants.ADD_NEW_LOG;
+	log: LogState;
+}
+
+export function fetchLog(
 	logType: string,
-	data: { message: string },
+	data: { message: string; status: string },
 	timestamp: number,
 	serverId: number
-): FetchLogs {
+): FetchLog {
 	return {
-		type: constants.FETCH_LOGS,
-		logs: {
+		type: constants.FETCH_LOG,
+		log: {
 			logType,
 			data,
 			timestamp,
@@ -32,15 +38,15 @@ export function fetchLogs(
 	};
 }
 
-export function fetchLogsSuccess(
+export function fetchLogSuccess(
 	logType: string,
-	data: { message: string },
+	data: { message: string; status: string },
 	timestamp: number,
 	serverId: number
-): FetchLogsSuccess {
+): FetchLogSuccess {
 	return {
-		type: constants.FETCH_LOGS_SUCCESS,
-		logs: {
+		type: constants.FETCH_LOG_SUCCESS,
+		log: {
 			logType,
 			data,
 			timestamp,
@@ -49,10 +55,27 @@ export function fetchLogsSuccess(
 	};
 }
 
-export function fetchLogsFail(): FetchLogsFail {
+export function fetchLogsFail(): FetchLogFail {
 	return {
-		type: constants.FETCH_LOGS_FAILED
+		type: constants.FETCH_LOG_FAILED
 	};
 }
 
-export type LogAction = FetchLogs | FetchLogsFail | FetchLogsSuccess;
+export function addNewLog(
+	logType: string,
+	data: { message: string; status: string },
+	timestamp: number,
+	serverId: number
+): AddNewLog {
+	return {
+		type: constants.ADD_NEW_LOG,
+		log: {
+			logType,
+			data,
+			timestamp,
+			serverId
+		}
+	};
+}
+
+export type LogAction = FetchLog | FetchLogFail | FetchLogSuccess | AddNewLog;

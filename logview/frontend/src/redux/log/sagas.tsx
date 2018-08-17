@@ -1,26 +1,29 @@
 import { takeLatest, put, call, all, take } from 'redux-saga/effects';
-import api from 'src/services/adapter';
-import { logAPI } from '../../services';
-import { LogState } from '../../types/LogState';
+//import { LogState } from '../../types/LogState';
 import * as constants from './constants';
-import { FetchLogs } from './actions';
+import { FetchLog } from './actions';
 import { fetchLogs as fetchAllLogs } from 'src/services/websockets/logs';
 
-function* fetchLogs(action: FetchLogs) {
+function* fetchLog(action: FetchLog) {
 	try {
-		const logs = yield call(fetchAllLogs);
+		const newLog = yield call(fetchAllLogs);
 
 		yield put({
-			type: constants.FETCH_LOGS_SUCCESS,
-			logs: logs
+			type: constants.ADD_NEW_LOG,
+			log: newLog
+		});
+
+		yield put({
+			type: constants.FETCH_LOG_SUCCESS,
+			log: newLog
 		});
 	} catch (err) {
 		yield put({
-			type: constants.FETCH_LOGS_FAILED
+			type: constants.FETCH_LOG_FAILED
 		});
 	}
 }
 
 export default function* logSaga() {
-	yield all([takeLatest(constants.FETCH_LOGS, fetchLogs)]);
+	yield all([takeLatest(constants.FETCH_LOG, fetchLog)]);
 }
