@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { media } from './styles-utils';
 
 export const Submit = styled.button`
 	display: block;
@@ -27,24 +28,6 @@ export const Submit = styled.button`
 	}
 `;
 
-export const LinkButton = Submit.extend`
-	padding: 0;
-	margin: 10px;
-	a {
-		height: 36px;
-		width: 140px;
-	}
-
-	a:hover {
-		background: linear-gradient(
-			45deg,
-			rgba(124, 184, 252, 1),
-			rgba(127, 120, 206, 1)
-		);
-		border-radius: 15px;
-	}
-`;
-
 export const TextLink = styled.p`
 	cursor: pointer;
 	border-bottom: 3px solid transparent;
@@ -58,7 +41,7 @@ export const TextLink = styled.p`
 		border-image-slice: 1;
 		border-radius: 15px;
 		transition-duration: 0.3s;
-		padding: 10px 67px;
+		padding: 6px 63px;
 		font-size: 16px;
 	}
 
@@ -73,5 +56,24 @@ export const TextLink = styled.p`
 		border: none;
 		transition-duration: 0.3s;
 		border-radius: 15px;
+	}
+`;
+
+export const LinkButton = TextLink.extend`
+	padding: 0;
+	margin: 5px;
+	a {
+		padding: 10px 40px;
+		${media.phone`padding: 10px 30px`} /* color: rgba(127, 120, 206, 1); */
+		color: white;
+		/* border-color: rgba(127, 120, 206, 1); */
+		border: none;
+		background: #4a4a4a;
+		/* background: #3d3d3d; */
+		padding: 10px 40px;
+	}
+
+	a:hover {
+		${media.phone`padding: 10px 40px;`};
 	}
 `;

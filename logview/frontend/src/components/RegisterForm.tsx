@@ -4,7 +4,8 @@ import {
 	Input,
 	Form,
 	RedirectLink,
-	ErrorText
+	ErrorText,
+	CenteredText
 } from 'src/styles/Styles';
 import { Link } from 'react-router-dom';
 import { validateForm } from 'src/services/validate/validate';
@@ -61,9 +62,11 @@ class RegisterForm extends React.Component<RegFormProps, RegFormState> {
 
 		let validatestate = validateForm(obj);
 		this.setState({ validatestate: validatestate });
-		Object.values(validatestate).includes(false)
-			? undefined
-			: this.props.onSubmit(obj);
+		let arr = [];
+		for (let el in validatestate) {
+			arr.push(validatestate[el]);
+		}
+		arr.indexOf(false) ? this.props.onSubmit(obj) : undefined;
 	}
 
 	render() {
@@ -71,7 +74,9 @@ class RegisterForm extends React.Component<RegFormProps, RegFormState> {
 		return (
 			<Form>
 				<h2>Welcome to obServer</h2>
-				<p>Web-service dedicated to monitor your server in real-time</p>
+				<CenteredText>
+					Web-service dedicated to monitor your server in real-time
+				</CenteredText>
 				<Input
 					autoComplete="off"
 					type="text"
@@ -83,10 +88,7 @@ class RegisterForm extends React.Component<RegFormProps, RegFormState> {
 				{this.state.validatestate.name ? (
 					undefined
 				) : (
-					<ErrorText>
-						Name should be at least 3 characters long and can only
-						contain letters
-					</ErrorText>
+					<ErrorText>Name can only contain letters</ErrorText>
 				)}
 				<Input
 					type="email"
@@ -133,6 +135,7 @@ class RegisterForm extends React.Component<RegFormProps, RegFormState> {
 						Company should be at least 3 characters long
 					</ErrorText>
 				)}
+				{this.props.fetching}
 				<Submit onClick={this.handleSubmit}>sign up</Submit>
 
 				<RedirectLink>

@@ -3,12 +3,12 @@ import {
 	Submit,
 	PasswordResetContainer,
 	PasswordWrapper,
-	Input,
 	Title,
 	Row,
 	LinkButton,
 	ErrorText,
-	CenteredContainer
+	CenteredContainer,
+	InputWide
 } from 'src/styles/Styles';
 import { userChangePassword } from '../../redux/user/actions';
 import { connect } from 'react-redux';
@@ -77,7 +77,7 @@ class PasswordChange extends React.Component<
 						{!this.state.sent ? (
 							<React.Fragment>
 								<Title>Change password</Title>
-								<Input
+								<InputWide
 									name="newpassword"
 									placeholder="new password"
 									type="password"
@@ -85,7 +85,7 @@ class PasswordChange extends React.Component<
 									onChange={this.handleFieldChange}
 								/>
 								<ErrorText>{this.state.err}</ErrorText>
-								<Input
+								<InputWide
 									name="confirmpassword"
 									placeholder="confirm password"
 									type="password"

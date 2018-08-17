@@ -5,6 +5,7 @@ export const Input = styled.input`
 	border: none;
 	outline: none;
 	padding: 15px;
+	width: 45%;
 	margin: 5px;
 	background: transparent;
 	font-family: 'Muli', sans-serif;
@@ -25,4 +26,8 @@ export const Input = styled.input`
 		);
 		border-image-slice: 1;
 	}
+`;
+
+export const InputWide = Input.extend`
+	width: 80%;
 `;
