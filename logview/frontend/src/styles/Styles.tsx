@@ -1,4 +1,4 @@
-import { Submit, LinkButton, CheckboxInput, TextLink } from './ButtonStyles';
+import { Submit, LinkButton, TextLink } from './ButtonStyles';
 import {
 	Wrapper,
 	Row,
@@ -9,12 +9,20 @@ import {
 	RedirectContainer,
 	RegisterBox,
 	PasswordResetContainer,
-	PasswordWrapper
+	PasswordWrapper,
+	CenteredContainer,
+	EmailContainer
 } from './ContainerStyles';
 import { Form } from './FormStyles';
-import { Title, RedirectLink, LogoText } from './TextStyles';
+import {
+	Title,
+	RedirectLink,
+	LogoText,
+	ErrorText,
+	CenteredText
+} from './TextStyles';
 import { LoginBackground, Logo } from './ImageStyles';
-import { Input } from './InputStyles';
+import { Input, InputWide } from './InputStyles';
 
 export {
 	Submit,
@@ -33,9 +41,13 @@ export {
 	Form,
 	RedirectContainer,
 	LogoContainer,
-	CheckboxInput,
 	RegisterBox,
 	PasswordResetContainer,
 	PasswordWrapper,
-	LinkButton
+	LinkButton,
+	ErrorText,
+	CenteredContainer,
+	EmailContainer,
+	CenteredText,
+	InputWide
 };

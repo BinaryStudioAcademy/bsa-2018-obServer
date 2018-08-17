@@ -41,7 +41,6 @@ class Register extends React.Component<LoginFormProps, LoginFormState> {
 	}
 
 	render() {
-		console.log(this.props);
 		return (
 			<Wrapper>
 				<BackgroundContainer>
@@ -52,7 +51,10 @@ class Register extends React.Component<LoginFormProps, LoginFormState> {
 						</LogoContainer>
 					</RegisterBox>
 				</BackgroundContainer>
-				<RegisterForm onSubmit={this.handleSubmit} />
+				<RegisterForm
+					onSubmit={this.handleSubmit}
+					fetching={this.props.fetching}
+				/>
 			</Wrapper>
 		);
 	}
