@@ -1,5 +1,10 @@
 import * as constants from './constants';
-import { UserState, UserLoginState } from '../../types/UserState';
+import {
+	UserState,
+	UserLoginState,
+	UserResetPasswordState,
+	UserChangePasswordState
+} from '../../types/UserState';
 
 /* user register */
 export interface UserRegister extends UserState {
@@ -28,10 +33,8 @@ export interface UserLoginSuccess {
 }
 
 /* password reset */
-export interface UserResetPassword {
+export interface UserResetPassword extends UserResetPasswordState {
 	type: constants.USER_RESET_PASSWORD;
-	email: string;
-	password: string;
 }
 
 export interface UserResetPasswordFail {
@@ -43,10 +46,8 @@ export interface UserResetPasswordSuccess {
 }
 
 /* password change */
-export interface UserChangePassword {
+export interface UserChangePassword extends UserChangePasswordState {
 	type: constants.USER_CHANGE_PASSWORD;
-	email: string;
-	password: string;
 }
 
 export interface UserChangePasswordFail {
@@ -55,6 +56,24 @@ export interface UserChangePasswordFail {
 
 export interface UserChangePasswordSuccess {
 	type: constants.USER_CHANGE_PASSWORD_SUCCESS;
+}
+
+/* email activation */
+export interface UserEmailActivation {
+	type: constants.USER_EMAIL_ACTIVATION;
+	token: string;
+}
+
+export interface UserEmailActivationFail {
+	type: constants.USER_EMAIL_ACTIVATION_FAILED;
+}
+
+export interface UserEmailActivationSuccess {
+	type: constants.USER_EMAIL_ACTIVATION_SUCCESS;
+}
+
+export interface FetchUser {
+	type: constants.FETCH_USER;
 }
 
 export type UserAction =
@@ -69,7 +88,11 @@ export type UserAction =
 	| UserChangePasswordSuccess
 	| UserResetPassword
 	| UserResetPasswordFail
-	| UserResetPasswordSuccess;
+	| UserResetPasswordSuccess
+	| UserEmailActivation
+	| UserEmailActivationFail
+	| UserChangePasswordSuccess
+	| FetchUser;
 
 export function userRegister(
 	name: string = '',
@@ -127,8 +150,7 @@ export function userResetPassword(
 ): UserResetPassword {
 	return {
 		type: constants.USER_RESET_PASSWORD,
-		email,
-		password
+		email
 	};
 }
 
@@ -144,15 +166,14 @@ export function userResetPasswordSuccess(): UserResetPasswordSuccess {
 	};
 }
 
-/* */
 export function userChangePassword(
-	email: string = '',
-	password: string = ''
+	newPassword: string = '',
+	resetToken: string = ''
 ): UserChangePassword {
 	return {
 		type: constants.USER_CHANGE_PASSWORD,
-		email,
-		password
+		newPassword,
+		resetToken
 	};
 }
 
@@ -165,5 +186,30 @@ export function userChangePasswordFail(): UserChangePasswordFail {
 export function userChangePasswordSuccess(): UserChangePasswordSuccess {
 	return {
 		type: constants.USER_CHANGE_PASSWORD_SUCCESS
+	};
+}
+
+export function fetchUser(): FetchUser {
+	return {
+		type: constants.FETCH_USER
+	};
+}
+
+export function userEmailActivation(token: string = ''): UserEmailActivation {
+	return {
+		type: constants.USER_EMAIL_ACTIVATION,
+		token
+	};
+}
+
+export function userEmailActivationFail(): UserEmailActivationFail {
+	return {
+		type: constants.USER_EMAIL_ACTIVATION_FAILED
+	};
+}
+
+export function userEmailActivationSuccess(): UserEmailActivationSuccess {
+	return {
+		type: constants.USER_EMAIL_ACTIVATION_SUCCESS
 	};
 }

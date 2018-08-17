@@ -26,7 +26,8 @@
 		"build": "webpack --config webpack.config.js",
 		"watch": "webpack --watch --config webpack.config.js",
 		"prettify": "prettier --write  frontend/**/*.{js,ts,tsx,json,css,md} backend/**/*.{js,json,css,md}",
-		"storybook": "start-storybook -p 6006"
+		"storybook": "start-storybook -p 6006",
+		"migrate": "node clearMetaFiles.js && ./node_modules/.bin/sequelize db:migrate && ./node_modules/.bin/sequelize db:seed:all"
 	},
 	"husky": {
 		"hooks": {
@@ -57,6 +58,7 @@
 		"connect-mongo": "^2.0.1",
 		"connect-session-sequelize": "^5.2.2",
 		"connected-react-router": "^4.3.0",
+		"cors": "^2.8.4",
 		"dotenv": "^6.0.0",
 		"express": "^4.16.3",
 		"express-api-response": "^0.4.0",
@@ -76,6 +78,7 @@
 		"redux-saga": "^0.16.0",
 		"replacestream": "^4.0.3",
 		"sequelize": "^4.38.0",
+		"sequelize-cli": "^4.0.0",
 		"socket.io": "^2.1.1",
 		"styled-components": "^3.4.2",
 		"ts-loader": "^4.4.2",

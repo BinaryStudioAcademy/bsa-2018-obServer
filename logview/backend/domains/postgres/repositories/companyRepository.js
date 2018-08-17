@@ -24,6 +24,10 @@ class CompanyRepository {
 	findById(id) {
 		return this.model.findById(id);
 	}
+
+	findByName(name) {
+		return this.model.findOne({ where: { name: name } });
+	}
 }
 
 module.exports = new CompanyRepository();

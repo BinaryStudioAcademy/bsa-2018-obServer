@@ -1,4 +1,5 @@
 const apiResponse = require('express-api-response'),
+	isLoggedInMiddlewre = require('../../middleware/isLoggedInMiddleware'),
 	userService = require('../../services/userService'),
 	passport = require('passport'),
 	router = require('express').Router(),
@@ -73,7 +74,9 @@ router.post(
 				);
 			}
 
-			const update = { active: true };
+			const update = {
+				active: true
+			};
 			if (!(await userService.update(user.id, update)))
 				throw new Error(`Cannot activate user.`);
 
@@ -89,5 +92,9 @@ router.post(
 	},
 	apiResponse
 );
+
+router.post(`/checkloggedin`, isLoggedInMiddlewre, (req, res) => {
+	res.sendStatus(200);
+});
 
 module.exports = router;

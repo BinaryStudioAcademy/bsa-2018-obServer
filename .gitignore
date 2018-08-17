@@ -1,7 +1,12 @@
 #yarn
 **/package-lock.json
 **/yarn-error.log
+**/debug.log
 **/yarn.lock
+
+# Sequelize
+**/sequelize_data.json
+**/sequelize_meta.json
 
 # compiled output
 **/dist

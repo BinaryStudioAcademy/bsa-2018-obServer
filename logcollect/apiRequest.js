@@ -7,6 +7,8 @@ module.exports = (url, token) => {
       url: url,
       data: data,
       headers: { 'X-ACCESS-TOKEN': token },
+    }).catch((error) => {
+      console.log(error.message);
     });
   }
 }

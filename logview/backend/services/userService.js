@@ -9,10 +9,8 @@ class UserService {
 		this.saltRounds = 8;
 	}
 
-	encryptPassword(password) {
-		return bcrypt.hash(password, this.saltRounds).then(hash => {
-			return hash;
-		});
+	async encryptPassword(password, callback) {
+		return await bcrypt.hash(password.toString(), this.saltRounds);
 	}
 
 	validPassword(password, hash) {
@@ -49,15 +47,10 @@ class UserService {
 		if (!(await this.findByEmail(body.email))) {
 			const hash = await this.encryptPassword(body.password);
 			const token = await this.generateUserToken();
+			const newCompany = await companyService.create(body.company);
 			body.password = hash;
 			body.userActivationToken = token;
-
-			if (body.company) {
-				//on front company name sends in req.body.company
-				const newCompany = await companyService.create(body.company);
-				body.companyId = newCompany.id;
-			}
-
+			body.companyId = newCompany.id;
 			return userRepository.create(body);
 		} else {
 			throw new Error(`${body.email} is already in use`);
@@ -85,11 +78,11 @@ class UserService {
 	}
 
 	findByResetPasswordToken(token) {
-		return UserRepository.findByResetPasswordToken(token);
+		return userRepository.findByResetPasswordToken(token);
 	}
 
 	findByUserActivationToken(token) {
-		return UserRepository.findByUserActivationToken(token);
+		return userRepository.findByUserActivationToken(token);
 	}
 }
 

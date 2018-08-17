@@ -43,6 +43,6 @@ module.exports = class MetricsService {
   }
 
   static createMetricObject(name, data) {
-    return { type: name, value: data, timeStamp: new Date() };
+    return { logType: name, value: data, timestamp: new Date(), serverId: 777 };
   }
 }
