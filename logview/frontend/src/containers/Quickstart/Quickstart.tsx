@@ -1,10 +1,37 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 import {
+	Building,
+	ChartBar,
+	ClipboardList,
+	Filter,
+	Globe,
+	Memory,
+	Rocket,
+	Server,
+	Tasks,
+	Terminal,
+	UserCog,
+	UserShield
+} from 'styled-icons/fa-solid';
+import {
+	Dashboard,
+	Http,
+	NotificationsActive,
+	Person,
+	PowerSettingsNew,
+	Settings,
+	SettingsInputHdmi,
+	Timer
+} from 'styled-icons/material';
+import { Activity, Cpu } from 'styled-icons/feather';
+import {
 	NavAside,
 	Nav,
 	UserInfo,
 	NavLink,
+	SubLinkUl,
+	SubLink,
 	UserControl,
 	Main,
 	ContentHeader,
@@ -12,7 +39,8 @@ import {
 	ContentBlock,
 	Pre,
 	Code,
-	Greeting
+	Greeting,
+	Span
 } from 'src/styles/QuickstartStyles';
 
 class Quickstart extends React.Component {
@@ -25,62 +53,183 @@ class Quickstart extends React.Component {
 			<React.Fragment>
 				<NavAside>
 					<UserInfo>
-						{`CompanyName`}
+						<Building size="20" />
+						{` CompanyName`}
 						<hr />
-						{`UserName`}
+						<Person size="24" />
+						{` UserName`}
 					</UserInfo>
 					<Nav>
 						<UserControl>
-							<Link to="/login">sign in</Link>
-						</UserControl>
-						<UserControl>
-							<Link to="/register">sign up</Link>
-						</UserControl>
-						<UserControl>
-							<Link to="/reset">reset password</Link>
-						</UserControl>
-						<UserControl>
-							<Link to="/change">change password</Link>
-						</UserControl>
-						<UserControl>
-							<Link to="/confirm">confirm e-mail</Link>
-						</UserControl>
-						<UserControl>
-							<Link to="/">log out</Link>
+							<Link to="/">
+								<PowerSettingsNew size="24px" />
+								<Span> log out</Span>
+							</Link>
 						</UserControl>
 
 						<NavLink>
-							<Link to="/">home</Link>
-						</NavLink>
-						<NavLink>
-							<Link to="/dashboard/quickstart">quickstart</Link>
-						</NavLink>
-						<NavLink>
-							<Link to="/dashboard">dashboard</Link>
-						</NavLink>
-						<NavLink>
-							<Link to="/dashboard/settings/general">
-								general settings
+							<Link to="/dashboard">
+								<Dashboard size="24" />
+								<Span> dashboard</Span>
 							</Link>
 						</NavLink>
 						<NavLink>
-							<Link to="/dashboard/settings/data">
-								tracked data
+							<Link to="/dashboard/quickstart">
+								<Rocket size="24px" />
+								<Span> quickstart</Span>
 							</Link>
 						</NavLink>
 						<NavLink>
-							<Link to="/dashboard/logs">logs</Link>
-						</NavLink>
-						<NavLink>
-							<Link to="/dashboard/resources">
-								server resourses
+							<Link to="/dashboard/quickstart">
+								<Settings size="24" />
+								<Span> general settings</Span>
+								<SubLinkUl>
+									<SubLink>
+										<Link to="/dashboard/settings/data">
+											<br />
+											<UserCog size="200px" />
+											<br />
+											<Span>user settings</Span>
+										</Link>
+									</SubLink>
+									<SubLink>
+										<Link to="/dashboard/settings/data">
+											<br />
+											<UserShield size="200px" />
+											<br />
+											<Span>credentials settings</Span>
+										</Link>
+									</SubLink>
+									<SubLink>
+										<Link to="/dashboard/settings/data">
+											<br />
+											<NotificationsActive size="200px" />
+											<br />
+											<Span>notification settings</Span>
+										</Link>
+									</SubLink>
+								</SubLinkUl>
 							</Link>
 						</NavLink>
 						<NavLink>
-							<Link to="/dashboard/http">http</Link>
+							<Link to="/dashboard/quickstart">
+								<Activity size="24px" />
+								<Span> tracked data</Span>
+								<SubLinkUl>
+									<SubLink>
+										<Link to="/dashboard/settings/data">
+											<br />
+											<Tasks size="200px" />
+											<br />
+											<Span>tracked data settings</Span>
+										</Link>
+									</SubLink>
+									<SubLink>
+										<Link to="/dashboard/settings/data">
+											<br />
+											<Globe size="200px" />
+											<br />
+											<Span>tracked data ports</Span>
+										</Link>
+									</SubLink>
+								</SubLinkUl>
+							</Link>
 						</NavLink>
 						<NavLink>
-							<Link to="/dashboard/websockets">websockets</Link>
+							<Link to="/dashboard/quickstart">
+								<ClipboardList size="24px" />
+								<Span> logs</Span>
+								<SubLinkUl>
+									<SubLink>
+										<Link to="/dashboard/logs">
+											<br />
+											<Filter size="200px" />
+											<br />
+											<Span>logs filter</Span>
+										</Link>
+									</SubLink>
+									<SubLink>
+										<Link to="/dashboard/logs">
+											<br />
+											<Terminal size="200px" />
+											<br />
+											<Span>logs terminal</Span>
+										</Link>
+									</SubLink>
+								</SubLinkUl>
+							</Link>
+						</NavLink>
+						<NavLink>
+							<Link to="/dashboard/quickstart">
+								<Server size="24px" />
+								<Span> server resourses</Span>
+								<SubLinkUl>
+									<SubLink>
+										<Link to="/dashboard/resources">
+											<br />
+											<Cpu size="200px" />
+											<br />
+											<Span>cpu usage</Span>
+										</Link>
+									</SubLink>
+									<SubLink>
+										<Link to="/dashboard/resources">
+											<br />
+											<Memory size="200px" />
+											<br />
+											<Span>memory usage</Span>
+										</Link>
+									</SubLink>
+								</SubLinkUl>
+							</Link>
+						</NavLink>
+						<NavLink>
+							<Link to="/dashboard/quickstart">
+								<Http size="24px" />
+								<Span> http</Span>
+								<SubLinkUl>
+									<SubLink>
+										<Link to="/dashboard/http">
+											<br />
+											<ChartBar size="200px" />
+											<br />
+											<Span>average amount</Span>
+										</Link>
+									</SubLink>
+									<SubLink>
+										<Link to="/dashboard/http">
+											<br />
+											<Timer size="200px" />
+											<br />
+											<Span>response time</Span>
+										</Link>
+									</SubLink>
+								</SubLinkUl>
+							</Link>
+						</NavLink>
+						<NavLink>
+							<Link to="/dashboard/quickstart">
+								<SettingsInputHdmi size="24px" />
+								<Span> websockets</Span>
+								<SubLinkUl>
+									<SubLink>
+										<Link to="/dashboard/websockets">
+											<br />
+											<ChartBar size="200px" />
+											<br />
+											<Span>average amount</Span>
+										</Link>
+									</SubLink>
+									<SubLink>
+										<Link to="/dashboard/websockets">
+											<br />
+											<Timer size="200px" />
+											<br />
+											<Span>response time</Span>
+										</Link>
+									</SubLink>
+								</SubLinkUl>
+							</Link>
 						</NavLink>
 					</Nav>
 				</NavAside>
