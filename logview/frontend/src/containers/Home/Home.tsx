@@ -21,6 +21,8 @@ class Home extends React.Component<HomeProps, HomeState> {
 				<Link to="login">Link to login</Link>
 				<div />
 				<Link to="register">Link to register</Link>
+				<br />
+				<Link to="/dashboard/quickstart">Quickstart</Link>
 			</React.Fragment>
 		);
 	}

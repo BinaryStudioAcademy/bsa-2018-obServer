@@ -8,6 +8,7 @@ import PasswordReset from 'src/containers/PasswordReset/PasswordReset';
 import PasswordChange from 'src/containers/PasswordChange/PasswordChange';
 import EmailConfirm from 'src/containers/EmailConfirm/EmailConfirm';
 import EmailTokenConfirm from 'src/containers/EmailConfirm/EmailTokenConfirm';
+import Quickstart from 'src/containers/Quickstart/Quickstart';
 import history from './history';
 import 'src/styles/GlobalStyles';
 import { Background } from '../styles/Styles';
@@ -53,6 +54,11 @@ class Router extends React.Component<any, any> {
 							strict
 							path="/confirm/"
 							component={EmailTokenConfirm}
+						/>
+						<Route
+							exact
+							path="/dashboard/quickstart"
+							component={Quickstart}
 						/>
 					</Background>
 				</Switch>
