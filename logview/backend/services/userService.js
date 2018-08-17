@@ -44,6 +44,7 @@ class UserService {
 	}
 
 	async create(body) {
+		body.email = body.email.toLowerCase();
 		if (!(await this.findByEmail(body.email))) {
 			const hash = await this.encryptPassword(body.password);
 			const token = await this.generateUserToken();
