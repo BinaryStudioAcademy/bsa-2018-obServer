@@ -7,6 +7,7 @@ export const Title = styled.h2`
 
 export const CenteredText = styled.p`
 	text-align: center;
+	width: 80%;
 	margin: 10px;
 `;
 
@@ -39,5 +40,5 @@ export const LogoText = styled.h3`
 
 export const ErrorText = styled.span`
 	color: #cc0000;
-	font-size: 14px;
+	font-size: 12px;
 `;

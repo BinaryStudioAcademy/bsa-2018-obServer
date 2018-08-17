@@ -7,7 +7,8 @@ import {
 	PasswordWrapper,
 	LinkButton,
 	Row,
-	CenteredContainer
+	CenteredContainer,
+	TextLink
 } from 'src/styles/Styles';
 import { userResetPassword } from '../../redux/user/actions';
 import { connect } from 'react-redux';

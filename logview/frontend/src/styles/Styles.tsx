@@ -22,7 +22,7 @@ import {
 	CenteredText
 } from './TextStyles';
 import { LoginBackground, Logo } from './ImageStyles';
-import { Input } from './InputStyles';
+import { Input, InputWide } from './InputStyles';
 
 export {
 	Submit,
@@ -48,5 +48,6 @@ export {
 	ErrorText,
 	CenteredContainer,
 	EmailContainer,
-	CenteredText
+	CenteredText,
+	InputWide
 };

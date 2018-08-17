@@ -38,7 +38,6 @@ class EmailTokenConfirm extends React.Component<
 		this.props.actions.userEmailActivation(
 			this.props.history.location.search.split('=')[1]
 		);
-		console.log(this.props);
 		this.setState({ confirmed: true });
 	}
 

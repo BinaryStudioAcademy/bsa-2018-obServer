@@ -6,9 +6,9 @@ export function validate(type: string, str: string) {
 		return str.length > 7;
 	} else if (type === 'name') {
 		let re = /^[a-zA-Z]+/;
-		return str.length > 3 ? re.test(String(str).toLowerCase()) : false;
+		return re.test(String(str).toLowerCase());
 	} else if (type === 'company') {
-		return str.length > 3;
+		return str.length > 2;
 	}
 }
 
@@ -30,7 +30,6 @@ export function validateForm(obj: {
 		company: false
 	};
 	for (let el in obj) {
-		console.log(el);
 		res[el] = validate(el, obj[el]);
 	}
 	return res;

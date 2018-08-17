@@ -93,8 +93,6 @@ function* userChangePassword(action: UserChangePassword) {
 				...currentUser
 			}
 		});
-
-		yield put(push('/'));
 	} catch (error) {
 		yield put({
 			type: constants.USER_CHANGE_PASSWORD_FAILED

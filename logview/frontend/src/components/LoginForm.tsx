@@ -7,7 +7,9 @@ import {
 	RedirectContainer,
 	TextLink,
 	RedirectLink,
-	Title
+	Title,
+	ErrorText,
+	CenteredText
 } from 'src/styles/Styles';
 import { Link } from 'react-router-dom';
 
@@ -19,7 +21,7 @@ interface LoginFormState {
 	email?: string;
 	password?: string;
 	remember?: boolean;
-	validatestate?: Object;
+	err?: boolean;
 }
 
 class LoginForm extends React.Component<LoginFormProps, LoginFormState> {
@@ -29,7 +31,8 @@ class LoginForm extends React.Component<LoginFormProps, LoginFormState> {
 		this.state = {
 			email: '',
 			password: '',
-			remember: false
+			remember: false,
+			err: false
 		};
 
 		this.handleFieldChange = this.handleFieldChange.bind(this);
@@ -49,6 +52,7 @@ class LoginForm extends React.Component<LoginFormProps, LoginFormState> {
 			password: this.state.password
 		};
 		this.props.onSubmit(obj);
+		this.setState({ err: true });
 	}
 
 	handleCheckbox() {
@@ -59,7 +63,9 @@ class LoginForm extends React.Component<LoginFormProps, LoginFormState> {
 		return (
 			<Form>
 				<Title>obServer</Title>
-				<p>Welcome back, please login to your account</p>
+				<CenteredText>
+					Welcome back, please login to your account
+				</CenteredText>
 				<Input
 					type="email"
 					name="email"
@@ -75,6 +81,11 @@ class LoginForm extends React.Component<LoginFormProps, LoginFormState> {
 					value={this.state.password}
 					onChange={this.handleFieldChange}
 				/>
+				{this.state.err ? (
+					<ErrorText>Email or password is incorrect</ErrorText>
+				) : (
+					undefined
+				)}
 				<Row>
 					<input
 						type="checkbox"
