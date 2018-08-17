@@ -94,7 +94,7 @@ export const SubLink = styled.li`
 		rgb(127, 120, 206) 0%,
 		rgb(124, 184, 252) 100%
 	);
-	width: 30%;
+	width: 300px;
 	height: 30wh;
 	border-radius: 15px;
 	text-align: center;
