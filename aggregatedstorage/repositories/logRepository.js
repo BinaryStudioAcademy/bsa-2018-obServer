@@ -1,10 +1,10 @@
 const connection = require('../db/dbConnect');
-const logMessage = require('../db/models/logMessage');
+const companyLogs = require('../db/models/companyLogs');
 const logTypes = require('../utils/logTypes');
 
 class LogRepository {
   constructor() {
-    this.model = logMessage;
+    this.model = companyLogs;
   }
 
   async create(log, callback) {
