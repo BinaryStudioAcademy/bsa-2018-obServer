@@ -1,4 +1,5 @@
 const apiResponse = require('express-api-response'),
+	isLoggedInMiddlewre = require('../../middleware/isLoggedInMiddleware'),
 	userService = require('../../services/userService'),
 	emailService = require('../../services/emailService'),
 	router = require('express').Router(),
@@ -182,6 +183,41 @@ router.post(
 		} catch (err) {
 			res.data = null;
 			res.err = err;
+		} finally {
+			next();
+		}
+	},
+	apiResponse
+);
+
+router.post(
+	'/invite',
+	isLoggedInMiddlewre,
+	async (req, res, next) => {
+		try {
+			await userService.invite(req);
+			res.shouldNotHaveData = false;
+			res.failureStatus = 200;
+			res.err = null;
+		} catch (error) {
+			res.data = null;
+			res.err = error;
+		} finally {
+			next();
+		}
+	},
+	apiResponse
+);
+
+router.post(
+	'/invite/:inviteToken',
+	async (req, res, next) => {
+		try {
+			await userService.activateByInvite(req);
+			res.err = null;
+		} catch (error) {
+			res.data = null;
+			res.err = error;
 		} finally {
 			next();
 		}

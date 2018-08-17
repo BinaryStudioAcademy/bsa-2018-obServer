@@ -28,6 +28,9 @@ class UserRepository {
 	findByUserActivationToken(token) {
 		return this.model.findOne({ where: { userActivationToken: token } });
 	}
+	findByInviteToken(token) {
+		return this.model.findOne({ where: { inviteToken: token } });
+	}
 }
 
 module.exports = new UserRepository();
