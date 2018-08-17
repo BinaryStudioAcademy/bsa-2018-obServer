@@ -22,4 +22,7 @@ export AGGREGATED_DB_INTERNAL_PORT=27017
 
 export SENDGRID_API_KEY=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
 
+export HOST=localhost
+export DB_DIALECT=postgres
+
 docker-compose up --build -d

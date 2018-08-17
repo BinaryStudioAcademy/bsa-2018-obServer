@@ -1,4 +1,5 @@
 const apiResponse = require('express-api-response'),
+	isLoggedInMiddlewre = require('../../middleware/isLoggedInMiddleware'),
 	userService = require('../../services/userService'),
 	passport = require('passport'),
 	router = require('express').Router(),
@@ -28,11 +29,13 @@ router.post(
 router.post(
 	`/login`,
 	passport.authenticate('local.signin'),
+	userService.isLoggedIn,
 	(req, res, next) => {
 		res.data = {
 			status: 200,
 			message: 'success login',
-			user: req.user.dataValues
+			user: req.user.dataValues,
+			isAuth: true
 		};
 		res.err = null;
 		next();
@@ -42,11 +45,13 @@ router.post(
 
 router.get(
 	`/logout`,
+	userService.isLoggedIn,
 	(req, res, next) => {
 		req.logout();
 		res.data = {
 			status: 200,
-			message: 'success logout'
+			message: 'success logout',
+			isAuth: false
 		};
 		res.err = null;
 		next();
@@ -69,7 +74,9 @@ router.post(
 				);
 			}
 
-			const update = { active: true };
+			const update = {
+				active: true
+			};
 			if (!(await userService.update(user.id, update)))
 				throw new Error(`Cannot activate user.`);
 
@@ -85,5 +92,9 @@ router.post(
 	},
 	apiResponse
 );
+
+router.post(`/checkloggedin`, isLoggedInMiddlewre, (req, res) => {
+	res.sendStatus(200);
+});
 
 module.exports = router;

@@ -9,10 +9,8 @@ class UserService {
 		this.saltRounds = 8;
 	}
 
-	encryptPassword(password) {
-		return bcrypt.hash(password, this.saltRounds).then(hash => {
-			return hash;
-		});
+	async encryptPassword(password, callback) {
+		return await bcrypt.hash(password.toString(), this.saltRounds);
 	}
 
 	validPassword(password, hash) {
@@ -35,13 +33,18 @@ class UserService {
 		if (req.isAuthenticated()) {
 			next();
 		} else {
-			res.data = null;
+			res.data = {
+				status: 403,
+				message: 'failed login',
+				isAuth: false
+			};
 			res.err = new Error('you are not logged in');
 			apiResponse(req, res, next);
 		}
 	}
 
 	async create(body) {
+		body.email = body.email.toLowerCase();
 		if (!(await this.findByEmail(body.email))) {
 			const hash = await this.encryptPassword(body.password);
 			const token = await this.generateUserToken();

@@ -17,6 +17,4 @@ const memoryApp = mongoose.Schema({
   }
 });
 
-// const MemoryApp = mongoose.model('memoryAppStats', memoryApp);
-
 module.exports = memoryApp;

@@ -4,13 +4,13 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { userRegister } from '../../redux/user/actions';
 import {
-	RegisterContainer,
-	RegisterBox,
 	Wrapper,
-	LogoContainer
-} from '../../styles/ContainerStyles';
-import { LogoText } from '../../styles/TextStyles';
-import { Logo } from '../../styles/ImageStyles';
+	BackgroundContainer,
+	RegisterBox,
+	LogoContainer,
+	LogoText,
+	Logo
+} from 'src/styles/Styles';
 const logo = require('src/assets/logo.png');
 
 interface LoginFormProps {
@@ -41,17 +41,16 @@ class Register extends React.Component<LoginFormProps, LoginFormState> {
 	}
 
 	render() {
-		console.log(this.props);
 		return (
 			<Wrapper>
-				<RegisterContainer>
+				<BackgroundContainer>
 					<RegisterBox>
 						<LogoContainer>
 							<Logo src={logo} />
 							<LogoText>bServer</LogoText>
 						</LogoContainer>
 					</RegisterBox>
-				</RegisterContainer>
+				</BackgroundContainer>
 				<RegisterForm onSubmit={this.handleSubmit} />
 			</Wrapper>
 		);
