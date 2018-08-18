@@ -77,3 +77,5 @@ export const LinkButton = TextLink.extend`
 		${media.phone`padding: 10px 40px;`};
 	}
 `;
+
+export const SideLink = styled.p``;

@@ -9,7 +9,6 @@ export const Wrapper = styled.div`
 `;
 
 export const Row = Wrapper.extend`
-	display: flex;
 	margin-top: 5%;
 	background-color: transparent;
 `;
@@ -114,40 +113,23 @@ export const CenteredContainer = styled.div`
 export const PasswordWrapper = CenteredContainer.extend`
 	justify-content: space-between;
 	height: 90%;
-	/* margin: 20px; */
-	/* height: 400px; */
-	/* width: 100wh;
-	height: 90vh;
-	color: #fff;
-	background: linear-gradient(-45deg, 
-		rgba(238, 119, 82, 0.5),
-		rgba(231, 60, 126, 0.5), 
-		rgba(35, 166, 213, 0.5), 
-		rgba(35, 213, 171, 0.5));
-	background-size: 400% 400%;
-	-webkit-animation: Gradient 8s ease infinite;
-	-moz-animation: Gradient 8s ease infinite;
-	animation: Gradient 8s ease infinite;
-
-	@keyframes Gradient {
-		0% {
-			background-position: 0% 50%
-		}
-		25% {
-			background-position: 100% 50%
-		}
-		50% {
-			background-position: 100% 100%
-		}
-		75% {
-			background-position: 50% 100%			
-		}
-		100% {
-			background-position: 0% 50%
-		}
-	}*/
 `;
 
 export const EmailContainer = CenteredContainer.extend`
 	justify-content: flex-start;
+`;
+
+export const SideNav = CenteredContainer.extend`
+	width: 30%;
+	height: 30vh;
+`;
+
+export const DashboardBackground = styled.div`
+	display: flex;
+
+	height: 100vh;
+	background-color: white;
+`;
+export const Main = styled.div`
+	width: 70%;
 `;
