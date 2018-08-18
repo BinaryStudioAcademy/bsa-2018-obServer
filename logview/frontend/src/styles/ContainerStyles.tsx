@@ -119,17 +119,40 @@ export const EmailContainer = CenteredContainer.extend`
 	justify-content: flex-start;
 `;
 
-export const SideNav = CenteredContainer.extend`
-	width: 30%;
-	height: 30vh;
+export const Column = styled.div`
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: flex-start;
+`;
+
+export const SideNav = Column.extend`
+	width: 16%;
+	padding: 2% 0 3% 5%;
+	box-shadow: 6px 0px 29px 0px rgba(0, 0, 0, 0.1);
 `;
 
 export const DashboardBackground = styled.div`
+	font-family: 'Muli', serif;
 	display: flex;
 
 	height: 100vh;
 	background-color: white;
 `;
 export const Main = styled.div`
-	width: 70%;
+	width: 84%;
+	background: ghostwhite;
+`;
+
+export const UserBar = styled.div`
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+`;
+
+export const Profile = styled.div`
+	font-family: 'Merriweather', serif;
+	font-size: 18px;
+	font-weight: bold;
 `;

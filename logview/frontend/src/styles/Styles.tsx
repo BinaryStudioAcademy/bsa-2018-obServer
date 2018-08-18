@@ -12,7 +12,11 @@ import {
 	PasswordWrapper,
 	CenteredContainer,
 	EmailContainer,
-	SideNav
+	SideNav,
+	UserBar,
+	Profile,
+	DashboardBackground,
+	Main
 } from './ContainerStyles';
 import { Form } from './FormStyles';
 import {
@@ -24,6 +28,7 @@ import {
 } from './TextStyles';
 import { LoginBackground, Logo } from './ImageStyles';
 import { Input, InputWide } from './InputStyles';
+import { NotificationIcon } from './IconStyles';
 
 export {
 	Submit,
@@ -52,5 +57,10 @@ export {
 	CenteredText,
 	InputWide,
 	SideNav,
-	SideLink
+	SideLink,
+	UserBar,
+	NotificationIcon,
+	Profile,
+	DashboardBackground,
+	Main
 };
