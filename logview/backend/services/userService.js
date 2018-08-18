@@ -53,7 +53,8 @@ class UserService {
 	}
 
 	async invite(req) {
-		const { name, email, companyId } = req.body;
+		const { name, email } = req.body;
+		const { companyId } = req.user;
 		if (!(await this.findByEmail(email.toLowerCase()))) {
 			const token = await this.generateUserToken();
 			const password = await this.generateUserToken();
@@ -65,9 +66,9 @@ class UserService {
 				companyId: companyId
 			};
 			const newUser = await this.createByInvite(data);
-			const link = `http://${req.headers.host}/api/user/invite/${
-				newUser.inviteToken
-			}`;
+			const link = `http://${
+				req.headers.host
+			}/api/user/invite/?inviteToken=${newUser.inviteToken}`;
 			const letterBody = {
 				name: newUser.name,
 				inviter: req.user.name,
@@ -121,6 +122,10 @@ class UserService {
 
 	findByInviteToken(token) {
 		return userRepository.findByInviteToken(token);
+	}
+
+	findUsersOfCompany(companyId) {
+		return userRepository.findUsersOfCompany(companyId);
 	}
 }
 

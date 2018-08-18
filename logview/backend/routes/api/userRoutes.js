@@ -225,4 +225,24 @@ router.post(
 	apiResponse
 );
 
+router.get(
+	'/company/users',
+	isLoggedInMiddlewre,
+	async (req, res, next) => {
+		try {
+			const data = await userService.findUsersOfCompany(
+				req.user.companyId
+			);
+			res.data = data;
+			res.err = null;
+		} catch (error) {
+			res.data = null;
+			res.err = error;
+		} finally {
+			next();
+		}
+	},
+	apiResponse
+);
+
 module.exports = router;

@@ -31,6 +31,12 @@ class UserRepository {
 	findByInviteToken(token) {
 		return this.model.findOne({ where: { inviteToken: token } });
 	}
+	findUsersOfCompany(companyId) {
+		return this.model.findAll({
+			attributes: ['name', 'email', 'active'],
+			where: { companyId: companyId }
+		});
+	}
 }
 
 module.exports = new UserRepository();
