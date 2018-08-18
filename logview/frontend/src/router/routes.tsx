@@ -13,6 +13,7 @@ import history from './history';
 import 'src/styles/GlobalStyles';
 import { Background } from '../styles/Styles';
 import { isLoggedIn } from '../services';
+import Socket from 'src/containers/Socket';
 
 class Router extends React.Component<any, any> {
 	constructor(props: any) {
@@ -60,6 +61,8 @@ class Router extends React.Component<any, any> {
 							path="/dashboard/quickstart"
 							component={Quickstart}
 						/>
+
+						<Route exact path="/socket" component={Socket} />
 					</Background>
 				</Switch>
 			</ConnectedRouter>
