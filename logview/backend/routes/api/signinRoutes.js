@@ -63,6 +63,7 @@ router.post(
 	'/user/activate/:activationToken',
 	async (req, res, next) => {
 		try {
+			console.log('hello from activation!');
 			const user = await userService.findByUserActivationToken(
 				req.params.activationToken
 			);
@@ -75,7 +76,8 @@ router.post(
 			}
 
 			const update = {
-				active: true
+				active: true,
+				userActivationToken: null
 			};
 			if (!(await userService.update(user.id, update)))
 				throw new Error(`Cannot activate user.`);
