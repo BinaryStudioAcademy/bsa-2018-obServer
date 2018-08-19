@@ -80,7 +80,6 @@ class PasswordChange extends React.Component<
 
 	render() {
 		const { match } = this.props;
-		console.log(match);
 		return (
 			<PasswordResetContainer>
 				<PasswordWrapper>
