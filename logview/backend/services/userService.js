@@ -66,9 +66,9 @@ class UserService {
 				companyId: companyId
 			};
 			const newUser = await this.createByInvite(data);
-			const link = `http://${
-				req.headers.host
-			}/api/user/invite/?inviteToken=${newUser.inviteToken}`;
+			const link = `http://${req.headers.host}/setpassword/?inviteToken=${
+				newUser.inviteToken
+			}`;
 			const letterBody = {
 				name: newUser.name,
 				inviter: req.user.name,
