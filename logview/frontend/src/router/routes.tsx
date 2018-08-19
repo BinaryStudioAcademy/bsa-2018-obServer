@@ -13,7 +13,6 @@ import 'src/styles/GlobalStyles';
 import { Background } from '../styles/Styles';
 import { isLoggedIn } from '../services';
 import Dashboard from 'src/containers/Dashboard/Dashboard';
-import SetPassword from '../containers/SetPassword/SetPassword';
 
 class Router extends React.Component<any, any> {
 	constructor(props: any) {

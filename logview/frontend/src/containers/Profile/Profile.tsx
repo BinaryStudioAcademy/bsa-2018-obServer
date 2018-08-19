@@ -44,8 +44,16 @@ class Profile extends React.Component<LoginFormProps, ProfileState> {
 		return (
 			<React.Fragment>
 				<h2>Invite user</h2>
-				<Input placeholder="email" onChange={this.handleFieldChange} />
-				<Input placeholder="name" onChange={this.handleFieldChange} />
+				<Input
+					name="email"
+					placeholder="email"
+					onChange={this.handleFieldChange}
+				/>
+				<Input
+					name="name"
+					placeholder="name"
+					onChange={this.handleFieldChange}
+				/>
 				<Submit onClick={this.handleSubmit}>Invite</Submit>
 			</React.Fragment>
 		);
