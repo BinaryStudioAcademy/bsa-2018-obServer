@@ -74,28 +74,10 @@ postgresDb.sequelize.sync().then(() => {
 	server.on('listening', () => {
 		console.log(`Log View app is launched on port ${port}`);
 	});
+
 	const io = require('socket.io')(server);
-	io.set('origins', `http://localhost:${port}`);
-	io.origins('*:*');
-	io.on('connection', socket => {
-		console.log(`Connected new socket ${socket.id}`);
-		socket.on('giveLogs', () => {
-			socket.emit('logs', {
-				logType: 'error',
-				data: { message: '1', status: 'good' },
-				timestamp: Date.now(),
-				serverId: 1
-			});
-			setTimeout(() => {
-				socket.emit('logs', {
-					logType: 'error',
-					data: { message: '2', status: 'good' },
-					timestamp: Date.now(),
-					serverId: 2
-				});
-			}, 1000);
-		});
-	});
+	const sockets = require('./sockets/sockets');
+	sockets(io, port);
 });
 
 module.exports = app;

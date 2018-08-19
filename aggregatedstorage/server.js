@@ -23,7 +23,7 @@ app.post(`${baseUrl}/logs`, (req, res) => {
       console.log(err);
     }
   });
-  io.to(req.body.companyToken).emit('logs', req.body);
+  io.emit('newLog', req.body);
 });
 
 server.listen(port, () => {
