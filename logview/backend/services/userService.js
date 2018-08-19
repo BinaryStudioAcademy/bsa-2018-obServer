@@ -82,13 +82,18 @@ class UserService {
 	async activateByInvite(req) {
 		const user = await this.findByInviteToken(req.params.inviteToken);
 		if (!user.active) {
-			let { password } = req.body;
+			let { newPassword } = req.body;
 			const update = {
-				password: await this.encryptPassword(password),
+				password: await this.encryptPassword(newPassword),
 				active: true
 			};
 			if (!(await this.update(user.id, update)))
 				throw new Error('Problems during updating');
+			const letterBody = {
+				name: user.name
+			};
+			const letter = seedLetter.setPassword(letterBody);
+			emailService.sendEmail(letter, user.email);
 		} else throw new Error('You are already in system');
 	}
 
