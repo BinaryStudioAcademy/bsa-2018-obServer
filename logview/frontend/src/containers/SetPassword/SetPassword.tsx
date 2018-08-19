@@ -1,28 +1,23 @@
 import * as React from 'react';
+import SetPasswordForm from 'src/components/PasswordResetForm';
 import {
-	Submit,
 	PasswordResetContainer,
 	PasswordWrapper,
-	Title,
-	Row,
-	LinkButton,
-	ErrorText,
 	CenteredContainer,
-	InputWide
-} from 'src/styles/Styles';
-import { userChangePassword, userSetPassword } from '../../redux/user/actions';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+	Title,
+	InputWide,
+	ErrorText,
+	Submit,
+	Row,
+	LinkButton
+} from '../../styles/Styles';
 import { History } from 'history';
-import { Link, RouteComponentProps } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { validate } from '../../services/validate/validate';
 
 interface PasswordChangeProps {
 	history: History;
-	actions: {
-		userChangePassword: Function;
-		userSetPassword: Function;
-	};
+	actions: { userChangePassword: Function };
 }
 
 interface PasswordChangeState {
@@ -32,12 +27,8 @@ interface PasswordChangeState {
 	sent?: boolean;
 }
 
-interface MatchParams {}
-
-interface MatchProps extends RouteComponentProps<MatchParams> {}
-
-class PasswordChange extends React.Component<
-	PasswordChangeProps & MatchProps,
+class SetPassword extends React.Component<
+	PasswordChangeProps,
 	PasswordChangeState
 > {
 	constructor(props: any) {
@@ -63,14 +54,12 @@ class PasswordChange extends React.Component<
 			this.setState({ err: 'password is not valid' });
 		} else if (this.state.newpassword !== this.state.confirmpassword) {
 			this.setState({ err: "passwords doesn't match" });
-		} else if (this.props.match.url === '/change') {
+		} else {
 			this.setState({ err: '', sent: true });
 			this.props.actions.userChangePassword(
 				this.state.newpassword,
 				token
 			);
-		} else if (this.props.match.url === '/setpassword/') {
-			this.props.actions.userSetPassword(this.state.newpassword, token);
 		}
 	}
 
@@ -79,19 +68,13 @@ class PasswordChange extends React.Component<
 	}
 
 	render() {
-		const { match } = this.props;
-		console.log(match);
 		return (
 			<PasswordResetContainer>
 				<PasswordWrapper>
 					<CenteredContainer>
 						{!this.state.sent ? (
 							<React.Fragment>
-								<Title>
-									{match.url === '/change'
-										? 'Change password'
-										: 'Set password'}
-								</Title>
+								<Title>Change password</Title>
 								<InputWide
 									name="newpassword"
 									placeholder="new password"
@@ -108,18 +91,12 @@ class PasswordChange extends React.Component<
 									onChange={this.handleFieldChange}
 								/>
 								<Submit onClick={this.handleSubmit}>
-									{match.url === '/change'
-										? 'Change'
-										: 'Send'}
+									Change
 								</Submit>
 							</React.Fragment>
 						) : (
 							<React.Fragment>
-								<Title>
-									{match.url === '/change'
-										? 'Changed!'
-										: 'Sent!'}
-								</Title>
+								<Title>Changed!</Title>
 								<p>There will be an image here</p>
 							</React.Fragment>
 						)}
@@ -139,20 +116,4 @@ class PasswordChange extends React.Component<
 	}
 }
 
-const mapStateToProps = ({ fetching }) => ({
-	fetching
-});
-
-const mapDispatchToProps = (dispatch: any) => ({
-	actions: bindActionCreators(
-		{ userChangePassword, userSetPassword },
-		dispatch
-	)
-});
-
-const PasswordChangeConnected = connect(
-	mapStateToProps,
-	mapDispatchToProps
-)(PasswordChange);
-
-export default PasswordChangeConnected;
+export default SetPassword;

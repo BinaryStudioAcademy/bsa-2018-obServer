@@ -76,7 +76,7 @@ export interface FetchUser {
 	type: constants.FETCH_USER;
 }
 
-/* email activation */
+/* user invite */
 export interface UserInvite {
 	type: constants.USER_INVITE;
 	email: string;
@@ -89,6 +89,19 @@ export interface UserInviteFail {
 
 export interface UserInviteSuccess {
 	type: constants.USER_INVITE_SUCCESS;
+}
+
+/* user set password */
+export interface UserSetPassword extends UserChangePasswordState {
+	type: constants.USER_SET_PASSWORD;
+}
+
+export interface UserSetPasswordFail {
+	type: constants.USER_SET_PASSWORD_FAILED;
+}
+
+export interface UserSetPasswordSuccess {
+	type: constants.USER_SET_PASSWORD_SUCCESS;
 }
 
 export type UserAction =
@@ -110,7 +123,9 @@ export type UserAction =
 	| UserInvite
 	| UserInviteFail
 	| UserInviteSuccess
-	| UserChangePasswordSuccess
+	| UserSetPassword
+	| UserSetPasswordFail
+	| UserSetPasswordSuccess
 	| FetchUser;
 
 export function userRegister(
@@ -250,5 +265,28 @@ export function userInviteFail(): UserInviteFail {
 export function userInviteSuccess(): UserInviteSuccess {
 	return {
 		type: constants.USER_INVITE_SUCCESS
+	};
+}
+
+export function userSetPassword(
+	newPassword: string = '',
+	resetToken: string = ''
+): UserSetPassword {
+	return {
+		type: constants.USER_SET_PASSWORD,
+		newPassword,
+		resetToken
+	};
+}
+
+export function userSetPasswordFail(): UserSetPasswordFail {
+	return {
+		type: constants.USER_SET_PASSWORD_FAILED
+	};
+}
+
+export function userSetPasswordSuccess(): UserSetPasswordSuccess {
+	return {
+		type: constants.USER_SET_PASSWORD_SUCCESS
 	};
 }

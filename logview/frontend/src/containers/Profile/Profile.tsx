@@ -3,6 +3,7 @@ import { Input, Submit } from '../../styles/Styles';
 import { userInvite } from 'src/redux/user/actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { RouteComponentProps } from 'react-router-dom';
 
 interface LoginFormProps {
 	actions: { userInvite: Function };
@@ -36,7 +37,7 @@ class Profile extends React.Component<LoginFormProps, ProfileState> {
 		e.preventDefault();
 
 		this.props.actions.userInvite(this.state.email, this.state.name);
-		this.setState({ err: true });
+		// this.setState({ err: true });
 	}
 
 	render() {

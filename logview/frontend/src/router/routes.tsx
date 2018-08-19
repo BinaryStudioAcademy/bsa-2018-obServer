@@ -13,6 +13,7 @@ import 'src/styles/GlobalStyles';
 import { Background } from '../styles/Styles';
 import { isLoggedIn } from '../services';
 import Dashboard from 'src/containers/Dashboard/Dashboard';
+import SetPassword from '../containers/SetPassword/SetPassword';
 
 class Router extends React.Component<any, any> {
 	constructor(props: any) {
@@ -54,6 +55,11 @@ class Router extends React.Component<any, any> {
 							strict
 							path="/confirm/"
 							component={EmailTokenConfirm}
+						/>
+						<Route
+							exact
+							path="/setpassword/"
+							component={PasswordChange}
 						/>
 						<Route path="/dashboard" component={Dashboard} />
 					</Background>

@@ -56,5 +56,15 @@ export default {
 			api.requestType.POST,
 			invite
 		);
+	},
+	userSetPassword: (
+		setToken: string,
+		newPassword: UserChangePasswordState
+	) => {
+		return api.makeRequest(
+			`/api/user/invite/${setToken}`,
+			api.requestType.POST,
+			newPassword
+		);
 	}
 };
