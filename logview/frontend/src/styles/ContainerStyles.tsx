@@ -130,20 +130,24 @@ export const Column = styled.div`
 export const SideNav = Column.extend`
 	width: 16%;
 	padding: 2% 0 3% 5%;
-	box-shadow: 6px 0px 29px 0px rgba(0, 0, 0, 0.1);
+
+	/* box-shadow: 6px 0px 29px 0px rgba(0, 0, 0, 0.1); */
+	height: calc(100vh - 7%);
+	position: fixed;
 `;
 
 export const DashboardBackground = styled.div`
 	font-family: 'Muli', serif;
 	display: flex;
 
-	height: 100vh;
-	background-color: white;
+	min-height: 100vh;
+	background-color: #efefef;
 `;
 export const Main = styled.div`
 	padding: 3%;
+	margin-left: 21%;
 	width: 84%;
-	background: ghostwhite;
+	background: white;
 `;
 
 export const UserBar = styled.div`

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Input, Submit } from '../../styles/Styles';
+import { Input, Submit, ErrorText } from '../../styles/Styles';
 import { userInvite } from 'src/redux/user/actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -7,6 +7,7 @@ import { RouteComponentProps } from 'react-router-dom';
 
 interface LoginFormProps {
 	actions: { userInvite: Function };
+	fetchingUserStatus: string;
 }
 
 interface ProfileState {
@@ -37,7 +38,6 @@ class Profile extends React.Component<LoginFormProps, ProfileState> {
 		e.preventDefault();
 
 		this.props.actions.userInvite(this.state.email, this.state.name);
-		// this.setState({ err: true });
 	}
 
 	render() {
@@ -54,18 +54,30 @@ class Profile extends React.Component<LoginFormProps, ProfileState> {
 					placeholder="name"
 					onChange={this.handleFieldChange}
 				/>
-				<Submit onClick={this.handleSubmit}>Invite</Submit>
+				<Submit onClick={this.handleSubmit}>
+					{this.props.fetchingUserStatus === 'sucess'
+						? 'Sent'
+						: 'Invite'}
+				</Submit>
+				<ErrorText>
+					{this.props.fetchingUserStatus === 'failed'
+						? 'There was an error processing your request'
+						: ''}
+				</ErrorText>
 			</React.Fragment>
 		);
 	}
 }
 
+const mapStateToProps = ({ fetchingUserStatus }) => ({
+	fetchingUserStatus
+});
 const mapDispatchToProps = (dispatch: any) => ({
 	actions: bindActionCreators({ userInvite }, dispatch)
 });
 
 const ProfileConnected = connect(
-	null,
+	mapStateToProps,
 	mapDispatchToProps
 )(Profile);
 
