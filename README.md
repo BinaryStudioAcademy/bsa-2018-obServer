@@ -245,3 +245,38 @@ PUT /api/user/:id // route which updates data about specified user
 
 ![Schemes relations](http://drive.google.com/uc?export=view&id=1Dt9NCCV1kFu_mufDfLzE1AC1MoigFLTi)
 
+
+## Raw storage
+### Get log from Logcollect -> Save raw log to MongoDB -> Send raw log to Aggregated storage.
+* Start server on port `process.env.RAWSTORAGE_PORT`
+* Send log message to aggregatedStorage server on port `process.env.AGGREGATEDSTORAGE_PORT`
+#### Routes
+```
+POST /api/logs // add new log (from logcollect)
+```
+#### Raw log data model
+```js
+  logType: {
+    type: String,
+    required: true
+  },
+  data: mongoose.Schema.Types.Mixed,
+  timestamp: {
+    type: Date,
+    required: true
+  },
+  companyToken: {
+    type: String,
+    required: true
+  },
+  app: {
+    id: {
+      type: String,
+      required: false
+    },
+    name: {
+      type: String,
+      required: false
+    }
+  }
+```
