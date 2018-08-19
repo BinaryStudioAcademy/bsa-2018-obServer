@@ -1,15 +1,16 @@
 import openSocket from 'socket.io-client';
 
-const port = 3060;
+const port = process.env.APP_PORT;
 const socket = openSocket(`http://localhost:${port}`);
 
-export async function fetchLogs() {
-	socket.emit('giveLogs');
-	const promise = new Promise(resolve => {
-		socket.on('logs', data => {
-			resolve(data);
-		});
+export async function getLogs(companyId: string, callback: Function) {
+	socket.emit('getLogs', companyId, logs => {
+		callback(logs);
 	});
-	const fetchedData = await promise;
-	return fetchedData;
+}
+
+export async function getNewLog(callback: Function) {
+	socket.on('newLog', log => {
+		callback(log);
+	});
 }
