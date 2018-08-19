@@ -76,6 +76,21 @@ export interface FetchUser {
 	type: constants.FETCH_USER;
 }
 
+/* email activation */
+export interface UserInvite {
+	type: constants.USER_INVITE;
+	email: string;
+	name: string;
+}
+
+export interface UserInviteFail {
+	type: constants.USER_INVITE_FAILED;
+}
+
+export interface UserInviteSuccess {
+	type: constants.USER_INVITE_SUCCESS;
+}
+
 export type UserAction =
 	| UserRegister
 	| UserRegisterFail
@@ -92,6 +107,9 @@ export type UserAction =
 	| UserEmailActivation
 	| UserEmailActivationFail
 	| UserEmailActivationSuccess
+	| UserInvite
+	| UserInviteFail
+	| UserInviteSuccess
 	| UserChangePasswordSuccess
 	| FetchUser;
 
@@ -212,5 +230,25 @@ export function userEmailActivationFail(): UserEmailActivationFail {
 export function userEmailActivationSuccess(): UserEmailActivationSuccess {
 	return {
 		type: constants.USER_EMAIL_ACTIVATION_SUCCESS
+	};
+}
+
+export function userInvite(email: string = '', name: string = '') {
+	return {
+		type: constants.USER_INVITE,
+		email,
+		name
+	};
+}
+
+export function userInviteFail(): UserInviteFail {
+	return {
+		type: constants.USER_INVITE_FAILED
+	};
+}
+
+export function userInviteSuccess(): UserInviteSuccess {
+	return {
+		type: constants.USER_INVITE_SUCCESS
 	};
 }

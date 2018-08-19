@@ -6,6 +6,7 @@ import Logs from '../Logs/Logs';
 import Resources from '../Resources/Resources';
 import HttpStats from '../HttpStats/HttpStats';
 import SocketStats from '../SocketStats/SocketStats';
+import Profile from '../Profile/Profile';
 import {
 	SideNav,
 	SideLink,
@@ -13,7 +14,7 @@ import {
 	DashboardBackground,
 	Main,
 	UserBar,
-	Profile,
+	Profile as UserProfile,
 	NotificationIcon
 } from 'src/styles/Styles';
 
@@ -105,7 +106,17 @@ class Dashboard extends React.Component<DashboardProps, DashboardState> {
 						</div>
 					</div>
 					<UserBar>
-						<Profile>Harry Pankiv</Profile>
+						<UserProfile>
+							<SideLink
+								active={
+									location.pathname === '/dashboard/profile'
+								}
+							>
+								<Link to={`${match.url}/profile`}>
+									Harry Pankiv
+								</Link>
+							</SideLink>
+						</UserProfile>
 						<NotificationIcon size="20px" />
 					</UserBar>
 				</SideNav>
@@ -131,6 +142,7 @@ class Dashboard extends React.Component<DashboardProps, DashboardState> {
 						path={`${match.url}/socketstats`}
 						component={SocketStats}
 					/>
+					<Route path={`${match.url}/profile`} component={Profile} />
 				</Main>
 			</DashboardBackground>
 		);

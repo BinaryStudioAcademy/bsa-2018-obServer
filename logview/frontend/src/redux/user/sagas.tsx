@@ -6,7 +6,8 @@ import {
 	UserLogin,
 	UserChangePassword,
 	UserResetPassword,
-	UserEmailActivation
+	UserEmailActivation,
+	UserInvite
 } from './actions';
 import { push } from 'connected-react-router';
 import * as constants from './constants';
@@ -114,12 +115,30 @@ function* userEmailActivation(action: UserEmailActivation) {
 	}
 }
 
+function* userInvite(action: UserInvite) {
+	try {
+		yield call(userAPI.inviteUser, {
+			email: action.email,
+			name: action.name
+		});
+
+		yield put({
+			type: constants.USER_INVITE_SUCCESS
+		});
+	} catch (error) {
+		yield put({
+			type: constants.USER_INVITE_FAILED
+		});
+	}
+}
+
 export default function* userSaga() {
 	yield all([
 		takeLatest(constants.USER_REGISTER, userRegister),
 		takeLatest(constants.USER_LOGIN, userLogin),
 		takeLatest(constants.USER_CHANGE_PASSWORD, userChangePassword),
 		takeLatest(constants.USER_RESET_PASSWORD, userResetPassword),
-		takeLatest(constants.USER_EMAIL_ACTIVATION, userEmailActivation)
+		takeLatest(constants.USER_EMAIL_ACTIVATION, userEmailActivation),
+		takeLatest(constants.USER_INVITE, userInvite)
 	]);
 }

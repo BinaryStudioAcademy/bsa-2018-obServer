@@ -141,6 +141,7 @@ export const DashboardBackground = styled.div`
 	background-color: white;
 `;
 export const Main = styled.div`
+	padding: 3%;
 	width: 84%;
 	background: ghostwhite;
 `;
