@@ -53,7 +53,7 @@ function* userLogin(action: UserLogin) {
 			}
 		});
 
-		yield put(push('/'));
+		yield put(push('/dashboard/quickstart'));
 	} catch (error) {
 		yield put({
 			type: constants.USER_LOGIN_FAILED
@@ -142,6 +142,8 @@ function* userSetPassword(action: UserSetPassword) {
 		yield put({
 			type: constants.USER_INVITE_SUCCESS
 		});
+
+		yield put(push('/dashboard/quickstart'));
 	} catch (error) {
 		yield put({
 			type: constants.USER_INVITE_FAILED
