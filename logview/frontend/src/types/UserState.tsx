@@ -26,3 +26,8 @@ export interface UserActivationState {
 export interface FetchingState {
 	fetching: string;
 }
+
+export interface InviteUserState {
+	email: string;
+	name: string;
+}
