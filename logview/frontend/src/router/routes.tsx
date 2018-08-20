@@ -35,13 +35,29 @@ class Router extends React.Component<any, any> {
 						loggedUser={this.state.loggedUser}
 					/>
 					<Background>
-						<Route exact path="/login" component={Login} />
-						<Route exact path="/register" component={Register} />
-						<Route exact path="/reset" component={PasswordReset} />
-						<Route
+						<UnauthorizedRoute
+							exact
+							path="/login"
+							component={Login}
+							loggedUser={this.state.loggedUser}
+						/>
+						<UnauthorizedRoute
+							exact
+							path="/register"
+							component={Register}
+							loggedUser={this.state.loggedUser}
+						/>
+						<UnauthorizedRoute
+							exact
+							path="/reset"
+							component={PasswordReset}
+							loggedUser={this.state.loggedUser}
+						/>
+						<PrivateRoute
 							exact
 							path="/change/"
 							component={PasswordChange}
+							loggedUser={this.state.loggedUser}
 						/>
 						<Route
 							exact
@@ -55,10 +71,11 @@ class Router extends React.Component<any, any> {
 							path="/confirm/"
 							component={EmailTokenConfirm}
 						/>
-						<Route
+						<PrivateRoute
 							exact
 							path="/dashboard/quickstart"
 							component={Quickstart}
+							loggedUser={this.state.loggedUser}
 						/>
 					</Background>
 				</Switch>
@@ -85,6 +102,30 @@ const PrivateRoute = ({
 							state: { from: props.location }
 						}}
 					/>
+				)
+			}
+		/>
+	);
+};
+
+const UnauthorizedRoute = ({
+	component: Component,
+	loggedUser: loggedUser,
+	...rest
+}) => {
+	return (
+		<Route
+			{...rest}
+			render={props =>
+				loggedUser ? (
+					<Redirect
+						to={{
+							pathname: '/dashboard',
+							state: { from: props.location }
+						}}
+					/>
+				) : (
+					<Component {...props} />
 				)
 			}
 		/>
