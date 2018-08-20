@@ -58,7 +58,7 @@ class Profile extends React.Component<LoginFormProps, ProfileState> {
 					onChange={this.handleFieldChange}
 				/>
 				<Submit onClick={this.handleSubmit}>
-					{this.props.fetchingUserStatus === 'sucess'
+					{this.props.fetchingUserStatus === 'success'
 						? 'Sent'
 						: 'Invite'}
 				</Submit>
