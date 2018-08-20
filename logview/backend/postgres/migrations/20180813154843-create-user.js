@@ -38,10 +38,6 @@ module.exports = {
 				type: Sequelize.STRING,
 				allowNull: true
 			},
-			inviteToken: {
-				type: Sequelize.STRING,
-				allowNull: true
-			},
 			companyId: {
 				type: Sequelize.UUID,
 				onDelete: 'CASCADE',
@@ -58,10 +54,6 @@ module.exports = {
 			updatedAt: {
 				type: Sequelize.DATE,
 				defaultValue: Date.now()
-			},
-			userActivationToken: {
-				type: Sequelize.STRING,
-				allowNull: true
 			}
 		});
 	},
