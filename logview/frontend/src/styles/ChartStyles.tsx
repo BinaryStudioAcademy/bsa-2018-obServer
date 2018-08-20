@@ -18,11 +18,14 @@ export const ChartWrapper = styled.div`
 
 export const ChartHeader = styled.div`
 	display: flex;
+	justify-content: space-between;
 `;
 export const ChartTimeRange = styled.div`
 	text-align: right;
 	color: grey;
 	line-height: 60px;
+	border-bottom: 1px solid #d8dbdc;
+	margin-right: 10px;
 `;
 
 export const ChartGrid = styled.div``;
@@ -32,7 +35,6 @@ export const ChartHeader = styled.div`
 	display: grid;
 	grid-template-columns: 1fr 1fr;
 	height: 60px;
-	border-bottom: 1px solid #d8dbdc;
 `;
 
 export const ChartTimeRange = styled.div`
