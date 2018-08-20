@@ -29,10 +29,10 @@ module.exports = (callback) => {
       const totalDifference = endMeasure[i].totalTick - startMeasure[i].totalTick;
       const percentageCoreCPU = 100 - Math.round(100 * idleDifference / totalDifference);
 
-      percentageCPU.push({ coreName: `core${i}`, coreLoad: percentageCoreCPU });
+      percentageCPU.push({ coreName: `core${i}`, coreLoadPercentages: percentageCoreCPU });
       // console.log(`core${i} load ${percentageCoreCPU}%`);
     }
 
-    callback(percentageCPU);
+    callback({ cores: percentageCPU });
   }, 200);
 }

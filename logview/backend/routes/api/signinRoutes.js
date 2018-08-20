@@ -1,14 +1,43 @@
 const apiResponse = require('express-api-response'),
+	isLoggedInMiddlewre = require('../../middleware/isLoggedInMiddleware'),
 	userService = require('../../services/userService'),
 	passport = require('passport'),
 	router = require('express').Router(),
 	passportStrategy = require('../../passport/localStrategy');
 
 router.post(
+	`/register`,
+	async (req, res, next) => {
+		try {
+			const data = await userService.create(req.body);
+			res.data = {
+				status: 200,
+				message: 'success register',
+				user: data
+			};
+			res.err = null;
+		} catch (err) {
+			res.data = null;
+			res.err = err;
+		} finally {
+			next();
+		}
+	},
+	apiResponse
+);
+
+router.post(
 	`/login`,
 	passport.authenticate('local.signin'),
+	userService.isLoggedIn,
 	(req, res, next) => {
-		res.data = req.user.dataValues;
+		res.data = {
+			status: 200,
+			message: 'success login',
+			user: req.user.dataValues,
+			isAuth: true
+		};
+		res.err = null;
 		next();
 	},
 	apiResponse
@@ -16,8 +45,15 @@ router.post(
 
 router.get(
 	`/logout`,
+	userService.isLoggedIn,
 	(req, res, next) => {
 		req.logout();
+		res.data = {
+			status: 200,
+			message: 'success logout',
+			isAuth: false
+		};
+		res.err = null;
 		next();
 	},
 	apiResponse
@@ -38,11 +74,15 @@ router.post(
 				);
 			}
 
-			const update = { active: true };
+			const update = {
+				active: true,
+				userActivationToken: null
+			};
 			if (!(await userService.update(user.id, update)))
 				throw new Error(`Cannot activate user.`);
 
 			user.active = true;
+			user.userActivationToken = null;
 			res.data = user;
 			res.err = null;
 		} catch (err) {
@@ -54,5 +94,9 @@ router.post(
 	},
 	apiResponse
 );
+
+router.post(`/checkloggedin`, isLoggedInMiddlewre, (req, res) => {
+	res.sendStatus(200);
+});
 
 module.exports = router;

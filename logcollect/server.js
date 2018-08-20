@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const MetricsService = require('./metricsService');
 
 const port = process.env.LOGCOLLECT_PORT;
-const token = process.env.LOGCOLLECT_SECRET_TOKEN; 
+const companyToken = process.env.LOGCOLLECT_SECRET_TOKEN; 
 const app = express();
 let metricsService;
 
@@ -14,8 +14,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.post('/config', (req, res) => {
   console.log(req.body);
 
-  const rawStoreAddress = 'http://localhost:3080'; // need log raw stor
-  metricsService = new MetricsService(rawStoreAddress, token);
+  const rawStorePort = process.env.RAWSTORAGE_PORT;
+  const rawStoreAddress = `http://localhost:${rawStorePort}/api/logs`; // raw store address we will get from config request
+  metricsService = new MetricsService(rawStoreAddress, companyToken);
   metricsService.startCPUMonitor(1000);
   metricsService.startMemoryMonitor(1000);
 

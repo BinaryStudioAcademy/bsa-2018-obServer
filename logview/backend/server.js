@@ -11,6 +11,7 @@ const bodyParser = require('body-parser'),
 	webpackHotMiddleware = require('webpack-hot-middleware'),
 	passport = require('passport'),
 	Sequelize = require('sequelize'),
+	cors = require('cors'),
 	port = process.env.APP_PORT;
 
 const app = express();
@@ -58,6 +59,7 @@ app.use('/dist', express.static(distPath));
 app.use('/resources', express.static(resourcesPath));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(cors());
 
 const apiRoutes = require('./routes/api').init(app);
 const viewRoutes = require('./routes/view/routes')(app);

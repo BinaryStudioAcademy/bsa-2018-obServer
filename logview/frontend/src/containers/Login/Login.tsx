@@ -7,18 +7,19 @@ import {
 	Wrapper,
 	BackgroundContainer,
 	Box,
-	LogoContainer
-} from '../../styles/ContainerStyles';
-import { LogoText } from '../../styles/TextStyles';
-import { Logo } from '../../styles/ImageStyles';
+	LogoContainer,
+	LogoText,
+	Logo
+} from 'src/styles/Styles';
 const logo = require('src/assets/logo.png');
 
-interface ILoginFormProps {
+interface LoginFormProps {
 	onSubmit: Function;
 	actions: { userLogin: Function };
+	fetchingUserStatus: string;
 }
 
-class Login extends React.Component<ILoginFormProps, {}> {
+class Login extends React.Component<LoginFormProps, {}> {
 	constructor(props: any) {
 		super(props);
 
@@ -32,7 +33,10 @@ class Login extends React.Component<ILoginFormProps, {}> {
 	render() {
 		return (
 			<Wrapper>
-				<LoginForm onSubmit={this.handleSubmit} />
+				<LoginForm
+					onSubmit={this.handleSubmit}
+					status={this.props.fetchingUserStatus}
+				/>
 				<BackgroundContainer>
 					<Box>
 						<LogoContainer>
@@ -46,12 +50,16 @@ class Login extends React.Component<ILoginFormProps, {}> {
 	}
 }
 
+const mapStateToProps = ({ fetchingUserStatus }) => ({
+	fetchingUserStatus
+});
+
 const mapDispatchToProps = (dispatch: any) => ({
 	actions: bindActionCreators({ userLogin }, dispatch)
 });
 
 const LoginConnected = connect(
-	null,
+	mapStateToProps,
 	mapDispatchToProps
 )(Login);
 
