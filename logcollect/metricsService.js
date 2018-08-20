@@ -1,6 +1,6 @@
-const sendHelper = require('./apiRequest');
-const cpuLoad = require('./osUtils/cpu');
-const memoryStats = require('./osUtils/memory');
+const sendHelper = require("./apiRequest");
+const cpuLoad = require("./osUtils/cpu");
+const memoryStats = require("./osUtils/memory");
 
 module.exports = class MetricsService {
   constructor(url, companyToken) {
@@ -8,17 +8,17 @@ module.exports = class MetricsService {
     this.sendMetrics = sendHelper(url, companyToken);
   }
 
-  newMetrics(data) {
-    if(sendMetrics) {
-      this.sendMetrics(data);
-    }
+  newLog(data) {
+    this.sendMetrics(data);
   }
 
   startCPUMonitor(delay = 1000) {
-    if(!this.timersId.cpu) {
+    if (!this.timersId.cpu) {
       this.timersId.cpu = setInterval(() => {
-        cpuLoad((cpuData) => {
-          this.sendMetrics(MetricsService.createMetricObject('CPU_SERVER', cpuData));
+        cpuLoad(cpuData => {
+          this.sendMetrics(
+            MetricsService.createLogObject("CPU_SERVER", cpuData)
+          );
         });
       }, delay);
     }
@@ -30,9 +30,11 @@ module.exports = class MetricsService {
   }
 
   startMemoryMonitor(delay = 1000) {
-    if(!this.timersId.memory) {
+    if (!this.timersId.memory) {
       this.timersId.memory = setInterval(() => {
-        this.sendMetrics(MetricsService.createMetricObject('MEMORY_SERVER', memoryStats()));
+        this.sendMetrics(
+          MetricsService.createLogObject("MEMORY_SERVER", memoryStats())
+        );
       }, delay);
     }
   }
@@ -42,11 +44,11 @@ module.exports = class MetricsService {
     delete timersId.memory;
   }
 
-  static createMetricObject(name, data) {
+  static createLogObject(logType, data) {
     return {
-      logType: name,
+      logType: logType,
       data: data,
       timestamp: new Date()
     };
   }
-}
+};

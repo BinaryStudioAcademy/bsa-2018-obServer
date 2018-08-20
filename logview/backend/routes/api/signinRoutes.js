@@ -6,58 +6,20 @@ const apiResponse = require('express-api-response'),
 	passportStrategy = require('../../passport/localStrategy');
 
 router.post(
-	`/register`,
-	async (req, res, next) => {
-		try {
-			const data = await userService.create(req.body);
-			res.data = {
-				status: 200,
-				message: 'success register',
-				user: data
-			};
-			res.err = null;
-		} catch (err) {
-			res.data = null;
-			res.err = err;
-		} finally {
-			next();
-		}
-	},
-	apiResponse
-);
-
-router.post(
 	`/login`,
 	passport.authenticate('local.signin'),
-	userService.isLoggedIn,
 	(req, res, next) => {
-		res.data = {
-			status: 200,
-			message: 'success login',
-			user: req.user.dataValues,
-			isAuth: true
-		};
+		res.data = req.user.dataValues;
 		res.err = null;
 		next();
 	},
 	apiResponse
 );
 
-router.get(
-	`/logout`,
-	userService.isLoggedIn,
-	(req, res, next) => {
-		req.logout();
-		res.data = {
-			status: 200,
-			message: 'success logout',
-			isAuth: false
-		};
-		res.err = null;
-		next();
-	},
-	apiResponse
-);
+router.get(`/logout`, isLoggedInMiddlewre, (req, res, next) => {
+	req.logout();
+	res.sendStatus(200);
+});
 
 router.post(
 	'/user/activate/:activationToken',

@@ -9,7 +9,6 @@ export const Wrapper = styled.div`
 `;
 
 export const Row = Wrapper.extend`
-	display: flex;
 	margin-top: 5%;
 	background-color: transparent;
 `;
@@ -114,40 +113,51 @@ export const CenteredContainer = styled.div`
 export const PasswordWrapper = CenteredContainer.extend`
 	justify-content: space-between;
 	height: 90%;
-	/* margin: 20px; */
-	/* height: 400px; */
-	/* width: 100wh;
-	height: 90vh;
-	color: #fff;
-	background: linear-gradient(-45deg, 
-		rgba(238, 119, 82, 0.5),
-		rgba(231, 60, 126, 0.5), 
-		rgba(35, 166, 213, 0.5), 
-		rgba(35, 213, 171, 0.5));
-	background-size: 400% 400%;
-	-webkit-animation: Gradient 8s ease infinite;
-	-moz-animation: Gradient 8s ease infinite;
-	animation: Gradient 8s ease infinite;
-
-	@keyframes Gradient {
-		0% {
-			background-position: 0% 50%
-		}
-		25% {
-			background-position: 100% 50%
-		}
-		50% {
-			background-position: 100% 100%
-		}
-		75% {
-			background-position: 50% 100%			
-		}
-		100% {
-			background-position: 0% 50%
-		}
-	}*/
 `;
 
 export const EmailContainer = CenteredContainer.extend`
 	justify-content: flex-start;
+`;
+
+export const Column = styled.div`
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: flex-start;
+`;
+
+export const SideNav = Column.extend`
+	width: 16%;
+	padding: 2% 0 3% 5%;
+
+	/* box-shadow: 6px 0px 29px 0px rgba(0, 0, 0, 0.1); */
+	height: calc(100vh - 7%);
+	position: fixed;
+`;
+
+export const DashboardBackground = styled.div`
+	font-family: 'Muli', serif;
+	display: flex;
+
+	min-height: 100vh;
+	background-color: #efefef;
+`;
+export const Main = styled.div`
+	padding: 3%;
+	margin-left: 21%;
+	width: 84%;
+	background: white;
+`;
+
+export const UserBar = styled.div`
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+`;
+
+export const Profile = styled.div`
+	font-family: 'Merriweather', serif;
+	font-size: 18px;
+	font-weight: bold;
 `;
