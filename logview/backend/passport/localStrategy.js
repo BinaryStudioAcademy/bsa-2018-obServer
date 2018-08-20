@@ -42,7 +42,6 @@ passport.use(
 							message: 'Wrong password'
 						});
 
-					console.log(`USER: ${user}`);
 					return done(null, user);
 				})
 				.catch(err => {
