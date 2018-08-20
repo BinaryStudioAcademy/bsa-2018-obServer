@@ -1,8 +1,8 @@
-module.exports = (logType, data) => {
+module.exports = (logType, data, app) => {
   return {
     logType, 
     data,
     timestamp: new Date(),
-    serverId: 'testServerID'
+    app
   }
 };
