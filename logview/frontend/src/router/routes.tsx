@@ -10,8 +10,6 @@ import EmailConfirm from 'src/containers/EmailConfirm/EmailConfirm';
 import EmailTokenConfirm from 'src/containers/EmailConfirm/EmailTokenConfirm';
 import ServerResources from 'src/containers/ServerResources/ServerResources';
 import Quickstart from 'src/containers/Quickstart/Quickstart';
-import TrackedDataSettings from 'src/containers/Settings/TrackedDataSettings';
-import UserGeneralSettings from 'src/containers/Settings/UserGeneralSettings';
 import history from './history';
 import 'src/styles/GlobalStyles';
 import { Background } from '../styles/Styles';
@@ -68,16 +66,6 @@ class Router extends React.Component<any, any> {
 							exact
 							path="/setpassword/"
 							component={PasswordChange}
-						/>
-						<Route
-							exact
-							path="/dashboard/settings/data"
-							component={TrackedDataSettings}
-						/>
-						<Route
-							exact
-							path="/dashboard/settings/general"
-							component={UserGeneralSettings}
 						/>
 						<Route path="/dashboard" component={Dashboard} />
 					</Background>
