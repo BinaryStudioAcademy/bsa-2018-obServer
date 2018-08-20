@@ -3,13 +3,21 @@ import { Link } from 'react-router-dom';
 import { bindActionCreators } from '../../../../node_modules/redux';
 import { connect } from 'react-redux';
 
-interface HomeProps {}
+interface HomeProps {
+	onSubmit: Function;
+	actions: { userLogout: Function };
+}
 
 interface HomeState {}
 
 class Home extends React.Component<HomeProps, HomeState> {
 	constructor(props: any) {
 		super(props);
+		this.handleLogout = this.handleLogout.bind(this);
+	}
+
+	handleLogout() {
+		this.props.actions.userLogout();
 	}
 
 	render() {
@@ -23,6 +31,9 @@ class Home extends React.Component<HomeProps, HomeState> {
 				<Link to="register">Link to register</Link>
 				<br />
 				<Link to="/dashboard/quickstart">Quickstart</Link>
+				<Link to="/login" onClick={this.handleLogout}>
+					Log out
+				</Link>
 			</React.Fragment>
 		);
 	}
