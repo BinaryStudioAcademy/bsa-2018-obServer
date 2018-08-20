@@ -27,6 +27,7 @@ class Login extends React.Component<LoginFormProps, {}> {
 
 	handleSubmit(data: any) {
 		this.props.actions.userLogin(data.email, data.password);
+		window.location.href = window.location.href;
 	}
 
 	render() {
