@@ -26,6 +26,7 @@ amqp.connect(`amqp://localhost:${rabbitmqPort}`, function(err, conn) {
       });
     }, {noAck: true});
   });
+  io.emit('newLog', req.body);
 });
 
 server.listen(port, () => {
