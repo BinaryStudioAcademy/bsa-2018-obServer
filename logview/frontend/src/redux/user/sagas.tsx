@@ -6,7 +6,9 @@ import {
 	UserLogin,
 	UserChangePassword,
 	UserResetPassword,
-	UserEmailActivation
+	UserEmailActivation,
+	UserInvite,
+	UserSetPassword
 } from './actions';
 import { push } from 'connected-react-router';
 import * as constants from './constants';
@@ -37,8 +39,6 @@ function* userRegister(action: UserRegister) {
 
 function* userLogin(action: UserLogin) {
 	try {
-		sessionStorage.setItem('user', action.email);
-
 		const currentUser = yield call(userAPI.loginUser, {
 			email: action.email,
 			password: action.password
@@ -51,7 +51,8 @@ function* userLogin(action: UserLogin) {
 			}
 		});
 
-		yield put(push('/'));
+		sessionStorage.setItem('user', action.email);
+		yield put(push('/dashboard/quickstart'));
 	} catch (error) {
 		yield put({
 			type: constants.USER_LOGIN_FAILED
@@ -114,12 +115,49 @@ function* userEmailActivation(action: UserEmailActivation) {
 	}
 }
 
+function* userInvite(action: UserInvite) {
+	try {
+		yield call(userAPI.inviteUser, {
+			email: action.email,
+			name: action.name
+		});
+
+		yield put({
+			type: constants.USER_INVITE_SUCCESS
+		});
+	} catch (error) {
+		yield put({
+			type: constants.USER_INVITE_FAILED
+		});
+	}
+}
+
+function* userSetPassword(action: UserSetPassword) {
+	try {
+		yield call(userAPI.userSetPassword, action.resetToken, {
+			newPassword: action.newPassword
+		});
+
+		yield put({
+			type: constants.USER_INVITE_SUCCESS
+		});
+
+		yield put(push('/dashboard/quickstart'));
+	} catch (error) {
+		yield put({
+			type: constants.USER_INVITE_FAILED
+		});
+	}
+}
+
 export default function* userSaga() {
 	yield all([
 		takeLatest(constants.USER_REGISTER, userRegister),
 		takeLatest(constants.USER_LOGIN, userLogin),
 		takeLatest(constants.USER_CHANGE_PASSWORD, userChangePassword),
 		takeLatest(constants.USER_RESET_PASSWORD, userResetPassword),
-		takeLatest(constants.USER_EMAIL_ACTIVATION, userEmailActivation)
+		takeLatest(constants.USER_EMAIL_ACTIVATION, userEmailActivation),
+		takeLatest(constants.USER_INVITE, userInvite),
+		takeLatest(constants.USER_SET_PASSWORD, userSetPassword)
 	]);
 }

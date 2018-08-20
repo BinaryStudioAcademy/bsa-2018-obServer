@@ -15,7 +15,7 @@ interface RegFormState {
 	email?: string;
 	password?: string;
 	company?: string;
-	validatestate?: {
+	validateState?: {
 		name: boolean;
 		email: boolean;
 		password: boolean;
@@ -35,7 +35,7 @@ class RegisterForm extends React.Component<RegFormProps, RegFormState> {
 			email: '',
 			password: '',
 			company: '',
-			validatestate: {
+			validateState: {
 				name: true,
 				email: true,
 				password: true,
@@ -60,11 +60,11 @@ class RegisterForm extends React.Component<RegFormProps, RegFormState> {
 			company: this.state.company
 		};
 
-		let validatestate = validateForm(obj);
-		this.setState({ validatestate: validatestate });
+		let validateState = validateForm(obj);
+		this.setState({ validateState: validateState });
 		let arr = [];
-		for (let el in validatestate) {
-			arr.push(validatestate[el]);
+		for (let field in validateState) {
+			arr.push(validateState[field]);
 		}
 		arr.indexOf(false) ? this.props.onSubmit(obj) : undefined;
 	}
@@ -85,7 +85,7 @@ class RegisterForm extends React.Component<RegFormProps, RegFormState> {
 					placeholder="Name"
 					onChange={this.handleFieldChange}
 				/>
-				{this.state.validatestate.name ? (
+				{this.state.validateState.name ? (
 					undefined
 				) : (
 					<ErrorText>Name can only contain letters</ErrorText>
@@ -98,9 +98,7 @@ class RegisterForm extends React.Component<RegFormProps, RegFormState> {
 					onChange={this.handleFieldChange}
 					autoComplete="off"
 				/>
-				{this.state.validatestate.email ? (
-					undefined
-				) : (
+				{!this.state.validateState.email && (
 					<ErrorText>
 						Email is not valid, ex. "email@domain.name"
 					</ErrorText>
@@ -113,9 +111,7 @@ class RegisterForm extends React.Component<RegFormProps, RegFormState> {
 					onChange={this.handleFieldChange}
 					autoComplete="off"
 				/>
-				{this.state.validatestate.password ? (
-					undefined
-				) : (
+				{!this.state.validateState.password && (
 					<ErrorText>
 						Password should be at least 8 characters long
 					</ErrorText>
@@ -128,9 +124,7 @@ class RegisterForm extends React.Component<RegFormProps, RegFormState> {
 					onChange={this.handleFieldChange}
 					autoComplete="off"
 				/>
-				{this.state.validatestate.company ? (
-					undefined
-				) : (
+				{!this.state.validateState.company && (
 					<ErrorText>
 						Company should be at least 3 characters long
 					</ErrorText>

@@ -136,11 +136,14 @@ export const Pre = styled.pre`
 	margin-top: 0;
 `;
 export const Code = styled.code`
+	display: block;
 	padding: 0.2rem 0.4rem;
-	font-size: 90%;
-	color: #bd4147;
-	background-color: #f7f7f9;
+	width: 100%;
+	color: #c5c8c6;
+	background-color: rgb(29, 31, 39);
 	border-radius: 0.25rem;
+	font-size: 0.8rem;
+	font-weight: 300;
 	font-family: Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
 		monospace;
 	line-height: 1.7;
