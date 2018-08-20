@@ -1,7 +1,6 @@
 import * as React from 'react';
 import {
 	ContentBlock,
-	Greeting,
 	ContentSubheader,
 	Pre,
 	Code

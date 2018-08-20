@@ -28,6 +28,7 @@ class Profile extends React.Component<LoginFormProps, ProfileState> {
 
 		this.handleFieldChange = this.handleFieldChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
+		this.handleLogout = this.handleLogout.bind(this);
 	}
 
 	handleFieldChange(e: any) {
@@ -39,6 +40,8 @@ class Profile extends React.Component<LoginFormProps, ProfileState> {
 
 		this.props.actions.userInvite(this.state.email, this.state.name);
 	}
+
+	handleLogout() {}
 
 	render() {
 		return (
@@ -55,7 +58,7 @@ class Profile extends React.Component<LoginFormProps, ProfileState> {
 					onChange={this.handleFieldChange}
 				/>
 				<Submit onClick={this.handleSubmit}>
-					{this.props.fetchingUserStatus === 'sucess'
+					{this.props.fetchingUserStatus === 'success'
 						? 'Sent'
 						: 'Invite'}
 				</Submit>
@@ -64,6 +67,7 @@ class Profile extends React.Component<LoginFormProps, ProfileState> {
 						? 'There was an error processing your request'
 						: ''}
 				</ErrorText>
+				<Submit onClick={this.handleLogout}>Logout</Submit>
 			</React.Fragment>
 		);
 	}

@@ -1,14 +1,11 @@
 import * as React from 'react';
-import { Link } from 'react-router-dom';
 import {
 	Background,
 	PasswordResetContainer,
-	PasswordWrapper,
 	CenteredText,
 	Title,
 	EmailContainer
 } from '../../styles/Styles';
-const sendIcon = require('src/assets/confirm-icon.png');
 
 class EmailConfirm extends React.Component {
 	constructor(props: any) {
