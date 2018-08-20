@@ -18,8 +18,6 @@ const baseUrl = '/api';
 app.post(`${baseUrl}/logs`, (req, res) => {
   logService.create({ ...req.body, companyToken: req.header('X-ACCESS-TOKEN') }, (err, logMessage) => {
     if (!err) {
-      const { logType, data, timestamp, app, companyToken } = logMessage;
-      sendMetrics({ logType, data, timestamp, app, companyToken });      
       res.status(200);
     } else {
       res.status(400).end();
@@ -28,6 +26,19 @@ app.post(`${baseUrl}/logs`, (req, res) => {
 
   res.send('ok');
 });
+
+// setTimeout(() => {
+//   logService.create({
+//     companyToken: 'token',
+//     timestamp: new Date(),
+//     logType: 'TEST_TYPE',
+//     data: {},
+//   }, (err, log) => {
+//     if(!err) {
+//       console.log(log);
+//     }
+//   });
+// }, 2000);
 
 app.listen(port, () => {
   console.log(`Log raw store app listening on port ${port}`);

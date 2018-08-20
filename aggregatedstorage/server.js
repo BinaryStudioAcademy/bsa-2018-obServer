@@ -3,25 +3,28 @@ const app = require('express')();
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 const bodyParser = require('body-parser');
+var amqp = require('amqplib/callback_api');
 const sockets = require('./sockets/sockets');
 const logService = require('./services/logService');
 
 const port = process.env.AGGREGATEDSTORAGE_PORT;
-
-app.use(bodyParser.json({ limit: '5mb' }));
-app.use(bodyParser.urlencoded({ extended: false }));
+const rabbitmqPort = process.env.RABBITMQ_EXTERNAL_PORT;
 
 sockets(io);
 
-const baseUrl = '/api'
+amqp.connect(`amqp://localhost:${rabbitmqPort}`, function(err, conn) {
+  conn.createChannel(function(err, channel) {
+    const queue = 'logs';
 
-app.post(`${baseUrl}/logs`, (req, res) => {
-  logService.create(req.body, (err, result) => {
-    if(!err) {
-      res.send('ok');
-    } else {
-      console.log(err);
-    }
+    channel.assertQueue(queue, {durable: false});
+    channel.consume(queue, function(logMessage) {
+      const logObject = JSON.parse(logMessage.content.toString());
+      logService.create(logObject, (err, result) => {
+        if(err) {
+          console.log(err);
+        }
+      });
+    }, {noAck: true});
   });
 });
 
