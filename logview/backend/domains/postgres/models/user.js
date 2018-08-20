@@ -41,6 +41,10 @@ const user = (sequilize, DataTypes) => {
 				type: DataTypes.STRING,
 				allowNull: true
 			},
+			inviteToken: {
+				type: DataTypes.STRING,
+				allowNull: true
+			},
 			companyId: {
 				type: DataTypes.UUID,
 				allowNull: false
