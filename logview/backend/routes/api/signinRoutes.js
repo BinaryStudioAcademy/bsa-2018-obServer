@@ -10,16 +10,22 @@ router.post(
 	`/login`,
 	passport.authenticate('local.signin'),
 	async (req, res, next) => {
-		const { name, email, companyId } = req.user.dataValues;
-		const companyName = (await companyService.findById(companyId)).name;
-		const data = {
-			name: name,
-			email: email,
-			companyName: companyName
-		};
-		res.data = data;
-		res.err = null;
-		next();
+		try {
+			const { name, email, companyId } = req.user.dataValues;
+			const companyName = (await companyService.findById(companyId)).name;
+			const data = {
+				name: name,
+				email: email,
+				companyName: companyName
+			};
+			res.data = data;
+			res.err = null;
+		} catch (error) {
+			res.data = null;
+			res.err = error;
+		} finally {
+			next();
+		}
 	},
 	apiResponse
 );
