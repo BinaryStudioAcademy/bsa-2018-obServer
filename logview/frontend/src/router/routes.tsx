@@ -88,7 +88,6 @@ class Router extends React.Component<any, any> {
 							path="/setpassword/"
 							component={PasswordChange}
 						/>
-						<Route path="/dashboard" component={Dashboard} />
 					</Background>
 				</React.Fragment>
 			</ConnectedRouter>
