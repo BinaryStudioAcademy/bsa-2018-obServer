@@ -3,7 +3,6 @@ import { Route, Link, RouteComponentProps, RouteProps } from 'react-router-dom';
 import Quickstart from '../Quickstart/Quickstart';
 import Settings from '../Settings/Settings';
 import Logs from '../Logs/Logs';
-import Resources from '../Resources/Resources';
 import HttpStats from '../HttpStats/HttpStats';
 import SocketStats from '../SocketStats/SocketStats';
 import Profile from '../Profile/Profile';
@@ -17,6 +16,7 @@ import {
 	Profile as UserProfile,
 	NotificationIcon
 } from 'src/styles/Styles';
+import ServerResources from '../ServerResources/ServerResources';
 
 interface MatchParams {
 	name: string;
@@ -132,7 +132,7 @@ class Dashboard extends React.Component<DashboardProps, DashboardState> {
 					<Route path={`${match.url}/logs`} component={Logs} />
 					<Route
 						path={`${match.url}/resources`}
-						component={Resources}
+						component={ServerResources}
 					/>
 					<Route
 						path={`${match.url}/httpstats`}

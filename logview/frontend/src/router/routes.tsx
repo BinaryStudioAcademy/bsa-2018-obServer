@@ -39,12 +39,7 @@ class Router extends React.Component<any, any> {
 					<Background>
 						<Route exact path="/login" component={Login} />
 						<Route exact path="/register" component={Register} />
-						<Route exact path="/register" component={Register} />
-						<Route
-							exact
-							path="/dashboard/resources"
-							component={ServerResources}
-						/>
+						<Route exact path="/reset" component={PasswordReset} />
 						<Route
 							exact
 							path="/change/"
