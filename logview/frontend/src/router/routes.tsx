@@ -9,11 +9,10 @@ import PasswordChange from 'src/containers/PasswordChange/PasswordChange';
 import EmailConfirm from 'src/containers/EmailConfirm/EmailConfirm';
 import EmailTokenConfirm from 'src/containers/EmailConfirm/EmailTokenConfirm';
 import ServerResources from 'src/containers/ServerResources/ServerResources';
-import Quickstart from 'src/containers/Quickstart/Quickstart';
 import history from './history';
 import 'src/styles/GlobalStyles';
 import { Background } from '../styles/Styles';
-import { isLoggedIn } from '../services';
+// import { isLoggedIn } from '../services';
 import Dashboard from 'src/containers/Dashboard/Dashboard';
 
 class Router extends React.Component<any, any> {
@@ -80,15 +79,8 @@ class Router extends React.Component<any, any> {
 							component={EmailTokenConfirm}
 						/>
 						<PrivateRoute
-							exact
-							path="/dashboard/quickstart"
-							component={Quickstart}
-							loggedUser={this.state.loggedUser}
-						/>
-						<PrivateRoute
-							exact
 							path="/dashboard"
-							component={Home}
+							component={Dashboard}
 							loggedUser={this.state.loggedUser}
 						/>
 						<Route
