@@ -8,6 +8,8 @@ import PasswordReset from 'src/containers/PasswordReset/PasswordReset';
 import PasswordChange from 'src/containers/PasswordChange/PasswordChange';
 import EmailConfirm from 'src/containers/EmailConfirm/EmailConfirm';
 import EmailTokenConfirm from 'src/containers/EmailConfirm/EmailTokenConfirm';
+import ServerResources from 'src/containers/ServerResources/ServerResources';
+import Quickstart from 'src/containers/Quickstart/Quickstart';
 import history from './history';
 import 'src/styles/GlobalStyles';
 import { Background } from '../styles/Styles';
@@ -37,7 +39,12 @@ class Router extends React.Component<any, any> {
 					<Background>
 						<Route exact path="/login" component={Login} />
 						<Route exact path="/register" component={Register} />
-						<Route exact path="/reset" component={PasswordReset} />
+						<Route exact path="/register" component={Register} />
+						<Route
+							exact
+							path="/dashboard/resources"
+							component={ServerResources}
+						/>
 						<Route
 							exact
 							path="/change/"
