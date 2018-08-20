@@ -75,12 +75,14 @@ router.post(
 			}
 
 			const update = {
-				active: true
+				active: true,
+				userActivationToken: null
 			};
 			if (!(await userService.update(user.id, update)))
 				throw new Error(`Cannot activate user.`);
 
 			user.active = true;
+			user.userActivationToken = null;
 			res.data = user;
 			res.err = null;
 		} catch (err) {
