@@ -32,6 +32,12 @@ export interface UserLoginSuccess {
 	type: constants.USER_LOGIN_SUCCESS;
 }
 
+/* user logout 
+extends UserLoginState */
+export interface UserLogout {
+	type: constants.USER_LOGOUT;
+}
+
 /* password reset */
 export interface UserResetPassword extends UserResetPasswordState {
 	type: constants.USER_RESET_PASSWORD;
@@ -142,6 +148,13 @@ export function userLoginFail(): UserLoginFail {
 export function userLoginSuccess(): UserLoginSuccess {
 	return {
 		type: constants.USER_LOGIN_SUCCESS
+	};
+}
+
+export function userLogout(): UserLogout {
+	console.log('Hello from logout action! ');
+	return {
+		type: constants.USER_LOGOUT
 	};
 }
 
