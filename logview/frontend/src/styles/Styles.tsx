@@ -27,6 +27,13 @@ import {
 	CenteredText
 } from './TextStyles';
 import { LoginBackground, Logo } from './ImageStyles';
+import {
+	ChartHeader,
+	ChartGrid,
+	ChartWrapper,
+	ChartsPageWrapper,
+	ChartTimeRange
+} from './ChartStyles';
 import { Input, InputWide } from './InputStyles';
 import { NotificationIcon } from './IconStyles';
 
@@ -51,6 +58,11 @@ export {
 	PasswordResetContainer,
 	PasswordWrapper,
 	LinkButton,
+	ChartHeader,
+	ChartGrid,
+	ChartWrapper,
+	ChartsPageWrapper,
+	ChartTimeRange,
 	ErrorText,
 	CenteredContainer,
 	EmailContainer,
