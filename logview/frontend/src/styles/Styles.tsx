@@ -1,4 +1,4 @@
-import { Submit, LinkButton, TextLink } from './ButtonStyles';
+import { Submit, LinkButton, TextLink, SideLink } from './ButtonStyles';
 import {
 	Wrapper,
 	Row,
@@ -11,7 +11,12 @@ import {
 	PasswordResetContainer,
 	PasswordWrapper,
 	CenteredContainer,
-	EmailContainer
+	EmailContainer,
+	SideNav,
+	UserBar,
+	Profile,
+	DashboardBackground,
+	Main
 } from './ContainerStyles';
 import { Form } from './FormStyles';
 import {
@@ -23,6 +28,7 @@ import {
 } from './TextStyles';
 import { LoginBackground, Logo } from './ImageStyles';
 import { Input, InputWide } from './InputStyles';
+import { NotificationIcon } from './IconStyles';
 
 export {
 	Submit,
@@ -49,5 +55,12 @@ export {
 	CenteredContainer,
 	EmailContainer,
 	CenteredText,
-	InputWide
+	InputWide,
+	SideNav,
+	SideLink,
+	UserBar,
+	NotificationIcon,
+	Profile,
+	DashboardBackground,
+	Main
 };
