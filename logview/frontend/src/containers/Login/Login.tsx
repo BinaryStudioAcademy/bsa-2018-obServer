@@ -16,6 +16,7 @@ const logo = require('src/assets/logo.png');
 interface LoginFormProps {
 	onSubmit: Function;
 	actions: { userLogin: Function };
+	fetchingUserStatus: string;
 }
 
 class Login extends React.Component<LoginFormProps, {}> {
@@ -32,7 +33,10 @@ class Login extends React.Component<LoginFormProps, {}> {
 	render() {
 		return (
 			<Wrapper>
-				<LoginForm onSubmit={this.handleSubmit} />
+				<LoginForm
+					onSubmit={this.handleSubmit}
+					status={this.props.fetchingUserStatus}
+				/>
 				<BackgroundContainer>
 					<Box>
 						<LogoContainer>
@@ -46,12 +50,16 @@ class Login extends React.Component<LoginFormProps, {}> {
 	}
 }
 
+const mapStateToProps = ({ fetchingUserStatus }) => ({
+	fetchingUserStatus
+});
+
 const mapDispatchToProps = (dispatch: any) => ({
 	actions: bindActionCreators({ userLogin }, dispatch)
 });
 
 const LoginConnected = connect(
-	null,
+	mapStateToProps,
 	mapDispatchToProps
 )(Login);
 
