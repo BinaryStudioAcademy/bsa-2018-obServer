@@ -1,5 +1,8 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
 import {
 	Building,
 	ChartBar,
@@ -43,9 +46,21 @@ import {
 	Span
 } from 'src/styles/QuickstartStyles';
 
-class Quickstart extends React.Component {
+import { userLogout } from 'src/redux/user/actions';
+
+interface QuickstartProps {
+	onSubmit: Function;
+	actions: { userLogout: Function };
+}
+
+class Quickstart extends React.Component<QuickstartProps, {}> {
 	constructor(props: any) {
 		super(props);
+		this.handleLogout = this.handleLogout.bind(this);
+	}
+
+	handleLogout(data: any) {
+		this.props.actions.userLogout();
 	}
 
 	render() {
@@ -61,7 +76,7 @@ class Quickstart extends React.Component {
 					</UserInfo>
 					<Nav>
 						<UserControl>
-							<Link to="/">
+							<Link to="/login" onClick={this.handleLogout}>
 								<PowerSettingsNew size="24px" />
 								<Span> log out</Span>
 							</Link>
@@ -328,4 +343,13 @@ class Quickstart extends React.Component {
 	}
 }
 
-export default Quickstart;
+const mapDispatchToProps = (dispatch: any) => ({
+	actions: bindActionCreators({ userLogout }, dispatch)
+});
+
+const QuickstartConnected = connect(
+	null,
+	mapDispatchToProps
+)(Quickstart);
+
+export default QuickstartConnected;
