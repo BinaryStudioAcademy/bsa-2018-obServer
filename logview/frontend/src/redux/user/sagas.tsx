@@ -48,12 +48,13 @@ function* userLogin(action: UserLogin) {
 		yield put({
 			type: constants.USER_LOGIN_SUCCESS,
 			payload: {
-				// ...currentUser
+				...currentUser
 			}
 		});
 
 		sessionStorage.setItem('user', action.email);
-		yield put(push('/dashboard/quickstart'));
+		window.location.href = window.location.href;
+		// yield put(push('/dashboard/quickstart'));
 	} catch (error) {
 		yield put({
 			type: constants.USER_LOGIN_FAILED

@@ -22,9 +22,9 @@ class Router extends React.Component<any, any> {
 		this.state = { loggedUser: sessionStorage.getItem('user') };
 	}
 
-	async componentDidMount() {
-		this.setState({ isLoggedIn: await isLoggedIn() });
-	}
+	// async componentDidMount() {
+	// 	this.setState({ loggedUser: await sessionStorage.getItem('user') });
+	// }
 
 	render() {
 		return (

@@ -26,8 +26,8 @@ class Login extends React.Component<LoginFormProps, {}> {
 		this.handleSubmit = this.handleSubmit.bind(this);
 	}
 
-	handleSubmit(data: any) {
-		this.props.actions.userLogin(data.email, data.password);
+	async handleSubmit(data: any) {
+		await this.props.actions.userLogin(data.email, data.password);
 	}
 
 	render() {
