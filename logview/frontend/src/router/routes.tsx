@@ -14,6 +14,7 @@ import history from './history';
 import 'src/styles/GlobalStyles';
 import { Background } from '../styles/Styles';
 import { isLoggedIn } from '../services';
+import Dashboard from 'src/containers/Dashboard/Dashboard';
 
 class Router extends React.Component<any, any> {
 	constructor(props: any) {
@@ -28,7 +29,7 @@ class Router extends React.Component<any, any> {
 	render() {
 		return (
 			<ConnectedRouter history={history}>
-				<Switch>
+				<React.Fragment>
 					<PrivateRoute
 						exact
 						path="/"
@@ -63,11 +64,12 @@ class Router extends React.Component<any, any> {
 						/>
 						<Route
 							exact
-							path="/dashboard/quickstart"
-							component={Quickstart}
+							path="/setpassword/"
+							component={PasswordChange}
 						/>
+						<Route path="/dashboard" component={Dashboard} />
 					</Background>
-				</Switch>
+				</React.Fragment>
 			</ConnectedRouter>
 		);
 	}

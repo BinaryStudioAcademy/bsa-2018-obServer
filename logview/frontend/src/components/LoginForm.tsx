@@ -15,6 +15,7 @@ import { Link } from 'react-router-dom';
 
 interface LoginFormProps {
 	onSubmit: Function;
+	status: string;
 }
 
 interface LoginFormState {
@@ -52,7 +53,6 @@ class LoginForm extends React.Component<LoginFormProps, LoginFormState> {
 			password: this.state.password
 		};
 		this.props.onSubmit(obj);
-		this.setState({ err: true });
 	}
 
 	handleCheckbox() {
@@ -81,7 +81,7 @@ class LoginForm extends React.Component<LoginFormProps, LoginFormState> {
 					value={this.state.password}
 					onChange={this.handleFieldChange}
 				/>
-				{this.state.err ? (
+				{this.props.status === 'failed' ? (
 					<ErrorText>Email or password is incorrect</ErrorText>
 				) : (
 					undefined
