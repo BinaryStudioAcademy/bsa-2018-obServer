@@ -82,6 +82,34 @@ export interface FetchUser {
 	type: constants.FETCH_USER;
 }
 
+/* user invite */
+export interface UserInvite {
+	type: constants.USER_INVITE;
+	email: string;
+	name: string;
+}
+
+export interface UserInviteFail {
+	type: constants.USER_INVITE_FAILED;
+}
+
+export interface UserInviteSuccess {
+	type: constants.USER_INVITE_SUCCESS;
+}
+
+/* user set password */
+export interface UserSetPassword extends UserChangePasswordState {
+	type: constants.USER_SET_PASSWORD;
+}
+
+export interface UserSetPasswordFail {
+	type: constants.USER_SET_PASSWORD_FAILED;
+}
+
+export interface UserSetPasswordSuccess {
+	type: constants.USER_SET_PASSWORD_SUCCESS;
+}
+
 export type UserAction =
 	| UserRegister
 	| UserRegisterFail
@@ -98,7 +126,12 @@ export type UserAction =
 	| UserEmailActivation
 	| UserEmailActivationFail
 	| UserEmailActivationSuccess
-	| UserChangePasswordSuccess
+	| UserInvite
+	| UserInviteFail
+	| UserInviteSuccess
+	| UserSetPassword
+	| UserSetPasswordFail
+	| UserSetPasswordSuccess
 	| FetchUser;
 
 export function userRegister(
@@ -225,5 +258,48 @@ export function userEmailActivationFail(): UserEmailActivationFail {
 export function userEmailActivationSuccess(): UserEmailActivationSuccess {
 	return {
 		type: constants.USER_EMAIL_ACTIVATION_SUCCESS
+	};
+}
+
+export function userInvite(email: string = '', name: string = '') {
+	return {
+		type: constants.USER_INVITE,
+		email,
+		name
+	};
+}
+
+export function userInviteFail(): UserInviteFail {
+	return {
+		type: constants.USER_INVITE_FAILED
+	};
+}
+
+export function userInviteSuccess(): UserInviteSuccess {
+	return {
+		type: constants.USER_INVITE_SUCCESS
+	};
+}
+
+export function userSetPassword(
+	newPassword: string = '',
+	resetToken: string = ''
+): UserSetPassword {
+	return {
+		type: constants.USER_SET_PASSWORD,
+		newPassword,
+		resetToken
+	};
+}
+
+export function userSetPasswordFail(): UserSetPasswordFail {
+	return {
+		type: constants.USER_SET_PASSWORD_FAILED
+	};
+}
+
+export function userSetPasswordSuccess(): UserSetPasswordSuccess {
+	return {
+		type: constants.USER_SET_PASSWORD_SUCCESS
 	};
 }
