@@ -77,6 +77,12 @@ class Router extends React.Component<any, any> {
 							component={Quickstart}
 							loggedUser={this.state.loggedUser}
 						/>
+						<PrivateRoute
+							exact
+							path="/dashboard"
+							component={Home}
+							loggedUser={this.state.loggedUser}
+						/>
 					</Background>
 				</Switch>
 			</ConnectedRouter>
