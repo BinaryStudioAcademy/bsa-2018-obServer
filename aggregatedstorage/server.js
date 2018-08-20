@@ -19,6 +19,7 @@ amqp.connect(`amqp://localhost:${rabbitmqPort}`, function(err, conn) {
     channel.assertQueue(queue, {durable: false});
     channel.consume(queue, function(logMessage) {
       const logObject = JSON.parse(logMessage.content.toString());
+      io.emit('newLog', logObject);
       logService.create(logObject, (err, result) => {
         if(err) {
           console.log(err);
@@ -26,7 +27,6 @@ amqp.connect(`amqp://localhost:${rabbitmqPort}`, function(err, conn) {
       });
     }, {noAck: true});
   });
-  io.emit('newLog', req.body);
 });
 
 server.listen(port, () => {
