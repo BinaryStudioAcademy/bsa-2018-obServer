@@ -38,6 +38,10 @@ module.exports = {
 				type: Sequelize.STRING,
 				allowNull: true
 			},
+			inviteToken: {
+				type: Sequelize.STRING,
+				allowNull: true
+			},
 			companyId: {
 				type: Sequelize.UUID,
 				onDelete: 'CASCADE',
