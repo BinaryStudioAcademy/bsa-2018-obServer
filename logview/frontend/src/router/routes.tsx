@@ -92,7 +92,6 @@ class Router extends React.Component<any, any> {
 							loggedUser={this.state.loggedUser}
 						/>
 						<Route
-							exact
 							path="/setpassword/"
 							component={PasswordChange}
 						/>
