@@ -17,7 +17,7 @@ import { isLoggedIn } from '../services';
 class Router extends React.Component<any, any> {
 	constructor(props: any) {
 		super(props);
-		this.state = { isLoggedIn };
+		this.state = { loggedUser: sessionStorage.getItem('user') };
 	}
 
 	async componentDidMount() {
@@ -32,7 +32,7 @@ class Router extends React.Component<any, any> {
 						exact
 						path="/"
 						component={Home}
-						isLoggedIn={this.state.isLoggedIn}
+						loggedUser={this.state.loggedUser}
 					/>
 					<Background>
 						<Route exact path="/login" component={Login} />
@@ -69,14 +69,14 @@ class Router extends React.Component<any, any> {
 
 const PrivateRoute = ({
 	component: Component,
-	isLoggedIn: isLoggedIn,
+	loggedUser: loggedUser,
 	...rest
 }) => {
 	return (
 		<Route
 			{...rest}
 			render={props =>
-				isLoggedIn ? (
+				loggedUser ? (
 					<Component {...props} />
 				) : (
 					<Redirect

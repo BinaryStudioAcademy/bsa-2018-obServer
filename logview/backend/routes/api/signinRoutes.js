@@ -63,7 +63,6 @@ router.post(
 	'/user/activate/:activationToken',
 	async (req, res, next) => {
 		try {
-			console.log('hello from activation!');
 			const user = await userService.findByUserActivationToken(
 				req.params.activationToken
 			);
@@ -83,6 +82,7 @@ router.post(
 				throw new Error(`Cannot activate user.`);
 
 			user.active = true;
+			user.userActivationToken = null;
 			res.data = user;
 			res.err = null;
 		} catch (err) {
