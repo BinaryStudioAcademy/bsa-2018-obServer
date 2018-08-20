@@ -11,7 +11,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { userEmailActivation } from 'src/redux/user/actions';
 import { History } from 'history';
-const sendIcon = require('src/assets/confirm-icon.png');
 
 interface EmailTokenProps {
 	history: History;
