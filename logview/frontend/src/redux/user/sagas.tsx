@@ -75,7 +75,7 @@ function* userLogout(action: UserLogout) {
 			}
 		});
 
-		yield put(push('/'));
+		yield put(push('/login'));
 	} catch (error) {
 		yield put({
 			type: constants.USER_LOGOUT_FAILED
