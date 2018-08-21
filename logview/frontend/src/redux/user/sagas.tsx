@@ -1,7 +1,6 @@
 import 'regenerator-runtime/runtime';
 import { takeLatest, put, call, all, take } from 'redux-saga/effects';
 import { userAPI } from '../../services';
-import { isLoggedIn } from '../../services';
 import {
 	UserRegister,
 	UserLogin,
@@ -12,6 +11,7 @@ import {
 	UserSetPassword,
 	UserIsLogged
 } from './actions';
+import isLoggedIn from 'src/services/isLoggedIn';
 import { push } from 'connected-react-router';
 import * as constants from './constants';
 
@@ -159,7 +159,7 @@ function* userSetPassword(action: UserSetPassword) {
 			type: constants.USER_INVITE_SUCCESS
 		});
 
-		yield put(push('/login'));
+		yield put(push('/dashboard/quickstart'));
 	} catch (error) {
 		yield put({
 			type: constants.USER_INVITE_FAILED
