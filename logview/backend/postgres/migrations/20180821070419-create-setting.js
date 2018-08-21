@@ -8,31 +8,38 @@ module.exports = {
 			},
 			serverMemory: {
 				type: Sequelize.BOOLEAN,
-				allowNull: false
+				allowNull: false,
+				defaultValue: true
 			},
 			serverCPU: {
 				type: Sequelize.BOOLEAN,
-				allowNull: false
+				allowNull: false,
+				defaultValue: true
 			},
 			appsMemory: {
 				type: Sequelize.BOOLEAN,
-				allowNull: false
+				allowNull: false,
+				defaultValue: true
 			},
 			appsCPU: {
 				type: Sequelize.BOOLEAN,
-				allowNull: false
+				allowNull: false,
+				defaultValue: true
 			},
 			appsHttp: {
 				type: Sequelize.BOOLEAN,
-				allowNull: false
+				allowNull: false,
+				defaultValue: true
 			},
 			appsSoket: {
 				type: Sequelize.BOOLEAN,
-				allowNull: false
+				allowNull: false,
+				defaultValue: true
 			},
 			appsErrorLog: {
 				type: Sequelize.BOOLEAN,
-				allowNull: false
+				allowNull: false,
+				defaultValue: true
 			},
 			listeningPorts: {
 				type: Sequelize.STRING,
@@ -40,11 +47,13 @@ module.exports = {
 			},
 			notificationServerIsDown: {
 				type: Sequelize.BOOLEAN,
-				allowNull: false
+				allowNull: false,
+				defaultValue: true
 			},
 			notificationHighRequest: {
 				type: Sequelize.BOOLEAN,
-				allowNull: false
+				allowNull: false,
+				defaultValue: true
 			},
 			companyId: {
 				type: Sequelize.UUID,
