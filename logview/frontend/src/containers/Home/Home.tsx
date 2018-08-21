@@ -20,7 +20,7 @@ class Home extends React.Component<HomeProps, HomeState> {
 
 	handleLogout() {
 		this.props.actions.userLogout();
-		window.location.href = window.location.href;
+		// window.location.href = window.location.href;
 	}
 
 	render() {

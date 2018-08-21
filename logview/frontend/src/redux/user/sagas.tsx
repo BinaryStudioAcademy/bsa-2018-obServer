@@ -66,9 +66,9 @@ function* userLogin(action: UserLogin) {
 
 function* userLogout(action: UserLogout) {
 	try {
-		yield call(userAPI.logoutUser);
-
 		sessionStorage.setItem('user', '');
+
+		yield call(userAPI.logoutUser);
 
 		yield put({
 			type: constants.USER_LOGOUT_SUCCESS,
@@ -76,8 +76,8 @@ function* userLogout(action: UserLogout) {
 				// user: null
 			}
 		});
-
-		yield put(push('/login'));
+		window.location.href = window.location.href;
+		// yield put(push('/login'));
 	} catch (error) {
 		yield put({
 			type: constants.USER_LOGOUT_FAILED

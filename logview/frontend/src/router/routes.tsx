@@ -48,68 +48,68 @@ class Router extends React.Component<RouterProps, RouterState> {
 	render() {
 		const { isLoggedIn, fetchingUserStatus } = this.props;
 		return (
-			(fetchingUserStatus === 'success' ||
-				fetchingUserStatus === 'failed') && (
-				<ConnectedRouter history={history}>
-					<Background>
-						<Switch>
-							<PrivateRoute
-								exact
-								path="/"
-								component={Home}
-								loggedUser={this.state.loggedUser}
-							/>
-							<UnauthorizedRoute
-								exact
-								path="/login"
-								component={Login}
-								loggedUser={this.state.loggedUser}
-							/>
-							<UnauthorizedRoute
-								exact
-								path="/register"
-								component={Register}
-								loggedUser={this.state.loggedUser}
-							/>
-							<UnauthorizedRoute
-								exact
-								path="/reset"
-								component={PasswordReset}
-								loggedUser={this.state.loggedUser}
-							/>
-							<PrivateRoute
-								exact
-								path="/change/"
-								component={PasswordChange}
-								loggedUser={this.state.loggedUser}
-							/>
-							<Route
-								exact
-								strict
-								path="/confirm"
-								component={EmailConfirm}
-							/>
-							<Route
-								exact
-								strict
-								path="/confirm/"
-								component={EmailTokenConfirm}
-							/>
-							<Route
-								exact
-								path="/setpassword/"
-								component={PasswordChange}
-							/>
-							<PrivateRoute
-								path="/dashboard"
-								component={Dashboard}
-								loggedUser={this.state.loggedUser}
-							/>
-						</Switch>
-					</Background>
-				</ConnectedRouter>
-			)
+			// (fetchingUserStatus === 'success' ||
+			// 	fetchingUserStatus === 'failed') && (
+			<ConnectedRouter history={history}>
+				<Background>
+					<Switch>
+						<PrivateRoute
+							exact
+							path="/"
+							component={Home}
+							loggedUser={this.state.loggedUser}
+						/>
+						<UnauthorizedRoute
+							exact
+							path="/login"
+							component={Login}
+							loggedUser={this.state.loggedUser}
+						/>
+						<UnauthorizedRoute
+							exact
+							path="/register"
+							component={Register}
+							loggedUser={this.state.loggedUser}
+						/>
+						<UnauthorizedRoute
+							exact
+							path="/reset"
+							component={PasswordReset}
+							loggedUser={this.state.loggedUser}
+						/>
+						<PrivateRoute
+							exact
+							path="/change/"
+							component={PasswordChange}
+							loggedUser={this.state.loggedUser}
+						/>
+						<Route
+							exact
+							strict
+							path="/confirm"
+							component={EmailConfirm}
+						/>
+						<Route
+							exact
+							strict
+							path="/confirm/"
+							component={EmailTokenConfirm}
+						/>
+						<Route
+							exact
+							path="/setpassword/"
+							component={PasswordChange}
+						/>
+						<PrivateRoute
+							path="/dashboard"
+							component={Dashboard}
+							loggedUser={this.state.loggedUser}
+						/>
+					</Switch>
+				</Background>
+			</ConnectedRouter>
 		);
+		// );
 	}
 }
 
