@@ -54,10 +54,6 @@ module.exports = {
 			updatedAt: {
 				type: Sequelize.DATE,
 				defaultValue: Date.now()
-			},
-			userActivationToken: {
-				type: Sequelize.STRING,
-				allowNull: true
 			}
 		});
 	},

@@ -11,7 +11,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { userEmailActivation } from 'src/redux/user/actions';
 import { History } from 'history';
-const sendIcon = require('src/assets/confirm-icon.png');
 
 interface EmailTokenProps {
 	history: History;
@@ -50,9 +49,7 @@ class EmailTokenConfirm extends React.Component<
 							<Title>Email Successfully Confirmed!</Title>
 							<p>Some sort of image will be here</p>
 							<Submit>
-								<Link to="/dashboard/quickstart">
-									Proceed to Quickstart
-								</Link>
+								<Link to="/login">Proceed to Login</Link>
 							</Submit>
 						</React.Fragment>
 					) : (

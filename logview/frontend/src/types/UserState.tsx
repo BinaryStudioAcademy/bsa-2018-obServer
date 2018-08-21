@@ -10,6 +10,10 @@ export interface UserLoginState {
 	password: string;
 }
 
+export interface IsLoggedInState {
+	isLoggedIn: boolean;
+}
+
 export interface UserResetPasswordState {
 	email: string;
 }
@@ -25,4 +29,9 @@ export interface UserActivationState {
 
 export interface FetchingState {
 	fetching: string;
+}
+
+export interface InviteUserState {
+	email: string;
+	name: string;
 }

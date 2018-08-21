@@ -8,4 +8,5 @@ export interface StoreState {
 	log: LogState;
 	fetchingUserStatus: string;
 	fetchingLogStatus: string;
+	isLoggedIn: boolean;
 }

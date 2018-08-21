@@ -3,7 +3,8 @@ import {
 	UserState,
 	UserLoginState,
 	UserResetPasswordState,
-	UserChangePasswordState
+	UserChangePasswordState,
+	InviteUserState
 } from '../../types/UserState';
 
 export default {
@@ -14,7 +15,7 @@ export default {
 		return api.makeRequest(`/api/login`, api.requestType.POST, loginData);
 	},
 	logoutUser: () => {
-		return api.makeRequest(`/api/logout`, api.requestType.POST);
+		return api.makeRequest(`/api/logout`, api.requestType.GET);
 	},
 	updateUser: (id: string, updatedData: UserState) => {
 		return api.makeRequest(
@@ -47,6 +48,23 @@ export default {
 		return api.makeRequest(
 			`/api/user/activate/${activationToken}`,
 			api.requestType.POST
+		);
+	},
+	inviteUser: (invite: InviteUserState) => {
+		return api.makeRequest(
+			`/api/user/invite/`,
+			api.requestType.POST,
+			invite
+		);
+	},
+	userSetPassword: (
+		setToken: string,
+		newPassword: UserChangePasswordState
+	) => {
+		return api.makeRequest(
+			`/api/user/invite/${setToken}`,
+			api.requestType.POST,
+			newPassword
 		);
 	}
 };

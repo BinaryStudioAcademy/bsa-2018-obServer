@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { StyledFunction } from 'styled-components';
 import { media } from './styles-utils';
 
 export const Submit = styled.button`
@@ -64,16 +64,28 @@ export const LinkButton = TextLink.extend`
 	margin: 5px;
 	a {
 		padding: 10px 40px;
-		${media.phone`padding: 10px 30px`} /* color: rgba(127, 120, 206, 1); */
-		color: white;
-		/* border-color: rgba(127, 120, 206, 1); */
+		${media.phone`padding: 10px 30px`} color: white;
 		border: none;
 		background: #4a4a4a;
-		/* background: #3d3d3d; */
 		padding: 10px 40px;
 	}
 
 	a:hover {
 		${media.phone`padding: 10px 40px;`};
+	}
+`;
+
+interface SideLinkProps {
+	active: boolean;
+}
+
+const p: StyledFunction<SideLinkProps & React.HTMLProps<HTMLInputElement>> =
+	styled.p;
+
+export const SideLink = p`
+	a {
+		text-decoration: none;
+		font-weight: ${(props: any) => (props.active ? 'bold' : 'initial')};
+		color: ${(props: any) => (props.active ? 'rgb(127, 120, 206)' : '#3d3d3d')};
 	}
 `;

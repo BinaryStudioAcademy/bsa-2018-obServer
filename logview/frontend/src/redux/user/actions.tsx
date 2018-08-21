@@ -32,6 +32,34 @@ export interface UserLoginSuccess {
 	type: constants.USER_LOGIN_SUCCESS;
 }
 
+/* user logout 
+extends UserLoginState */
+export interface UserLogout {
+	type: constants.USER_LOGOUT;
+}
+
+export interface UserLogoutFail {
+	type: constants.USER_LOGOUT_FAILED;
+}
+
+export interface UserLogoutSuccess {
+	type: constants.USER_LOGOUT_SUCCESS;
+}
+
+/* user is logged */
+export interface UserIsLogged {
+	type: constants.USER_IS_LOGGED;
+}
+
+export interface UserIsLoggedFail {
+	type: constants.USER_IS_LOGGED_FAILED;
+}
+
+export interface UserIsLoggedSuccess {
+	type: constants.USER_IS_LOGGED_SUCCESS;
+	payload: boolean;
+}
+
 /* password reset */
 export interface UserResetPassword extends UserResetPasswordState {
 	type: constants.USER_RESET_PASSWORD;
@@ -76,6 +104,34 @@ export interface FetchUser {
 	type: constants.FETCH_USER;
 }
 
+/* user invite */
+export interface UserInvite {
+	type: constants.USER_INVITE;
+	email: string;
+	name: string;
+}
+
+export interface UserInviteFail {
+	type: constants.USER_INVITE_FAILED;
+}
+
+export interface UserInviteSuccess {
+	type: constants.USER_INVITE_SUCCESS;
+}
+
+/* user set password */
+export interface UserSetPassword extends UserChangePasswordState {
+	type: constants.USER_SET_PASSWORD;
+}
+
+export interface UserSetPasswordFail {
+	type: constants.USER_SET_PASSWORD_FAILED;
+}
+
+export interface UserSetPasswordSuccess {
+	type: constants.USER_SET_PASSWORD_SUCCESS;
+}
+
 export type UserAction =
 	| UserRegister
 	| UserRegisterFail
@@ -83,6 +139,12 @@ export type UserAction =
 	| UserLogin
 	| UserLoginFail
 	| UserLoginSuccess
+	| UserLogout
+	| UserLogoutFail
+	| UserLogoutSuccess
+	| UserIsLogged
+	| UserIsLoggedFail
+	| UserIsLoggedSuccess
 	| UserChangePassword
 	| UserChangePasswordFail
 	| UserChangePasswordSuccess
@@ -92,7 +154,12 @@ export type UserAction =
 	| UserEmailActivation
 	| UserEmailActivationFail
 	| UserEmailActivationSuccess
-	| UserChangePasswordSuccess
+	| UserInvite
+	| UserInviteFail
+	| UserInviteSuccess
+	| UserSetPassword
+	| UserSetPasswordFail
+	| UserSetPasswordSuccess
 	| FetchUser;
 
 export function userRegister(
@@ -142,6 +209,43 @@ export function userLoginFail(): UserLoginFail {
 export function userLoginSuccess(): UserLoginSuccess {
 	return {
 		type: constants.USER_LOGIN_SUCCESS
+	};
+}
+
+export function userLogout(): UserLogout {
+	return {
+		type: constants.USER_LOGOUT
+	};
+}
+
+export function userLogoutFail(): UserLogoutFail {
+	return {
+		type: constants.USER_LOGOUT_FAILED
+	};
+}
+
+export function userLogoutSuccess(): UserLogoutSuccess {
+	return {
+		type: constants.USER_LOGOUT_SUCCESS
+	};
+}
+
+export function userIsLogged(): UserIsLogged {
+	return {
+		type: constants.USER_IS_LOGGED
+	};
+}
+
+export function userIsLoggedFail(): UserIsLoggedFail {
+	return {
+		type: constants.USER_IS_LOGGED_FAILED
+	};
+}
+
+export function userIsLoggedSuccess(payload: boolean): UserIsLoggedSuccess {
+	return {
+		type: constants.USER_IS_LOGGED_SUCCESS,
+		payload
 	};
 }
 
@@ -212,5 +316,48 @@ export function userEmailActivationFail(): UserEmailActivationFail {
 export function userEmailActivationSuccess(): UserEmailActivationSuccess {
 	return {
 		type: constants.USER_EMAIL_ACTIVATION_SUCCESS
+	};
+}
+
+export function userInvite(email: string = '', name: string = '') {
+	return {
+		type: constants.USER_INVITE,
+		email,
+		name
+	};
+}
+
+export function userInviteFail(): UserInviteFail {
+	return {
+		type: constants.USER_INVITE_FAILED
+	};
+}
+
+export function userInviteSuccess(): UserInviteSuccess {
+	return {
+		type: constants.USER_INVITE_SUCCESS
+	};
+}
+
+export function userSetPassword(
+	newPassword: string = '',
+	resetToken: string = ''
+): UserSetPassword {
+	return {
+		type: constants.USER_SET_PASSWORD,
+		newPassword,
+		resetToken
+	};
+}
+
+export function userSetPasswordFail(): UserSetPasswordFail {
+	return {
+		type: constants.USER_SET_PASSWORD_FAILED
+	};
+}
+
+export function userSetPasswordSuccess(): UserSetPasswordSuccess {
+	return {
+		type: constants.USER_SET_PASSWORD_SUCCESS
 	};
 }
