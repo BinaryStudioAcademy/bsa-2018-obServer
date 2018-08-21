@@ -4,6 +4,7 @@ import { userAPI } from '../../services';
 import {
 	UserRegister,
 	UserLogin,
+	UserLogout,
 	UserChangePassword,
 	UserResetPassword,
 	UserEmailActivation,
@@ -54,10 +55,32 @@ function* userLogin(action: UserLogin) {
 		});
 
 		sessionStorage.setItem('user', action.email);
-		yield put(push('/dashboard/quickstart'));
+		window.location.href = window.location.href;
+		// yield put(push('/dashboard/quickstart'));
 	} catch (error) {
 		yield put({
 			type: constants.USER_LOGIN_FAILED
+		});
+	}
+}
+
+function* userLogout(action: UserLogout) {
+	try {
+		sessionStorage.setItem('user', '');
+
+		yield call(userAPI.logoutUser);
+
+		yield put({
+			type: constants.USER_LOGOUT_SUCCESS,
+			payload: {
+				// user: null
+			}
+		});
+		window.location.href = window.location.href;
+		// yield put(push('/login'));
+	} catch (error) {
+		yield put({
+			type: constants.USER_LOGOUT_FAILED
 		});
 	}
 }
@@ -173,6 +196,7 @@ export default function* userSaga() {
 	yield all([
 		takeLatest(constants.USER_REGISTER, userRegister),
 		takeLatest(constants.USER_LOGIN, userLogin),
+		takeLatest(constants.USER_LOGOUT, userLogout),
 		takeLatest(constants.USER_IS_LOGGED, userIsLogged),
 		takeLatest(constants.USER_CHANGE_PASSWORD, userChangePassword),
 		takeLatest(constants.USER_RESET_PASSWORD, userResetPassword),

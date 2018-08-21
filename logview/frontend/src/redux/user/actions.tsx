@@ -32,6 +32,20 @@ export interface UserLoginSuccess {
 	type: constants.USER_LOGIN_SUCCESS;
 }
 
+/* user logout 
+extends UserLoginState */
+export interface UserLogout {
+	type: constants.USER_LOGOUT;
+}
+
+export interface UserLogoutFail {
+	type: constants.USER_LOGOUT_FAILED;
+}
+
+export interface UserLogoutSuccess {
+	type: constants.USER_LOGOUT_SUCCESS;
+}
+
 /* user is logged */
 export interface UserIsLogged {
 	type: constants.USER_IS_LOGGED;
@@ -125,6 +139,9 @@ export type UserAction =
 	| UserLogin
 	| UserLoginFail
 	| UserLoginSuccess
+	| UserLogout
+	| UserLogoutFail
+	| UserLogoutSuccess
 	| UserIsLogged
 	| UserIsLoggedFail
 	| UserIsLoggedSuccess
@@ -192,6 +209,24 @@ export function userLoginFail(): UserLoginFail {
 export function userLoginSuccess(): UserLoginSuccess {
 	return {
 		type: constants.USER_LOGIN_SUCCESS
+	};
+}
+
+export function userLogout(): UserLogout {
+	return {
+		type: constants.USER_LOGOUT
+	};
+}
+
+export function userLogoutFail(): UserLogoutFail {
+	return {
+		type: constants.USER_LOGOUT_FAILED
+	};
+}
+
+export function userLogoutSuccess(): UserLogoutSuccess {
+	return {
+		type: constants.USER_LOGOUT_SUCCESS
 	};
 }
 
