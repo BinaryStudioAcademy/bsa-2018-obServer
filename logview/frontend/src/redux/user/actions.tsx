@@ -32,6 +32,20 @@ export interface UserLoginSuccess {
 	type: constants.USER_LOGIN_SUCCESS;
 }
 
+/* user is logged */
+export interface UserIsLogged {
+	type: constants.USER_IS_LOGGED;
+}
+
+export interface UserIsLoggedFail {
+	type: constants.USER_IS_LOGGED_FAILED;
+}
+
+export interface UserIsLoggedSuccess {
+	type: constants.USER_IS_LOGGED_SUCCESS;
+	payload: boolean;
+}
+
 /* password reset */
 export interface UserResetPassword extends UserResetPasswordState {
 	type: constants.USER_RESET_PASSWORD;
@@ -111,6 +125,9 @@ export type UserAction =
 	| UserLogin
 	| UserLoginFail
 	| UserLoginSuccess
+	| UserIsLogged
+	| UserIsLoggedFail
+	| UserIsLoggedSuccess
 	| UserChangePassword
 	| UserChangePasswordFail
 	| UserChangePasswordSuccess
@@ -175,6 +192,25 @@ export function userLoginFail(): UserLoginFail {
 export function userLoginSuccess(): UserLoginSuccess {
 	return {
 		type: constants.USER_LOGIN_SUCCESS
+	};
+}
+
+export function userIsLogged(): UserIsLogged {
+	return {
+		type: constants.USER_IS_LOGGED
+	};
+}
+
+export function userIsLoggedFail(): UserIsLoggedFail {
+	return {
+		type: constants.USER_IS_LOGGED_FAILED
+	};
+}
+
+export function userIsLoggedSuccess(payload: boolean): UserIsLoggedSuccess {
+	return {
+		type: constants.USER_IS_LOGGED_SUCCESS,
+		payload
 	};
 }
 
