@@ -38,6 +38,28 @@ export interface UserLogout {
 	type: constants.USER_LOGOUT;
 }
 
+export interface UserLogoutFail {
+	type: constants.USER_LOGOUT_FAILED;
+}
+
+export interface UserLogoutSuccess {
+	type: constants.USER_LOGOUT_SUCCESS;
+}
+
+/* user is logged */
+export interface UserIsLogged {
+	type: constants.USER_IS_LOGGED;
+}
+
+export interface UserIsLoggedFail {
+	type: constants.USER_IS_LOGGED_FAILED;
+}
+
+export interface UserIsLoggedSuccess {
+	type: constants.USER_IS_LOGGED_SUCCESS;
+	payload: boolean;
+}
+
 /* password reset */
 export interface UserResetPassword extends UserResetPasswordState {
 	type: constants.USER_RESET_PASSWORD;
@@ -117,6 +139,12 @@ export type UserAction =
 	| UserLogin
 	| UserLoginFail
 	| UserLoginSuccess
+	| UserLogout
+	| UserLogoutFail
+	| UserLogoutSuccess
+	| UserIsLogged
+	| UserIsLoggedFail
+	| UserIsLoggedSuccess
 	| UserChangePassword
 	| UserChangePasswordFail
 	| UserChangePasswordSuccess
@@ -185,9 +213,39 @@ export function userLoginSuccess(): UserLoginSuccess {
 }
 
 export function userLogout(): UserLogout {
-	console.log('Hello from logout action! ');
 	return {
 		type: constants.USER_LOGOUT
+	};
+}
+
+export function userLogoutFail(): UserLogoutFail {
+	return {
+		type: constants.USER_LOGOUT_FAILED
+	};
+}
+
+export function userLogoutSuccess(): UserLogoutSuccess {
+	return {
+		type: constants.USER_LOGOUT_SUCCESS
+	};
+}
+
+export function userIsLogged(): UserIsLogged {
+	return {
+		type: constants.USER_IS_LOGGED
+	};
+}
+
+export function userIsLoggedFail(): UserIsLoggedFail {
+	return {
+		type: constants.USER_IS_LOGGED_FAILED
+	};
+}
+
+export function userIsLoggedSuccess(payload: boolean): UserIsLoggedSuccess {
+	return {
+		type: constants.USER_IS_LOGGED_SUCCESS,
+		payload
 	};
 }
 
