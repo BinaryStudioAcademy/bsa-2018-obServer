@@ -40,7 +40,6 @@ class Router extends React.Component<RouterProps, RouterState> {
 		super(props);
 		this.state = { loggedUser: sessionStorage.getItem('user') };
 	}
-
 	componentDidMount() {
 		this.props.actions.userIsLogged();
 	}

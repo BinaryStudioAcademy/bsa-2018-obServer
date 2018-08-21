@@ -1,8 +1,9 @@
 import { combineReducers } from 'redux';
 import { StoreState } from '../types/StoreState';
-import { userReducer, fetchingState } from './user/reducer';
+import { userReducer, fetchingState, isLoggedInState } from './user/reducer';
 
 export default combineReducers<StoreState>({
 	user: userReducer,
-	fetchingUserStatus: fetchingState
+	fetchingUserStatus: fetchingState,
+	isLoggedIn: isLoggedInState
 });
