@@ -1,5 +1,5 @@
 const apiResponse = require('express-api-response'),
-	isLoggedInMiddlewre = require('../../middleware/isLoggedInMiddleware'),
+	isLoggedInMiddleware = require('../../middleware/isLoggedInMiddleware'),
 	userService = require('../../services/userService'),
 	companyService = require('../../services/companyService'),
 	passport = require('passport'),
@@ -30,7 +30,7 @@ router.post(
 	apiResponse
 );
 
-router.get(`/logout`, isLoggedInMiddlewre, (req, res, next) => {
+router.get(`/logout`, isLoggedInMiddleware, (req, res) => {
 	req.logout();
 	res.sendStatus(200);
 });
@@ -70,9 +70,5 @@ router.post(
 	},
 	apiResponse
 );
-
-router.post(`/checkloggedin`, isLoggedInMiddlewre, (req, res) => {
-	res.sendStatus(200);
-});
 
 module.exports = router;
