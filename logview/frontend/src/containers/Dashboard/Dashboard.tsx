@@ -3,9 +3,10 @@ import { Route, Link, RouteComponentProps } from 'react-router-dom';
 import Quickstart from '../Quickstart/Quickstart';
 import Settings from '../Settings/Settings';
 import Logs from '../Logs/Logs';
+import Profile from '../Profile/Profile';
 import HttpStats from '../HttpStats/HttpStats';
 import SocketStats from '../SocketStats/SocketStats';
-import Profile from '../Profile/Profile';
+import InviteUser from '../InviteUser/InviteUser';
 import {
 	SideNav,
 	SideLink,
@@ -66,17 +67,20 @@ class Dashboard extends React.Component<DashboardProps, DashboardState> {
 	}
 
 	handleLogout() {
-		console.log(sessionStorage);
 		this.props.actions.userLogout(sessionStorage.getItem('user'));
 	}
 
 	render() {
 		const { match, location } = this.props;
+		const user = JSON.parse(sessionStorage.getItem('user'));
 		return (
 			<DashboardBackground>
 				<Sidebar>
 					<SideNav>
-						<Title>obServer</Title>
+						<Title>
+							obServer
+							<NotificationIcon size="18px" />
+						</Title>
 						<div>
 							<SideLink
 								active={location.pathname === '/dashboard'}
@@ -167,16 +171,13 @@ class Dashboard extends React.Component<DashboardProps, DashboardState> {
 										<CommentText
 											onClick={this.handleLogout}
 										>
-											logout
+											<span>logout</span>
 										</CommentText>
 									</React.Fragment>
 								)}
-								<UserText>
-									{sessionStorage.getItem('user')}
-								</UserText>
+								<UserText>{user.name}</UserText>
 							</UserPopup>
 						</UserProfile>
-						<NotificationIcon size="20px" />
 					</UserBar>
 				</Sidebar>
 				<Main>
@@ -200,6 +201,10 @@ class Dashboard extends React.Component<DashboardProps, DashboardState> {
 					<Route
 						path={`${match.url}/socketstats`}
 						component={SocketStats}
+					/>
+					<Route
+						path={`${match.url}/invite`}
+						component={InviteUser}
 					/>
 					<Route path={`${match.url}/profile`} component={Profile} />
 				</Main>

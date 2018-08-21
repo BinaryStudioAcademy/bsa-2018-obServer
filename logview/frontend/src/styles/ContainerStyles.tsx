@@ -169,27 +169,17 @@ const div: StyledFunction<UserPopup & React.HTMLProps<HTMLInputElement>> =
 
 export const UserPopup = div`
 	display: block;
+	padding: 5px 20px;
 	text-align: center;
 	background-color: ${(props: any) => (props.popup ? '#3d3d3d' : 'inherit')};
-	color: ${(props: any) => (props.popup ? '#fff' : '#3d3d3d')};
-	padding: 5px 20px;
+	color: ${(props: any) => (props.popup ? '#bebec5' : '#3d3d3d')};
 	font-size: 14px;
 	font-weight: normal;
 	border-radius: 5px;
-
-
-	animation: colorchange 0.3s;
-
-    @keyframes colorchange
-    {
-      0%   {background: inherit;}
-	  100%  {background: #3d3d3d;}
-	}
+	cursor: pointer;
 
 	&:hover {
 		background-color: #3d3d3d;
 		color: #bebec5;
-		animation: colorchange 0.3s;
-		transition-duration: 0.15s;
 	}
 `;

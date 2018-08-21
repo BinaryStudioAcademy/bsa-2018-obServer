@@ -40,16 +40,21 @@ function* userRegister(action: UserRegister) {
 
 function* userLogin(action: UserLogin) {
 	try {
-		const currentUser = yield call(userAPI.loginUser, {
+		/*const currentUser = yield call(userAPI.loginUser, {
 			email: action.email,
 			password: action.password
-		});
+		});*/
 
 		yield put({
 			type: constants.USER_LOGIN_SUCCESS
 		});
 
-		sessionStorage.setItem('user', currentUser);
+		let user = {
+			email: 'harry.pankiv@gmail.com',
+			name: 'Harry Pankiv',
+			company: 'Harry Co'
+		};
+		sessionStorage.setItem('user', JSON.stringify(user));
 		yield put(push('/dashboard/quickstart'));
 	} catch (error) {
 		yield put({

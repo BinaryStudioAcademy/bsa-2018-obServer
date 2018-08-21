@@ -13,8 +13,6 @@ class Home extends React.Component<HomeProps, HomeState> {
 	}
 
 	render() {
-		console.log(this.props);
-		console.log(sessionStorage);
 		return (
 			<React.Fragment>
 				<div>Home component</div>
