@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { StyledFunction } from 'styled-components';
 
 export const Title = styled.h2`
 	font-family: 'Merriweather', serif;
@@ -41,4 +41,28 @@ export const LogoText = styled.h3`
 export const ErrorText = styled.span`
 	color: #cc0000;
 	font-size: 12px;
+`;
+
+export const CommentText = styled.p`
+	color: #bebec5;
+	border-bottom: 1px solid;
+	padding-bottom: 12px;
+	margin-bottom: 10px;
+	a {
+		text-decoration: none;
+		color: #bebec5;
+	}
+`;
+interface UserText {
+	popup: boolean;
+}
+
+const p: StyledFunction<UserText & React.HTMLProps<HTMLInputElement>> =
+	styled.p;
+
+export const UserText = styled.p`
+	transition-duration: 0.3s;
+	border-bottom: 1px solid;
+	padding-bottom: 12px;
+	margin-bottom: 10px;
 `;

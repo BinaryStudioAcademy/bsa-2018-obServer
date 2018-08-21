@@ -14,8 +14,8 @@ export default {
 	loginUser: (loginData: UserLoginState) => {
 		return api.makeRequest(`/api/login`, api.requestType.POST, loginData);
 	},
-	logoutUser: () => {
-		return api.makeRequest(`/api/logout`, api.requestType.POST);
+	logoutUser: (email: UserResetPasswordState) => {
+		return api.makeRequest(`/api/logout`, api.requestType.POST, email);
 	},
 	updateUser: (id: string, updatedData: UserState) => {
 		return api.makeRequest(

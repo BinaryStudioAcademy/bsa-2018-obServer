@@ -104,6 +104,19 @@ export interface UserSetPasswordSuccess {
 	type: constants.USER_SET_PASSWORD_SUCCESS;
 }
 
+/* user set password */
+export interface UserLogout extends UserResetPasswordState {
+	type: constants.USER_LOGOUT;
+}
+
+export interface UserLogoutFail {
+	type: constants.USER_LOGOUT_FAILED;
+}
+
+export interface UserLogoutSuccess {
+	type: constants.USER_LOGOUT_SUCCESS;
+}
+
 export type UserAction =
 	| UserRegister
 	| UserRegisterFail
@@ -126,6 +139,9 @@ export type UserAction =
 	| UserSetPassword
 	| UserSetPasswordFail
 	| UserSetPasswordSuccess
+	| UserLogout
+	| UserLogoutFail
+	| UserLogoutSuccess
 	| FetchUser;
 
 export function userRegister(
@@ -288,5 +304,24 @@ export function userSetPasswordFail(): UserSetPasswordFail {
 export function userSetPasswordSuccess(): UserSetPasswordSuccess {
 	return {
 		type: constants.USER_SET_PASSWORD_SUCCESS
+	};
+}
+
+export function userLogout(email: string): UserLogout {
+	return {
+		type: constants.USER_LOGOUT,
+		email
+	};
+}
+
+export function userLogoutFail(): UserLogoutFail {
+	return {
+		type: constants.USER_LOGOUT_FAILED
+	};
+}
+
+export function userLogoutSuccess(): UserLogoutSuccess {
+	return {
+		type: constants.USER_LOGOUT_SUCCESS
 	};
 }

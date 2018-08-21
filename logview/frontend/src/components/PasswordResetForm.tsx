@@ -38,8 +38,6 @@ class PasswordResetForm extends React.Component<
 		return (
 			<React.Fragment>
 				<Title>Password reset</Title>
-				<p />
-				<p />
 				<InputWide
 					type="email"
 					name="email"

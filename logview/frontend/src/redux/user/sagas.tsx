@@ -8,7 +8,8 @@ import {
 	UserResetPassword,
 	UserEmailActivation,
 	UserInvite,
-	UserSetPassword
+	UserSetPassword,
+	UserLogout
 } from './actions';
 import { push } from 'connected-react-router';
 import * as constants from './constants';
@@ -45,13 +46,10 @@ function* userLogin(action: UserLogin) {
 		});
 
 		yield put({
-			type: constants.USER_LOGIN_SUCCESS,
-			payload: {
-				// ...currentUser
-			}
+			type: constants.USER_LOGIN_SUCCESS
 		});
 
-		sessionStorage.setItem('user', action.email);
+		sessionStorage.setItem('user', currentUser);
 		yield put(push('/dashboard/quickstart'));
 	} catch (error) {
 		yield put({
@@ -150,6 +148,25 @@ function* userSetPassword(action: UserSetPassword) {
 	}
 }
 
+function* userLogout(action: UserLogout) {
+	try {
+		console.log(action);
+		yield call(userAPI.logoutUser, {
+			email: action.email
+		});
+
+		yield put({
+			type: constants.USER_INVITE_SUCCESS
+		});
+
+		yield put(push('/login'));
+	} catch (error) {
+		yield put({
+			type: constants.USER_INVITE_FAILED
+		});
+	}
+}
+
 export default function* userSaga() {
 	yield all([
 		takeLatest(constants.USER_REGISTER, userRegister),
@@ -158,6 +175,7 @@ export default function* userSaga() {
 		takeLatest(constants.USER_RESET_PASSWORD, userResetPassword),
 		takeLatest(constants.USER_EMAIL_ACTIVATION, userEmailActivation),
 		takeLatest(constants.USER_INVITE, userInvite),
-		takeLatest(constants.USER_SET_PASSWORD, userSetPassword)
+		takeLatest(constants.USER_SET_PASSWORD, userSetPassword),
+		takeLatest(constants.USER_LOGOUT, userLogout)
 	]);
 }
