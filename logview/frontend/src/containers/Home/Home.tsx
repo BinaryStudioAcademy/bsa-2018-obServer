@@ -17,12 +17,14 @@ class Home extends React.Component<HomeProps, HomeState> {
 		console.log(sessionStorage);
 		return (
 			<React.Fragment>
-				<div>Home component</div>
-				<Link to="login">Link to login</Link>
-				<div />
-				<Link to="register">Link to register</Link>
-				<br />
-				<Link to="/dashboard/quickstart">Quickstart</Link>
+				<div style={{ background: '#fff', padding: '10px' }}>
+					<div>Home component</div>
+					<Link to="login">Link to login</Link>
+					<div />
+					<Link to="register">Link to register</Link>
+					<br />
+					<Link to="/dashboard/quickstart">Quickstart</Link>
+				</div>
 			</React.Fragment>
 		);
 	}

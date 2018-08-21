@@ -81,10 +81,8 @@ class LoginForm extends React.Component<LoginFormProps, LoginFormState> {
 					value={this.state.password}
 					onChange={this.handleFieldChange}
 				/>
-				{this.props.status === 'failed' ? (
+				{this.props.status === 'failed' && (
 					<ErrorText>Email or password is incorrect</ErrorText>
-				) : (
-					undefined
 				)}
 				<Row>
 					<input

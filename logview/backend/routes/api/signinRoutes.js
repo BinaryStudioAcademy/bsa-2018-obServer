@@ -1,24 +1,28 @@
 const apiResponse = require('express-api-response'),
 	isLoggedInMiddlewre = require('../../middleware/isLoggedInMiddleware'),
 	userService = require('../../services/userService'),
+	companyService = require('../../services/companyService'),
 	passport = require('passport'),
 	router = require('express').Router(),
 	passportStrategy = require('../../passport/localStrategy');
 
 router.post(
-	`/register`,
+	`/login`,
+	passport.authenticate('local.signin'),
 	async (req, res, next) => {
 		try {
-			const data = await userService.create(req.body);
-			res.data = {
-				status: 200,
-				message: 'success register',
-				user: data
+			const { name, email, companyId } = req.user.dataValues;
+			const companyName = (await companyService.findById(companyId)).name;
+			const data = {
+				name: name,
+				email: email,
+				companyName: companyName
 			};
+			res.data = data;
 			res.err = null;
-		} catch (err) {
+		} catch (error) {
 			res.data = null;
-			res.err = err;
+			res.err = error;
 		} finally {
 			next();
 		}
@@ -26,38 +30,10 @@ router.post(
 	apiResponse
 );
 
-router.post(
-	`/login`,
-	passport.authenticate('local.signin'),
-	userService.isLoggedIn,
-	(req, res, next) => {
-		res.data = {
-			status: 200,
-			message: 'success login',
-			user: req.user.dataValues,
-			isAuth: true
-		};
-		res.err = null;
-		next();
-	},
-	apiResponse
-);
-
-router.get(
-	`/logout`,
-	userService.isLoggedIn,
-	(req, res, next) => {
-		req.logout();
-		res.data = {
-			status: 200,
-			message: 'success logout',
-			isAuth: false
-		};
-		res.err = null;
-		next();
-	},
-	apiResponse
-);
+router.get(`/logout`, isLoggedInMiddlewre, (req, res, next) => {
+	req.logout();
+	res.sendStatus(200);
+});
 
 router.post(
 	'/user/activate/:activationToken',
