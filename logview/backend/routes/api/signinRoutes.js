@@ -1,6 +1,7 @@
 const apiResponse = require('express-api-response'),
 	isLoggedInMiddlewre = require('../../middleware/isLoggedInMiddleware'),
 	userService = require('../../services/userService'),
+	companyService = require('../../services/companyService'),
 	passport = require('passport'),
 	router = require('express').Router(),
 	passportStrategy = require('../../passport/localStrategy');
@@ -8,10 +9,23 @@ const apiResponse = require('express-api-response'),
 router.post(
 	`/login`,
 	passport.authenticate('local.signin'),
-	(req, res, next) => {
-		res.data = req.user.dataValues;
-		res.err = null;
-		next();
+	async (req, res, next) => {
+		try {
+			const { name, email, companyId } = req.user.dataValues;
+			const companyName = (await companyService.findById(companyId)).name;
+			const data = {
+				name: name,
+				email: email,
+				companyName: companyName
+			};
+			res.data = data;
+			res.err = null;
+		} catch (error) {
+			res.data = null;
+			res.err = error;
+		} finally {
+			next();
+		}
 	},
 	apiResponse
 );
