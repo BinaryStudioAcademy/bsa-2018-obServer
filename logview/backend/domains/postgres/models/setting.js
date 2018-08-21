@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 
-const settings = (sequilize, DataTypes) => {
-	const Settings = sequilize.define(
+const setting = (sequilize, DataTypes) => {
+	const Setting = sequilize.define(
 		'Setting',
 		{
 			id: {
@@ -66,7 +66,7 @@ const settings = (sequilize, DataTypes) => {
 		{
 			classMethods: {
 				associate: models => {
-					User.belongsTo(models.Company),
+					Setting.belongsTo(models.Company),
 						{
 							foreignKey: 'companyId',
 							onUpdate: 'CASCADE',
@@ -76,7 +76,7 @@ const settings = (sequilize, DataTypes) => {
 			}
 		}
 	);
-	return Settings;
+	return Setting;
 };
 
-module.exports = settings;
+module.exports = setting;

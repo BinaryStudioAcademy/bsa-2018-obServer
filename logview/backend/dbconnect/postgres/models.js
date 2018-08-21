@@ -1,7 +1,8 @@
 module.exports = (sequelize, Sequelize) => {
 	const models = {
 		User: sequelize.import('../../domains/postgres/models/user'),
-		Company: sequelize.import('../../domains/postgres/models/company')
+		Company: sequelize.import('../../domains/postgres/models/company'),
+		Setting: sequelize.import('../../domains/postgres/models/setting')
 	};
 
 	Object.keys(models).forEach(key => {

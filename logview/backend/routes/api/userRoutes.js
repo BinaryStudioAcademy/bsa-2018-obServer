@@ -2,6 +2,7 @@ const apiResponse = require('express-api-response'),
 	isLoggedInMiddlewre = require('../../middleware/isLoggedInMiddleware'),
 	userService = require('../../services/userService'),
 	emailService = require('../../services/emailService'),
+	settingService = require('../../services/settingService'),
 	router = require('express').Router(),
 	RESSET_PASSWORD_EXPIRES = 3600000;
 
@@ -234,6 +235,29 @@ router.get(
 				req.user.companyId
 			);
 			res.data = data;
+			res.err = null;
+		} catch (error) {
+			res.data = null;
+			res.err = error;
+		} finally {
+			next();
+		}
+	},
+	apiResponse
+);
+
+router.put(
+	'/company/settings',
+	async (req, res, next) => {
+		try {
+			const settingId = (await settingService.findByCompanyId(
+				req.user.companyId
+			)).id;
+			await settingService.update(settingId, req.body);
+			const setting = await settingService.findByCompanyId(
+				req.user.companyId
+			);
+			res.data = setting;
 			res.err = null;
 		} catch (error) {
 			res.data = null;
