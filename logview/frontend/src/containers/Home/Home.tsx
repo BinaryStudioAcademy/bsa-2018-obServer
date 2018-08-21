@@ -35,9 +35,7 @@ class Home extends React.Component<HomeProps, HomeState> {
 					<Link to="register">Link to register</Link>
 					<br />
 					<Link to="/dashboard/quickstart">Quickstart</Link>
-					<Link to="/login" onClick={this.handleLogout}>
-						Log out
-					</Link>
+					<button onClick={this.handleLogout}>Log out</button>
 				</div>
 			</React.Fragment>
 		);
