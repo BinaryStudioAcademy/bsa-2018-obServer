@@ -7,15 +7,19 @@ import {
 	CheckBoxSwitchWrapper
 } from 'src/styles/SettingsFormStyles';
 
-class SettingCheckBox extends React.Component {
+class SettingCheckBox extends React.Component<any, any> {
 	render() {
 		return (
 			<CheckBoxSwitchWrapper>
 				<CheckBoxSwitch>
-					<CheckBoxInput type="checkbox" />
+					<CheckBoxInput
+						type="checkbox"
+						name={this.props.name}
+						value={this.props.name}
+					/>
 					<CheckBoxSlider />
 				</CheckBoxSwitch>
-				<CheckBoxSwitchLabel>ddddd</CheckBoxSwitchLabel>
+				<CheckBoxSwitchLabel>{this.props.label}</CheckBoxSwitchLabel>
 			</CheckBoxSwitchWrapper>
 		);
 	}
