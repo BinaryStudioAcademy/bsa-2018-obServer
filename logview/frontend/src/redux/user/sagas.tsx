@@ -129,6 +129,8 @@ function* userEmailActivation(action: UserEmailActivation) {
 		yield put({
 			type: constants.USER_EMAIL_ACTIVATION_FAILED
 		});
+	} finally {
+		yield put(push('/login'));
 	}
 }
 

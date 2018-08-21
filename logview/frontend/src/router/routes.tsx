@@ -40,8 +40,8 @@ class Router extends React.Component<RouterProps, RouterState> {
 	render() {
 		const { isLoggedIn, fetchingUserStatus } = this.props;
 		return (
-			(isLoggedIn === true ||
-				(isLoggedIn === false && fetchingUserStatus !== 'pending')) && (
+			(fetchingUserStatus === 'success' ||
+				fetchingUserStatus === 'failed') && (
 				<ConnectedRouter history={history}>
 					<Background>
 						<Switch>
