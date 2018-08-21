@@ -49,9 +49,7 @@ class EmailTokenConfirm extends React.Component<
 							<Title>Email Successfully Confirmed!</Title>
 							<p>Some sort of image will be here</p>
 							<Submit>
-								<Link to="/dashboard/quickstart">
-									Proceed to Quickstart
-								</Link>
+								<Link to="/login">Proceed to Login</Link>
 							</Submit>
 						</React.Fragment>
 					) : (

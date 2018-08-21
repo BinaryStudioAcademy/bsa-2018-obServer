@@ -1,6 +1,7 @@
 import 'regenerator-runtime/runtime';
 import { takeLatest, put, call, all, take } from 'redux-saga/effects';
 import { userAPI } from '../../services';
+import { isLoggedIn } from '../../services';
 import {
 	UserRegister,
 	UserLogin,
@@ -8,7 +9,8 @@ import {
 	UserResetPassword,
 	UserEmailActivation,
 	UserInvite,
-	UserSetPassword
+	UserSetPassword,
+	UserIsLogged
 } from './actions';
 import { push } from 'connected-react-router';
 import * as constants from './constants';
@@ -56,6 +58,21 @@ function* userLogin(action: UserLogin) {
 	} catch (error) {
 		yield put({
 			type: constants.USER_LOGIN_FAILED
+		});
+	}
+}
+
+function* userIsLogged(action: UserIsLogged) {
+	try {
+		const isLogged = yield call(isLoggedIn);
+
+		yield put({
+			type: constants.USER_IS_LOGGED_SUCCESS,
+			payload: isLogged
+		});
+	} catch (error) {
+		yield put({
+			type: constants.USER_IS_LOGGED_FAILED
 		});
 	}
 }
@@ -142,7 +159,7 @@ function* userSetPassword(action: UserSetPassword) {
 			type: constants.USER_INVITE_SUCCESS
 		});
 
-		yield put(push('/dashboard/quickstart'));
+		yield put(push('/login'));
 	} catch (error) {
 		yield put({
 			type: constants.USER_INVITE_FAILED
@@ -154,6 +171,7 @@ export default function* userSaga() {
 	yield all([
 		takeLatest(constants.USER_REGISTER, userRegister),
 		takeLatest(constants.USER_LOGIN, userLogin),
+		takeLatest(constants.USER_IS_LOGGED, userIsLogged),
 		takeLatest(constants.USER_CHANGE_PASSWORD, userChangePassword),
 		takeLatest(constants.USER_RESET_PASSWORD, userResetPassword),
 		takeLatest(constants.USER_EMAIL_ACTIVATION, userEmailActivation),
