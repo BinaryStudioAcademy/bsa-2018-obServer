@@ -1,5 +1,5 @@
 import 'regenerator-runtime/runtime';
-import { takeLatest, put, call, all, take } from 'redux-saga/effects';
+import { takeLatest, put, call, all } from 'redux-saga/effects';
 import { userAPI } from '../../services';
 import {
 	UserRegister,
@@ -9,10 +9,8 @@ import {
 	UserResetPassword,
 	UserEmailActivation,
 	UserInvite,
-	UserSetPassword,
-	UserIsLogged
+	UserSetPassword
 } from './actions';
-import isLoggedIn from 'src/services/isLoggedIn';
 import { push } from 'connected-react-router';
 import * as constants from './constants';
 
@@ -47,6 +45,8 @@ function* userLogin(action: UserLogin) {
 			password: action.password
 		});
 
+		sessionStorage.setItem('observerUser', action.email);
+
 		yield put({
 			type: constants.USER_LOGIN_SUCCESS,
 			payload: {
@@ -54,9 +54,7 @@ function* userLogin(action: UserLogin) {
 			}
 		});
 
-		sessionStorage.setItem('user', action.email);
 		window.location.href = window.location.href;
-		// yield put(push('/dashboard/quickstart'));
 	} catch (error) {
 		yield put({
 			type: constants.USER_LOGIN_FAILED
@@ -66,9 +64,9 @@ function* userLogin(action: UserLogin) {
 
 function* userLogout(action: UserLogout) {
 	try {
-		sessionStorage.setItem('user', '');
-
 		yield call(userAPI.logoutUser);
+
+		sessionStorage.setItem('observerUser', '');
 
 		yield put({
 			type: constants.USER_LOGOUT_SUCCESS,
@@ -76,26 +74,12 @@ function* userLogout(action: UserLogout) {
 				// user: null
 			}
 		});
+
 		window.location.href = window.location.href;
 		// yield put(push('/login'));
 	} catch (error) {
 		yield put({
 			type: constants.USER_LOGOUT_FAILED
-		});
-	}
-}
-
-function* userIsLogged(action: UserIsLogged) {
-	try {
-		const isLogged = yield call(isLoggedIn);
-
-		yield put({
-			type: constants.USER_IS_LOGGED_SUCCESS,
-			payload: isLogged
-		});
-	} catch (error) {
-		yield put({
-			type: constants.USER_IS_LOGGED_FAILED
 		});
 	}
 }
@@ -197,7 +181,6 @@ export default function* userSaga() {
 		takeLatest(constants.USER_REGISTER, userRegister),
 		takeLatest(constants.USER_LOGIN, userLogin),
 		takeLatest(constants.USER_LOGOUT, userLogout),
-		takeLatest(constants.USER_IS_LOGGED, userIsLogged),
 		takeLatest(constants.USER_CHANGE_PASSWORD, userChangePassword),
 		takeLatest(constants.USER_RESET_PASSWORD, userResetPassword),
 		takeLatest(constants.USER_EMAIL_ACTIVATION, userEmailActivation),
