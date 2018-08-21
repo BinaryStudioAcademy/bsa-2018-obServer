@@ -8,5 +8,6 @@ export const defaultState: StoreState = {
 		company: ''
 	},
 
-	fetchingUserStatus: 'unstarted'
+	fetchingUserStatus: 'unstarted',
+	isLoggedIn: false
 };

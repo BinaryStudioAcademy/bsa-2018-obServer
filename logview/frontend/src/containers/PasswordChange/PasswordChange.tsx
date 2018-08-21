@@ -63,7 +63,7 @@ class PasswordChange extends React.Component<
 			this.setState({ err: 'password is not valid' });
 		} else if (this.state.newpassword !== this.state.confirmpassword) {
 			this.setState({ err: "passwords doesn't match" });
-		} else if (this.props.match.url === '/change') {
+		} else if (this.props.match.url === '/change/') {
 			this.setState({ err: '', sent: true });
 			this.props.actions.userChangePassword(
 				this.state.newpassword,
@@ -87,7 +87,7 @@ class PasswordChange extends React.Component<
 						{!this.state.sent ? (
 							<React.Fragment>
 								<Title>
-									{match.url === '/change'
+									{match.url === '/change/'
 										? 'Change password'
 										: 'Set password'}
 								</Title>
@@ -107,7 +107,7 @@ class PasswordChange extends React.Component<
 									onChange={this.handleFieldChange}
 								/>
 								<Submit onClick={this.handleSubmit}>
-									{match.url === '/change'
+									{match.url === '/change/'
 										? 'Change'
 										: 'Send'}
 								</Submit>
@@ -115,7 +115,7 @@ class PasswordChange extends React.Component<
 						) : (
 							<React.Fragment>
 								<Title>
-									{match.url === '/change'
+									{match.url === '/change/'
 										? 'Changed!'
 										: 'Sent!'}
 								</Title>

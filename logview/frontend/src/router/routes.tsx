@@ -14,82 +14,101 @@ import 'src/styles/GlobalStyles';
 import { Background } from '../styles/Styles';
 // import { isLoggedIn } from '../services';
 import Dashboard from 'src/containers/Dashboard/Dashboard';
+import 'src/styles/GlobalStyles';
 
-class Router extends React.Component<any, any> {
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { userIsLogged } from 'src/redux/user/actions';
+
+interface RouterProps {
+	actions: { userIsLogged: Function };
+	fetchingUserStatus: string;
+	isLoggedIn: boolean;
+}
+
+interface RouterState {
+	// returns error 
+	// Add these to state, please
+
+	// isLoggedIn: boolean;
+	// fetchingUserStatus: string;
+	loggedUser: string;
+}
+
+class Router extends React.Component<RouterProps, RouterState> {
 	constructor(props: any) {
 		super(props);
 		this.state = { loggedUser: sessionStorage.getItem('user') };
 	}
-
-	// async componentDidMount() {
-	// 	this.setState({ loggedUser: await sessionStorage.getItem('user') });
-	// }
+	
+	componentDidMount() {
+		this.props.actions.userIsLogged();
+	}
 
 	render() {
+		const { isLoggedIn, fetchingUserStatus } = this.props;
 		return (
-			<ConnectedRouter history={history}>
-				<React.Fragment>
-					<PrivateRoute
-						exact
-						path="/"
-						component={Home}
-						loggedUser={this.state.loggedUser}
-					/>
+			(fetchingUserStatus === 'success' ||
+				fetchingUserStatus === 'failed') && (
+				<ConnectedRouter history={history}>
 					<Background>
-						<UnauthorizedRoute
-							exact
-							path="/login"
-							component={Login}
-							loggedUser={this.state.loggedUser}
-						/>
-						<UnauthorizedRoute
-							exact
-							path="/register"
-							component={Register}
-							loggedUser={this.state.loggedUser}
-						/>
-						<UnauthorizedRoute
-							exact
-							path="/reset"
-							component={PasswordReset}
-							loggedUser={this.state.loggedUser}
-						/>
-						<PrivateRoute
-							exact
-							path="/dashboard/resources"
-							component={ServerResources}
-							loggedUser={this.state.loggedUser}
-						/>
-						<PrivateRoute
-							exact
-							path="/change/"
-							component={PasswordChange}
-							loggedUser={this.state.loggedUser}
-						/>
-						<Route
-							exact
-							strict
-							path="/confirm"
-							component={EmailConfirm}
-						/>
-						<Route
-							exact
-							strict
-							path="/confirm/"
-							component={EmailTokenConfirm}
-						/>
-						<PrivateRoute
-							path="/dashboard"
-							component={Dashboard}
-							loggedUser={this.state.loggedUser}
-						/>
-						<Route
-							path="/setpassword/"
-							component={PasswordChange}
-						/>
+						<Switch>
+							<PrivateRoute
+								exact
+								path="/"
+								component={Home}
+								loggedUser={this.state.loggedUser}
+							/>
+							<UnauthorizedRoute
+								exact
+								path="/login"
+								component={Login}
+								loggedUser={this.state.loggedUser}
+							/>
+							<UnauthorizedRoute
+								exact
+								path="/register"
+								component={Register}
+								loggedUser={this.state.loggedUser}
+							/>
+							<UnauthorizedRoute
+								exact
+								path="/reset"
+								component={PasswordReset}
+								loggedUser={this.state.loggedUser}
+							/>
+							<PrivateRoute
+								exact
+								path="/change/"
+								component={PasswordChange}
+								loggedUser={this.state.loggedUser}
+							/>
+							<Route
+								exact
+								strict
+								path="/confirm"
+								component={EmailConfirm}
+							/>
+							<Route
+								exact
+								strict
+								path="/confirm/"
+								component={EmailTokenConfirm}
+							/>
+							<Route
+								exact
+								path="/setpassword/"
+								component={PasswordChange}
+							/>
+							<PrivateRoute
+								path="/dashboard"
+								component={Dashboard}
+								loggedUser={this.state.loggedUser}
+							/>
+						</Switch>
 					</Background>
-				</React.Fragment>
-			</ConnectedRouter>
+				</ConnectedRouter>
+			)
 		);
 	}
 }
@@ -142,4 +161,18 @@ const UnauthorizedRoute = ({
 	);
 };
 
-export default Router;
+const mapStateToProps = ({ fetchingUserStatus, isLoggedIn }) => ({
+	fetchingUserStatus,
+	isLoggedIn
+});
+
+const mapDispatchToProps = (dispatch: any) => ({
+	actions: bindActionCreators({ userIsLogged }, dispatch)
+});
+
+const RouterConnected = connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(Router);
+
+export default RouterConnected;
