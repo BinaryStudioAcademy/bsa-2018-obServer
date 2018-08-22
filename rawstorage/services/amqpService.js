@@ -18,8 +18,6 @@ amqp.connect(`amqp://localhost:${port}`, (err, conn) => {
 
 module.exports = (message) => {
   if(logChannel) {
-    logChannel.sendToQueue(queue, new Buffer(message));
-    // console.log('sending log...');
-    // console.log('raw log quiee messafe ' + JSON.stringify(message));
+    logChannel.sendToQueue(queue, Buffer.from(message));
   }
 };

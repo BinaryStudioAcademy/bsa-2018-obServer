@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const MetricsService = require('./metricsService');
 
 const port = process.env.LOGCOLLECT_PORT;
-const companyToken = process.env.LOGCOLLECT_SECRET_TOKEN; 
+const companyToken = process.env.COMPANY_TOKEN; 
 const app = express();
 
 const rawStorePort = process.env.RAWSTORAGE_PORT;
