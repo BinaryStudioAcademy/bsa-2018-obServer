@@ -7,7 +7,18 @@ export const defaultState: StoreState = {
 		password: '',
 		company: ''
 	},
-
+	settings: {
+		serverMemory: undefined,
+		serverCPU: undefined,
+		notificationServerIsDown: undefined,
+		notificationHighRequest: undefined,
+		appsMemory: undefined,
+		appsCPU: undefined,
+		appsErrorLog: undefined,
+		appsHttp: undefined,
+		appsSoket: undefined,
+		listeningPorts: undefined
+	},
 	fetchingUserStatus: 'unstarted',
 	isLoggedIn: false
 };
