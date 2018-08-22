@@ -38,11 +38,9 @@ interface RouterState {
 class Router extends React.Component<RouterProps, RouterState> {
 	constructor(props: any) {
 		super(props);
-		this.state = { loggedUser: sessionStorage.getItem('user') };
+		this.state = { loggedUser: sessionStorage.getItem('observerUser') };
 	}
-	componentDidMount() {
-		this.props.actions.userIsLogged();
-	}
+	componentDidMount() {}
 
 	render() {
 		const { isLoggedIn, fetchingUserStatus } = this.props;

@@ -60,11 +60,10 @@ export function fetchingState(state = 'unstarted', action: UserAction) {
 
 export function isLoggedInState(state = false, action: UserAction) {
 	switch (action.type) {
-		case constants.USER_IS_LOGGED_SUCCESS:
-			return action.payload;
 		case constants.USER_LOGIN_SUCCESS:
+		case constants.USER_EMAIL_ACTIVATION_SUCCESS:
 			return true;
-		case constants.USER_IS_LOGGED_FAILED:
+		case constants.USER_LOGOUT_SUCCESS:
 			return false;
 		default:
 			return state;
