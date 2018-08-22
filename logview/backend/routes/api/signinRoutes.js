@@ -37,6 +37,7 @@ router.get(`/logout`, isLoggedInMiddleware, (req, res) => {
 
 router.post(
 	'/user/activate/:activationToken',
+	passport.authenticate('local.activationSignin'),
 	async (req, res, next) => {
 		try {
 			const user = await userService.findByUserActivationToken(

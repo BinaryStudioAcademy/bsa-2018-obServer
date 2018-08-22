@@ -28,6 +28,8 @@ services:
       - postgres:postgres
     ports:
       - ${PG_ADMIN_EXTERNAL_PORT}:${PG_ADMIN_INTERNAL_PORT}
+    volumes:
+        - ./postgres_db:/data/db
     networks:
       - postgres
     restart: unless-stopped
@@ -35,14 +37,14 @@ services:
       container_name: raw-storage
       image: mongo
       volumes:
-        - ./mongovolume:/data/db"
+        - ./raw_mongovolume:/data/db
       ports:
         - ${RAW_DB_EXTERNAL_PORT}:${RAW_DB_INTERNAL_PORT}
   aggregated-storage:
       container_name: aggregated-storage
       image: mongo
       volumes:
-        - ./mongovolume:/data/db"
+        - ./aggr_mongovolume:/data/db
       ports:
         - ${AGGREGATED_DB_EXTERNAL_PORT}:${AGGREGATED_DB_INTERNAL_PORT}
 networks:

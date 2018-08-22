@@ -127,7 +127,11 @@ function* userChangePassword(action: UserChangePassword) {
 
 function* userEmailActivation(action: UserEmailActivation) {
 	try {
-		yield call(userAPI.activateUser, action.token);
+		const currentUser = yield call(userAPI.activateUser, {
+			activationToken: action.activationToken
+		});
+
+		sessionStorage.setItem('observerUser', currentUser.data.email);
 
 		yield put({
 			type: constants.USER_EMAIL_ACTIVATION_SUCCESS
@@ -136,8 +140,6 @@ function* userEmailActivation(action: UserEmailActivation) {
 		yield put({
 			type: constants.USER_EMAIL_ACTIVATION_FAILED
 		});
-	} finally {
-		yield put(push('/login'));
 	}
 }
 

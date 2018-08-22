@@ -63,8 +63,9 @@ export function isLoggedInState(state = false, action: UserAction) {
 		case constants.USER_LOGOUT_SUCCESS:
 			return false;
 		case constants.USER_LOGIN_SUCCESS:
+		case constants.USER_EMAIL_ACTIVATION_SUCCESS:
 			return true;
-		case constants.USER_LOGOUT_FAILED:
+		case constants.USER_LOGOUT_SUCCESS:
 			return false;
 		default:
 			return state;
