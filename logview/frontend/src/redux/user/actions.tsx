@@ -46,20 +46,6 @@ export interface UserLogoutSuccess {
 	type: constants.USER_LOGOUT_SUCCESS;
 }
 
-/* user is logged */
-export interface UserIsLogged {
-	type: constants.USER_IS_LOGGED;
-}
-
-export interface UserIsLoggedFail {
-	type: constants.USER_IS_LOGGED_FAILED;
-}
-
-export interface UserIsLoggedSuccess {
-	type: constants.USER_IS_LOGGED_SUCCESS;
-	payload: boolean;
-}
-
 /* password reset */
 export interface UserResetPassword extends UserResetPasswordState {
 	type: constants.USER_RESET_PASSWORD;
@@ -89,7 +75,7 @@ export interface UserChangePasswordSuccess {
 /* email activation */
 export interface UserEmailActivation {
 	type: constants.USER_EMAIL_ACTIVATION;
-	token: string;
+	activationToken: string;
 }
 
 export interface UserEmailActivationFail {
@@ -142,9 +128,6 @@ export type UserAction =
 	| UserLogout
 	| UserLogoutFail
 	| UserLogoutSuccess
-	| UserIsLogged
-	| UserIsLoggedFail
-	| UserIsLoggedSuccess
 	| UserChangePassword
 	| UserChangePasswordFail
 	| UserChangePasswordSuccess
@@ -230,25 +213,6 @@ export function userLogoutSuccess(): UserLogoutSuccess {
 	};
 }
 
-export function userIsLogged(): UserIsLogged {
-	return {
-		type: constants.USER_IS_LOGGED
-	};
-}
-
-export function userIsLoggedFail(): UserIsLoggedFail {
-	return {
-		type: constants.USER_IS_LOGGED_FAILED
-	};
-}
-
-export function userIsLoggedSuccess(payload: boolean): UserIsLoggedSuccess {
-	return {
-		type: constants.USER_IS_LOGGED_SUCCESS,
-		payload
-	};
-}
-
 export function userResetPassword(
 	email: string = '',
 	password: string = ''
@@ -300,10 +264,12 @@ export function fetchUser(): FetchUser {
 	};
 }
 
-export function userEmailActivation(token: string = ''): UserEmailActivation {
+export function userEmailActivation(
+	activationToken: string = ''
+): UserEmailActivation {
 	return {
 		type: constants.USER_EMAIL_ACTIVATION,
-		token
+		activationToken
 	};
 }
 
