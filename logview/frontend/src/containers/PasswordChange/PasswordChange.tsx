@@ -62,7 +62,9 @@ class PasswordChange extends React.Component<
 		let token = queryString.parse(location.search).resetToken;
 
 		if (!validate('password', this.state.newpassword)) {
-			this.setState({ err: 'password is not valid' });
+			this.setState({
+				err: 'password must be at least 8 characters long'
+			});
 		} else if (this.state.newpassword !== this.state.confirmpassword) {
 			this.setState({ err: "passwords doesn't match" });
 		} else if (this.props.match.url === '/change/') {
@@ -87,9 +89,9 @@ class PasswordChange extends React.Component<
 				<PasswordWrapper>
 					<CenteredContainer>
 						{!this.state.sent ? (
-							<React.Fragment>
+							<form>
 								<Title>
-									{match.url === '/change/'
+									{match.url === '/change'
 										? 'Change password'
 										: 'Set password'}
 								</Title>
@@ -113,7 +115,7 @@ class PasswordChange extends React.Component<
 										? 'Change'
 										: 'Send'}
 								</Submit>
-							</React.Fragment>
+							</form>
 						) : (
 							<React.Fragment>
 								<Title>

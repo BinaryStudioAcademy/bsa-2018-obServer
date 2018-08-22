@@ -8,5 +8,9 @@ export const defaultState: StoreState = {
 		company: ''
 	},
 
+	// company: [
+
+	// ],
+
 	fetchingUserStatus: 'unstarted'
 };
