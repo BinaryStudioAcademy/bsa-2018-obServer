@@ -1,16 +1,26 @@
-import openSocket from 'socket.io-client';
+import io from 'socket.io-client';
 
-const port = process.env.APP_PORT;
-const socket = openSocket(`http://localhost:${port}`);
+const port = 3060;
+const socket = io.connect(`http://localhost:${port}`);
 
-export async function getLogs(companyId: string, callback: Function) {
+export async function getLogs(companyId: string) {
 	socket.emit('getLogs', companyId, logs => {
-		callback(logs);
+		console.log(JSON.stringify(logs));
 	});
 }
 
-export async function getNewLog(callback: Function) {
+export async function getNewLog() {
 	socket.on('newLog', log => {
-		callback(log);
+		console.log(log);
 	});
 }
+
+// const socket = io.connect(`http://localhost:${port}`);
+
+// socket.emit('getLogs', companyId, (logs) => {
+//   console.log(JSON.stringify(logs));
+// });
+
+// socket.on('newLog', (log) => {
+//   console.log(log);
+// });

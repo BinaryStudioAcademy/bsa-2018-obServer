@@ -2,21 +2,27 @@ import { takeLatest, put, call, all, take } from 'redux-saga/effects';
 //import { LogState } from '../../types/LogState';
 import * as constants from './constants';
 import { FetchLog } from './actions';
-import { fetchLogs as fetchAllLogs } from 'src/services/websockets/logs';
+import { getNewLog, getLogs } from 'src/services/websockets/logs';
 
-function* fetchLog(action: FetchLog) {
+async function* fetchLog(action: FetchLog) {
 	try {
-		const newLog = yield call(fetchAllLogs);
+		console.log('SAGA');
 
-		yield put({
-			type: constants.ADD_NEW_LOG,
-			log: newLog
-		});
+		const companyId = 'LOG_COLLECT_SECRET_TOKEN';
+		getLogs(companyId);
+		getNewLog();
+		console.log('WAS SOCKET CALL');
+		//const newLog = yield call(getNewLog);
 
-		yield put({
-			type: constants.FETCH_LOG_SUCCESS,
-			log: newLog
-		});
+		// yield put({
+		// 	type: constants.ADD_NEW_LOG,
+		// 	log: newLog
+		// });
+
+		// yield put({
+		// 	type: constants.FETCH_LOG_SUCCESS,
+		// 	log: newLog
+		// });
 	} catch (err) {
 		yield put({
 			type: constants.FETCH_LOG_FAILED
