@@ -4,12 +4,12 @@ import { userAPI } from '../../services';
 import {
 	UserRegister,
 	UserLogin,
+	UserLogout,
 	UserChangePassword,
 	UserResetPassword,
 	UserEmailActivation,
 	UserInvite,
-	UserSetPassword,
-	UserLogout
+	UserSetPassword
 } from './actions';
 import { push } from 'connected-react-router';
 import * as constants from './constants';
@@ -45,15 +45,41 @@ function* userLogin(action: UserLogin) {
 			password: action.password
 		});
 
+		sessionStorage.setItem('observerUser', action.email);
+
 		yield put({
-			type: constants.USER_LOGIN_SUCCESS
+			type: constants.USER_LOGIN_SUCCESS,
+			payload: {
+				// ...currentUser
+			}
 		});
 
-		sessionStorage.setItem('user', JSON.stringify(currentUser));
-		yield put(push('/dashboard/quickstart'));
+		window.location.href = window.location.href;
 	} catch (error) {
 		yield put({
 			type: constants.USER_LOGIN_FAILED
+		});
+	}
+}
+
+function* userLogout(action: UserLogout) {
+	try {
+		yield call(userAPI.logoutUser);
+
+		sessionStorage.setItem('observerUser', '');
+
+		yield put({
+			type: constants.USER_LOGOUT_SUCCESS,
+			payload: {
+				// user: null
+			}
+		});
+
+		window.location.href = window.location.href;
+		// yield put(push('/login'));
+	} catch (error) {
+		yield put({
+			type: constants.USER_LOGOUT_FAILED
 		});
 	}
 }
@@ -152,25 +178,6 @@ function* userSetPassword(action: UserSetPassword) {
 	}
 }
 
-function* userLogout(action: UserLogout) {
-	try {
-		console.log(action);
-		yield call(userAPI.logoutUser, {
-			email: action.email
-		});
-
-		yield put({
-			type: constants.USER_INVITE_SUCCESS
-		});
-
-		yield put(push('/login'));
-	} catch (error) {
-		yield put({
-			type: constants.USER_INVITE_FAILED
-		});
-	}
-}
-
 export default function* userSaga() {
 	yield all([
 		takeLatest(constants.USER_REGISTER, userRegister),
@@ -180,7 +187,6 @@ export default function* userSaga() {
 		takeLatest(constants.USER_RESET_PASSWORD, userResetPassword),
 		takeLatest(constants.USER_EMAIL_ACTIVATION, userEmailActivation),
 		takeLatest(constants.USER_INVITE, userInvite),
-		takeLatest(constants.USER_SET_PASSWORD, userSetPassword),
-		takeLatest(constants.USER_LOGOUT, userLogout)
+		takeLatest(constants.USER_SET_PASSWORD, userSetPassword)
 	]);
 }

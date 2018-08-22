@@ -3,6 +3,8 @@ import { CompanyState } from '../../types/CompanyState';
 
 export interface FetchCompanyUsers extends CompanyState {
 	type: constants.FETCH_COMPANY_USERS;
+	company: Array<{ name; email; active }>;
+	name: string[];
 }
 
 export interface FetchCompanyUsersFail {
@@ -19,7 +21,7 @@ export type CompanyAction =
 	| FetchCompanyUsersSuccess;
 
 export function FetchCompanyUsers(
-	company: string,
+	company: Array<{ name; email; active }>,
 	name: string[]
 ): FetchCompanyUsers {
 	return {
