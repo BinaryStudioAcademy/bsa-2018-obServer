@@ -29,5 +29,10 @@ export const Input = styled.input`
 `;
 
 export const InputWide = Input.extend`
+	margin-top: 50px;
+	width: 80%;
+`;
+
+export const InputPassword = Input.extend`
 	width: 80%;
 `;

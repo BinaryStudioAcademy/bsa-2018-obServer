@@ -83,7 +83,11 @@ const p: StyledFunction<SideLinkProps & React.HTMLProps<HTMLInputElement>> =
 	styled.p;
 
 export const SideLink = p`
+	svg {
+		color: ${(props: any) => (props.active ? 'rgb(127, 120, 206)' : '#3d3d3d')};
+	}
 	a {
+		margin-left: 15px;
 		text-decoration: none;
 		font-weight: ${(props: any) => (props.active ? 'bold' : 'initial')};
 		color: ${(props: any) => (props.active ? 'rgb(127, 120, 206)' : '#3d3d3d')};

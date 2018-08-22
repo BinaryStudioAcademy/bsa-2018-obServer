@@ -1,7 +1,6 @@
-import styled, { css } from 'styled-components';
+import styled, { css, StyledFunction } from 'styled-components';
 import { media } from './styles-utils';
 const background = require('src/assets/login-background.jpg');
-const backgroundmedium = require('src/assets/background-medium.png');
 
 export const Wrapper = styled.div`
 	display: flex;
@@ -21,10 +20,7 @@ export const Background = styled.div`
 	width: 100%;
 	background-size: cover;
 	${media.tablet`
-		/* background-image: url(${backgroundmedium}); */
-		/* background: inherit; */
 	`} ${media.phone`
-		/* background-image: url(${backgroundmedium}); */
 		background: inherit;
 	`};
 `;
@@ -123,17 +119,12 @@ export const Column = styled.div`
 	display: flex;
 	flex-wrap: wrap;
 	flex-direction: column;
-	justify-content: space-between;
-	align-items: flex-start;
+	/* justify-content: space-between; */
+	align-items: center;
 `;
 
-export const SideNav = Column.extend`
-	width: 16%;
-	padding: 2% 0 3% 5%;
-
+export const SideNav = styled.div`
 	/* box-shadow: 6px 0px 29px 0px rgba(0, 0, 0, 0.1); */
-	height: calc(100vh - 7%);
-	position: fixed;
 `;
 
 export const DashboardBackground = styled.div`
@@ -143,21 +134,52 @@ export const DashboardBackground = styled.div`
 	min-height: 100vh;
 	background-color: #efefef;
 `;
+
 export const Main = styled.div`
 	padding: 3%;
-	margin-left: 21%;
+	margin-left: 16%;
 	width: 84%;
 	background: white;
 `;
 
-export const UserBar = styled.div`
+export const Sidebar = Column.extend`
+	width: 16%;
 	display: flex;
-	justify-content: flex-end;
-	align-items: center;
+	height: calc(100vh - 7%);
+	position: fixed;
+	justify-content: space-between;
+`;
+
+export const UserBar = styled.div`
+	min-width: 80%;
 `;
 
 export const Profile = styled.div`
 	font-family: 'Merriweather', serif;
 	font-size: 18px;
 	font-weight: bold;
+`;
+
+interface UserPopup {
+	popup: boolean;
+}
+
+const div: StyledFunction<UserPopup & React.HTMLProps<HTMLInputElement>> =
+	styled.div;
+
+export const UserPopup = div`
+	display: block;
+	padding: 5px 20px;
+	text-align: center;
+	background-color: ${(props: any) => (props.popup ? '#3d3d3d' : 'inherit')};
+	color: ${(props: any) => (props.popup ? '#bebec5' : '#3d3d3d')};
+	font-size: 14px;
+	font-weight: normal;
+	border-radius: 5px;
+	cursor: pointer;
+
+	&:hover {
+		background-color: #3d3d3d;
+		color: #bebec5;
+	}
 `;

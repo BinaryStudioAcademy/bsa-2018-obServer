@@ -79,13 +79,11 @@ class Router extends React.Component<RouterProps, RouterState> {
 						/>
 						<Route
 							exact
-							strict
-							path="/confirm"
+							path="/confirmationsent"
 							component={EmailConfirm}
 						/>
 						<Route
 							exact
-							strict
 							path="/confirm/"
 							component={EmailTokenConfirm}
 						/>
