@@ -15,7 +15,7 @@ class LogRepository {
             [`serverData.${logTypes.name[log.logType]}`] : { ...log.data, timestamp: log.timestamp }
           }
         },
-        {upsert: true},
+        { upsert: true },
         callback 
       );
     } else {
@@ -27,7 +27,7 @@ class LogRepository {
               [`appsData.$.logs.${logTypes.name[log.logType]}`] : { ...log.data, timestamp: log.timestamp }
             }
           },
-          {upsert: true},
+          { upsert: true },
           callback 
         ); 
       } else {
@@ -43,7 +43,7 @@ class LogRepository {
               }
             }
           },
-          {upsert: true},
+          { upsert: true },
           callback 
         );
       }
@@ -53,6 +53,19 @@ class LogRepository {
   getByCompanyId(id, callback) {
     this.model.find({ "companyId": id }, callback);
   }
+
+  getByCompanyIdByDaysFromNow(id, fromDate, callback) {
+    this.model.aggregate([
+      { $match: {
+          "companyId": "secret-header-token"
+      }},
+      { $project: {
+        companyId: true,  
+        "serverData.memoryServer":  getFilter('serverData', 'memoryServer', fromDate),
+        "serverData.cpuServer":  getFilter('serverData', 'cpuServer', fromDate),
+      }}
+    ], callback);
+  }
 }
 
 const isThisServerLogType = (logType) => {
@@ -60,6 +73,21 @@ const isThisServerLogType = (logType) => {
     return true;
   }
   return false;
+};
+
+const getFilter = (dataSource, dataType, fromDate) => {
+  return {
+    $filter: {
+      input: `$${dataSource}.${dataType}`,
+      as: dataType,
+      cond: {
+        $gte: [
+          `$$${dataType}.timestamp`,
+          fromDate
+        ]
+      }
+    }  
+  };
 };
 
 module.exports = new LogRepository();
