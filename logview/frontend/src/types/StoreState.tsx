@@ -1,8 +1,7 @@
-import { UserState, UserLoginState } from './UserState';
-import { CompanyState } from './CompanyState';
+import { UserState } from './UserState';
 
 export interface StoreState {
 	user: UserState;
 	fetchingUserStatus: string;
-	// company: CompanyState;
+	isLoggedIn: boolean;
 }

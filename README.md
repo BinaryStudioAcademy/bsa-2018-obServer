@@ -245,3 +245,22 @@ PUT /api/user/:id // route which updates data about specified user
 
 ![Schemes relations](http://drive.google.com/uc?export=view&id=1Dt9NCCV1kFu_mufDfLzE1AC1MoigFLTi)
 
+## LogConnect
+#### Includes to client app. Reads app metrics. Sends app metrics/logs to LogCollect
+### Usage
+```js
+// temporary
+const obServer = require(./logconnect)(logcollectPort, { id: 'MyAppId', name: 'MyAppName' });
+```
+### HTTP Middleware (Express.js)
+#### Usage
+```js
+app.use(obServer.httpStats());
+```
+#### Log data
+* request route
+* request method
+* response time
+* response status code
+* request size
+* response size

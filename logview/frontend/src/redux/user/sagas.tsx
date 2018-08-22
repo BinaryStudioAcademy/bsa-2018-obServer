@@ -1,5 +1,5 @@
 import 'regenerator-runtime/runtime';
-import { takeLatest, put, call, all, take } from 'redux-saga/effects';
+import { takeLatest, put, call, all } from 'redux-saga/effects';
 import { userAPI } from '../../services';
 import {
 	UserRegister,
@@ -40,21 +40,16 @@ function* userRegister(action: UserRegister) {
 
 function* userLogin(action: UserLogin) {
 	try {
-		/*const currentUser = yield call(userAPI.loginUser, {
+		const currentUser = yield call(userAPI.loginUser, {
 			email: action.email,
 			password: action.password
-		});*/
+		});
 
 		yield put({
 			type: constants.USER_LOGIN_SUCCESS
 		});
 
-		let user = {
-			email: 'harry.pankiv@gmail.com',
-			name: 'Harry Pankiv',
-			company: 'Harry Co'
-		};
-		sessionStorage.setItem('user', JSON.stringify(user));
+		sessionStorage.setItem('user', JSON.stringify(currentUser));
 		yield put(push('/dashboard/quickstart'));
 	} catch (error) {
 		yield put({
@@ -106,7 +101,11 @@ function* userChangePassword(action: UserChangePassword) {
 
 function* userEmailActivation(action: UserEmailActivation) {
 	try {
-		yield call(userAPI.activateUser, action.token);
+		const currentUser = yield call(userAPI.activateUser, {
+			activationToken: action.activationToken
+		});
+
+		sessionStorage.setItem('observerUser', currentUser.data.email);
 
 		yield put({
 			type: constants.USER_EMAIL_ACTIVATION_SUCCESS
@@ -176,6 +175,7 @@ export default function* userSaga() {
 	yield all([
 		takeLatest(constants.USER_REGISTER, userRegister),
 		takeLatest(constants.USER_LOGIN, userLogin),
+		takeLatest(constants.USER_LOGOUT, userLogout),
 		takeLatest(constants.USER_CHANGE_PASSWORD, userChangePassword),
 		takeLatest(constants.USER_RESET_PASSWORD, userResetPassword),
 		takeLatest(constants.USER_EMAIL_ACTIVATION, userEmailActivation),

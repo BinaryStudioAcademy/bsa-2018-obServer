@@ -61,7 +61,7 @@ export interface UserChangePasswordSuccess {
 /* email activation */
 export interface UserEmailActivation {
 	type: constants.USER_EMAIL_ACTIVATION;
-	token: string;
+	activationToken: string;
 }
 
 export interface UserEmailActivationFail {
@@ -104,7 +104,7 @@ export interface UserSetPasswordSuccess {
 	type: constants.USER_SET_PASSWORD_SUCCESS;
 }
 
-/* user set password */
+/* user logout */
 export interface UserLogout extends UserResetPasswordState {
 	type: constants.USER_LOGOUT;
 }
@@ -245,10 +245,12 @@ export function fetchUser(): FetchUser {
 	};
 }
 
-export function userEmailActivation(token: string = ''): UserEmailActivation {
+export function userEmailActivation(
+	activationToken: string = ''
+): UserEmailActivation {
 	return {
 		type: constants.USER_EMAIL_ACTIVATION,
-		token
+		activationToken
 	};
 }
 

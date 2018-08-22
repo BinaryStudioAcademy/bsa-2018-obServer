@@ -27,7 +27,7 @@
 		"watch": "webpack --watch --config webpack.config.js",
 		"prettify": "prettier --write  frontend/**/*.{js,ts,tsx,json,css,md} backend/**/*.{js,json,css,md}",
 		"storybook": "start-storybook -p 6006",
-		"migrate": "node clearMetaFiles.js && ./node_modules/.bin/sequelize db:migrate && ./node_modules/.bin/sequelize db:seed:all"
+		"migrate": "./node_modules/.bin/sequelize db:migrate && ./node_modules/.bin/sequelize db:seed:all"
 	},
 	"husky": {
 		"hooks": {
