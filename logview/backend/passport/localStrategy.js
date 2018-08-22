@@ -50,3 +50,28 @@ passport.use(
 		}
 	)
 );
+
+passport.use(
+	'local.activationSignin',
+	new LocalStrategy(
+		{
+			usernameField: 'activationToken',
+			passwordField: 'activationToken'
+		},
+		(username, password, done) => {
+			userService
+				.findByUserActivationToken(username)
+				.then(user => {
+					if (!user)
+						return done(null, false, {
+							message:
+								'No account with that activation token exists'
+						});
+					return done(null, user);
+				})
+				.catch(err => {
+					return done(err);
+				});
+		}
+	)
+);

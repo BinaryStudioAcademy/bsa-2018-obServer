@@ -54,7 +54,7 @@ function* userLogin(action: UserLogin) {
 			}
 		});
 
-		sessionStorage.setItem('user', action.email);
+		sessionStorage.setItem('observerUser', action.email);
 		window.location.href = window.location.href;
 		// yield put(push('/dashboard/quickstart'));
 	} catch (error) {
@@ -66,7 +66,7 @@ function* userLogin(action: UserLogin) {
 
 function* userLogout(action: UserLogout) {
 	try {
-		sessionStorage.setItem('user', '');
+		sessionStorage.setItem('observerUser', '');
 
 		yield call(userAPI.logoutUser);
 
@@ -81,21 +81,6 @@ function* userLogout(action: UserLogout) {
 	} catch (error) {
 		yield put({
 			type: constants.USER_LOGOUT_FAILED
-		});
-	}
-}
-
-function* userIsLogged(action: UserIsLogged) {
-	try {
-		const isLogged = yield call(isLoggedIn);
-
-		yield put({
-			type: constants.USER_IS_LOGGED_SUCCESS,
-			payload: isLogged
-		});
-	} catch (error) {
-		yield put({
-			type: constants.USER_IS_LOGGED_FAILED
 		});
 	}
 }
@@ -143,7 +128,11 @@ function* userChangePassword(action: UserChangePassword) {
 
 function* userEmailActivation(action: UserEmailActivation) {
 	try {
-		yield call(userAPI.activateUser, action.token);
+		const currentUser = yield call(userAPI.activateUser, {
+			activationToken: action.activationToken
+		});
+
+		sessionStorage.setItem('observerUser', currentUser.data.email);
 
 		yield put({
 			type: constants.USER_EMAIL_ACTIVATION_SUCCESS
@@ -152,8 +141,6 @@ function* userEmailActivation(action: UserEmailActivation) {
 		yield put({
 			type: constants.USER_EMAIL_ACTIVATION_FAILED
 		});
-	} finally {
-		yield put(push('/login'));
 	}
 }
 
@@ -197,7 +184,6 @@ export default function* userSaga() {
 		takeLatest(constants.USER_REGISTER, userRegister),
 		takeLatest(constants.USER_LOGIN, userLogin),
 		takeLatest(constants.USER_LOGOUT, userLogout),
-		takeLatest(constants.USER_IS_LOGGED, userIsLogged),
 		takeLatest(constants.USER_CHANGE_PASSWORD, userChangePassword),
 		takeLatest(constants.USER_RESET_PASSWORD, userResetPassword),
 		takeLatest(constants.USER_EMAIL_ACTIVATION, userEmailActivation),
