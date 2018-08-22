@@ -18,7 +18,6 @@ import 'src/styles/GlobalStyles';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { userIsLogged } from 'src/redux/user/actions';
 
 interface RouterProps {
 	actions: { userIsLogged: Function };
@@ -27,10 +26,8 @@ interface RouterProps {
 }
 
 interface RouterState {
-	// returns error
-	// Add these to state, please
+	// returns error. Add these to state, please
 
-	// isLoggedIn: boolean;
 	// fetchingUserStatus: string;
 	loggedUser: string;
 }
@@ -43,7 +40,7 @@ class Router extends React.Component<RouterProps, RouterState> {
 	componentDidMount() {}
 
 	render() {
-		const { isLoggedIn, fetchingUserStatus } = this.props;
+		const { fetchingUserStatus } = this.props;
 		return (
 			// (fetchingUserStatus === 'success' ||
 			// 	fetchingUserStatus === 'failed') && (
@@ -164,7 +161,7 @@ const mapStateToProps = ({ fetchingUserStatus, isLoggedIn }) => ({
 });
 
 const mapDispatchToProps = (dispatch: any) => ({
-	actions: bindActionCreators({ userIsLogged }, dispatch)
+	actions: bindActionCreators({}, dispatch)
 });
 
 const RouterConnected = connect(
