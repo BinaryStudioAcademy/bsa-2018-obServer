@@ -7,7 +7,14 @@ import {
 	CheckBoxSwitchWrapper
 } from 'src/styles/SettingsFormStyles';
 
-class SettingCheckBox extends React.Component<any, any> {
+interface SettingCheckBoxProps {
+	name?: string;
+	label?: string;
+	checked?: boolean;
+	onChange?: Function;
+}
+
+class SettingCheckBox extends React.Component<SettingCheckBoxProps, {}> {
 	render() {
 		return (
 			<CheckBoxSwitchWrapper>
@@ -15,7 +22,7 @@ class SettingCheckBox extends React.Component<any, any> {
 					<CheckBoxInput
 						type="checkbox"
 						name={this.props.name}
-						value={this.props.name}
+						checked={this.props.checked}
 					/>
 					<CheckBoxSlider />
 				</CheckBoxSwitch>

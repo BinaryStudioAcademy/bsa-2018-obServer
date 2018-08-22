@@ -1,4 +1,7 @@
 import styled from 'styled-components';
+import { media } from './styles-utils';
+
+const userEditIcon = require('src/assets/edit.png');
 const background = {
 	switchOn: '#7f78ce',
 	switchOff: '#ccc'
@@ -74,9 +77,50 @@ padding: 15px;
 margin-bottom: 50px;
 }`;
 
+export const SettingFormGroupInput = styled.div`
+border-top: 3px solid ${background.switchOn}!important;
+background: #f1f1f1;
+padding: 15px;
+margin-bottom: 50px;
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 10px;
+${media.desktop`grid-template-columns: 1fr;`};
+}`;
+
 export const SettingFormGroupLabel = styled.label`
 	text-transform: uppercase;
 	font-size: 18px;
 	line-height: 2;
 	padding-left: 5px;
 `;
+
+export const SettingInput = styled.input`
+	box-sizing: border-box;
+	border: 2px solid #fff;
+	border-radius: 4px;
+	font-size: 16px;
+	background-color: white;
+	background-image: url(${userEditIcon});
+	background-position: 10px 10px;
+	margin: 10px 0;
+	background-repeat: no-repeat;
+	padding: 12px 20px 12px 40px;
+	-webkit-transition: width 0.4s ease-in-out;
+	transition: width 0.4s ease-in-out;
+	width: 100%;
+
+	&:focus {
+		outline: 2px solid #7d7acc;
+	}
+`;
+
+export const SettingsSubmitButton = styled.button`
+float: right;
+padding: 10px 30px;
+background-color: ${background.switchOn};
+color: #fff;
+text-transform: uppercase;
+border: none;
+font-size: 18px;
+}`;
