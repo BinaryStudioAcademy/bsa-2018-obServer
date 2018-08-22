@@ -246,6 +246,25 @@ router.get(
 	apiResponse
 );
 
+router.get(
+	'/company/settings',
+	async (req, res, next) => {
+		try {
+			const setting = await settingService.findByCompanyId(
+				req.user.companyId
+			);
+			res.data = setting;
+			res.err = null;
+		} catch (error) {
+			res.data = null;
+			res.err = error;
+		} finally {
+			next();
+		}
+	},
+	apiResponse
+);
+
 router.put(
 	'/company/settings',
 	async (req, res, next) => {
