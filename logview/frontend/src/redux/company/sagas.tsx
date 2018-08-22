@@ -10,7 +10,7 @@ function* fetchCompanyUsers(action: FetchCompanyUsers) {
 		yield put({
 			type: constants.FETCH_COMPANY_USERS_SUCCESS,
 			payload: {
-				...company
+				company
 			}
 		});
 	} catch (error) {

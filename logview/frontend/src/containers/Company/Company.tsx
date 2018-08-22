@@ -5,19 +5,22 @@ import { userInvite } from 'src/redux/user/actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { RouteComponentProps } from 'react-router-dom';
+import UserSingle from './UserSingle';
+import { CompanyUsers, UserItem } from '../../styles/ContainerStyles';
 
-interface LoginFormProps {
+interface CompanyProps {
 	actions: { userInvite: Function; fetchCompanyUsers: Function };
+	companyUsers: Array<Object>;
 	fetchingUserStatus: string;
 }
 
-interface InviteUserState {
+interface CompanyState {
 	email?: string;
 	name?: string;
 	err?: boolean;
 }
 
-class InviteUser extends React.Component<LoginFormProps, InviteUserState> {
+class Company extends React.Component<CompanyProps, CompanyState> {
 	constructor(props: any) {
 		super(props);
 
@@ -49,6 +52,8 @@ class InviteUser extends React.Component<LoginFormProps, InviteUserState> {
 	handleLogout() {}
 
 	render() {
+		console.log(this.props);
+		const { companyUsers } = this.props;
 		return (
 			<React.Fragment>
 				<h2>Invite user</h2>
@@ -72,21 +77,32 @@ class InviteUser extends React.Component<LoginFormProps, InviteUserState> {
 						? 'There was an error processing your request'
 						: ''}
 				</ErrorText>
+				<CompanyUsers>
+					<UserItem>
+						<p>name</p>
+						<p>email</p>
+						<p>status</p>
+					</UserItem>
+					{companyUsers.map((companyUser: any, i) => (
+						<UserSingle key={i} user={companyUser} />
+					))}
+				</CompanyUsers>
 			</React.Fragment>
 		);
 	}
 }
 
-const mapStateToProps = ({ fetchingUserStatus }) => ({
-	fetchingUserStatus
+const mapStateToProps = ({ fetchingUserStatus, companyUsers }) => ({
+	fetchingUserStatus,
+	companyUsers
 });
 const mapDispatchToProps = (dispatch: any) => ({
 	actions: bindActionCreators({ userInvite, fetchCompanyUsers }, dispatch)
 });
 
-const InviteUserConnected = connect(
+const CompanyConnected = connect(
 	mapStateToProps,
 	mapDispatchToProps
-)(InviteUser);
+)(Company);
 
-export default InviteUserConnected;
+export default CompanyConnected;

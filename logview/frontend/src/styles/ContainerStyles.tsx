@@ -183,3 +183,13 @@ export const UserPopup = div`
 		color: #bebec5;
 	}
 `;
+
+export const CompanyUsers = Column.extend`
+	list-style-type: none;
+`;
+
+export const UserItem = styled.li`
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+`;

@@ -9,13 +9,11 @@ export function companyReducer(
 ): Array<CompanyState> {
 	switch (action.type) {
 		case constants.FETCH_COMPANY_USERS:
-			console.log(action);
 			return {
 				...state
-				// name: action.companyUsers.name,
-				// email: action.email,
-				// activation: action.activation
 			};
+		case constants.FETCH_COMPANY_USERS_SUCCESS:
+			return [...state, ...action.payload.company];
 		default:
 			return state;
 	}

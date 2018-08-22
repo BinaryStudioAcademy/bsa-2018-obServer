@@ -1,4 +1,5 @@
 import * as constants from './constants';
+import { CompanyState } from '../../types/CompanyState';
 
 export interface FetchCompanyUsers {
 	type: constants.FETCH_COMPANY_USERS;
@@ -10,6 +11,9 @@ export interface FetchCompanyUsersFail {
 
 export interface FetchCompanyUsersSuccess {
 	type: constants.FETCH_COMPANY_USERS_SUCCESS;
+	payload: {
+		company: Array<CompanyState>;
+	};
 }
 
 export type CompanyAction =
@@ -29,8 +33,11 @@ export function fetchCompanyUsersFail(): FetchCompanyUsersFail {
 	};
 }
 
-export function fetchCompanyUsersSuccess(): FetchCompanyUsersSuccess {
+export function fetchCompanyUsersSuccess(payload: {
+	company: Array<CompanyState>;
+}): FetchCompanyUsersSuccess {
 	return {
-		type: constants.FETCH_COMPANY_USERS_SUCCESS
+		type: constants.FETCH_COMPANY_USERS_SUCCESS,
+		payload
 	};
 }

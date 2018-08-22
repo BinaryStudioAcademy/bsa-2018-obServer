@@ -6,7 +6,7 @@ import Logs from '../Logs/Logs';
 import Profile from '../Profile/Profile';
 import HttpStats from '../HttpStats/HttpStats';
 import SocketStats from '../SocketStats/SocketStats';
-import InviteUser from '../InviteUser/InviteUser';
+import Company from '../Company/Company';
 import {
 	SideNav,
 	SideLink,
@@ -200,10 +200,7 @@ class Dashboard extends React.Component<DashboardProps, DashboardState> {
 						path={`${match.url}/socketstats`}
 						component={SocketStats}
 					/>
-					<Route
-						path={`${match.url}/company`}
-						component={InviteUser}
-					/>
+					<Route path={`${match.url}/company`} component={Company} />
 					<Route path={`${match.url}/profile`} component={Profile} />
 				</Main>
 			</DashboardBackground>
