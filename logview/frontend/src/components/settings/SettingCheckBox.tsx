@@ -11,7 +11,7 @@ interface SettingCheckBoxProps {
 	name?: string;
 	label?: string;
 	checked?: boolean;
-	onChange?: Function;
+	onChange?: any;
 }
 
 class SettingCheckBox extends React.Component<SettingCheckBoxProps, {}> {
@@ -23,6 +23,7 @@ class SettingCheckBox extends React.Component<SettingCheckBoxProps, {}> {
 						type="checkbox"
 						name={this.props.name}
 						checked={this.props.checked}
+						onChange={this.props.onChange}
 					/>
 					<CheckBoxSlider />
 				</CheckBoxSwitch>

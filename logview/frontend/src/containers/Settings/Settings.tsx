@@ -175,6 +175,8 @@ class Settings extends React.Component<SettingsFormProps, SettingsFormState> {
 						<SettingCheckBox
 							name="appsHttp"
 							label="Apps Http Stats"
+							checked={this.state.appsHttp}
+							onChange={this.handleChange}
 						/>
 						<SettingCheckBox
 							name="appsSoket"
