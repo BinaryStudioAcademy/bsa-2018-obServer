@@ -4,13 +4,14 @@ import * as constants from './constants';
 import { FetchLog } from './actions';
 import { getNewLog, getLogs } from 'src/services/websockets/logs';
 
-async function* fetchLog(action: FetchLog) {
+function* fetchLog(action: FetchLog) {
 	try {
 		console.log('SAGA');
-
 		const companyId = 'LOG_COLLECT_SECRET_TOKEN';
 		getLogs(companyId);
-		getNewLog();
+		getNewLog(log => {
+			console.log(log);
+		});
 		console.log('WAS SOCKET CALL');
 		//const newLog = yield call(getNewLog);
 
