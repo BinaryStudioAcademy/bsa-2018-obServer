@@ -15,11 +15,11 @@ import { History } from 'history';
 interface EmailTokenProps {
 	history: History;
 	actions: { userEmailActivation: Function };
+	isLoggedIn: boolean;
+	fetchingUserStatus: string;
 }
 
-interface EmailTokenState {
-	confirmed: boolean;
-}
+interface EmailTokenState {}
 
 class EmailTokenConfirm extends React.Component<
 	EmailTokenProps,
@@ -27,52 +27,55 @@ class EmailTokenConfirm extends React.Component<
 > {
 	constructor(props: any) {
 		super(props);
-
-		this.state = {
-			confirmed: false
-		};
+		this.state = {};
 	}
 
 	componentDidMount() {
 		this.props.actions.userEmailActivation(
 			this.props.history.location.search.split('=')[1]
 		);
-		this.setState({ confirmed: true });
 	}
 
 	render() {
+		const { isLoggedIn, fetchingUserStatus } = this.props;
 		return (
-			<PasswordResetContainer>
-				<PasswordWrapper>
-					{this.state.confirmed ? (
-						<React.Fragment>
-							<Title>Email Successfully Confirmed!</Title>
-							<p>Some sort of image will be here</p>
-							<Submit>
-								<Link to="/login">Proceed to Login</Link>
-							</Submit>
-						</React.Fragment>
-					) : (
-						<React.Fragment>
-							<div>
-								<Title>
-									Sorry, your email couldn't be confirmed!
-								</Title>
-								<CenteredText>
-									Try following the link again, please!
-								</CenteredText>
-							</div>
-							<p>Some sort of image will be here</p>
-						</React.Fragment>
-					)}
-				</PasswordWrapper>
-			</PasswordResetContainer>
+			(fetchingUserStatus === 'success' ||
+				fetchingUserStatus === 'failed') && (
+				<PasswordResetContainer>
+					<PasswordWrapper>
+						{isLoggedIn ? (
+							<React.Fragment>
+								<Title>Email Successfully Confirmed!</Title>
+								<p>Some sort of image will be here</p>
+								{/* <Submit> */}
+								<Link to="/dashboard/quickstart">
+									Proceed to Quickstart
+								</Link>
+								{/* </Submit> */}
+							</React.Fragment>
+						) : (
+							<React.Fragment>
+								<div>
+									<Title>
+										Sorry, your email couldn't be confirmed!
+									</Title>
+									<CenteredText>
+										Try following the link again, please!
+									</CenteredText>
+								</div>
+								<p>Some sort of image will be here</p>
+							</React.Fragment>
+						)}
+					</PasswordWrapper>
+				</PasswordResetContainer>
+			)
 		);
 	}
 }
 
-const mapStateToProps = ({ fetchingUserStatus }) => ({
-	fetchingUserStatus
+const mapStateToProps = ({ fetchingUserStatus, isLoggedIn }) => ({
+	fetchingUserStatus,
+	isLoggedIn
 });
 
 const mapDispatchToProps = (dispatch: any) => ({

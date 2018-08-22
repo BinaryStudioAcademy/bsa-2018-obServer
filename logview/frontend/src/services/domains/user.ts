@@ -2,6 +2,7 @@ import api from 'src/services/adapter';
 import {
 	UserState,
 	UserLoginState,
+	UserActivationState,
 	UserResetPasswordState,
 	UserChangePasswordState,
 	InviteUserState
@@ -44,10 +45,11 @@ export default {
 			newPassword
 		);
 	},
-	activateUser: (activationToken: string) => {
+	activateUser: (UserActivationState: UserActivationState) => {
 		return api.makeRequest(
-			`/api/user/activate/${activationToken}`,
-			api.requestType.POST
+			`/api/user/activate/${UserActivationState.activationToken}`,
+			api.requestType.POST,
+			UserActivationState
 		);
 	},
 	inviteUser: (invite: InviteUserState) => {
