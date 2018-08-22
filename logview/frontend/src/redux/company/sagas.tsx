@@ -20,6 +20,6 @@ function* fetchCompanyUsers(action: FetchCompanyUsers) {
 	}
 }
 
-export default function* userSaga() {
+export default function* companySaga() {
 	yield all([takeLatest(constants.FETCH_COMPANY_USERS, fetchCompanyUsers)]);
 }

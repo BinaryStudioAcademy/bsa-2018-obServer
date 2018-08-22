@@ -1,7 +1,6 @@
 import * as constants from './constants';
-import { CompanyState } from '../../types/CompanyState';
 
-export interface FetchCompanyUsers extends CompanyState {
+export interface FetchCompanyUsers {
 	type: constants.FETCH_COMPANY_USERS;
 }
 
@@ -18,24 +17,19 @@ export type CompanyAction =
 	| FetchCompanyUsersFail
 	| FetchCompanyUsersSuccess;
 
-export function FetchCompanyUsers(
-	company: string,
-	name: string[]
-): FetchCompanyUsers {
+export function fetchCompanyUsers(): FetchCompanyUsers {
 	return {
-		type: constants.FETCH_COMPANY_USERS,
-		company,
-		name
+		type: constants.FETCH_COMPANY_USERS
 	};
 }
 
-export function FetchCompanyUsersFail(): FetchCompanyUsersFail {
+export function fetchCompanyUsersFail(): FetchCompanyUsersFail {
 	return {
 		type: constants.FETCH_COMPANY_USERS_FAILED
 	};
 }
 
-export function FetchCompanyUsersSuccess(): FetchCompanyUsersSuccess {
+export function fetchCompanyUsersSuccess(): FetchCompanyUsersSuccess {
 	return {
 		type: constants.FETCH_COMPANY_USERS_SUCCESS
 	};

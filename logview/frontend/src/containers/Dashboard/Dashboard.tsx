@@ -150,8 +150,6 @@ class Dashboard extends React.Component<DashboardProps, DashboardState> {
 					</SideNav>
 					<UserBar>
 						<UserProfile>
-							{/* popup */}
-
 							<UserPopup
 								popup={this.state.popup}
 								onClick={this.togglePopup}
@@ -164,8 +162,8 @@ class Dashboard extends React.Component<DashboardProps, DashboardState> {
 											</Link>
 										</CommentText>
 										<CommentText>
-											<Link to={`${match.url}/invite`}>
-												invite user
+											<Link to={`${match.url}/company`}>
+												my company
 											</Link>
 										</CommentText>
 										<CommentText
@@ -203,7 +201,7 @@ class Dashboard extends React.Component<DashboardProps, DashboardState> {
 						component={SocketStats}
 					/>
 					<Route
-						path={`${match.url}/invite`}
+						path={`${match.url}/company`}
 						component={InviteUser}
 					/>
 					<Route path={`${match.url}/profile`} component={Profile} />

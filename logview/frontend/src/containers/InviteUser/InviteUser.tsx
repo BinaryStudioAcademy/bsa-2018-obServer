@@ -1,12 +1,13 @@
 import * as React from 'react';
 import { Input, Submit, ErrorText } from '../../styles/Styles';
+import { fetchCompanyUsers } from 'src/redux/company/actions';
 import { userInvite } from 'src/redux/user/actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { RouteComponentProps } from 'react-router-dom';
 
 interface LoginFormProps {
-	actions: { userInvite: Function };
+	actions: { userInvite: Function; fetchCompanyUsers: Function };
 	fetchingUserStatus: string;
 }
 
@@ -29,6 +30,10 @@ class InviteUser extends React.Component<LoginFormProps, InviteUserState> {
 		this.handleFieldChange = this.handleFieldChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.handleLogout = this.handleLogout.bind(this);
+	}
+
+	componentDidMount() {
+		this.props.actions.fetchCompanyUsers();
 	}
 
 	handleFieldChange(e: any) {
@@ -76,7 +81,7 @@ const mapStateToProps = ({ fetchingUserStatus }) => ({
 	fetchingUserStatus
 });
 const mapDispatchToProps = (dispatch: any) => ({
-	actions: bindActionCreators({ userInvite }, dispatch)
+	actions: bindActionCreators({ userInvite, fetchCompanyUsers }, dispatch)
 });
 
 const InviteUserConnected = connect(

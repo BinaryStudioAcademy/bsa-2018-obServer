@@ -3,32 +3,20 @@ import { CompanyAction } from './actions';
 import { CompanyState } from 'src/types/CompanyState';
 import { defaultState } from '../defaultState';
 
-export function userReducer(
-	state: CompanyState,
+export function companyReducer(
+	state: Array<CompanyState> = defaultState.companyUsers,
 	action: CompanyAction
-): CompanyState {
+): Array<CompanyState> {
 	switch (action.type) {
 		case constants.FETCH_COMPANY_USERS:
+			console.log(action);
 			return {
 				...state
-				// company: action.company,
-				// name: action.name,
+				// name: action.companyUsers.name,
+				// email: action.email,
+				// activation: action.activation
 			};
 		default:
 			return state;
 	}
 }
-/*
-[
-    {
-        "name": "bogus",
-        "email": "boguscompany@ukr.net",
-        "active": true
-    },
-    {
-        "name": "harry",
-        "email": "harry@ukr.net",
-        "active": false
-    }
- ]
-*/
