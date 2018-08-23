@@ -13,9 +13,9 @@ import {
 	Globe,
 	CheckSquare
 } from 'styled-icons/fa-solid';
-
+import { LoaderOval } from 'src/components/loaders';
+import { Title } from '../../styles/Styles';
 import SettingDataForm from 'src/components/settings/SettingDataForm';
-
 import { SettingsState } from 'src/types/SettingsState';
 
 import { changeSettings, fetchSettings } from 'src/redux/settings/actions';
@@ -54,15 +54,17 @@ class DataSettings extends React.Component<SettingsFormProps, SettingsState> {
 	}
 
 	render() {
-		return (
-			this.props.fetchingSettingsStatus === 'success' && (
-				<React.Fragment>
-					<SettingDataForm
-						settings={this.props.settings}
-						onSubmit={this.handleSubmit}
-					/>
-				</React.Fragment>
-			)
+		return this.props.fetchingSettingsStatus === 'success' ? (
+			<React.Fragment>
+				<Title>Data Settings</Title>
+				<div>&nbsp;</div>
+				<SettingDataForm
+					settings={this.props.settings}
+					onSubmit={this.handleSubmit}
+				/>
+			</React.Fragment>
+		) : (
+			<LoaderOval />
 		);
 	}
 }

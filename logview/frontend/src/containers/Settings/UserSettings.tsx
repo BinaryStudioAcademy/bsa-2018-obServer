@@ -6,7 +6,8 @@ import {
 	SettingInput,
 	SettingsSubmitButton
 } from 'src/styles/SettingsFormStyles';
-
+import { LoaderOval } from 'src/components/loaders';
+import { Title } from '../../styles/Styles';
 import { UserState } from 'src/types/UserState';
 import SettingUserForm from 'src/components/settings/SettingUserForm';
 import { userChange, fetchUser } from 'src/redux/user/actions';
@@ -39,15 +40,17 @@ class UserSettings extends React.Component<SettingsUserFormProps, UserState> {
 	}
 
 	render() {
-		return (
-			this.props.fetchingUserStatus === 'success' && (
-				<React.Fragment>
-					<SettingUserForm
-						user={this.props.user}
-						onSubmit={this.handleSubmit}
-					/>
-				</React.Fragment>
-			)
+		return this.props.fetchingUserStatus === 'success' ? (
+			<React.Fragment>
+				<Title>User Settings</Title>
+				<div>&nbsp;</div>
+				<SettingUserForm
+					user={this.props.user}
+					onSubmit={this.handleSubmit}
+				/>
+			</React.Fragment>
+		) : (
+			<LoaderOval />
 		);
 	}
 }

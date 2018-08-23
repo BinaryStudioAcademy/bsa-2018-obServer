@@ -170,7 +170,10 @@ export type UserAction =
 	| FetchUserSuccess
 	| ChangeUser
 	| ChangeUserFail
-	| ChangeUserSuccess;
+	| ChangeUserSuccess
+	| UserLogout
+	| UserLogoutFail
+	| UserLogoutSuccess;
 
 export function userRegister(
 	name: string = '',

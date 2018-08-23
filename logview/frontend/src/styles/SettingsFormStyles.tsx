@@ -88,6 +88,13 @@ gap: 10px;
 ${media.desktop`grid-template-columns: 1fr;`};
 }`;
 
+export const SettingFormGroupOneInput = styled.div`
+border-top: 3px solid ${background.switchOn}!important;
+background: #f1f1f1;
+padding: 15px;
+margin-bottom: 50px;
+}`;
+
 export const SettingFormGroupLabel = styled.label`
 	text-transform: uppercase;
 	font-size: 18px;
@@ -124,3 +131,8 @@ text-transform: uppercase;
 border: none;
 font-size: 18px;
 }`;
+
+export const ErrorInputSettings = styled.div`
+	text-transform: uppercase;
+	color: red;
+`;

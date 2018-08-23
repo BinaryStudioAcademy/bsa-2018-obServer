@@ -3,9 +3,11 @@ import SettingCheckBox from 'src/components/settings/SettingCheckBox';
 import {
 	SettingFormGroup,
 	SettingFormGroupInput,
+	SettingFormGroupOneInput,
 	SettingFormGroupLabel,
 	SettingInput,
-	SettingsSubmitButton
+	SettingsSubmitButton,
+	ErrorInputSettings
 } from 'src/styles/SettingsFormStyles';
 import {
 	Server,
@@ -22,13 +24,32 @@ interface SettingsFormProps {
 	onSubmit: Function;
 }
 
+interface SettingsDataState {
+	serverMemory?: boolean;
+	serverCPU?: boolean;
+	notificationServerIsDown?: boolean;
+	notificationHighRequest?: boolean;
+	appsMemory?: boolean;
+	appsCPU?: boolean;
+	appsErrorLog?: boolean;
+	appsHttp?: boolean;
+	appsSoket?: boolean;
+	listeningPorts?: string;
+	validPorts?: boolean;
+}
+
+const portsRegExp = /^[0-9]+(,[0-9]+)*$/;
+
 class SettingDataForm extends React.Component<
 	SettingsFormProps,
-	SettingsState
+	SettingsDataState
 > {
 	constructor(props) {
 		super(props);
-		this.state = this.props.settings;
+		this.state = {
+			...this.props.settings,
+			validPorts: true
+		};
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
 	}
@@ -46,7 +67,16 @@ class SettingDataForm extends React.Component<
 
 	handleSubmit(event: any) {
 		event.preventDefault();
-		this.props.onSubmit(this.state);
+		let testPorts;
+		this.state.listeningPorts === ''
+			? (testPorts = true)
+			: (testPorts = portsRegExp.test(this.state.listeningPorts));
+
+		this.setState({
+			validPorts: testPorts
+		});
+
+		if (testPorts) this.props.onSubmit(this.state);
 	}
 
 	render() {
@@ -131,14 +161,19 @@ class SettingDataForm extends React.Component<
 					<Globe size="18" style={{ marginRight: '10px' }} />
 					Ports
 				</SettingFormGroupLabel>
-				<SettingFormGroupInput>
+				<SettingFormGroupOneInput>
 					<SettingInput
 						type="text"
 						name="listeningPorts"
 						value={this.state.listeningPorts}
 						onChange={this.handleChange}
 					/>
-				</SettingFormGroupInput>
+					{!this.state.validPorts && (
+						<ErrorInputSettings>
+							Enter ports separated by commas: <i>8080,3060,80</i>
+						</ErrorInputSettings>
+					)}
+				</SettingFormGroupOneInput>
 
 				<SettingsSubmitButton
 					type="submit"
