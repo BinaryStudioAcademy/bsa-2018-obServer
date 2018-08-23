@@ -83,9 +83,11 @@ class Company extends React.Component<CompanyProps, CompanyState> {
 						<p>email</p>
 						<p>status</p>
 					</UserItem>
-					{companyUsers.map((companyUser: any, i) => (
-						<UserSingle key={i} user={companyUser} />
-					))}
+					{companyUsers.length > 1
+						? companyUsers.map((companyUser: any, i) => (
+								<UserSingle key={i} user={companyUser} />
+						  ))
+						: undefined}
 				</CompanyUsers>
 			</React.Fragment>
 		);

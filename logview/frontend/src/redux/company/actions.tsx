@@ -12,7 +12,7 @@ export interface FetchCompanyUsersFail {
 export interface FetchCompanyUsersSuccess {
 	type: constants.FETCH_COMPANY_USERS_SUCCESS;
 	payload: {
-		company: Array<CompanyState>;
+		users: Array<CompanyState>;
 	};
 }
 
@@ -34,7 +34,7 @@ export function fetchCompanyUsersFail(): FetchCompanyUsersFail {
 }
 
 export function fetchCompanyUsersSuccess(payload: {
-	company: Array<CompanyState>;
+	users: Array<CompanyState>;
 }): FetchCompanyUsersSuccess {
 	return {
 		type: constants.FETCH_COMPANY_USERS_SUCCESS,

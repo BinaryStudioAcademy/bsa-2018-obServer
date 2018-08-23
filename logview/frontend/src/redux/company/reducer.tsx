@@ -13,7 +13,7 @@ export function companyReducer(
 				...state
 			};
 		case constants.FETCH_COMPANY_USERS_SUCCESS:
-			return [...state, ...action.payload.company];
+			return [...state, ...action.payload.users];
 		default:
 			return state;
 	}
