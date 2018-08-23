@@ -1,13 +1,14 @@
 import * as React from 'react';
-import { Route, Link, RouteComponentProps, RouteProps } from 'react-router-dom';
+import { Route, Link, RouteComponentProps } from 'react-router-dom';
 import Quickstart from '../Quickstart/Quickstart';
 import Settings from '../Settings/Settings';
 import Logs from '../Logs/Logs';
+import Profile from '../Profile/Profile';
 import HttpStats from '../HttpStats/HttpStats';
 import SocketStats from '../SocketStats/SocketStats';
-import Profile from '../Profile/Profile';
 import UserSettings from '../Settings/UserSettings';
 import DataSettings from '../Settings/DataSettings';
+import InviteUser from '../InviteUser/InviteUser';
 import {
 	SideNav,
 	SideLink,
@@ -19,46 +20,83 @@ import {
 	NotificationIcon
 } from 'src/styles/Styles';
 import ServerResources from '../ServerResources/ServerResources';
+import { Dashboard as DashboardIcon } from 'styled-icons/material';
+import { FileAlt } from 'styled-icons/fa-regular';
+import { Server } from 'styled-icons/fa-solid';
+import { Settings as SettingsIcon } from 'styled-icons/feather';
+import { Terminal } from 'styled-icons/octicons';
+import { Http } from 'styled-icons/material';
+import { Superpowers } from 'styled-icons/fa-brands';
+import { UserPopup, Sidebar } from 'src/styles/ContainerStyles';
+import { CommentText, UserText } from '../../styles/TextStyles';
+import { userLogout } from 'src/redux/user/actions';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
 interface MatchParams {
-	name: string;
+	// name: string;
 }
 
 interface DashboardState {
 	active?: string;
+	popup?: boolean;
 }
 
-interface DashboardProps extends RouteComponentProps<MatchParams> {}
+interface DashboardProps extends RouteComponentProps<MatchParams> {
+	actions: { userLogout: Function };
+}
 
 class Dashboard extends React.Component<DashboardProps, DashboardState> {
 	constructor(props: DashboardProps) {
 		super(props);
 
 		this.state = {
-			active: ''
+			active: '',
+			popup: false
 		};
 
 		this.setActive = this.setActive.bind(this);
+		this.togglePopup = this.togglePopup.bind(this);
+		this.handleLogout = this.handleLogout.bind(this);
 	}
 
 	setActive(active) {
 		this.setState({ active });
 	}
 
+	togglePopup() {
+		this.setState({ popup: !this.state.popup });
+	}
+
+	handleLogout() {
+		this.props.actions.userLogout(sessionStorage.getItem('user'));
+	}
+
 	render() {
 		const { match, location } = this.props;
+		const user = sessionStorage.getItem('observerUser');
 		return (
 			<DashboardBackground>
-				<SideNav>
-					<div>
-						<Title>obServer</Title>
+				<Sidebar>
+					<SideNav>
+						<Title>
+							obServer
+							<NotificationIcon size="18px" />
+						</Title>
 						<div>
+							<SideLink
+								active={location.pathname === '/dashboard'}
+							>
+								<DashboardIcon size="20px" />
+								<Link to={`${match.url}`}>dashboard</Link>
+							</SideLink>
 							<SideLink
 								active={
 									location.pathname ===
 									'/dashboard/quickstart'
 								}
 							>
+								<FileAlt size="20px" />
 								<Link to={`${match.url}/quickstart`}>
 									quickstart
 								</Link>
@@ -68,6 +106,7 @@ class Dashboard extends React.Component<DashboardProps, DashboardState> {
 									location.pathname === '/dashboard/settings'
 								}
 							>
+								<SettingsIcon size="20px" />
 								<Link to={`${match.url}/settings`}>
 									settings
 								</Link>
@@ -75,6 +114,7 @@ class Dashboard extends React.Component<DashboardProps, DashboardState> {
 							<SideLink
 								active={location.pathname === '/dashboard/logs'}
 							>
+								<Terminal size="20px" />
 								<Link to={`${match.url}/logs`}>logs</Link>
 							</SideLink>
 							<SideLink
@@ -82,6 +122,7 @@ class Dashboard extends React.Component<DashboardProps, DashboardState> {
 									location.pathname === '/dashboard/resources'
 								}
 							>
+								<Server size="20px" />
 								<Link to={`${match.url}/resources`}>
 									resources
 								</Link>
@@ -91,6 +132,7 @@ class Dashboard extends React.Component<DashboardProps, DashboardState> {
 									location.pathname === '/dashboard/httpstats'
 								}
 							>
+								<Http size="20px" />
 								<Link to={`${match.url}/httpstats`}>
 									http stats
 								</Link>
@@ -101,27 +143,47 @@ class Dashboard extends React.Component<DashboardProps, DashboardState> {
 									'/dashboard/socketstats'
 								}
 							>
+								<Superpowers size="20px" />
 								<Link to={`${match.url}/socketstats`}>
 									socket stats
 								</Link>
 							</SideLink>
 						</div>
-					</div>
+					</SideNav>
 					<UserBar>
 						<UserProfile>
-							<SideLink
-								active={
-									location.pathname === '/dashboard/profile'
-								}
+							{/* popup */}
+
+							<UserPopup
+								popup={this.state.popup}
+								onClick={this.togglePopup}
 							>
-								<Link to={`${match.url}/profile`}>
-									Harry Pankiv
-								</Link>
-							</SideLink>
+								{this.state.popup && (
+									<React.Fragment>
+										<CommentText>
+											<Link to={`${match.url}/profile`}>
+												profile
+											</Link>
+										</CommentText>
+										<CommentText>
+											<Link to={`${match.url}/invite`}>
+												invite user
+											</Link>
+										</CommentText>
+										<CommentText
+											onClick={this.handleLogout}
+										>
+											<span>logout</span>
+										</CommentText>
+									</React.Fragment>
+								)}
+								<UserText>
+									{/* Causes TS error {user.name} */}
+								</UserText>
+							</UserPopup>
 						</UserProfile>
-						<NotificationIcon size="20px" />
 					</UserBar>
-				</SideNav>
+				</Sidebar>
 				<Main>
 					<Route
 						path={`${match.url}/quickstart`}
@@ -155,6 +217,10 @@ class Dashboard extends React.Component<DashboardProps, DashboardState> {
 						path={`${match.url}/socketstats`}
 						component={SocketStats}
 					/>
+					<Route
+						path={`${match.url}/invite`}
+						component={InviteUser}
+					/>
 					<Route path={`${match.url}/profile`} component={Profile} />
 				</Main>
 			</DashboardBackground>
@@ -162,4 +228,17 @@ class Dashboard extends React.Component<DashboardProps, DashboardState> {
 	}
 }
 
-export default Dashboard;
+const mapStateToProps = ({ fetchingUserStatus }) => ({
+	fetchingUserStatus
+});
+
+const mapDispatchToProps = (dispatch: any) => ({
+	actions: bindActionCreators({ userLogout }, dispatch)
+});
+
+const DashboardConnected = connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(Dashboard);
+
+export default DashboardConnected;

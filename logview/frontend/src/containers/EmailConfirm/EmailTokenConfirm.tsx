@@ -11,6 +11,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { userEmailActivation } from 'src/redux/user/actions';
 import { History } from 'history';
+import queryString from 'query-string';
 
 interface EmailTokenProps {
 	history: History;
@@ -32,7 +33,7 @@ class EmailTokenConfirm extends React.Component<
 
 	componentDidMount() {
 		this.props.actions.userEmailActivation(
-			this.props.history.location.search.split('=')[1]
+			queryString.parse(location.search).resetToken
 		);
 	}
 
