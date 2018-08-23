@@ -6,8 +6,9 @@ export interface ChangeSettings extends SettingsState {
 	type: constants.CHANGE_SETTINGS;
 }
 
-export interface ChangeSettingsSuccess extends SettingsState {
+export interface ChangeSettingsSuccess {
 	type: constants.CHANGE_SETTINGS_SUCCESS;
+	payload: SettingsState;
 }
 
 export interface ChangeSettingsFail {
@@ -19,8 +20,9 @@ export interface FetchSettings {
 	type: constants.FETCH_SETTINGS;
 }
 
-export interface FetchSettingsSuccess extends SettingsState {
+export interface FetchSettingsSuccess {
 	type: constants.FETCH_SETTINGS_SUCCESS;
+	payload: SettingsState;
 }
 
 export interface FetchSettingsFail {
@@ -62,32 +64,8 @@ export function changeSettings(
 	};
 }
 
-export function changeSettingsSuccess(): ChangeSettingsSuccess {
-	return {
-		type: constants.CHANGE_SETTINGS_SUCCESS
-	};
-}
-
-export function changeSettingsFail(): ChangeSettingsFail {
-	return {
-		type: constants.CHANGE_SETTINGS_FAILED
-	};
-}
-
 export function fetchSettings(): FetchSettings {
 	return {
 		type: constants.FETCH_SETTINGS
-	};
-}
-
-export function fetchSettingsFail(): FetchSettingsFail {
-	return {
-		type: constants.FETCH_SETTINGS_FAILED
-	};
-}
-
-export function fetchSettingsSuccess(): FetchSettingsSuccess {
-	return {
-		type: constants.FETCH_SETTINGS_SUCCESS
 	};
 }

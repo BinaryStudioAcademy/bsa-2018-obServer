@@ -3,7 +3,8 @@ import { SettingsState } from './SettingsState';
 
 export interface StoreState {
 	user: UserState;
-	settings: SettingsState;
 	fetchingUserStatus: string;
+	settings: SettingsState;
+	fetchingSettingsStatus: string;
 	isLoggedIn: boolean;
 }

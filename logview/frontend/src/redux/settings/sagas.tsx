@@ -35,11 +35,10 @@ function* changeSettings(action: ChangeSettings) {
 function* fetchSettings(action: FetchSettings) {
 	try {
 		const currentSettings = yield call(settingsAPI.fetchSettings);
-
 		yield put({
 			type: constants.FETCH_SETTINGS_SUCCESS,
 			payload: {
-				...currentSettings
+				...currentSettings.data
 			}
 		});
 	} catch (error) {

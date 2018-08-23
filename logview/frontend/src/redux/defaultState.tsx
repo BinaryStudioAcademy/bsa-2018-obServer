@@ -20,5 +20,6 @@ export const defaultState: StoreState = {
 		listeningPorts: undefined
 	},
 	fetchingUserStatus: 'unstarted',
+	fetchingSettingsStatus: 'unstarted',
 	isLoggedIn: false
 };

@@ -9,34 +9,40 @@ export function settingsReducer(
 ): SettingsState {
 	switch (action.type) {
 		case constants.CHANGE_SETTINGS_SUCCESS:
-		case constants.FETCH_SETTINGS_SUCCESS:
+		case constants.FETCH_SETTINGS_SUCCESS: {
+			console.log(action.payload.serverMemory);
 			return {
 				...state,
-				serverMemory: action.serverMemory,
-				serverCPU: action.serverCPU,
-				notificationServerIsDown: action.notificationServerIsDown,
-				notificationHighRequest: action.notificationHighRequest,
-				appsMemory: action.appsMemory,
-				appsCPU: action.appsCPU,
-				appsErrorLog: action.appsErrorLog,
-				appsHttp: action.appsHttp,
-				appsSoket: action.appsSoket,
-				listeningPorts: action.listeningPorts
+				serverMemory: action.payload.serverMemory,
+				serverCPU: action.payload.serverCPU,
+				notificationServerIsDown:
+					action.payload.notificationServerIsDown,
+				notificationHighRequest: action.payload.notificationHighRequest,
+				appsMemory: action.payload.appsMemory,
+				appsCPU: action.payload.appsCPU,
+				appsErrorLog: action.payload.appsErrorLog,
+				appsHttp: action.payload.appsHttp,
+				appsSoket: action.payload.appsSoket,
+				listeningPorts: action.payload.listeningPorts
 			};
+		}
 		default:
 			return state;
 	}
 }
 
-export function fetchingState(state = 'unstarted', action: SettingsAction) {
+export function fetchingSettingsReducer(
+	state = 'unstarted',
+	action: SettingsAction
+) {
 	switch (action.type) {
 		case constants.FETCH_SETTINGS_SUCCESS:
-		case constants.CHANGE_SETTINGS_SUCCESS:
+			//case constants.CHANGE_SETTINGS_SUCCESS:
 			return 'success';
 		case constants.FETCH_SETTINGS_FAILED:
-		case constants.CHANGE_SETTINGS_FAILED:
+			//case constants.CHANGE_SETTINGS_FAILED:
 			return 'failed';
-		case constants.CHANGE_SETTINGS:
+		//case constants.CHANGE_SETTINGS:
 		case constants.FETCH_SETTINGS:
 			return 'pending';
 		default:
