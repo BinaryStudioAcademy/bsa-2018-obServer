@@ -49,7 +49,6 @@ export function changeSettings(
 	appsSoket: boolean,
 	listeningPorts: string
 ): ChangeSettings {
-	console.log('sss', arguments);
 	return {
 		type: constants.CHANGE_SETTINGS,
 		serverMemory,

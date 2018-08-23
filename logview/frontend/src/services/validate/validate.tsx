@@ -34,3 +34,17 @@ export function validateForm(obj: {
 	}
 	return res;
 }
+
+export function validateUserSetingForm(obj: { name: string; company: string }) {
+	let res: {
+		name: boolean;
+		company: boolean;
+	} = {
+		name: false,
+		company: false
+	};
+	for (let el in obj) {
+		res[el] = validate(el, obj[el]);
+	}
+	return res;
+}

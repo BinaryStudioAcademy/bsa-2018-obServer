@@ -2,7 +2,6 @@ import * as React from 'react';
 import SettingCheckBox from 'src/components/settings/SettingCheckBox';
 import {
 	SettingFormGroup,
-	SettingFormGroupInput,
 	SettingFormGroupOneInput,
 	SettingFormGroupLabel,
 	SettingInput,
@@ -68,7 +67,7 @@ class SettingDataForm extends React.Component<
 	handleSubmit(event: any) {
 		event.preventDefault();
 		let testPorts;
-		this.state.listeningPorts === ''
+		this.state.listeningPorts === '' || this.state.listeningPorts === null
 			? (testPorts = true)
 			: (testPorts = portsRegExp.test(this.state.listeningPorts));
 
