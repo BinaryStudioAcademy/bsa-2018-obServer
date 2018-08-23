@@ -11,7 +11,6 @@ module.exports = (io, port) => {
 
 		socket.on('getLogs', (companyId, response) => {
 			aggrStoreSocket.emit('getLogs', companyId, logs => {
-				console.log(logs);
 				response(logs);
 			});
 			socket.join(companyId);
