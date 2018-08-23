@@ -1,6 +1,7 @@
 import api from 'src/services/adapter';
 import {
 	UserState,
+	UserRegisterState,
 	UserLoginState,
 	UserActivationState,
 	UserResetPasswordState,
@@ -9,7 +10,7 @@ import {
 } from '../../types/UserState';
 
 export default {
-	registerUser: (user: UserState) => {
+	registerUser: (user: UserRegisterState) => {
 		return api.makeRequest(`/api/user`, api.requestType.POST, user);
 	},
 	loginUser: (loginData: UserLoginState) => {

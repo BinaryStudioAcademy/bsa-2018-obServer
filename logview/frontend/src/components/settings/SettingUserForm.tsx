@@ -72,8 +72,7 @@ class SettingUserForm extends React.Component<
 					Credentials Settings
 				</SettingFormGroupLabel>
 				<SettingFormGroup>
-					<span>410e43a3-75f1-415f-bd5d-26757a47a58b</span> - your
-					secret key
+					<span>{this.state.companyId}</span> - your secret key
 				</SettingFormGroup>
 
 				<SettingsSubmitButton

@@ -30,8 +30,8 @@ class UserSettings extends React.Component<SettingsUserFormProps, UserState> {
 		await this.props.actions.userChange(
 			state.name,
 			state.email,
-			state.password,
-			state.company
+			state.company,
+			state.companyId
 		);
 	}
 

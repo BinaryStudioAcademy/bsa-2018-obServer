@@ -90,8 +90,16 @@ router.put(
 	isLoggedInMiddlewre,
 	async (req, res, next) => {
 		try {
-			const data = await userService.update(req.user.id, req.body);
-			res.data = data;
+			await userService.update(req.user.id, { name: req.body.name });
+			await companyService.update(req.user.companyId, {
+				name: req.body.company
+			});
+			res.data = {
+				name: req.body.name,
+				email: req.body.email,
+				company: req.body.company,
+				companyId: req.body.companyId
+			};
 			res.err = null;
 		} catch (error) {
 			res.data = null;

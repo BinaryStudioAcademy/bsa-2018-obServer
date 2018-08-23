@@ -1,13 +1,14 @@
 import * as constants from './constants';
 import {
 	UserState,
+	UserRegisterState,
 	UserLoginState,
 	UserResetPasswordState,
 	UserChangePasswordState
 } from '../../types/UserState';
 
 /* user register */
-export interface UserRegister extends UserState {
+export interface UserRegister extends UserRegisterState {
 	type: constants.USER_REGISTER;
 }
 
@@ -193,15 +194,15 @@ export function userRegister(
 export function userChange(
 	name: string = '',
 	email: string = '',
-	password: string = '',
-	company: string = ''
+	company: string = '',
+	companyId: string = ''
 ): ChangeUser {
 	return {
 		type: constants.CHANGE_USER,
 		name,
 		email,
-		password,
-		company
+		company,
+		companyId
 	};
 }
 

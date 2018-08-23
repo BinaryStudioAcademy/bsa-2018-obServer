@@ -14,16 +14,15 @@ export function userReducer(
 			console.log('userReducer', action);
 			return {
 				...state,
-				company: action.payload.company,
 				name: action.payload.name,
 				email: action.payload.email,
-				password: action.payload.password
+				company: action.payload.company,
+				companyId: action.payload.companyId
 			};
 		case constants.USER_LOGIN_SUCCESS:
 			return {
 				...state,
-				email: action.payload.email,
-				password: action.payload.password
+				email: action.payload.email
 			};
 		default:
 			return state;

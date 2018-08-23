@@ -185,8 +185,8 @@ function* userChange(action: ChangeUser) {
 		const currentUser = yield call(userAPI.updateLoggedInUser, {
 			name: action.name,
 			email: action.email,
-			password: action.password,
-			company: action.company
+			company: action.company,
+			companyId: action.companyId
 		});
 
 		yield put({
