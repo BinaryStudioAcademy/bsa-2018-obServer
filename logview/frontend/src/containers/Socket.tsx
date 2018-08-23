@@ -1,18 +1,17 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { fetchLog } from 'src/redux/log/actions';
+import { getLogs, getNewCpuLog, getNewMemoryLog } from 'src/redux/logs/actions';
+import { CpuLogState, MemoryLogState } from 'src/types/LogsState';
 
 interface FetchLogsProps {
-	actions: { fetchLog: Function; fetchLogSuccess: Function };
-	logs: [
-		{
-			logType: string;
-			data: { message: string; status: string };
-			timestamp: number;
-			serverId: number;
-		}
-	];
+	actions: {
+		getLogs: Function;
+		getNewCpuLog: Function;
+		getNewMemoryLog: Function;
+	};
+	memoryLogsState: Array<MemoryLogState>;
+	cpuLogsState: Array<CpuLogState>;
 }
 
 interface FetchLogsState {
@@ -26,27 +25,52 @@ class FetchLogs extends React.Component<FetchLogsProps, FetchLogsState> {
 		this.state = {
 			fetching: ''
 		};
+
+		this.handleClick = this.handleClick.bind(this);
 	}
 
 	componentDidMount() {
-		this.props.actions.fetchLog();
+		// this.props.actions.getLogs();
+	}
+
+	handleClick() {
+		this.props.actions.getNewCpuLog();
+		this.props.actions.getNewMemoryLog();
 	}
 
 	render() {
-		const { logs } = this.props;
+		const { cpuLogsState, memoryLogsState } = this.props;
+		console.log(this.props);
 		return (
 			<React.Fragment>
+				<button onClick={this.handleClick}>click me</button>
 				SOCKETS DATA:
-				{logs ? (
-					logs.map(log => {
+				{cpuLogsState ? (
+					cpuLogsState.map(log => {
 						return (
 							<div key={log.timestamp}>
 								<p>Log Type: {log.logType}</p>
 								<p>Log Timestamp: {log.timestamp}</p>
 								<p>Log Data:</p>
-								<p> message: {log.data.message}</p>
-								<p> status: {log.data.status}</p>
-								<p>Log Timestamp: {log.serverId}</p>
+								{/* <p> message: {log.data}</p> */}
+								{/* <p> status: {log.data}</p> */}
+								<p>serverId: {log.companyToken}</p>
+							</div>
+						);
+					})
+				) : (
+					<p>no data</p>
+				)}
+				{memoryLogsState ? (
+					memoryLogsState.map(log => {
+						return (
+							<div key={log.timestamp}>
+								<p>Log Type: {log.logType}</p>
+								<p>Log Timestamp: {log.timestamp}</p>
+								<p>Log Data:</p>
+								{/* <p> message: {log.data.cores[0].coreLoadPercentages}</p> */}
+								{/* <p> status: {log.data.cores[0].coreName}</p> */}
+								<p>Company Token: {log.companyToken}</p>
 							</div>
 						);
 					})
@@ -58,13 +82,17 @@ class FetchLogs extends React.Component<FetchLogsProps, FetchLogsState> {
 	}
 }
 
-const mapStateToProps = ({ fetching, logs }) => ({
+const mapStateToProps = ({ fetching, cpuLogs, memoryLogs }) => ({
 	fetching,
-	logs
+	cpuLogs,
+	memoryLogs
 });
 
 const mapDispatchToProps = (dispatch: any) => ({
-	actions: bindActionCreators({ fetchLog }, dispatch)
+	actions: bindActionCreators(
+		{ getLogs, getNewCpuLog, getNewMemoryLog },
+		dispatch
+	)
 });
 
 const LogsConnected = connect(

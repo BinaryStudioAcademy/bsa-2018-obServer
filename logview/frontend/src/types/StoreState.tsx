@@ -1,12 +1,10 @@
 import { UserState, UserLoginState } from './UserState';
-import { LogsState } from './LogsState';
-import { LogState } from './LogState';
+import { CpuLogState, MemoryLogState } from './LogsState';
 
 export interface StoreState {
 	user: UserState;
-	logs: LogsState;
-	log: LogState;
+	cpuLogs: Array<CpuLogState>;
+	memoryLogs: Array<MemoryLogState>;
 	fetchingUserStatus: string;
-	fetchingLogStatus: string;
 	isLoggedIn: boolean;
 }
