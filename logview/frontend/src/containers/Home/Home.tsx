@@ -24,8 +24,6 @@ class Home extends React.Component<HomeProps, HomeState> {
 	}
 
 	render() {
-		console.log(this.props);
-		console.log(sessionStorage);
 		return (
 			<React.Fragment>
 				<div style={{ background: '#fff', padding: '10px' }}>

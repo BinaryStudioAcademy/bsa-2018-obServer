@@ -62,11 +62,11 @@ class RegisterForm extends React.Component<RegFormProps, RegFormState> {
 
 		let validateState = validateForm(obj);
 		this.setState({ validateState: validateState });
-		let arr = [];
-		for (let field in validateState) {
-			arr.push(validateState[field]);
+		let errors = [];
+		for (let errorStatus in validateState) {
+			errors.push(validateState[errorStatus]);
 		}
-		arr.indexOf(false) ? this.props.onSubmit(obj) : undefined;
+		errors.indexOf(false) ? this.props.onSubmit(obj) : undefined;
 	}
 
 	render() {
@@ -85,9 +85,7 @@ class RegisterForm extends React.Component<RegFormProps, RegFormState> {
 					placeholder="Name"
 					onChange={this.handleFieldChange}
 				/>
-				{this.state.validateState.name ? (
-					undefined
-				) : (
+				{!this.state.validateState.name && (
 					<ErrorText>Name can only contain letters</ErrorText>
 				)}
 				<Input
