@@ -6,17 +6,16 @@ import {
 	SettingInput,
 	SettingsSubmitButton
 } from 'src/styles/SettingsFormStyles';
-import { User, UserSecret, CheckSquare } from 'styled-icons/fa-solid';
 
 import { UserState } from 'src/types/UserState';
 import SettingUserForm from 'src/components/settings/SettingUserForm';
-import { userRegister } from 'src/redux/user/actions';
+import { userChange, fetchUser } from 'src/redux/user/actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 interface SettingsUserFormProps {
 	user: UserState;
-	actions: { userRegister: Function };
+	actions: { userChange: Function; fetchUser: Function };
 	fetchingUserStatus: string;
 }
 
@@ -26,18 +25,29 @@ class UserSettings extends React.Component<SettingsUserFormProps, UserState> {
 		this.handleSubmit = this.handleSubmit.bind(this);
 	}
 
-	async handleSubmit() {
-		await this.props.actions.userRegister(this.state);
+	async handleSubmit(state: UserState) {
+		await this.props.actions.userChange(
+			state.name,
+			state.email,
+			state.password,
+			state.company
+		);
+	}
+
+	async componentDidMount() {
+		await this.props.actions.fetchUser();
 	}
 
 	render() {
 		return (
-			<React.Fragment>
-				<SettingUserForm
-					user={this.props.user}
-					onSubmit={this.handleSubmit}
-				/>
-			</React.Fragment>
+			this.props.fetchingUserStatus === 'success' && (
+				<React.Fragment>
+					<SettingUserForm
+						user={this.props.user}
+						onSubmit={this.handleSubmit}
+					/>
+				</React.Fragment>
+			)
 		);
 	}
 }
@@ -47,7 +57,7 @@ const mapStateToProps = ({ fetchingUserStatus, user }) => ({
 	user
 });
 const mapDispatchToProps = (dispatch: any) => ({
-	actions: bindActionCreators({ userRegister }, dispatch)
+	actions: bindActionCreators({ userChange, fetchUser }, dispatch)
 });
 
 const UserSettingsConnected = connect(

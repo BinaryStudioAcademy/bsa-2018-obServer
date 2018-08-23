@@ -18,11 +18,10 @@ function* changeSettings(action: ChangeSettings) {
 			appsSoket: action.appsSoket,
 			listeningPorts: action.listeningPorts
 		});
-
 		yield put({
 			type: constants.CHANGE_SETTINGS_SUCCESS,
 			payload: {
-				...currentSettings
+				...currentSettings.data
 			}
 		});
 	} catch (error) {

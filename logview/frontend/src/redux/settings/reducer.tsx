@@ -10,7 +10,6 @@ export function settingsReducer(
 	switch (action.type) {
 		case constants.CHANGE_SETTINGS_SUCCESS:
 		case constants.FETCH_SETTINGS_SUCCESS: {
-			console.log(action.payload.serverMemory);
 			return {
 				...state,
 				serverMemory: action.payload.serverMemory,
@@ -37,12 +36,12 @@ export function fetchingSettingsReducer(
 ) {
 	switch (action.type) {
 		case constants.FETCH_SETTINGS_SUCCESS:
-			//case constants.CHANGE_SETTINGS_SUCCESS:
+		case constants.CHANGE_SETTINGS_SUCCESS:
 			return 'success';
 		case constants.FETCH_SETTINGS_FAILED:
-			//case constants.CHANGE_SETTINGS_FAILED:
+		case constants.CHANGE_SETTINGS_FAILED:
 			return 'failed';
-		//case constants.CHANGE_SETTINGS:
+		case constants.CHANGE_SETTINGS:
 		case constants.FETCH_SETTINGS:
 			return 'pending';
 		default:

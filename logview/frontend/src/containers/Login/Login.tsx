@@ -22,7 +22,6 @@ interface LoginFormProps {
 class Login extends React.Component<LoginFormProps, {}> {
 	constructor(props: any) {
 		super(props);
-
 		this.handleSubmit = this.handleSubmit.bind(this);
 	}
 

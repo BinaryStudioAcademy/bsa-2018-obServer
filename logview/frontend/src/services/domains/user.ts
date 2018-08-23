@@ -25,8 +25,21 @@ export default {
 			updatedData
 		);
 	},
+	updateLoggedInUser: (updatedData: UserState) => {
+		return api.makeRequest(
+			`/api/user/current/loggedin`,
+			api.requestType.PUT,
+			updatedData
+		);
+	},
 	fetchUser: (id: string) => {
 		return api.makeRequest(`/api/user/${id}`, api.requestType.GET);
+	},
+	fetchLoggedInUser: () => {
+		return api.makeRequest(
+			`/api/user/current/loggedin`,
+			api.requestType.GET
+		);
 	},
 	resetPasswordEmail: (email: UserResetPasswordState) => {
 		return api.makeRequest(

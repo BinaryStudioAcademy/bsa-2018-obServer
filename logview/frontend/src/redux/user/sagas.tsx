@@ -9,7 +9,9 @@ import {
 	UserResetPassword,
 	UserEmailActivation,
 	UserInvite,
-	UserSetPassword
+	UserSetPassword,
+	ChangeUser,
+	FetchUser
 } from './actions';
 import { push } from 'connected-react-router';
 import * as constants from './constants';
@@ -26,7 +28,7 @@ function* userRegister(action: UserRegister) {
 		yield put({
 			type: constants.USER_REGISTER_SUCCESS,
 			payload: {
-				...currentUser
+				...currentUser.data
 			}
 		});
 
@@ -178,6 +180,44 @@ function* userSetPassword(action: UserSetPassword) {
 	}
 }
 
+function* userChange(action: ChangeUser) {
+	try {
+		const currentUser = yield call(userAPI.updateLoggedInUser, {
+			name: action.name,
+			email: action.email,
+			password: action.password,
+			company: action.company
+		});
+
+		yield put({
+			type: constants.CHANGE_USER_SUCCESS,
+			payload: {
+				...currentUser.data
+			}
+		});
+	} catch (error) {
+		yield put({
+			type: constants.CHANGE_USER_FAILED
+		});
+	}
+}
+
+function* fetchUser(action: FetchUser) {
+	try {
+		const currentUser = yield call(userAPI.fetchLoggedInUser);
+		yield put({
+			type: constants.FETCH_USER_SUCCESS,
+			payload: {
+				...currentUser.data
+			}
+		});
+	} catch (error) {
+		yield put({
+			type: constants.FETCH_USER_FAILED
+		});
+	}
+}
+
 export default function* userSaga() {
 	yield all([
 		takeLatest(constants.USER_REGISTER, userRegister),
@@ -187,6 +227,8 @@ export default function* userSaga() {
 		takeLatest(constants.USER_RESET_PASSWORD, userResetPassword),
 		takeLatest(constants.USER_EMAIL_ACTIVATION, userEmailActivation),
 		takeLatest(constants.USER_INVITE, userInvite),
-		takeLatest(constants.USER_SET_PASSWORD, userSetPassword)
+		takeLatest(constants.USER_SET_PASSWORD, userSetPassword),
+		takeLatest(constants.CHANGE_USER, userChange),
+		takeLatest(constants.FETCH_USER, fetchUser)
 	]);
 }
