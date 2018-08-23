@@ -1,5 +1,4 @@
 import { StoreState } from 'src/types/StoreState';
-import { LogState } from '../types/LogState';
 
 export const defaultState: StoreState = {
 	user: {
@@ -9,24 +8,35 @@ export const defaultState: StoreState = {
 		company: ''
 	},
 
-	log: {
-		logType: '',
-		data: { message: '', status: '' },
-		timestamp: -1,
-		serverId: -1
-	},
-
-	logs: [
+	cpuLogs: [
 		{
 			logType: '',
-			data: { message: '', status: '' },
-			timestamp: -1,
+			data: {
+				cores: [
+					{
+						coreLoadPercentages: 0,
+						coreName: 'core0'
+					}
+				]
+			},
+			timestamp: '',
 			serverId: -1
 		}
 	],
 
-	fetchingUserStatus: 'unstarted',
+	memoryLogs: [
+		{
+			logType: '',
+			data: {
+				allMemory: 0,
+				freeMemory: 0,
+				freeMemoryPercentage: 0
+			},
+			timestamp: '',
+			companyToken: ''
+		}
+	],
 
-	fetchingLogStatus: 'unstarted',
+	fetchingUserStatus: 'unstarted',
 	isLoggedIn: false
 };
