@@ -32,7 +32,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 interface MatchParams {
-	name: string;
+	// name: string;
 }
 
 interface DashboardState {
@@ -72,7 +72,7 @@ class Dashboard extends React.Component<DashboardProps, DashboardState> {
 
 	render() {
 		const { match, location } = this.props;
-		const user = JSON.parse(sessionStorage.getItem('user'));
+		const user = sessionStorage.getItem('observerUser');
 		return (
 			<DashboardBackground>
 				<Sidebar>
@@ -175,7 +175,9 @@ class Dashboard extends React.Component<DashboardProps, DashboardState> {
 										</CommentText>
 									</React.Fragment>
 								)}
-								<UserText>{user.name}</UserText>
+								<UserText>
+									{/* Causes TS error {user.name} */}
+								</UserText>
 							</UserPopup>
 						</UserProfile>
 					</UserBar>
