@@ -4,10 +4,8 @@ import {
 	SettingFormGroupInput,
 	SettingFormGroupLabel,
 	SettingInput,
-	SettingsSubmitButton,
-	ErrorInputSettings
+	SettingsSubmitButton
 } from 'src/styles/SettingsFormStyles';
-import { validateUserSetingForm } from 'src/services/validate/validate';
 import { User, UserSecret, CheckSquare } from 'styled-icons/fa-solid';
 import { UserState } from 'src/types/UserState';
 
@@ -16,10 +14,6 @@ interface SettingsUserState {
 	email?: string;
 	company?: string;
 	companyId?: string;
-	validateState?: {
-		name: boolean;
-		company: boolean;
-	};
 }
 
 interface SettingsUserFormProps {
@@ -34,11 +28,7 @@ class SettingUserForm extends React.Component<
 	constructor(props) {
 		super(props);
 		this.state = {
-			...this.props.user,
-			validateState: {
-				name: true,
-				company: true
-			}
+			...this.props.user
 		};
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
@@ -57,18 +47,7 @@ class SettingUserForm extends React.Component<
 
 	handleSubmit(event: any) {
 		event.preventDefault();
-		let obj = {
-			name: this.state.name,
-			company: this.state.company
-		};
-
-		let validateState = validateUserSetingForm(obj);
-		this.setState({ validateState: validateState });
-		let errors = [];
-		for (let errorStatus in validateState) {
-			errors.push(validateState[errorStatus]);
-		}
-		errors.indexOf(false) ? undefined : this.props.onSubmit(obj);
+		this.props.onSubmit(this.state);
 	}
 
 	render() {
@@ -93,16 +72,6 @@ class SettingUserForm extends React.Component<
 						value={this.state.company}
 						onChange={this.handleChange}
 					/>
-					{!this.state.validateState.name && (
-						<ErrorInputSettings>
-							Name can only contain letters
-						</ErrorInputSettings>
-					)}
-					{!this.state.validateState.company && (
-						<ErrorInputSettings>
-							Company should be at least 3 characters long
-						</ErrorInputSettings>
-					)}
 				</SettingFormGroupInput>
 
 				<SettingFormGroupLabel>
