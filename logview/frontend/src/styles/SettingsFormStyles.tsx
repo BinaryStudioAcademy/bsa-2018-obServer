@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { StyledFunction } from 'styled-components';
 import { media } from './styles-utils';
 
 const userEditIcon = require('src/assets/edit.png');
@@ -71,14 +71,14 @@ export const CheckBoxSwitchLabel = styled.label`
 `;
 
 export const SettingFormGroup = styled.div`
-border-top: 3px solid ${background.switchOn}!important;
+border-top: 3px solid ${background.switchOn};
 background: #f1f1f1;
 padding: 15px;
 margin-bottom: 50px;
 }`;
 
 export const SettingFormGroupInput = styled.div`
-border-top: 3px solid ${background.switchOn}!important;
+border-top: 3px solid ${background.switchOn};
 background: #f1f1f1;
 padding: 15px;
 margin-bottom: 50px;
@@ -89,7 +89,7 @@ ${media.desktop`grid-template-columns: 1fr;`};
 }`;
 
 export const SettingFormGroupOneInput = styled.div`
-border-top: 3px solid ${background.switchOn}!important;
+border-top: 3px solid ${background.switchOn};
 background: #f1f1f1;
 padding: 15px;
 margin-bottom: 50px;
@@ -100,6 +100,9 @@ export const SettingFormGroupLabel = styled.label`
 	font-size: 18px;
 	line-height: 2;
 	padding-left: 5px;
+	svg {
+		margin-right: 10px;
+	}
 `;
 
 export const SettingInput = styled.input`
@@ -135,4 +138,33 @@ font-size: 18px;
 export const ErrorInputSettings = styled.div`
 	text-transform: uppercase;
 	color: red;
+`;
+
+interface SettingsMenuLink {
+	active: boolean;
+}
+
+const div: StyledFunction<
+	SettingsMenuLink & React.HTMLProps<HTMLInputElement>
+> =
+	styled.div;
+
+export const SettingsMenuLink = div`
+display: inline-block;
+svg {
+	margin-right: 10px;
+}
+a {
+	font-size: 18px;
+	text-transform: uppercase;
+	margin-left: 15px;
+	line-height: 2;
+	text-decoration: none;
+	color: ${(props: any) => (props.active ? 'rgb(127, 120, 206)' : '#3d3d3d')};
+}
+`;
+
+export const SettingsMenuWrapper = styled.div`
+	text-align: center;
+	margin-bottom: 50px;
 `;

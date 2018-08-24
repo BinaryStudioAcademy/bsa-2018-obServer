@@ -6,8 +6,6 @@ import Logs from '../Logs/Logs';
 import Profile from '../Profile/Profile';
 import HttpStats from '../HttpStats/HttpStats';
 import SocketStats from '../SocketStats/SocketStats';
-import UserSettings from '../Settings/UserSettings';
-import DataSettings from '../Settings/DataSettings';
 import InviteUser from '../InviteUser/InviteUser';
 import {
 	SideNav,
@@ -190,19 +188,8 @@ class Dashboard extends React.Component<DashboardProps, DashboardState> {
 						component={Quickstart}
 					/>
 					<Route
-						exact
 						path={`${match.url}/settings`}
 						component={Settings}
-					/>
-					<Route
-						exact
-						path={`${match.url}/settings/user`}
-						component={UserSettings}
-					/>
-					<Route
-						exact
-						path={`${match.url}/settings/data`}
-						component={DataSettings}
 					/>
 					<Route path={`${match.url}/logs`} component={Logs} />
 					<Route

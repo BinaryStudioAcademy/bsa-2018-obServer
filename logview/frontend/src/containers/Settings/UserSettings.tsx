@@ -7,7 +7,6 @@ import {
 	SettingsSubmitButton
 } from 'src/styles/SettingsFormStyles';
 import { LoaderOval } from 'src/components/loaders';
-import { Title } from '../../styles/Styles';
 import { UserState } from 'src/types/UserState';
 import SettingUserForm from 'src/components/settings/SettingUserForm';
 import { userChange, fetchUser } from 'src/redux/user/actions';
@@ -26,8 +25,8 @@ class UserSettings extends React.Component<SettingsUserFormProps, UserState> {
 		this.handleSubmit = this.handleSubmit.bind(this);
 	}
 
-	async handleSubmit(state: UserState) {
-		await this.props.actions.userChange(
+	handleSubmit(state: UserState) {
+		this.props.actions.userChange(
 			state.name,
 			state.email,
 			state.company,
@@ -35,15 +34,13 @@ class UserSettings extends React.Component<SettingsUserFormProps, UserState> {
 		);
 	}
 
-	async componentDidMount() {
-		await this.props.actions.fetchUser();
+	componentDidMount() {
+		this.props.actions.fetchUser();
 	}
 
 	render() {
 		return this.props.fetchingUserStatus === 'success' ? (
 			<React.Fragment>
-				<Title>User Settings</Title>
-				<div>&nbsp;</div>
 				<SettingUserForm
 					user={this.props.user}
 					onSubmit={this.handleSubmit}

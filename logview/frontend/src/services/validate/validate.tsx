@@ -35,16 +35,13 @@ export function validateForm(obj: {
 	return res;
 }
 
-export function validateUserSetingForm(obj: { name: string; company: string }) {
-	let res: {
-		name: boolean;
-		company: boolean;
-	} = {
-		name: false,
-		company: false
-	};
-	for (let el in obj) {
-		res[el] = validate(el, obj[el]);
-	}
-	return res;
+export function validatePortsString(ports: string): boolean {
+	const portsRegExp = /^[0-9]+(,[0-9]+)*$/;
+	let testPorts: boolean;
+
+	ports === '' || ports === null
+		? (testPorts = true)
+		: (testPorts = portsRegExp.test(ports));
+
+	return testPorts;
 }

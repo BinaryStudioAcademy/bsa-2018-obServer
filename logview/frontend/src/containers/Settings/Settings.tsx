@@ -1,34 +1,63 @@
 import * as React from 'react';
+import { Route, Link, RouteComponentProps } from 'react-router-dom';
 import { UserEdit, Database } from 'styled-icons/fa-solid';
+import UserSettings from './UserSettings';
+import DataSettings from './DataSettings';
+import {
+	SettingsMenuLink,
+	SettingsMenuWrapper
+} from 'src/styles/SettingsFormStyles';
 
-class Settings extends React.Component {
+interface MatchParams {}
+
+interface SettingsState {
+	active?: string;
+}
+
+class Settings extends React.Component<
+	RouteComponentProps<MatchParams>,
+	SettingsState
+> {
+	constructor(props: RouteComponentProps<MatchParams>) {
+		super(props);
+	}
 	render() {
+		const { match, location } = this.props;
 		return (
 			<React.Fragment>
-				<div
-					style={{
-						display: 'grid',
-						gridTemplateColumns: '1fr 1fr',
-						textAlign: 'center'
-					}}
-				>
-					<a
-						href="http://localhost:3060/dashboard/settings/user"
-						style={{ textAlign: 'center' }}
+				<SettingsMenuWrapper>
+					<SettingsMenuLink
+						active={
+							location.pathname === '/dashboard/settings/user'
+						}
 					>
-						<UserEdit size="128" />
-						<br />
-						User Settings
-					</a>
-					<a
-						href="http://localhost:3060/dashboard/settings/data"
-						style={{ textAlign: 'center' }}
+						<Link to={`${match.url}/user`}>
+							<UserEdit size="24" />
+							User Settings
+						</Link>
+					</SettingsMenuLink>
+					<SettingsMenuLink
+						active={
+							location.pathname === '/dashboard/settings/data'
+						}
 					>
-						<Database size="128" />
-						<br />
-						Data Settings
-					</a>
-				</div>
+						<Link to={`${match.url}/data`}>
+							<Database size="24" />
+							Data Settings
+						</Link>
+					</SettingsMenuLink>
+				</SettingsMenuWrapper>
+
+				<Route
+					exact
+					path={`${match.url}/user`}
+					component={UserSettings}
+				/>
+				<Route
+					exact
+					path={`${match.url}/data`}
+					component={DataSettings}
+				/>
 			</React.Fragment>
 		);
 	}

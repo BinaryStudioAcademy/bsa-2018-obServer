@@ -52,9 +52,9 @@ class SettingUserForm extends React.Component<
 
 	render() {
 		return (
-			<form onSubmit={this.handleSubmit} id="settings-user-form">
+			<form>
 				<SettingFormGroupLabel>
-					<User size="18" style={{ marginRight: '10px' }} />
+					<User size="18" />
 					User Settings
 				</SettingFormGroupLabel>
 				<SettingFormGroupInput>
@@ -75,19 +75,15 @@ class SettingUserForm extends React.Component<
 				</SettingFormGroupInput>
 
 				<SettingFormGroupLabel>
-					<UserSecret size="18" style={{ marginRight: '10px' }} />
+					<UserSecret size="18" />
 					Credentials Settings
 				</SettingFormGroupLabel>
 				<SettingFormGroup>
 					<span>{this.state.companyId}</span> - your secret key
 				</SettingFormGroup>
 
-				<SettingsSubmitButton
-					type="submit"
-					form="settings-user-form"
-					value="Submit"
-				>
-					<CheckSquare size="18" style={{ marginRight: '10px' }} />
+				<SettingsSubmitButton onClick={this.handleSubmit}>
+					<CheckSquare size="18" />
 					Save All Change
 				</SettingsSubmitButton>
 			</form>

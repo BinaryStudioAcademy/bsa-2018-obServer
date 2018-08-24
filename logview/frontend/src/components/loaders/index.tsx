@@ -1,12 +1,13 @@
 import * as React from 'react';
 import Loader from 'react-loader-spinner';
+import { LoaderWrapper } from 'src/styles/LoaderStyles';
 
 export class LoaderPuff extends React.Component {
 	render() {
 		return (
-			<div style={{ textAlign: 'center', marginTop: '20%' }}>
+			<LoaderWrapper>
 				<Loader type="Puff" color="#7f78ce" height="100" width="100" />
-			</div>
+			</LoaderWrapper>
 		);
 	}
 }
@@ -14,9 +15,9 @@ export class LoaderPuff extends React.Component {
 export class LoaderBars extends React.Component {
 	render() {
 		return (
-			<div style={{ textAlign: 'center', marginTop: '20%' }}>
+			<LoaderWrapper>
 				<Loader type="Bars" color="#7f78ce" height="100" width="100" />
-			</div>
+			</LoaderWrapper>
 		);
 	}
 }
@@ -24,9 +25,9 @@ export class LoaderBars extends React.Component {
 export class LoaderOval extends React.Component {
 	render() {
 		return (
-			<div style={{ textAlign: 'center', marginTop: '20%' }}>
+			<LoaderWrapper>
 				<Loader type="Oval" color="#7f78ce" height="100" width="100" />
-			</div>
+			</LoaderWrapper>
 		);
 	}
 }

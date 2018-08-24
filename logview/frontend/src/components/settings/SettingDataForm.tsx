@@ -1,5 +1,7 @@
 import * as React from 'react';
 import SettingCheckBox from 'src/components/settings/SettingCheckBox';
+import { SettingsState } from 'src/types/SettingsState';
+import { validatePortsString } from 'src/services/validate/validate';
 import {
 	SettingFormGroup,
 	SettingFormGroupOneInput,
@@ -15,8 +17,6 @@ import {
 	Globe,
 	CheckSquare
 } from 'styled-icons/fa-solid';
-
-import { SettingsState } from 'src/types/SettingsState';
 
 interface SettingsFormProps {
 	settings: SettingsState;
@@ -36,8 +36,6 @@ interface SettingsDataState {
 	listeningPorts?: string;
 	validPorts?: boolean;
 }
-
-const portsRegExp = /^[0-9]+(,[0-9]+)*$/;
 
 class SettingDataForm extends React.Component<
 	SettingsFormProps,
@@ -66,10 +64,7 @@ class SettingDataForm extends React.Component<
 
 	handleSubmit(event: any) {
 		event.preventDefault();
-		let testPorts;
-		this.state.listeningPorts === '' || this.state.listeningPorts === null
-			? (testPorts = true)
-			: (testPorts = portsRegExp.test(this.state.listeningPorts));
+		const testPorts = validatePortsString(this.state.listeningPorts);
 
 		this.setState({
 			validPorts: testPorts
@@ -80,9 +75,9 @@ class SettingDataForm extends React.Component<
 
 	render() {
 		return (
-			<form onSubmit={this.handleSubmit} id="settings-data-form">
+			<form>
 				<SettingFormGroupLabel>
-					<Bell size="18" style={{ marginRight: '10px' }} />
+					<Bell size="18" />
 					Notification Settings
 				</SettingFormGroupLabel>
 				<SettingFormGroup>
@@ -101,7 +96,7 @@ class SettingDataForm extends React.Component<
 				</SettingFormGroup>
 
 				<SettingFormGroupLabel>
-					<Server size="18" style={{ marginRight: '10px' }} />
+					<Server size="18" />
 					Your Server
 				</SettingFormGroupLabel>
 				<SettingFormGroup>
@@ -120,7 +115,7 @@ class SettingDataForm extends React.Component<
 				</SettingFormGroup>
 
 				<SettingFormGroupLabel>
-					<ProjectDiagram size="18" style={{ marginRight: '10px' }} />
+					<ProjectDiagram size="18" />
 					Your Apps
 				</SettingFormGroupLabel>
 				<SettingFormGroup>
@@ -157,7 +152,7 @@ class SettingDataForm extends React.Component<
 				</SettingFormGroup>
 
 				<SettingFormGroupLabel>
-					<Globe size="18" style={{ marginRight: '10px' }} />
+					<Globe size="18" />
 					Ports
 				</SettingFormGroupLabel>
 				<SettingFormGroupOneInput>
@@ -169,17 +164,14 @@ class SettingDataForm extends React.Component<
 					/>
 					{!this.state.validPorts && (
 						<ErrorInputSettings>
-							Enter ports separated by commas: <i>8080,3060,80</i>
+							Enter number ports separated by commas:{' '}
+							<i>8080,3060,80 etc.</i>
 						</ErrorInputSettings>
 					)}
 				</SettingFormGroupOneInput>
 
-				<SettingsSubmitButton
-					type="submit"
-					form="settings-data-form"
-					value="Submit"
-				>
-					<CheckSquare size="18" style={{ marginRight: '10px' }} />
+				<SettingsSubmitButton onClick={this.handleSubmit}>
+					<CheckSquare size="18" />
 					Save All Change
 				</SettingsSubmitButton>
 			</form>

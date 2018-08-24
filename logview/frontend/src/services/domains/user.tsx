@@ -28,7 +28,7 @@ export default {
 	},
 	updateLoggedInUser: (updatedData: UserState) => {
 		return api.makeRequest(
-			`/api/user/current/loggedin`,
+			`/api/user/account/info`,
 			api.requestType.PUT,
 			updatedData
 		);
@@ -37,10 +37,7 @@ export default {
 		return api.makeRequest(`/api/user/${id}`, api.requestType.GET);
 	},
 	fetchLoggedInUser: () => {
-		return api.makeRequest(
-			`/api/user/current/loggedin`,
-			api.requestType.GET
-		);
+		return api.makeRequest(`/api/user/account/info`, api.requestType.GET);
 	},
 	resetPasswordEmail: (email: UserResetPasswordState) => {
 		return api.makeRequest(

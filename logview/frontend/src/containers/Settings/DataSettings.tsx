@@ -14,7 +14,6 @@ import {
 	CheckSquare
 } from 'styled-icons/fa-solid';
 import { LoaderOval } from 'src/components/loaders';
-import { Title } from '../../styles/Styles';
 import SettingDataForm from 'src/components/settings/SettingDataForm';
 import { SettingsState } from 'src/types/SettingsState';
 
@@ -34,12 +33,12 @@ class DataSettings extends React.Component<SettingsFormProps, SettingsState> {
 		this.handleSubmit = this.handleSubmit.bind(this);
 	}
 
-	async componentDidMount() {
-		await this.props.actions.fetchSettings();
+	componentDidMount() {
+		this.props.actions.fetchSettings();
 	}
 
-	async handleSubmit(state: SettingsState) {
-		await this.props.actions.changeSettings(
+	handleSubmit(state: SettingsState) {
+		this.props.actions.changeSettings(
 			state.serverMemory,
 			state.serverCPU,
 			state.notificationServerIsDown,
@@ -56,8 +55,6 @@ class DataSettings extends React.Component<SettingsFormProps, SettingsState> {
 	render() {
 		return this.props.fetchingSettingsStatus === 'success' ? (
 			<React.Fragment>
-				<Title>Data Settings</Title>
-				<div>&nbsp;</div>
 				<SettingDataForm
 					settings={this.props.settings}
 					onSubmit={this.handleSubmit}

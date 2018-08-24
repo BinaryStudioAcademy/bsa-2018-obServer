@@ -86,13 +86,14 @@ router.put(
 );
 
 router.put(
-	'/current/loggedin',
+	'/account/info',
 	isLoggedInMiddlewre,
 	async (req, res, next) => {
 		try {
-			await userService.update(req.user.id, { name: req.body.name });
+			const { name, company } = req.body;
+			await userService.update(req.user.id, { name: company });
 			await companyService.update(req.user.companyId, {
-				name: req.body.company
+				name: name
 			});
 			res.data = {
 				name: req.body.name,
@@ -274,7 +275,7 @@ router.get(
 );
 
 router.get(
-	'/current/loggedin',
+	'/account/info',
 	isLoggedInMiddlewre,
 	async (req, res, next) => {
 		try {
