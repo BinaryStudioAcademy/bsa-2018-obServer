@@ -91,9 +91,9 @@ router.put(
 	async (req, res, next) => {
 		try {
 			const { name, company } = req.body;
-			await userService.update(req.user.id, { name: company });
+			await userService.update(req.user.id, { name: name });
 			await companyService.update(req.user.companyId, {
-				name: name
+				name: company
 			});
 			res.data = {
 				name: req.body.name,
