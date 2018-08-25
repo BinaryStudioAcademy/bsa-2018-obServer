@@ -1,17 +1,12 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import {
-	PasswordResetContainer,
-	PasswordWrapper,
-	Title,
-	Submit,
-	CenteredText
-} from '../../styles/Styles';
+import { Title, Submit } from '../../styles/Styles';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { userEmailActivation } from 'src/redux/user/actions';
 import { History } from 'history';
 import queryString from 'query-string';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 interface EmailTokenProps {
 	history: History;
@@ -42,33 +37,26 @@ class EmailTokenConfirm extends React.Component<
 		return (
 			(fetchingUserStatus === 'success' ||
 				fetchingUserStatus === 'failed') && (
-				<PasswordResetContainer>
-					<PasswordWrapper>
-						{isLoggedIn ? (
-							<React.Fragment>
-								<Title>Email Successfully Confirmed!</Title>
-								<p>Some sort of image will be here</p>
-								{/* <Submit> */}
-								<Link to="/dashboard/quickstart">
-									Proceed to Quickstart
-								</Link>
-								{/* </Submit> */}
-							</React.Fragment>
-						) : (
-							<React.Fragment>
-								<div>
-									<Title>
-										Sorry, your email couldn't be confirmed!
-									</Title>
-									<CenteredText>
-										Try following the link again, please!
-									</CenteredText>
-								</div>
-								<p>Some sort of image will be here</p>
-							</React.Fragment>
-						)}
-					</PasswordWrapper>
-				</PasswordResetContainer>
+				<React.Fragment>
+					{isLoggedIn ? (
+						<React.Fragment>
+							<Title>Email Successfully Confirmed!</Title>
+							<Link to="/dashboard/quickstart">
+								Proceed to Quickstart
+							</Link>
+						</React.Fragment>
+					) : (
+						<React.Fragment>
+							<div>
+								<Title>
+									Sorry, your email couldn't be confirmed!
+								</Title>
+								<p>Try following the link again, please!</p>
+							</div>
+							<p>Some sort of image will be here</p>
+						</React.Fragment>
+					)}
+				</React.Fragment>
 			)
 		);
 	}
