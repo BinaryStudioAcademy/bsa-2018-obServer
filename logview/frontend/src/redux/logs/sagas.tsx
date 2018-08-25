@@ -16,7 +16,6 @@ function* fetchNewLog() {
 			const newLog = yield take(socketChannel);
 			delete newLog.app;
 			const newLogArr = [newLog];
-			console.log(newLogArr);
 
 			switch (newLog.logType) {
 				case 'MEMORY_SERVER':
