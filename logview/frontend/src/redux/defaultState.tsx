@@ -4,8 +4,20 @@ export const defaultState: StoreState = {
 	user: {
 		name: '',
 		email: '',
-		password: '',
-		company: ''
+		company: '',
+		companyId: ''
+	},
+	settings: {
+		serverMemory: undefined,
+		serverCPU: undefined,
+		notificationServerIsDown: undefined,
+		notificationHighRequest: undefined,
+		appsMemory: undefined,
+		appsCPU: undefined,
+		appsErrorLog: undefined,
+		appsHttp: undefined,
+		appsSoket: undefined,
+		listeningPorts: undefined
 	},
 
 	cpuLogs: [
@@ -38,5 +50,6 @@ export const defaultState: StoreState = {
 	],
 
 	fetchingUserStatus: 'unstarted',
+	fetchingSettingsStatus: 'unstarted',
 	isLoggedIn: false
 };

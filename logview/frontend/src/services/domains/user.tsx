@@ -1,14 +1,16 @@
 import api from 'src/services/adapter';
 import {
 	UserState,
+	UserRegisterState,
 	UserLoginState,
+	UserActivationState,
 	UserResetPasswordState,
 	UserChangePasswordState,
 	InviteUserState
 } from '../../types/UserState';
 
 export default {
-	registerUser: (user: UserState) => {
+	registerUser: (user: UserRegisterState) => {
 		return api.makeRequest(`/api/user`, api.requestType.POST, user);
 	},
 	loginUser: (loginData: UserLoginState) => {
@@ -24,8 +26,18 @@ export default {
 			updatedData
 		);
 	},
+	updateLoggedInUser: (updatedData: UserState) => {
+		return api.makeRequest(
+			`/api/user/account/info`,
+			api.requestType.PUT,
+			updatedData
+		);
+	},
 	fetchUser: (id: string) => {
 		return api.makeRequest(`/api/user/${id}`, api.requestType.GET);
+	},
+	fetchLoggedInUser: () => {
+		return api.makeRequest(`/api/user/account/info`, api.requestType.GET);
 	},
 	resetPasswordEmail: (email: UserResetPasswordState) => {
 		return api.makeRequest(
@@ -44,10 +56,11 @@ export default {
 			newPassword
 		);
 	},
-	activateUser: (activationToken: string) => {
+	activateUser: (UserActivationState: UserActivationState) => {
 		return api.makeRequest(
-			`/api/user/activate/${activationToken}`,
-			api.requestType.POST
+			`/api/user/activate/${UserActivationState.activationToken}`,
+			api.requestType.POST,
+			UserActivationState
 		);
 	},
 	inviteUser: (invite: InviteUserState) => {

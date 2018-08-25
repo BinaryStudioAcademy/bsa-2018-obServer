@@ -19,7 +19,6 @@ import 'src/styles/GlobalStyles';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { userIsLogged } from 'src/redux/user/actions';
 
 interface RouterProps {
 	actions: { userIsLogged: Function };
@@ -28,10 +27,8 @@ interface RouterProps {
 }
 
 interface RouterState {
-	// returns error
-	// Add these to state, please
+	// returns error. Add these to state, please
 
-	// isLoggedIn: boolean;
 	// fetchingUserStatus: string;
 	loggedUser: string;
 }
@@ -39,14 +36,12 @@ interface RouterState {
 class Router extends React.Component<RouterProps, RouterState> {
 	constructor(props: any) {
 		super(props);
-		this.state = { loggedUser: sessionStorage.getItem('user') };
+		this.state = { loggedUser: sessionStorage.getItem('observerUser') };
 	}
-	componentDidMount() {
-		this.props.actions.userIsLogged();
-	}
+	componentDidMount() {}
 
 	render() {
-		const { isLoggedIn, fetchingUserStatus } = this.props;
+		const { fetchingUserStatus } = this.props;
 		return (
 			// (fetchingUserStatus === 'success' ||
 			// 	fetchingUserStatus === 'failed') && (
@@ -85,13 +80,11 @@ class Router extends React.Component<RouterProps, RouterState> {
 						/>
 						<Route
 							exact
-							strict
-							path="/confirm"
+							path="/confirmationsent"
 							component={EmailConfirm}
 						/>
 						<Route
 							exact
-							strict
 							path="/confirm/"
 							component={EmailTokenConfirm}
 						/>
@@ -169,7 +162,7 @@ const mapStateToProps = ({ fetchingUserStatus, isLoggedIn }) => ({
 });
 
 const mapDispatchToProps = (dispatch: any) => ({
-	actions: bindActionCreators({ userIsLogged }, dispatch)
+	actions: bindActionCreators({}, dispatch)
 });
 
 const RouterConnected = connect(

@@ -1,4 +1,7 @@
-import * as userActions from 'src/redux/user/actions';
-import * as logActions from 'src/redux/logs/actions';
+import * as userActions from './user/actions';
+import * as settingsActions from './settings/actions';
 
-export type Action = userActions.UserAction | logActions.LogAction | any;
+export type Action =
+	| userActions.UserAction
+	| settingsActions.SettingsAction
+	| any;

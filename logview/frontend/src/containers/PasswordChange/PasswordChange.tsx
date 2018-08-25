@@ -16,6 +16,8 @@ import { bindActionCreators } from 'redux';
 import { History } from 'history';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { validate } from '../../services/validate/validate';
+import queryString from 'query-string';
+import { InputPassword } from '../../styles/InputStyles';
 
 interface PasswordChangeProps {
 	history: History;
@@ -57,10 +59,12 @@ class PasswordChange extends React.Component<
 	componentDidMount() {}
 
 	handleSubmit() {
-		let token = this.props.history.location.search.split('=')[1];
+		let token = queryString.parse(location.search).resetToken;
 
 		if (!validate('password', this.state.newpassword)) {
-			this.setState({ err: 'password is not valid' });
+			this.setState({
+				err: 'password must be at least 8 characters long'
+			});
 		} else if (this.state.newpassword !== this.state.confirmpassword) {
 			this.setState({ err: "passwords doesn't match" });
 		} else if (this.props.match.url === '/change/') {
@@ -85,13 +89,13 @@ class PasswordChange extends React.Component<
 				<PasswordWrapper>
 					<CenteredContainer>
 						{!this.state.sent ? (
-							<React.Fragment>
+							<form>
 								<Title>
-									{match.url === '/change/'
+									{match.url === '/change'
 										? 'Change password'
 										: 'Set password'}
 								</Title>
-								<InputWide
+								<InputPassword
 									name="newpassword"
 									placeholder="new password"
 									type="password"
@@ -99,7 +103,7 @@ class PasswordChange extends React.Component<
 									onChange={this.handleFieldChange}
 								/>
 								<ErrorText>{this.state.err}</ErrorText>
-								<InputWide
+								<InputPassword
 									name="confirmpassword"
 									placeholder="confirm password"
 									type="password"
@@ -111,7 +115,7 @@ class PasswordChange extends React.Component<
 										? 'Change'
 										: 'Send'}
 								</Submit>
-							</React.Fragment>
+							</form>
 						) : (
 							<React.Fragment>
 								<Title>

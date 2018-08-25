@@ -1,5 +1,5 @@
 import 'regenerator-runtime/runtime';
-import { takeLatest, put, call, all, take } from 'redux-saga/effects';
+import { takeLatest, put, call, all } from 'redux-saga/effects';
 import { userAPI } from '../../services';
 import {
 	UserRegister,
@@ -10,9 +10,9 @@ import {
 	UserEmailActivation,
 	UserInvite,
 	UserSetPassword,
-	UserIsLogged
+	ChangeUser,
+	FetchUser
 } from './actions';
-import isLoggedIn from 'src/services/isLoggedIn';
 import { push } from 'connected-react-router';
 import * as constants from './constants';
 
@@ -28,7 +28,7 @@ function* userRegister(action: UserRegister) {
 		yield put({
 			type: constants.USER_REGISTER_SUCCESS,
 			payload: {
-				...currentUser
+				...currentUser.data
 			}
 		});
 
@@ -47,6 +47,8 @@ function* userLogin(action: UserLogin) {
 			password: action.password
 		});
 
+		sessionStorage.setItem('observerUser', action.email);
+
 		yield put({
 			type: constants.USER_LOGIN_SUCCESS,
 			payload: {
@@ -54,9 +56,7 @@ function* userLogin(action: UserLogin) {
 			}
 		});
 
-		sessionStorage.setItem('user', action.email);
 		window.location.href = window.location.href;
-		// yield put(push('/dashboard/quickstart'));
 	} catch (error) {
 		yield put({
 			type: constants.USER_LOGIN_FAILED
@@ -66,9 +66,9 @@ function* userLogin(action: UserLogin) {
 
 function* userLogout(action: UserLogout) {
 	try {
-		sessionStorage.setItem('user', '');
-
 		yield call(userAPI.logoutUser);
+
+		sessionStorage.setItem('observerUser', '');
 
 		yield put({
 			type: constants.USER_LOGOUT_SUCCESS,
@@ -76,26 +76,12 @@ function* userLogout(action: UserLogout) {
 				// user: null
 			}
 		});
+
 		window.location.href = window.location.href;
 		// yield put(push('/login'));
 	} catch (error) {
 		yield put({
 			type: constants.USER_LOGOUT_FAILED
-		});
-	}
-}
-
-function* userIsLogged(action: UserIsLogged) {
-	try {
-		const isLogged = yield call(isLoggedIn);
-
-		yield put({
-			type: constants.USER_IS_LOGGED_SUCCESS,
-			payload: isLogged
-		});
-	} catch (error) {
-		yield put({
-			type: constants.USER_IS_LOGGED_FAILED
 		});
 	}
 }
@@ -143,7 +129,11 @@ function* userChangePassword(action: UserChangePassword) {
 
 function* userEmailActivation(action: UserEmailActivation) {
 	try {
-		yield call(userAPI.activateUser, action.token);
+		const currentUser = yield call(userAPI.activateUser, {
+			activationToken: action.activationToken
+		});
+
+		sessionStorage.setItem('observerUser', currentUser.data.email);
 
 		yield put({
 			type: constants.USER_EMAIL_ACTIVATION_SUCCESS
@@ -152,8 +142,6 @@ function* userEmailActivation(action: UserEmailActivation) {
 		yield put({
 			type: constants.USER_EMAIL_ACTIVATION_FAILED
 		});
-	} finally {
-		yield put(push('/login'));
 	}
 }
 
@@ -192,16 +180,55 @@ function* userSetPassword(action: UserSetPassword) {
 	}
 }
 
+function* userChange(action: ChangeUser) {
+	try {
+		const currentUser = yield call(userAPI.updateLoggedInUser, {
+			name: action.name,
+			email: action.email,
+			company: action.company,
+			companyId: action.companyId
+		});
+
+		yield put({
+			type: constants.CHANGE_USER_SUCCESS,
+			payload: {
+				...currentUser.data
+			}
+		});
+	} catch (error) {
+		yield put({
+			type: constants.CHANGE_USER_FAILED
+		});
+	}
+}
+
+function* fetchUser(action: FetchUser) {
+	try {
+		const currentUser = yield call(userAPI.fetchLoggedInUser);
+		yield put({
+			type: constants.FETCH_USER_SUCCESS,
+			payload: {
+				...currentUser.data
+			}
+		});
+	} catch (error) {
+		yield put({
+			type: constants.FETCH_USER_FAILED
+		});
+	}
+}
+
 export default function* userSaga() {
 	yield all([
 		takeLatest(constants.USER_REGISTER, userRegister),
 		takeLatest(constants.USER_LOGIN, userLogin),
 		takeLatest(constants.USER_LOGOUT, userLogout),
-		takeLatest(constants.USER_IS_LOGGED, userIsLogged),
 		takeLatest(constants.USER_CHANGE_PASSWORD, userChangePassword),
 		takeLatest(constants.USER_RESET_PASSWORD, userResetPassword),
 		takeLatest(constants.USER_EMAIL_ACTIVATION, userEmailActivation),
 		takeLatest(constants.USER_INVITE, userInvite),
-		takeLatest(constants.USER_SET_PASSWORD, userSetPassword)
+		takeLatest(constants.USER_SET_PASSWORD, userSetPassword),
+		takeLatest(constants.CHANGE_USER, userChange),
+		takeLatest(constants.FETCH_USER, fetchUser)
 	]);
 }
