@@ -33,29 +33,15 @@ class EmailTokenConfirm extends React.Component<
 	}
 
 	render() {
-		const { isLoggedIn, fetchingUserStatus } = this.props;
+		const { fetchingUserStatus } = this.props;
 		return (
 			(fetchingUserStatus === 'success' ||
 				fetchingUserStatus === 'failed') && (
 				<React.Fragment>
-					{isLoggedIn ? (
-						<React.Fragment>
-							<Title>Email Successfully Confirmed!</Title>
-							<Link to="/dashboard/quickstart">
-								Proceed to Quickstart
-							</Link>
-						</React.Fragment>
-					) : (
-						<React.Fragment>
-							<div>
-								<Title>
-									Sorry, your email couldn't be confirmed!
-								</Title>
-								<p>Try following the link again, please!</p>
-							</div>
-							<p>Some sort of image will be here</p>
-						</React.Fragment>
-					)}
+					<Title>Email Successfully Confirmed!</Title>
+					<Link to="/dashboard/quickstart">
+						Proceed to Quickstart
+					</Link>
 				</React.Fragment>
 			)
 		);
