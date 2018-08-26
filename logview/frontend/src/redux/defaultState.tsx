@@ -49,6 +49,14 @@ export const defaultState: StoreState = {
 		}
 	],
 
+	companyUsers: [
+		{
+			name: '',
+			email: '',
+			active: false
+		}
+	],
+
 	fetchingUserStatus: 'unstarted',
 	fetchingSettingsStatus: 'unstarted',
 	isLoggedIn: false

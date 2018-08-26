@@ -89,7 +89,7 @@ class PasswordChange extends React.Component<
 				<PasswordWrapper>
 					<CenteredContainer>
 						{!this.state.sent ? (
-							<form>
+							<React.Fragment>
 								<Title>
 									{match.url === '/change'
 										? 'Change password'
@@ -115,7 +115,7 @@ class PasswordChange extends React.Component<
 										? 'Change'
 										: 'Send'}
 								</Submit>
-							</form>
+							</React.Fragment>
 						) : (
 							<React.Fragment>
 								<Title>

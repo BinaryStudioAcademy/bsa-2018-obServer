@@ -1,10 +1,8 @@
 import * as constants from './constants';
 import { CompanyState } from '../../types/CompanyState';
 
-export interface FetchCompanyUsers extends CompanyState {
+export interface FetchCompanyUsers {
 	type: constants.FETCH_COMPANY_USERS;
-	company: Array<{ name; email; active }>;
-	name: string[];
 }
 
 export interface FetchCompanyUsersFail {
@@ -13,6 +11,9 @@ export interface FetchCompanyUsersFail {
 
 export interface FetchCompanyUsersSuccess {
 	type: constants.FETCH_COMPANY_USERS_SUCCESS;
+	payload: {
+		users: Array<CompanyState>;
+	};
 }
 
 export type CompanyAction =
@@ -20,25 +21,23 @@ export type CompanyAction =
 	| FetchCompanyUsersFail
 	| FetchCompanyUsersSuccess;
 
-export function FetchCompanyUsers(
-	company: Array<{ name; email; active }>,
-	name: string[]
-): FetchCompanyUsers {
+export function fetchCompanyUsers(): FetchCompanyUsers {
 	return {
-		type: constants.FETCH_COMPANY_USERS,
-		company,
-		name
+		type: constants.FETCH_COMPANY_USERS
 	};
 }
 
-export function FetchCompanyUsersFail(): FetchCompanyUsersFail {
+export function fetchCompanyUsersFail(): FetchCompanyUsersFail {
 	return {
 		type: constants.FETCH_COMPANY_USERS_FAILED
 	};
 }
 
-export function FetchCompanyUsersSuccess(): FetchCompanyUsersSuccess {
+export function fetchCompanyUsersSuccess(payload: {
+	users: Array<CompanyState>;
+}): FetchCompanyUsersSuccess {
 	return {
-		type: constants.FETCH_COMPANY_USERS_SUCCESS
+		type: constants.FETCH_COMPANY_USERS_SUCCESS,
+		payload
 	};
 }
