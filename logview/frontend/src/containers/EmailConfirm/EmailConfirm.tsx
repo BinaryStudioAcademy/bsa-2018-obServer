@@ -1,11 +1,5 @@
 import * as React from 'react';
-import {
-	Background,
-	PasswordResetContainer,
-	CenteredText,
-	Title,
-	EmailContainer
-} from '../../styles/Styles';
+import { Title, Wrapper } from '../../styles/Styles';
 
 class EmailConfirm extends React.Component {
 	constructor(props: any) {
@@ -18,19 +12,12 @@ class EmailConfirm extends React.Component {
 		let user = JSON.parse(sessionStorage.getItem('user'));
 
 		return (
-			<Background>
-				<PasswordResetContainer>
-					<EmailContainer>
-						<Title>Email sent!</Title>
-						<CenteredText>
-							We've sent an email to <b>{user.email}</b> to
-							confirm validity of your email address. After
-							receiving the email, follow the link provided to
-							complete the registration
-						</CenteredText>
-					</EmailContainer>
-				</PasswordResetContainer>
-			</Background>
+			<Wrapper>
+				<Title>Email sent!</Title>
+				We've sent an email to <b>{user.email}</b> to confirm validity
+				of your email address. After receiving the email, follow the
+				link provided to complete the registration
+			</Wrapper>
 		);
 	}
 }

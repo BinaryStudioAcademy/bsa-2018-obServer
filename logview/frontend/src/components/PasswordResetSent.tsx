@@ -7,7 +7,7 @@ class PasswordReset extends React.Component {
 			<React.Fragment>
 				<Title>Email sent!</Title>
 				<p>
-					We've sent a message to *mail* so you can pick your new
+					We've sent a message to your email so you can pick your new
 					password.
 				</p>
 				<div>Not your email address?</div>
