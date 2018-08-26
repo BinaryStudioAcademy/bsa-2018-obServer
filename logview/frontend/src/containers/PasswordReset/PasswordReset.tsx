@@ -1,13 +1,19 @@
 import * as React from 'react';
 import PasswordResetForm from 'src/components/PasswordResetForm';
 import PasswordResetSent from 'src/components/PasswordResetSent';
-import { Submit } from 'src/styles/Styles';
+import {
+	Submit,
+	PasswordResetContainer,
+	PasswordWrapper,
+	LinkButton,
+	Row,
+	CenteredContainer,
+	TextLink
+} from 'src/styles/Styles';
 import { userResetPassword } from '../../redux/user/actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
-import { AnimatedComponent } from './PasswordResetStyles';
-import { PaperPlane } from 'styled-icons/fa-regular';
 
 interface LoginFormProps {
 	actions: { userResetPassword: Function };
@@ -35,19 +41,30 @@ class PasswordReset extends React.Component<LoginFormProps, LoginFormState> {
 
 	render() {
 		return (
-			<AnimatedComponent unmountOnExit in={true} timeout={1000}>
-				{this.state.sent ? (
-					<React.Fragment>
-						<PasswordResetSent />
-						<Submit onClick={this.handleSubmit}>
-							Try again
-							<PaperPlane size="20" />
-						</Submit>
-					</React.Fragment>
-				) : (
-					<PasswordResetForm onSubmit={this.handleSubmit} />
-				)}
-			</AnimatedComponent>
+			<PasswordResetContainer>
+				<PasswordWrapper>
+					<CenteredContainer>
+						{this.state.sent ? (
+							<React.Fragment>
+								<PasswordResetSent />
+								<Submit onClick={this.handleSubmit}>
+									Try again
+								</Submit>
+							</React.Fragment>
+						) : (
+							<PasswordResetForm onSubmit={this.handleSubmit} />
+						)}
+					</CenteredContainer>
+					<Row>
+						<LinkButton>
+							<Link to="/login">sign in</Link>
+						</LinkButton>
+						<LinkButton>
+							<Link to="/register">sign up</Link>
+						</LinkButton>
+					</Row>
+				</PasswordWrapper>
+			</PasswordResetContainer>
 		);
 	}
 }
