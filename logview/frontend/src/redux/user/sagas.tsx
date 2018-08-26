@@ -133,6 +133,8 @@ function* userEmailActivation(action: UserEmailActivation) {
 			activationToken: action.activationToken
 		});
 
+		console.log(currentUser);
+
 		sessionStorage.setItem('observerUser', currentUser.data.email);
 
 		yield put({

@@ -72,7 +72,7 @@ class Router extends React.Component<RouterProps, RouterState> {
 							component={PasswordReset}
 							loggedUser={this.state.loggedUser}
 						/>
-						<PrivateRoute
+						<Route
 							exact
 							path="/change/"
 							component={PasswordChange}
