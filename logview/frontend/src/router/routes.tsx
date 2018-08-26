@@ -35,7 +35,9 @@ interface RouterState {
 class Router extends React.Component<RouterProps, RouterState> {
 	constructor(props: any) {
 		super(props);
-		this.state = { loggedUser: sessionStorage.getItem('observerUser') };
+		this.state = {
+			loggedUser: JSON.parse(sessionStorage.getItem('observerUser'))
+		};
 	}
 	componentDidMount() {}
 

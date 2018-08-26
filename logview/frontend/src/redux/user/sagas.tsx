@@ -47,7 +47,7 @@ function* userLogin(action: UserLogin) {
 			password: action.password
 		});
 
-		sessionStorage.setItem('observerUser', action.email);
+		sessionStorage.setItem('observerUser', JSON.stringify(currentUser));
 
 		yield put({
 			type: constants.USER_LOGIN_SUCCESS,
@@ -68,7 +68,7 @@ function* userLogout(action: UserLogout) {
 	try {
 		yield call(userAPI.logoutUser);
 
-		sessionStorage.setItem('observerUser', '');
+		sessionStorage.removeItem('observerUser');
 
 		yield put({
 			type: constants.USER_LOGOUT_SUCCESS,
@@ -133,7 +133,7 @@ function* userEmailActivation(action: UserEmailActivation) {
 			activationToken: action.activationToken
 		});
 
-		sessionStorage.setItem('observerUser', currentUser.data.email);
+		sessionStorage.setItem('observerUser', currentUser);
 
 		yield put({
 			type: constants.USER_EMAIL_ACTIVATION_SUCCESS
