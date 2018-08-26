@@ -159,7 +159,11 @@ class SettingDataForm extends React.Component<
 					<SettingInput
 						type="text"
 						name="listeningPorts"
-						value={this.state.listeningPorts}
+						value={
+							this.state.listeningPorts
+								? this.state.listeningPorts
+								: ''
+						}
 						onChange={this.handleChange}
 					/>
 					{!this.state.validPorts && (

@@ -67,7 +67,7 @@ class Dashboard extends React.Component<DashboardProps, DashboardState> {
 	}
 
 	handleLogout() {
-		this.props.actions.userLogout(sessionStorage.getItem('user'));
+		this.props.actions.userLogout(sessionStorage.getItem('observerUser'));
 	}
 
 	render() {
@@ -175,9 +175,7 @@ class Dashboard extends React.Component<DashboardProps, DashboardState> {
 										</CommentText>
 									</React.Fragment>
 								)}
-								<UserText>
-									{/* Causes TS error {user.name} */}
-								</UserText>
+								<UserText>{user}</UserText>
 							</UserPopup>
 						</UserProfile>
 					</UserBar>

@@ -1,6 +1,9 @@
 import user from './domains/user';
-import checkIsLoggedIn from './isLoggedIn';
+import company from './domains/company';
+import settings from './domains/settings';
 
 export const userAPI = user;
 
-export const isLoggedIn = checkIsLoggedIn;
+export const companyAPI = company;
+
+export const settingsAPI = settings;

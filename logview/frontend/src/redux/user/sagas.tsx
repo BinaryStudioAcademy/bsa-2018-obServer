@@ -32,7 +32,7 @@ function* userRegister(action: UserRegister) {
 			}
 		});
 
-		yield put(push('/confirm'));
+		yield put(push('/confirmationsent'));
 	} catch (error) {
 		yield put({
 			type: constants.USER_REGISTER_FAILED

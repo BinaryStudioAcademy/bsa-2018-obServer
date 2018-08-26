@@ -2,11 +2,10 @@ import * as React from 'react';
 
 class Profile extends React.Component {
 	render() {
-		const user = JSON.parse(sessionStorage.getItem('user'));
+		const user = sessionStorage.getItem('observerUser');
 		return (
 			<div>
-				<h3>{user.name}</h3>
-				<h4>{user.company}</h4>
+				<h3>{user}</h3>
 			</div>
 		);
 	}
