@@ -10,7 +10,10 @@ import {
 	ResponsiveContainer
 } from 'recharts';
 
-import { convertXAxisTime, convertToDateTime } from './tickFormatter';
+import {
+	convertXAxisTime,
+	convertToDateTime
+} from '../convertors/tickFormatter';
 
 const Color = [
 	'#ff3300',
@@ -22,7 +25,7 @@ const Color = [
 	'#666699'
 ];
 
-export default class CoresLoadLineChart extends React.Component<any, any> {
+export default class ErrChart extends React.Component<any, any> {
 	renderLines() {
 		let lines = [],
 			count = 0;

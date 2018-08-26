@@ -18,7 +18,7 @@ export const LogsSearchForm = styled.form`
 	justify-content: space-between;
 	width: 94%;
 	margin-right: 0;
-	${media.tablet`
+	${media.desktop`
         display: flex;
         flex-flow: column nowrap;
         align-items: center;
@@ -26,27 +26,39 @@ export const LogsSearchForm = styled.form`
 `;
 
 export const LevelPicker = styled.select`
-	width: 15%;
+	width: 18%;
 	height: 40px;
 	margin-right: 2%;
-	${media.tablet`
+	${media.desktop`
         width: 92%;
         margin-right: 0;
         margin-bottom: 3%;
     `};
 `;
 
-export const DatePicker = styled.input`
-	width: 16%;
+export const DateLabel = styled.p`
+	width: 5%;
 	height: 30px;
-	${media.tablet`
+	margin: 0;
+	align-self: center;
+	text-align: center;
+	font-size: 0.9rem;
+	${media.desktop`
+        width: 88%;
+    `};
+`;
+
+export const DatePicker = styled.input`
+	width: 25%;
+	height: 30px;
+	${media.desktop`
         width: 88%;
         margin-bottom: 3%;
     `};
 `;
 
 export const SearchButton = styled.button`
-	width: 17%;
+	width: 16%;
 	height: 40px;
 	margin-left: 2%;
 	border-radius: 5px;
@@ -56,7 +68,7 @@ export const SearchButton = styled.button`
 	:hover {
 		background-color: #aaa;
 	}
-	${media.tablet`
+	${media.desktop`
         width: 92%;
         margin-left: 0;
         margin-bottom: 3%;
@@ -72,9 +84,6 @@ export const LogsList = styled.ul`
 	font-family: Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
 		monospace;
 	overflow-y: scroll;
-	${media.tablet`
-        height: auto%;
-    `};
 `;
 
 export const LogItem = styled.li`
@@ -84,16 +93,17 @@ export const LogItem = styled.li`
 	${media.tablet`
         display: flex;
         flex-flow: column nowrap;
+        margin: 3% 0;
     `};
 `;
 
 export const LogDate = styled.p`
 	width: 25%;
 	margin: 0 3% 0 0;
-	color: #c5c8c6;
+	color: #ffc8c6;
 	${media.tablet`
         width: 100%;
-        margin: 3% 0;
+        margin: 0;
     `};
 `;
 
@@ -103,7 +113,7 @@ const LogLabel = styled.p`
 	font-weight: bold;
 	${media.tablet`
         width: 100%;
-        margin: 3% 0;
+        margin: 0;
     `};
 `;
 
@@ -113,7 +123,7 @@ export const LogText = styled.p`
 	color: #c5c8c6;
 	${media.tablet`
         width: 100%;
-        margin: 3% 0;
+        margin: 0;
     `};
 `;
 

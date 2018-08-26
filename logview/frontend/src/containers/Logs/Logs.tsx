@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Search as SearchIcon } from 'styled-icons/material';
-import ErrorsChart from './ErrorsChart';
+import ErrChart from '../../components/charts/logs/ErrChart';
 import { errorStats } from './mockData';
 
 import {
@@ -8,6 +8,7 @@ import {
 	ChartHeader,
 	LogsSearchForm,
 	LevelPicker,
+	DateLabel,
 	DatePicker,
 	SearchButton,
 	LogsList,
@@ -233,9 +234,9 @@ class Logs extends React.Component<LogsProps, LogsState> {
 		let startDateStamp = startDate;
 		let endDateStamp = startDateStamp + step;
 		for (let i = 0; i < divider; i++) {
-			let item = { date: 0, quantity: 0 };
-			item.date = endDateStamp;
-			item.quantity = logs.filter(log => {
+			let item = { timestamp: 0, errors: 0 };
+			item.timestamp = endDateStamp;
+			item.errors = logs.filter(log => {
 				return (
 					log.level === 0 &&
 					log.date > startDateStamp &&
@@ -288,7 +289,7 @@ class Logs extends React.Component<LogsProps, LogsState> {
 			<React.Fragment>
 				<ChartWrapper>
 					<ChartHeader>Errors Statistics</ChartHeader>
-					<ErrorsChart
+					<ErrChart
 						data={errorStats}
 						// data={this.state.errStats.errData}
 						timeRange="last 10 minutes"
@@ -313,15 +314,21 @@ class Logs extends React.Component<LogsProps, LogsState> {
 						<option value="4">Debug</option>
 						<option value="5">Silly</option>
 					</LevelPicker>
+					<DateLabel>From: </DateLabel>
 					<DatePicker
 						type="datetime-local"
 						name="startDate"
+						pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}"
+						placeholder="2018-08-26T12:00:00"
 						value={this.state.filters.startDate}
 						onChange={e => this.handleChange(e)}
 					/>
+					<DateLabel>To: </DateLabel>
 					<DatePicker
 						type="datetime-local"
 						name="endDate"
+						pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}"
+						placeholder="2018-08-26T12:00:00"
 						value={this.state.filters.endDate}
 						onChange={e => this.handleChange(e)}
 					/>
