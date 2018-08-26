@@ -175,7 +175,7 @@ class Dashboard extends React.Component<DashboardProps, DashboardState> {
 										</CommentText>
 									</React.Fragment>
 								)}
-								<UserText>{user}</UserText>
+								<UserText>{user.data.name}</UserText>
 							</UserPopup>
 						</UserProfile>
 					</UserBar>

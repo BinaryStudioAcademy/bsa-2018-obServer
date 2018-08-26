@@ -45,7 +45,6 @@ class ServerResources extends React.Component<
 		};
 
 		this.equalizer = this.equalizer.bind(this);
-		this.click = this.click.bind(this);
 	}
 
 	parser(cpuArr) {
@@ -63,10 +62,6 @@ class ServerResources extends React.Component<
 		return arr;
 	}
 
-	click() {
-		this.equalizer();
-	}
-
 	equalizer() {
 		console.log(`Length of state: ${this.state.cpuLogs.length}`);
 		const data = this.props.cpuLogs;
@@ -76,26 +71,26 @@ class ServerResources extends React.Component<
 				cpuLogs: [...this.state.cpuLogs, ...newData]
 			});
 		} else if (this.state.cpuLogs.length > 7) {
-			const newData = this.parser(data.splice(-6, 7));
+			const newData = this.parser(data.splice(-7));
 			this.setState({
 				cpuLogs: newData
 			});
 		}
 	}
 
-	componentDidMount() {
-		this.props.actions.getNewCpuLog();
-		this.props.actions.getNewMemoryLog();
-		//this.parser(this.props.cpuLogs);
-	}
+	componentDidMount() {}
 
 	render() {
-		const { cpuLogs } = this.state;
-		if (this.state.cpuLogs.length > 0 && this.props.cpuLogs.length > 0) {
-			console.log('STATE CPU LOGS');
-			console.log(this.state.cpuLogs);
+		const { cpuLogs, memoryLogs } = this.props;
+		console.log(cpuLogs, memoryLogs);
+		if (cpuLogs.length > 2 && memoryLogs.length > 2) {
+			console.log('PROPS MEMORY LOGS');
+			console.log(memoryLogs);
 			console.log('PROPS CPU LOGS');
-			console.log(this.props.cpuLogs);
+			console.log(cpuLogs);
+			this.props.actions.getNewCpuLog();
+			this.props.actions.getNewMemoryLog();
+			this.equalizer();
 		}
 
 		return (
@@ -103,7 +98,6 @@ class ServerResources extends React.Component<
 				<h1 style={{ textAlign: 'center', marginBottom: '100px' }}>
 					Server Resources
 				</h1>
-				<button onClick={this.click}>New Chunk of Data</button>
 
 				<ChartGrid>
 					<ChartWrapper>
@@ -114,7 +108,11 @@ class ServerResources extends React.Component<
 							</ChartTimeRange>
 						</ChartHeader>
 						<CoresLoadLineChart
-							data={cpuLogs}
+							data={
+								this.state.cpuLogs.length > 2
+									? this.state.cpuLogs
+									: []
+							}
 							timeRange="last 10 minutes"
 						/>
 					</ChartWrapper>
