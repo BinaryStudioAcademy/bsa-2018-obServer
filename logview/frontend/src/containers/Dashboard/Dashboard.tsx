@@ -67,12 +67,14 @@ class Dashboard extends React.Component<DashboardProps, DashboardState> {
 	}
 
 	handleLogout() {
-		this.props.actions.userLogout(sessionStorage.getItem('observerUser'));
+		this.props.actions.userLogout(
+			JSON.parse(sessionStorage.getItem('observerUser'))
+		);
 	}
 
 	render() {
-		const { match, location } = this.props;
-		const user = sessionStorage.getItem('observerUser');
+		const { match } = this.props;
+		const user = JSON.parse(sessionStorage.getItem('observerUser'));
 		return (
 			<DashboardBackground>
 				<Sidebar>
