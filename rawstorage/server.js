@@ -27,18 +27,17 @@ app.post(`${baseUrl}/logs`, (req, res) => {
   res.send('ok');
 });
 
-// setTimeout(() => {
-//   logService.create({
-//     companyToken: 'token',
-//     timestamp: new Date(),
-//     logType: 'TEST_TYPE',
-//     data: {},
-//   }, (err, log) => {
-//     if(!err) {
-//       console.log(log);
-//     }
-//   });
-// }, 2000);
+app.get(`${baseUrl}/logs`, (req, res) => {
+  // const companyId = req.header('X-COMPANY-TOKEN');
+  const companyId = req.query.company;
+  const appId = req.query.appid;
+
+  logService.getLogsByCompanyId(companyId, appId, req.query.logtype, (err, logs) => {
+    if (!err) {
+      res.send(logs);
+    }
+  });
+});
 
 app.listen(port, () => {
   console.log(`Log raw store app listening on port ${port}`);
