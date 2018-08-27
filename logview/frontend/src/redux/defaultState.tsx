@@ -19,6 +19,44 @@ export const defaultState: StoreState = {
 		appsSoket: undefined,
 		listeningPorts: undefined
 	},
+
+	cpuLogs: [
+		{
+			logType: '',
+			data: {
+				cores: [
+					{
+						coreLoadPercentages: 0,
+						coreName: 'core0'
+					}
+				]
+			},
+			timestamp: '',
+			companyToken: ''
+		}
+	],
+
+	memoryLogs: [
+		{
+			logType: '',
+			data: {
+				allMemory: 0,
+				freeMemory: 0,
+				freeMemoryPercentage: 0
+			},
+			timestamp: '',
+			companyToken: ''
+		}
+	],
+
+	companyUsers: [
+		{
+			name: '',
+			email: '',
+			active: false
+		}
+	],
+
 	fetchingUserStatus: 'unstarted',
 	fetchingSettingsStatus: 'unstarted',
 	isLoggedIn: false

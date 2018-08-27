@@ -5,12 +5,13 @@ import * as constants from './constants';
 
 function* fetchCompanyUsers(action: FetchCompanyUsers) {
 	try {
-		const company = yield call(companyAPI.registerUser);
+		const company = yield call(companyAPI.getCompanyUsers);
+		const users = company.data;
 
 		yield put({
 			type: constants.FETCH_COMPANY_USERS_SUCCESS,
 			payload: {
-				...company
+				users
 			}
 		});
 	} catch (error) {
@@ -20,6 +21,6 @@ function* fetchCompanyUsers(action: FetchCompanyUsers) {
 	}
 }
 
-export default function* userSaga() {
+export default function* companySaga() {
 	yield all([takeLatest(constants.FETCH_COMPANY_USERS, fetchCompanyUsers)]);
 }

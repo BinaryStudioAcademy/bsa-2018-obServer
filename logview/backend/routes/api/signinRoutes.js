@@ -39,6 +39,7 @@ router.post(
 	'/user/activate/:activationToken',
 	passport.authenticate('local.activationSignin'),
 	async (req, res, next) => {
+		console.log(req.user);
 		try {
 			const user = await userService.findByUserActivationToken(
 				req.params.activationToken

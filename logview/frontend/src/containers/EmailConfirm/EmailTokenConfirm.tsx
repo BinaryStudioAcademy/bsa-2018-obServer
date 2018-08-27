@@ -1,12 +1,6 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import {
-	PasswordResetContainer,
-	PasswordWrapper,
-	Title,
-	Submit,
-	CenteredText
-} from '../../styles/Styles';
+import { Title, Submit, PasswordWrapper } from '../../styles/Styles';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { userEmailActivation } from 'src/redux/user/actions';
@@ -33,42 +27,21 @@ class EmailTokenConfirm extends React.Component<
 
 	componentDidMount() {
 		this.props.actions.userEmailActivation(
-			queryString.parse(location.search).resetToken
+			queryString.parse(location.search).activationToken
 		);
 	}
 
 	render() {
-		const { isLoggedIn, fetchingUserStatus } = this.props;
+		const { fetchingUserStatus } = this.props;
 		return (
 			(fetchingUserStatus === 'success' ||
 				fetchingUserStatus === 'failed') && (
-				<PasswordResetContainer>
-					<PasswordWrapper>
-						{isLoggedIn ? (
-							<React.Fragment>
-								<Title>Email Successfully Confirmed!</Title>
-								<p>Some sort of image will be here</p>
-								{/* <Submit> */}
-								<Link to="/dashboard/quickstart">
-									Proceed to Quickstart
-								</Link>
-								{/* </Submit> */}
-							</React.Fragment>
-						) : (
-							<React.Fragment>
-								<div>
-									<Title>
-										Sorry, your email couldn't be confirmed!
-									</Title>
-									<CenteredText>
-										Try following the link again, please!
-									</CenteredText>
-								</div>
-								<p>Some sort of image will be here</p>
-							</React.Fragment>
-						)}
-					</PasswordWrapper>
-				</PasswordResetContainer>
+				<PasswordWrapper>
+					<Title>Email Successfully Confirmed!</Title>
+					<Submit>
+						<Link to="/dashboard/quickstart">Proceed to Login</Link>
+					</Submit>
+				</PasswordWrapper>
 			)
 		);
 	}

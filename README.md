@@ -245,6 +245,7 @@ PUT /api/user/:id // route which updates data about specified user
 
 ![Schemes relations](http://drive.google.com/uc?export=view&id=1Dt9NCCV1kFu_mufDfLzE1AC1MoigFLTi)
 
+
 ## LogConnect
 #### Includes to client app. Reads app metrics. Sends app metrics/logs to LogCollect
 ### Usage
@@ -264,3 +265,232 @@ app.use(obServer.httpStats());
 * response status code
 * request size
 * response size
+
+
+## Raw storage
+#### Get log from Logcollect -> Save raw log to MongoDB -> Send raw log to Aggregated storage.
+* Start server on port `process.env.RAWSTORAGE_PORT`
+* Send log message to aggregatedStorage server on port `process.env.AGGREGATEDSTORAGE_PORT`
+### Routes
+```js
+POST /api/logs // add new log (from logcollect)
+```
+### Raw log data model
+```js
+  logType: {
+    type: String,
+    required: true
+  },
+  data: mongoose.Schema.Types.Mixed,
+  timestamp: {
+    type: Date,
+    required: true
+  },
+  companyToken: {
+    type: String,
+    required: true
+  },
+  app: {
+    id: {
+      type: String,
+      required: false
+    },
+    name: {
+      type: String,
+      required: false
+    }
+  }
+```
+
+
+## Aggregated storage
+#### Get log from Raw storage -> Save log to MongoDB based on companyId and/or appId -> Send logs to Logview backend via WebSockets
+* Start server on port `process.env.AGGREGATEDSTORAGE_PORT`
+* Send log message to aggregatedStorage server on port `process.env.AGGREGATEDSTORAGE_PORT`
+### Routes
+```js
+POST /api/logs // add new log (from rawstorage)
+```
+### WebSockets
+```js
+// get logs for specified company (getLog request from logview backend)
+socket.on('getLogs', (companyId, response) => {
+  response(logsFromRecentDays);
+}
+
+// emit new log to logview backend
+io.emit('newLog', logMessage);
+```
+
+### Log types data models
+#### Company logs (main data model)
+```js
+companyId: {
+  type: String,
+  required: true
+},
+serverData: {
+  cpuServer: [cpuServer],
+  memoryServer: [memoryServer]
+},
+appsData: [{
+  appId: String,
+  appName: String,
+  logs: { 
+    cpuApp: [cpuApp],
+    memoryApp: [memoryApp],
+    httpStats: [httpStats],
+    socketsStats: [socketsStats],
+    errorLog: [errorLog]
+  }
+}]  
+```
+#### Server CPU (CPU_SERVER)
+```js
+cores: {
+  type: [{
+    coreName: {
+      type: String,
+      required: true
+    },
+    coreLoadPercentages: {
+      type: Number,
+      required: true
+    }
+  }],
+  require: true
+},
+timestamp: {
+  type: Date,
+  required: true
+}
+```
+#### Server memory (MEMORY_SERVER)
+```js
+freeMemory: {
+  type: Number,
+  required: true
+},
+allMemory: {
+  type: Number,
+  required: true
+},
+freeMemoryPercentage: {
+  type: Number,
+  required: true
+},
+timestamp: {
+  type: Date,
+  required: true
+}
+```
+#### App CPU (CPU_APP)
+```js
+cpuUsagePercentages: {
+  type: Number,
+  required: true
+},
+timestamp: {
+  type: Date,
+  required: true
+}
+```
+#### App memory (MEMORY_APP)
+```js
+memory: {
+  heap: {
+    type: Number,
+    required: true
+  },
+  totalProcessMemory: {
+    type: Number,
+    required: true
+  }
+},
+timestamp: {
+  type: Date,
+  required: true
+}
+```
+#### HTTP stats from Express.js middleware (HTTP_STATS)
+```js
+requests: {
+  frequency: {
+    type: Number,
+    required: true
+  }
+},
+responseTime: {
+  type: [{
+    route: {
+      type: String,
+      required: true
+    },
+    min: {
+      type: Number,
+      required: true
+    },
+    max: {
+      type: Number,
+      required: true
+    },
+    avg: {
+      type: Number,
+      required: true
+    }
+  }],
+  required: true
+},
+timestamp: {
+  type: Date,
+  required: true
+}
+```
+#### WebSockets stats (SOCKETS_STATS)
+```js
+rooms: [{
+  roomName: {
+    type: String,
+    required: true
+  },
+  roomAmount: {
+    type: Number,
+    required: true
+  }
+}],
+requests: {
+  frequency: {
+    type: Number,
+    required: true
+  }
+},
+responseTime: {
+  min: {
+    type: Number,
+    required: true
+  },
+  max: {
+    type: Number,
+    required: true
+  },
+  avg: {
+    type: Number,
+    required: true
+  }
+},
+timestamp: {
+  type: Date,
+  required: true
+}
+```
+#### Error log message (ERROR_LOG)
+```js
+errorMessage: {
+  type: String,
+  required: true
+},
+timestamp: {
+  type: Date,
+  required: true
+}
+```
