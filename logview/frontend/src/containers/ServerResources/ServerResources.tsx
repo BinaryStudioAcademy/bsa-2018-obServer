@@ -14,8 +14,10 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getLogs, getNewCpuLog, getNewMemoryLog } from 'src/redux/logs/actions';
 import { CpuLogState, MemoryLogState } from 'src/types/LogsState';
-
 import { memoryPercent, memoryMB, coresLoad } from './mockData';
+
+const interval = 1000;
+let timerID;
 
 interface ServerResourcesProps {
 	actions: {
@@ -44,6 +46,7 @@ class ServerResources extends React.Component<
 			memoryLogs: []
 		};
 
+		this.onClick = this.onClick.bind(this);
 	}
 
 	parser(cpuArr) {
@@ -62,9 +65,17 @@ class ServerResources extends React.Component<
 	}
 
 	componentDidMount() {
-		setInterval(() => {
-			this.setState({cpuLogs: this.parser(this.props.cpuLogs)});
-		}, 2000);
+		timerID = setInterval(() => {
+			this.setState({ cpuLogs: this.parser(this.props.cpuLogs) });
+		}, interval);
+	}
+
+	componentWillUnmount() {
+		clearInterval(timerID);
+	}
+
+	onClick() {
+		clearInterval(timerID);
 	}
 
 	render() {
@@ -73,6 +84,8 @@ class ServerResources extends React.Component<
 				<h1 style={{ textAlign: 'center', marginBottom: '100px' }}>
 					Server Resources
 				</h1>
+
+				<button onClick={this.onClick}>STOP DATA</button>
 
 				<ChartGrid>
 					<ChartWrapper>
@@ -83,9 +96,7 @@ class ServerResources extends React.Component<
 							</ChartTimeRange>
 						</ChartHeader>
 						<CoresLoadLineChart
-							data={
-								this.state.cpuLogs
-							}
+							data={this.state.cpuLogs}
 							timeRange="last 10 minutes"
 						/>
 					</ChartWrapper>
