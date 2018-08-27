@@ -44,7 +44,6 @@ class ServerResources extends React.Component<
 			memoryLogs: []
 		};
 
-		this.equalizer = this.equalizer.bind(this);
 	}
 
 	parser(cpuArr) {
@@ -62,37 +61,13 @@ class ServerResources extends React.Component<
 		return arr;
 	}
 
-	equalizer() {
-		console.log(`Length of state: ${this.state.cpuLogs.length}`);
-		const data = this.props.cpuLogs;
-		if (this.state.cpuLogs.length <= 7) {
-			const newData = this.parser(data);
-			this.setState({
-				cpuLogs: [...this.state.cpuLogs, ...newData]
-			});
-		} else if (this.state.cpuLogs.length > 7) {
-			const newData = this.parser(data.splice(-7));
-			this.setState({
-				cpuLogs: newData
-			});
-		}
+	componentDidMount() {
+		setInterval(() => {
+			this.setState({cpuLogs: this.parser(this.props.cpuLogs)});
+		}, 2000);
 	}
 
-	componentDidMount() {}
-
 	render() {
-		const { cpuLogs, memoryLogs } = this.props;
-		console.log(cpuLogs, memoryLogs);
-		if (cpuLogs.length > 2 && memoryLogs.length > 2) {
-			console.log('PROPS MEMORY LOGS');
-			console.log(memoryLogs);
-			console.log('PROPS CPU LOGS');
-			console.log(cpuLogs);
-			this.props.actions.getNewCpuLog();
-			this.props.actions.getNewMemoryLog();
-			this.equalizer();
-		}
-
 		return (
 			<ChartsPageWrapper>
 				<h1 style={{ textAlign: 'center', marginBottom: '100px' }}>
@@ -109,9 +84,7 @@ class ServerResources extends React.Component<
 						</ChartHeader>
 						<CoresLoadLineChart
 							data={
-								this.state.cpuLogs.length > 2
-									? this.state.cpuLogs
-									: []
+								this.state.cpuLogs
 							}
 							timeRange="last 10 minutes"
 						/>
