@@ -82,21 +82,13 @@ const aggregateLogs = (logs, interval) => {
   const logType = logs[0].logType;
 
   const slicedLogs = sliceLogsByInterval(logs, interval);
-  // console.log(slicedLogs[0][0]);
-  // console.log(slicedLogs[0][347]);
-  // console.log(slicedLogs[8][0]);
-  // console.log(slicedLogs[8][826]);
-  console.log(logType);
-  const a = getAvgLogs(slicedLogs, logType);
-  // console.log(a);
-  return a;
+  return getAvgLogs(slicedLogs, logType);
 };
 
 const sliceLogsByInterval = (logArray, interval) => {
   let timeInterval = new Date(logArray[0].timestamp);
   timeInterval.setTime(timeInterval.getTime() + interval);
   let chunkIndex = 0; 
-  // console.log(timeInterval);
   
   return logArray.reduce((resultArray, item, index) => { 
     const logTime = new Date(item.timestamp);
@@ -104,7 +96,6 @@ const sliceLogsByInterval = (logArray, interval) => {
     while(logTime.getTime() > timeInterval.getTime()) {
       resultArray[++chunkIndex] = [];
       timeInterval.setTime(timeInterval.getTime() + interval);
-      // console.log(resultArray.length);
     }
   
     resultArray[chunkIndex].push(item);
