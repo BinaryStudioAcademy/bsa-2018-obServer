@@ -27,7 +27,7 @@ class EmailTokenConfirm extends React.Component<
 
 	componentDidMount() {
 		this.props.actions.userEmailActivation(
-			queryString.parse(location.search).resetToken
+			queryString.parse(location.search).activationToken
 		);
 	}
 

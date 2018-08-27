@@ -67,9 +67,7 @@ class Dashboard extends React.Component<DashboardProps, DashboardState> {
 	}
 
 	handleLogout() {
-		this.props.actions.userLogout(
-			JSON.parse(sessionStorage.getItem('observerUser'))
-		);
+		this.props.actions.userLogout();
 	}
 
 	render() {
