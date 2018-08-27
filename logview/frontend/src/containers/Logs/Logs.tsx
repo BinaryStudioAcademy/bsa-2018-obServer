@@ -110,6 +110,10 @@ class Logs extends React.Component<LogsProps, LogsState> {
 		if (filters.endDate && filters.startDate > filters.endDate) {
 			alert('End date cannot be earlier then start date.');
 		} else {
+			const startDateFormatted = new Date(filters.startDate);
+			const endDateFormatted = new Date(filters.endDate);
+			const startDateValue = startDateFormatted.valueOf();
+			const endDateValue = endDateFormatted.valueOf();
 			let filteredByLevel = logs.filter(log => {
 				return log.level <= filters.level;
 			});
@@ -117,14 +121,14 @@ class Logs extends React.Component<LogsProps, LogsState> {
 			let filteredByStartDate = [];
 			filters.startDate
 				? (filteredByStartDate = filteredByLevel.filter(log => {
-						return log.date >= filters.startDate;
+						return log.date >= startDateValue;
 				  }))
 				: (filteredByStartDate = filteredByLevel);
 
 			let filtered = [];
 			filters.endDate
 				? (filtered = filteredByStartDate.filter(log => {
-						return log.date <= filters.endDate;
+						return log.date <= endDateValue;
 				  }))
 				: (filtered = filteredByStartDate);
 
@@ -154,7 +158,7 @@ class Logs extends React.Component<LogsProps, LogsState> {
 				errData = this.calculateErrStats(
 					filtered,
 					LOGS[0].date,
-					this.state.filters.endDate,
+					endDateValue,
 					this.state.errStats.divider
 				);
 
@@ -169,7 +173,7 @@ class Logs extends React.Component<LogsProps, LogsState> {
 			} else if (this.state.filters.endDate === '') {
 				errData = this.calculateErrStats(
 					filtered,
-					this.state.filters.startDate,
+					startDateValue,
 					Date.now(),
 					this.state.errStats.divider
 				);
@@ -183,9 +187,8 @@ class Logs extends React.Component<LogsProps, LogsState> {
 					}
 				};
 			} else if (
-				this.state.filters.startDate ===
-					this.state.errStats.startDate &&
-				this.state.filters.endDate === this.state.errStats.endDate
+				startDateValue === this.state.errStats.startDate &&
+				endDateValue === this.state.errStats.endDate
 			) {
 				nextState = {
 					...this.state,
@@ -194,8 +197,8 @@ class Logs extends React.Component<LogsProps, LogsState> {
 			} else {
 				errData = this.calculateErrStats(
 					filtered,
-					this.state.filters.startDate,
-					this.state.filters.endDate,
+					startDateValue,
+					endDateValue,
 					this.state.errStats.divider
 				);
 
@@ -204,8 +207,8 @@ class Logs extends React.Component<LogsProps, LogsState> {
 					filteredLogs: filtered,
 					errStats: {
 						...this.state.errStats,
-						startDate: this.state.filters.startDate,
-						endDate: this.state.filters.endDate,
+						startDate: startDateValue,
+						endDate: endDateValue,
 						errData: errData
 					}
 				};
@@ -290,9 +293,9 @@ class Logs extends React.Component<LogsProps, LogsState> {
 				<ChartWrapper>
 					<ChartHeader>Errors Statistics</ChartHeader>
 					<ErrChart
-						data={errorStats}
-						// data={this.state.errStats.errData}
-						timeRange="last 10 minutes"
+						// data={errorStats}
+						data={this.state.errStats.errData}
+						timeRange="last day"
 					/>
 				</ChartWrapper>
 				<LogsSearchForm
@@ -318,8 +321,8 @@ class Logs extends React.Component<LogsProps, LogsState> {
 					<DatePicker
 						type="datetime-local"
 						name="startDate"
-						pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}"
-						placeholder="2018-08-26T12:00:00"
+						pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}"
+						placeholder="2018-08-26T12:00"
 						value={this.state.filters.startDate}
 						onChange={e => this.handleChange(e)}
 					/>
@@ -327,8 +330,8 @@ class Logs extends React.Component<LogsProps, LogsState> {
 					<DatePicker
 						type="datetime-local"
 						name="endDate"
-						pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}"
-						placeholder="2018-08-26T12:00:00"
+						pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}"
+						placeholder="2018-08-26T12:00"
 						value={this.state.filters.endDate}
 						onChange={e => this.handleChange(e)}
 					/>
