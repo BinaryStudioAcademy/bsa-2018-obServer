@@ -14,9 +14,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getLogs, getNewCpuLog, getNewMemoryLog } from 'src/redux/logs/actions';
 import { CpuLogState, MemoryLogState } from 'src/types/LogsState';
-import { memoryPercent, memoryMB, coresLoad } from './mockData';
+import { cpuParser, memoryParser, memoryMbParser } from 'src/services/chartParser';
 
-const interval = 1000;
 let timerID;
 
 interface ServerResourcesProps {
@@ -32,6 +31,8 @@ interface ServerResourcesProps {
 interface ServerResourcesState {
 	cpuLogs: Array<any>;
 	memoryLogs: Array<any>;
+	memoryMbLogs: Array<any>;
+	interval: Number;
 }
 
 class ServerResources extends React.Component<
@@ -43,38 +44,23 @@ class ServerResources extends React.Component<
 
 		this.state = {
 			cpuLogs: [],
-			memoryLogs: []
+			memoryLogs: [],
+			memoryMbLogs: [],
+			interval: 1000
 		};
-
-		this.onClick = this.onClick.bind(this);
 	}
-
-	parser(cpuArr) {
-		const arr = [];
-		cpuArr.forEach((elem, index) => {
-			if (index > 0) {
-				let obj = {};
-				elem.data.cores.forEach(core => {
-					obj[core.coreName] = core.coreLoadPercentages;
-				});
-				obj['timestamp'] = elem.timestamp;
-				arr.push(obj);
-			}
-		});
-		return arr;
-	}
+	
 
 	componentDidMount() {
-		timerID = setInterval(() => {
-			this.setState({ cpuLogs: this.parser(this.props.cpuLogs) });
-		}, interval);
-	}
-
-	componentWillUnmount() {
 		clearInterval(timerID);
+		timerID = setInterval(() => {
+			this.setState({cpuLogs: cpuParser(this.props.cpuLogs)});
+			this.setState({memoryLogs: memoryParser(this.props.memoryLogs)});
+			this.setState({memoryMbLogs: memoryMbParser(this.props.memoryLogs)});
+		}, 2000);
 	}
-
-	onClick() {
+	
+	componentWillUnmount() {
 		clearInterval(timerID);
 	}
 
@@ -84,8 +70,6 @@ class ServerResources extends React.Component<
 				<h1 style={{ textAlign: 'center', marginBottom: '100px' }}>
 					Server Resources
 				</h1>
-
-				<button onClick={this.onClick}>STOP DATA</button>
 
 				<ChartGrid>
 					<ChartWrapper>
@@ -108,7 +92,7 @@ class ServerResources extends React.Component<
 							</ChartTimeRange>
 						</ChartHeader>
 						<PercentMemoryChart
-							data={memoryPercent}
+							data={this.state.memoryLogs}
 							timeRange="last hour"
 						/>
 					</ChartWrapper>
@@ -119,7 +103,7 @@ class ServerResources extends React.Component<
 								<Timer size="24px" /> last day
 							</ChartTimeRange>
 						</ChartHeader>
-						<MemoryUsedChart data={memoryMB} timeRange="last day" />
+						<MemoryUsedChart data={this.state.memoryMbLogs} timeRange="last day" />
 					</ChartWrapper>
 				</ChartGrid>
 			</ChartsPageWrapper>
