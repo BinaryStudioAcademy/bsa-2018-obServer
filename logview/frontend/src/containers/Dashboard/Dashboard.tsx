@@ -6,7 +6,7 @@ import Logs from '../Logs/Logs';
 import Profile from '../Profile/Profile';
 import HttpStats from '../HttpStats/HttpStats';
 import SocketStats from '../SocketStats/SocketStats';
-import InviteUser from '../InviteUser/InviteUser';
+import Company from '../Company/Company';
 import {
 	SideNav,
 	SideLink,
@@ -67,12 +67,12 @@ class Dashboard extends React.Component<DashboardProps, DashboardState> {
 	}
 
 	handleLogout() {
-		this.props.actions.userLogout(sessionStorage.getItem('user'));
+		this.props.actions.userLogout();
 	}
 
 	render() {
-		const { match, location } = this.props;
-		const user = sessionStorage.getItem('observerUser');
+		const { match } = this.props;
+		const user = JSON.parse(sessionStorage.getItem('observerUser'));
 		return (
 			<DashboardBackground>
 				<Sidebar>
@@ -150,8 +150,6 @@ class Dashboard extends React.Component<DashboardProps, DashboardState> {
 					</SideNav>
 					<UserBar>
 						<UserProfile>
-							{/* popup */}
-
 							<UserPopup
 								popup={this.state.popup}
 								onClick={this.togglePopup}
@@ -164,8 +162,8 @@ class Dashboard extends React.Component<DashboardProps, DashboardState> {
 											</Link>
 										</CommentText>
 										<CommentText>
-											<Link to={`${match.url}/invite`}>
-												invite user
+											<Link to={`${match.url}/company`}>
+												my company
 											</Link>
 										</CommentText>
 										<CommentText
@@ -175,9 +173,7 @@ class Dashboard extends React.Component<DashboardProps, DashboardState> {
 										</CommentText>
 									</React.Fragment>
 								)}
-								<UserText>
-									{/* Causes TS error {user.name} */}
-								</UserText>
+								<UserText>{user.data.name}</UserText>
 							</UserPopup>
 						</UserProfile>
 					</UserBar>
@@ -204,10 +200,7 @@ class Dashboard extends React.Component<DashboardProps, DashboardState> {
 						path={`${match.url}/socketstats`}
 						component={SocketStats}
 					/>
-					<Route
-						path={`${match.url}/invite`}
-						component={InviteUser}
-					/>
+					<Route path={`${match.url}/company`} component={Company} />
 					<Route path={`${match.url}/profile`} component={Profile} />
 				</Main>
 			</DashboardBackground>

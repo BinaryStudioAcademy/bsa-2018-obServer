@@ -12,6 +12,7 @@ import ServerResources from 'src/containers/ServerResources/ServerResources';
 import history from './history';
 import 'src/styles/GlobalStyles';
 import { Background } from '../styles/Styles';
+import Socket from 'src/containers/Socket';
 // import { isLoggedIn } from '../services';
 import Dashboard from 'src/containers/Dashboard/Dashboard';
 import 'src/styles/GlobalStyles';
@@ -35,7 +36,9 @@ interface RouterState {
 class Router extends React.Component<RouterProps, RouterState> {
 	constructor(props: any) {
 		super(props);
-		this.state = { loggedUser: sessionStorage.getItem('observerUser') };
+		this.state = {
+			loggedUser: JSON.parse(sessionStorage.getItem('observerUser'))
+		};
 	}
 	componentDidMount() {}
 
@@ -71,7 +74,7 @@ class Router extends React.Component<RouterProps, RouterState> {
 							component={PasswordReset}
 							loggedUser={this.state.loggedUser}
 						/>
-						<PrivateRoute
+						<Route
 							exact
 							path="/change/"
 							component={PasswordChange}
@@ -92,11 +95,13 @@ class Router extends React.Component<RouterProps, RouterState> {
 							path="/setpassword/"
 							component={PasswordChange}
 						/>
-						<PrivateRoute
+						<Route
 							path="/dashboard"
 							component={Dashboard}
 							loggedUser={this.state.loggedUser}
 						/>
+
+						<Route exact path="/socket" component={Socket} />
 					</Switch>
 				</Background>
 			</ConnectedRouter>
@@ -114,7 +119,7 @@ const PrivateRoute = ({
 		<Route
 			{...rest}
 			render={props =>
-				loggedUser ? (
+				sessionStorage.getItem('observerUser') ? (
 					<Component {...props} />
 				) : (
 					<Redirect
@@ -138,7 +143,7 @@ const UnauthorizedRoute = ({
 		<Route
 			{...rest}
 			render={props =>
-				loggedUser ? (
+				sessionStorage.getItem('observerUser') ? (
 					<Redirect
 						to={{
 							pathname: '/dashboard',

@@ -34,3 +34,14 @@ export function validateForm(obj: {
 	}
 	return res;
 }
+
+export function validatePortsString(ports: string): boolean {
+	const portsRegExp = /^[0-9]+(,[0-9]+)*$/;
+	let testPorts: boolean;
+
+	ports === '' || ports === null
+		? (testPorts = true)
+		: (testPorts = portsRegExp.test(ports));
+
+	return testPorts;
+}
