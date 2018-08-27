@@ -66,6 +66,25 @@ class LogRepository {
       }}
     ], callback);
   }
+
+  getAllByCompanyIdAppId(companyId, appId, serverLogsList, appLogsList, callback) {
+    const match = { companyId };
+    if (appId) {
+      match['appsData.appId'] = appId;
+    }
+
+    const projection = {};
+    serverLogsList.forEach((serverLogType) => {
+      const dbFieldName = `serverData.${logTypes.name[serverLogType]}`;
+      projection[dbFieldName] = 1;
+    });
+    appLogsList.forEach((appLogType) => {
+      const dbFieldName = `appsData.logs.${logTypes.name[appLogType]}`;
+      projection[dbFieldName] = 1;
+    });
+
+    this.model.find(match, projection, callback);
+  }
 }
 
 const isThisServerLogType = (logType) => {

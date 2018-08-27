@@ -34,11 +34,10 @@ amqp.connect(`amqp://localhost:${rabbitmqPort}`, function(err, conn) {
 
 app.get(`${baseUrl}/logs`, (req, res) => {
   const companyId = req.header('X-COMPANY-TOKEN');
-  let logType = req.query.type;
-  let interval = +req.query.interval;
-  let appId = req.query.appid || null;
+  const logIntervals = req.query;
+  let appId = req.header('X-APP-ID') || null;
 
-  logService.getLogsByCompanyAndTypeForInterval(companyId, appId, logType, interval, (err, logs) => {
+  logService.getLogsForInterval(companyId, appId, logIntervals, (err, logs) => {
     if (!err) {
       res.send(logs);
     }
