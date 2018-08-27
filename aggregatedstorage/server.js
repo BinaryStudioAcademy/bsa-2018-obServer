@@ -8,6 +8,7 @@ const logService = require('./services/logService');
 
 const port = process.env.AGGREGATEDSTORAGE_PORT;
 const rabbitmqPort = process.env.RABBITMQ_EXTERNAL_PORT;
+const baseUrl = '/api';
 
 sockets(io);
 
@@ -28,6 +29,19 @@ amqp.connect(`amqp://localhost:${rabbitmqPort}`, function(err, conn) {
         }
       });
     }, {noAck: true});
+  });
+});
+
+app.get(`${baseUrl}/logs`, (req, res) => {
+  const companyId = req.header('X-COMPANY-TOKEN');
+  let logType = req.query.type;
+  let interval = +req.query.interval;
+  let appId = req.query.appid || null;
+
+  logService.getLogsByCompanyAndTypeForInterval(companyId, appId, logType, interval, (err, logs) => {
+    if (!err) {
+      res.send(logs);
+    }
   });
 });
 
