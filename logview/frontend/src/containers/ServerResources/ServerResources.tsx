@@ -14,7 +14,11 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getLogs, getNewCpuLog, getNewMemoryLog } from 'src/redux/logs/actions';
 import { CpuLogState, MemoryLogState } from 'src/types/LogsState';
-import { cpuParser, memoryParser, memoryMbParser } from 'src/services/chartParser';
+import {
+	cpuParser,
+	memoryParser,
+	memoryMbParser
+} from 'src/services/chartParser';
 
 let timerID;
 
@@ -49,17 +53,18 @@ class ServerResources extends React.Component<
 			interval: 1000
 		};
 	}
-	
 
 	componentDidMount() {
 		clearInterval(timerID);
 		timerID = setInterval(() => {
-			this.setState({cpuLogs: cpuParser(this.props.cpuLogs)});
-			this.setState({memoryLogs: memoryParser(this.props.memoryLogs)});
-			this.setState({memoryMbLogs: memoryMbParser(this.props.memoryLogs)});
-		}, 2000);
+			this.setState({ cpuLogs: cpuParser(this.props.cpuLogs) });
+			this.setState({ memoryLogs: memoryParser(this.props.memoryLogs) });
+			this.setState({
+				memoryMbLogs: memoryMbParser(this.props.memoryLogs)
+			});
+		}, 1000);
 	}
-	
+
 	componentWillUnmount() {
 		clearInterval(timerID);
 	}
@@ -103,7 +108,10 @@ class ServerResources extends React.Component<
 								<Timer size="24px" /> last day
 							</ChartTimeRange>
 						</ChartHeader>
-						<MemoryUsedChart data={this.state.memoryMbLogs} timeRange="last day" />
+						<MemoryUsedChart
+							data={this.state.memoryMbLogs}
+							timeRange="last day"
+						/>
 					</ChartWrapper>
 				</ChartGrid>
 			</ChartsPageWrapper>

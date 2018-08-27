@@ -14,7 +14,7 @@ function* fetchNewLog() {
 		const socketChannel = yield call(createSocketChannel, socket);
 		while (true) {
 			const newLog = yield take(socketChannel);
-			delete newLog.app;
+			delete newLog.app; //temporary
 			const newLogArr = [newLog];
 
 			switch (newLog.logType) {
