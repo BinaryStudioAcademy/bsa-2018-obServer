@@ -172,7 +172,7 @@ function* userSetPassword(action: UserSetPassword) {
 			type: constants.USER_INVITE_SUCCESS
 		});
 
-		yield put(push('/dashboard/quickstart'));
+		yield put(push('/login'));
 	} catch (error) {
 		yield put({
 			type: constants.USER_INVITE_FAILED
