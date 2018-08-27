@@ -114,7 +114,7 @@ const PrivateRoute = ({
 		<Route
 			{...rest}
 			render={props =>
-				loggedUser ? (
+				sessionStorage.getItem('observerUser') ? (
 					<Component {...props} />
 				) : (
 					<Redirect
@@ -138,7 +138,7 @@ const UnauthorizedRoute = ({
 		<Route
 			{...rest}
 			render={props =>
-				loggedUser ? (
+				sessionStorage.getItem('observerUser') ? (
 					<Redirect
 						to={{
 							pathname: '/dashboard',
