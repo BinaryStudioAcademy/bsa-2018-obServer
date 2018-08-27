@@ -15,7 +15,7 @@ class EmailConfirm extends React.Component {
 	componentDidMount() {}
 
 	render() {
-		let user = sessionStorage.getItem('user');
+		let user = sessionStorage.getItem('observerUser');
 
 		return (
 			<Background>
