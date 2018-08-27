@@ -74,6 +74,7 @@ class PasswordChange extends React.Component<
 				token
 			);
 		} else if (this.props.match.url === '/setpassword/') {
+			let token = queryString.parse(location.search).inviteToken;
 			this.props.actions.userSetPassword(this.state.newpassword, token);
 		}
 	}
