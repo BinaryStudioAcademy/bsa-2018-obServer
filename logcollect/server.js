@@ -9,10 +9,14 @@ const companyToken = process.env.LOGCOLLECT_SECRET_TOKEN;
 const app = express();
 
 const server = require("http").createServer(app);
+const io = require("socket.io")(server);
+const sockets = require("./sockets/sockets");
 
 const rawStorePort = process.env.RAWSTORAGE_PORT;
 const rawStoreAddress = `http://localhost:${rawStorePort}/api/logs`; // raw store address we will get from config request
 const metricsService = new MetricsService(rawStoreAddress, companyToken);
+
+const baseUrl = "/api";
 
 app.use(
   bodyParser.json({
@@ -24,8 +28,6 @@ app.use(
     extended: false
   })
 );
-
-const baseUrl = "/api";
 
 app.post(`${baseUrl}/config`, (req, res) => {
   console.log(req.body);
@@ -41,9 +43,7 @@ app.post(`${baseUrl}/logs`, (req, res) => {
   res.send(req.body);
 });
 
-const io = require("socket.io")(server);
-const sockets = require("./sockets/sockets");
-sockets(io, port);
+sockets(io);
 
 eventEmitter.on("get new settings", settings => {
   console.log("get new settings", settings);
