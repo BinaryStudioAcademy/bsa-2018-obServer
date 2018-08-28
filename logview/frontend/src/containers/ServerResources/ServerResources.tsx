@@ -12,18 +12,17 @@ import {
 	memoryParser,
 	memoryMbParser
 } from 'src/services/chartParser';
-import { CommentText, UserText, Chart, ChartInfo, ChartHeader,
+import {
+	Chart,
+	ChartInfo,
+	ChartHeader,
 	ChartGrid,
 	ChartWrapper,
 	ChartsPageWrapper,
 	ChartTimeRange,
-	UserBar, 
-	Title,
-	Select,
-	OptionActive,
-	Option} from './ServerResourcesStyles'; 
-import { ArrowDropDown } from 'styled-icons/material';
-import AppSelect from './AppSelect';
+	Title
+} from './ServerResourcesStyles';
+import Select from 'src/components/Select/Select';
 
 let timerID;
 
@@ -65,9 +64,7 @@ class ServerResources extends React.Component<
 			popup: false,
 			wrapperRef: undefined
 		};
-
 	}
-
 
 	componentDidMount() {
 		clearInterval(timerID);
@@ -90,11 +87,9 @@ class ServerResources extends React.Component<
 	render() {
 		return (
 			<ChartsPageWrapper>
-				<Title>
-					Server Resources
-				</Title>
+				<Title>Server Resources</Title>
 
-				<AppSelect />
+				<Select active="general" options={['app1', 'app2', 'app3']}/>
 
 				<ChartGrid>
 					<ChartWrapper>
@@ -193,4 +188,3 @@ const ServerResourcesConnected = connect(
 )(ServerResources);
 
 export default ServerResourcesConnected;
-

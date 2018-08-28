@@ -31,14 +31,13 @@ import { userLogout, fetchUser } from 'src/redux/user/actions';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-
 interface DashboardState {
 	active?: string;
 	popup?: boolean;
 }
 
 interface DashboardProps extends RouteComponentProps<{}> {
-	actions: { userLogout: Function, fetchUser: Function };
+	actions: { userLogout: Function; fetchUser: Function };
 }
 
 class Dashboard extends React.Component<DashboardProps, DashboardState> {
