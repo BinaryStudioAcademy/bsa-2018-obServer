@@ -12,7 +12,7 @@ class LogRepository {
 
   findAll(companyId, appId, logType, callback) {
     if (logType && appId) {
-      this.model.find({ companyToken: companyId, logType, 'app.id': appId}, callback);
+      this.model.find({ companyToken: companyId, logType, 'app.id': appId }, callback);
       return;
     } else if (logType) {
       this.model.find({ companyToken: companyId, logType }, callback);

@@ -16,10 +16,10 @@ class LogService {
   getLogsByCompanyId(companyId, appId, logType, callback) {
     switch (logType) {
       case 'memoryserver':
-        logRepository.findAll(companyId, logTypes.MEMORY_SERVER, callback);
+        logRepository.findAll(companyId, null, logTypes.MEMORY_SERVER, callback);
         break;
       case 'cpuserver':
-        logRepository.findAll(companyId, logTypes.CPU_SERVER, callback);
+        logRepository.findAll(companyId, null, logTypes.CPU_SERVER, callback);
         break;
       case 'http':
         logRepository.findAll(companyId, appId, logTypes.HTTP_STATS, callback);
