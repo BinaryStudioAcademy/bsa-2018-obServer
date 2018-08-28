@@ -37,6 +37,7 @@ class Router extends React.Component<RouterProps, RouterState> {
 	constructor(props: any) {
 		super(props);
 		this.state = {
+			// seems we don't need this
 			loggedUser: JSON.parse(sessionStorage.getItem('observerUser'))
 		};
 	}
@@ -95,7 +96,7 @@ class Router extends React.Component<RouterProps, RouterState> {
 							path="/setpassword/"
 							component={PasswordChange}
 						/>
-						<Route
+						<PrivateRoute
 							path="/dashboard"
 							component={Dashboard}
 							loggedUser={this.state.loggedUser}
