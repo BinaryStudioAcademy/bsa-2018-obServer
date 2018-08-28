@@ -1,26 +1,26 @@
-require("dotenv").config();
-const express = require("express");
-const bodyParser = require("body-parser");
-const MetricsService = require("./metricsService");
-const eventEmitter = require("./events");
+require('dotenv').config();
+const express = require('express');
+const bodyParser = require('body-parser');
+const MetricsService = require('./metricsService');
+const eventEmitter = require('./events');
 
 const port = process.env.LOGCOLLECT_PORT;
 const companyToken = process.env.LOGCOLLECT_SECRET_TOKEN;
 const app = express();
 
-const server = require("http").createServer(app);
-const io = require("socket.io")(server);
-const sockets = require("./sockets/sockets");
+const server = require('http').createServer(app);
+const io = require('socket.io')(server);
+const sockets = require('./sockets/sockets');
 
 const rawStorePort = process.env.RAWSTORAGE_PORT;
 const rawStoreAddress = `http://localhost:${rawStorePort}/api/logs`; // raw store address we will get from config request
 const metricsService = new MetricsService(rawStoreAddress, companyToken);
 
-const baseUrl = "/api";
+const baseUrl = '/api';
 
 app.use(
   bodyParser.json({
-    limit: "5mb"
+    limit: '5mb'
   })
 );
 app.use(
@@ -45,8 +45,8 @@ app.post(`${baseUrl}/logs`, (req, res) => {
 
 sockets(io);
 
-eventEmitter.on("get new settings", settings => {
-  console.log("get new settings", settings);
+eventEmitter.on('get new settings', settings => {
+  console.log('get new settings', settings);
 });
 
 app.listen(port, () => {
