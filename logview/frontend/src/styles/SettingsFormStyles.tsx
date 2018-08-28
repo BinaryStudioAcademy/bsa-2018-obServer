@@ -164,3 +164,12 @@ export const SettingsMenuWrapper = styled.div`
 	text-align: center;
 	margin-bottom: 50px;
 `;
+
+export const SettingInputWrapper = styled.div`
+margin-top: 10px;
+label{
+	color: ${colors["grey-darken"]};
+	font-size: 14px;
+    text-transform: uppercase;
+}
+`;
