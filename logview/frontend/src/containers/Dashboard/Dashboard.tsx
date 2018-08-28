@@ -72,7 +72,7 @@ class Dashboard extends React.Component<DashboardProps, DashboardState> {
 
 	render() {
 		const { match } = this.props;
-		const user = JSON.parse(sessionStorage.getItem('observerUser'));
+		const user = sessionStorage.getItem('observerUser');
 		return (
 			<DashboardBackground>
 				<Sidebar>
@@ -173,7 +173,7 @@ class Dashboard extends React.Component<DashboardProps, DashboardState> {
 										</CommentText>
 									</React.Fragment>
 								)}
-								<UserText>{user.data.name}</UserText>
+								<UserText>{user}</UserText>
 							</UserPopup>
 						</UserProfile>
 					</UserBar>

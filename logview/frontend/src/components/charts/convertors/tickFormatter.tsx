@@ -16,6 +16,10 @@ export function convertToDateTime(timestamp) {
 	return moment(timestamp).format('MMM DD YYYY, h:mm:ss a');
 }
 
+export function convertToMonthDay(timestamp) {
+	return moment(timestamp).format('ddd MMM DD');
+}
+
 export function convertDecimalToPercent(decimal, fixed = 0) {
 	return `${(decimal * 100).toFixed(fixed)}`;
 }
@@ -31,7 +35,11 @@ export function convertXAxisTime(timeRange) {
 		case 'last hour':
 			return convertToHourMinuteSecond;
 		case 'last day':
+		case 'last 24 hours':
 			return convertToDayHourMinute;
+		case 'last week':
+		case 'last 30 days':
+			return convertToMonthDay;
 		default:
 			return convertToDayHourMinute;
 	}

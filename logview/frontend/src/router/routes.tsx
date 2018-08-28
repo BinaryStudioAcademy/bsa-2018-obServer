@@ -37,7 +37,7 @@ class Router extends React.Component<RouterProps, RouterState> {
 	constructor(props: any) {
 		super(props);
 		this.state = {
-			loggedUser: JSON.parse(sessionStorage.getItem('observerUser'))
+			loggedUser: sessionStorage.getItem('observerUser')
 		};
 	}
 	componentDidMount() {}

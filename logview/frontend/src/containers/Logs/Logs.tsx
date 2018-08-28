@@ -1,15 +1,13 @@
 import * as React from 'react';
 import { Search as SearchIcon } from 'styled-icons/material';
-import ErrChart from '../../components/charts/logs/ErrChart';
-import { errorStats } from './mockData';
+import ErrChart from 'src/components/charts/logs/ErrChart';
 
 import {
 	ChartWrapper,
 	ChartHeader,
 	LogsSearchForm,
 	LevelPicker,
-	DateLabel,
-	DatePicker,
+	TimeSpanPicker,
 	SearchButton,
 	LogsList,
 	LogItem,
@@ -24,6 +22,8 @@ import {
 	NotFound
 } from 'src/styles/LogsStyles';
 
+import { LOGS } from './mockData';
+
 const LEVELS = {
 	0: <ErrorLabel>ERROR</ErrorLabel>,
 	1: <WarnLabel>WARN</WarnLabel>,
@@ -33,32 +33,6 @@ const LEVELS = {
 	5: <SillyLabel>SILLY</SillyLabel>
 };
 
-const LOGS = [
-	{
-		date: 1534574894940,
-		level: 2,
-		text: 'Database populated with logs successfully'
-	},
-	{ date: 1534644894940, level: 5, text: 'Added style for log items' },
-	{ date: 1534714894940, level: 4, text: 'Saved input value into a state' },
-	{
-		date: 1534784894940,
-		level: 0,
-		text: 'Saved values rendered incorrectly'
-	},
-	{ date: 1534854894940, level: 1, text: "Logs' colors not work" },
-	{ date: 1534924894940, level: 3, text: 'Added text to levels' },
-	{
-		date: 1534994894940,
-		level: 1,
-		text: "Datetime input doesn't work in Firefox"
-	},
-	{ date: 1535064894940, level: 5, text: 'Added some minor options' },
-	{ date: 1535134894940, level: 0, text: 'Compiled incorrectly' },
-	{ date: 1535204894940, level: 4, text: 'Fixed typo' },
-	{ date: 1535274894940, level: 2, text: 'Everything is OK' }
-];
-
 interface LogsProps {
 	// 	actions: { search: Function };
 }
@@ -66,17 +40,10 @@ interface LogsProps {
 interface LogsState {
 	filters: {
 		level: number;
-		startDate;
-		endDate;
+		timespan: string;
 	};
-	// for searchButton filtering
-	filteredLogs: Array<{ date; level; text }>;
-	errStats: {
-		divider: number;
-		startDate;
-		endDate;
-		errData: Array<{ date; quantity }>;
-	};
+	filteredLogs: Array<{ timestamp; level; text }>;
+	errStats: Array<{ timestamp; errors }>;
 }
 
 class Logs extends React.Component<LogsProps, LogsState> {
@@ -86,16 +53,10 @@ class Logs extends React.Component<LogsProps, LogsState> {
 		this.state = {
 			filters: {
 				level: 2,
-				startDate: '',
-				endDate: ''
+				timespan: 'last 24 hours'
 			},
 			filteredLogs: [],
-			errStats: {
-				divider: 10,
-				startDate: '',
-				endDate: '',
-				errData: []
-			}
+			errStats: [{ timestamp: Date.now(), errors: 0 }]
 		};
 
 		this.applyFilters = this.applyFilters.bind(this);
@@ -103,152 +64,164 @@ class Logs extends React.Component<LogsProps, LogsState> {
 	}
 
 	componentDidMount() {
-		this.applyFilters(LOGS, { level: 2 });
+		this.applyFilters(LOGS, this.state.filters);
 	}
 
 	applyFilters(logs, filters) {
-		if (filters.endDate && filters.startDate > filters.endDate) {
-			alert('End date cannot be earlier then start date.');
-		} else {
-			const startDateFormatted = new Date(filters.startDate);
-			const endDateFormatted = new Date(filters.endDate);
-			const startDateValue = startDateFormatted.valueOf();
-			const endDateValue = endDateFormatted.valueOf();
-			let filteredByLevel = logs.filter(log => {
-				return log.level <= filters.level;
-			});
+		// sorting by log level
+		let filteredByLevel = logs.filter(log => {
+			return log.level <= filters.level;
+		});
 
-			let filteredByStartDate = [];
-			filters.startDate
-				? (filteredByStartDate = filteredByLevel.filter(log => {
-						return log.date >= startDateValue;
-				  }))
-				: (filteredByStartDate = filteredByLevel);
-
-			let filtered = [];
-			filters.endDate
-				? (filtered = filteredByStartDate.filter(log => {
-						return log.date <= endDateValue;
-				  }))
-				: (filtered = filteredByStartDate);
-
-			let nextState = {};
-			// Drawing chart depending on whether start and end dates provided
-			let errData = [];
-			if (
-				this.state.filters.startDate === '' &&
-				this.state.filters.endDate === ''
-			) {
-				// logs are supposed to be sorted by date
-				errData = this.calculateErrStats(
-					LOGS,
-					LOGS[0].date,
-					Date.now(),
-					this.state.errStats.divider
-				);
-				nextState = {
-					...this.state,
-					filteredLogs: filtered,
-					errStats: {
-						...this.state.errStats,
-						errData: errData
-					}
-				};
-			} else if (this.state.filters.startDate === '') {
-				errData = this.calculateErrStats(
-					filtered,
-					LOGS[0].date,
-					endDateValue,
-					this.state.errStats.divider
-				);
-
-				nextState = {
-					...this.state,
-					filteredLogs: filtered,
-					errStats: {
-						...this.state.errStats,
-						errData: errData
-					}
-				};
-			} else if (this.state.filters.endDate === '') {
-				errData = this.calculateErrStats(
-					filtered,
-					startDateValue,
-					Date.now(),
-					this.state.errStats.divider
-				);
-
-				nextState = {
-					...this.state,
-					filteredLogs: filtered,
-					errStats: {
-						...this.state.errStats,
-						errData: errData
-					}
-				};
-			} else if (
-				startDateValue === this.state.errStats.startDate &&
-				endDateValue === this.state.errStats.endDate
-			) {
-				nextState = {
-					...this.state,
-					filteredLogs: filtered
-				};
-			} else {
-				errData = this.calculateErrStats(
-					filtered,
-					startDateValue,
-					endDateValue,
-					this.state.errStats.divider
-				);
-
-				nextState = {
-					...this.state,
-					filteredLogs: filtered,
-					errStats: {
-						...this.state.errStats,
-						startDate: startDateValue,
-						endDate: endDateValue,
-						errData: errData
-					}
-				};
-			}
-
-			this.setState(nextState);
+		// sorting by date
+		let filteredByDate = [];
+		const endDateValue = Date.now();
+		let startDateValue;
+		switch (filters.timespan) {
+			case 'last hour':
+				startDateValue = endDateValue - 3600000;
+				break;
+			case 'last 24 hours':
+				startDateValue = endDateValue - 86400000;
+				break;
+			case 'last week':
+				startDateValue = endDateValue - 604800000;
+				break;
+			case 'last 30 days':
+				startDateValue = endDateValue - 2592000000;
+				break;
+			case '':
+			default:
+				startDateValue = 0;
+				break;
 		}
-	}
+		let errData = [{ timestamp: Date.now(), errors: 0 }];
+		filters.timespan && filteredByLevel.length > 0
+			? (filteredByDate = filteredByLevel.filter(log => {
+					return log.timestamp >= startDateValue;
+			  }))
+			: (filteredByDate = filteredByLevel);
+		let nextState = {};
 
+		// calculating errStats
+		if (filters.timespan && filteredByDate.length > 0) {
+			errData = this.calculateErrStats(
+				filteredByDate,
+				filters.timespan,
+				startDateValue
+			);
+		}
+
+		nextState = {
+			...this.state,
+			filteredLogs: filteredByDate,
+			errStats: errData
+		};
+		this.setState(nextState);
+	}
 	/**
 	 * Returns errStats regarding provided period and chart-bars number (here: 10)
 	 * @param logs
-	 * @param startDateIncluded
-	 * @param endDate
+	 * @param timespan
 	 * @param divider
 	 */
-	calculateErrStats(logs, startDateIncluded, endDate, divider) {
-		const startDate = startDateIncluded - 1; // to include first datestamp
-		const period = endDate - startDate;
-		if (period < 10000) {
-			alert('Chosen period is too small to draw chart.');
-			return [];
+	calculateErrStats(logs, timespan, startDateValue) {
+		const errorLogs = logs.filter(log => {
+			return log.level === 0;
+		});
+
+		if (errorLogs.length === 0) {
+			return [{ timestamp: Date.now(), errors: 0 }];
 		}
-		let res = [];
-		const step = Math.round(period / divider);
-		let startDateStamp = startDate;
-		let endDateStamp = startDateStamp + step;
-		for (let i = 0; i < divider; i++) {
-			let item = { timestamp: 0, errors: 0 };
-			item.timestamp = endDateStamp;
-			item.errors = logs.filter(log => {
-				return (
-					log.level === 0 &&
-					log.date > startDateStamp &&
-					log.date <= endDateStamp
-				);
-			}).length;
-			res.push(item);
-			startDateStamp = endDateStamp;
-			endDateStamp += step;
+
+		let res = [],
+			step,
+			startDateStamp,
+			endDateStamp;
+
+		switch (timespan) {
+			case 'last hour':
+				// 12 chart bars
+				step = 300000;
+				startDateStamp = startDateValue;
+				endDateStamp = startDateStamp + step;
+				for (let i = 0; i < 12; i++) {
+					let item = { timestamp: 0, errors: 0 };
+					item.timestamp = endDateStamp;
+					item.errors = errorLogs.filter(log => {
+						return (
+							log.timestamp >= startDateStamp &&
+							log.timestamp <= endDateStamp
+						);
+					}).length;
+					res.push(item);
+					startDateStamp = endDateStamp;
+					endDateStamp += step;
+				}
+				break;
+			case 'last 24 hours':
+				// 24 chart bars
+				step = 3600000;
+				startDateStamp = startDateValue;
+				endDateStamp = startDateStamp + step;
+				for (let i = 0; i < 24; i++) {
+					let item = { timestamp: 0, errors: 0 };
+					item.timestamp = endDateStamp;
+					item.errors = errorLogs.filter(log => {
+						return (
+							log.timestamp >= startDateStamp &&
+							log.timestamp <= endDateStamp
+						);
+					}).length;
+					res.push(item);
+					startDateStamp = endDateStamp;
+					endDateStamp += step;
+				}
+				break;
+			case 'last week':
+				// 8 chart bars
+				step = 86400000;
+				startDateStamp = startDateValue;
+				endDateStamp = startDateStamp + step;
+				for (let i = 0; i < 8; i++) {
+					let item = { timestamp: 0, errors: 0 };
+					let startDate = new Date(startDateStamp);
+					let startDay = startDate.toDateString();
+					let dayMidnight = new Date(startDay);
+					item.timestamp = dayMidnight.valueOf();
+					item.errors = errorLogs.filter(log => {
+						let logDate = new Date(log.timestamp);
+						let logDay = logDate.toDateString();
+						return logDay === startDay;
+					}).length;
+					res.push(item);
+					startDateStamp = endDateStamp;
+					endDateStamp += step;
+				}
+				break;
+			case 'last 30 days':
+				// 30 chart bars
+				step = 86400000;
+				startDateStamp = startDateValue;
+				endDateStamp = startDateStamp + step;
+				for (let i = 0; i < 31; i++) {
+					let item = { timestamp: 0, errors: 0 };
+					let startDate = new Date(startDateStamp);
+					let startDay = startDate.toDateString();
+					let dayMidnight = new Date(startDay);
+					item.timestamp = dayMidnight.valueOf();
+					item.errors = errorLogs.filter(log => {
+						let logDate = new Date(log.timestamp);
+						let logDay = logDate.toDateString();
+						return logDay === startDay;
+					}).length;
+					res.push(item);
+					startDateStamp = endDateStamp;
+					endDateStamp += step;
+				}
+				break;
+			default:
+				break;
 		}
 		return res;
 	}
@@ -267,14 +240,13 @@ class Logs extends React.Component<LogsProps, LogsState> {
 	}
 
 	render() {
-		console.log('State:', this.state);
 		// for searchButton filtering
 		let found;
 		if (this.state.filteredLogs.length === 0) {
 			found = <NotFound>Nothing found</NotFound>;
 		} else {
 			found = this.state.filteredLogs.map((logItem, i) => {
-				const date = new Date(logItem.date);
+				const date = new Date(logItem.timestamp);
 				const dateString = date.toLocaleString();
 				// for instant onInput filtering would be:
 				// const found = this.applyFilters(LOGS).map((logItem, i) => {
@@ -293,9 +265,8 @@ class Logs extends React.Component<LogsProps, LogsState> {
 				<ChartWrapper>
 					<ChartHeader>Errors Statistics</ChartHeader>
 					<ErrChart
-						// data={errorStats}
-						data={this.state.errStats.errData}
-						timeRange="last day"
+						data={this.state.errStats}
+						timeRange={this.state.filters.timespan}
 					/>
 				</ChartWrapper>
 				<LogsSearchForm
@@ -317,24 +288,25 @@ class Logs extends React.Component<LogsProps, LogsState> {
 						<option value="4">Debug</option>
 						<option value="5">Silly</option>
 					</LevelPicker>
-					<DateLabel>From: </DateLabel>
-					<DatePicker
-						type="datetime-local"
-						name="startDate"
-						pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}"
-						placeholder="2018-08-26T12:00"
-						value={this.state.filters.startDate}
+					<TimeSpanPicker
+						name="timespan"
+						value={this.state.filters.timespan}
 						onChange={e => this.handleChange(e)}
-					/>
-					<DateLabel>To: </DateLabel>
-					<DatePicker
-						type="datetime-local"
-						name="endDate"
-						pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}"
-						placeholder="2018-08-26T12:00"
-						value={this.state.filters.endDate}
-						onChange={e => this.handleChange(e)}
-					/>
+					>
+
+						<option value="last 24 hours">Select time span</option>
+
+						<option value="last hour">last hour</option>
+
+						<option value="last 24 hours">last 24 hours</option>
+
+						<option value="last week">last week</option>
+
+						<option value="last 30 days">last 30 days</option>
+
+						<option value="">show all</option>
+
+					</TimeSpanPicker>
 
 					<SearchButton>
 						<SearchIcon size="20px" /> Search
