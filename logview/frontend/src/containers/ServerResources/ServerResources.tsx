@@ -1,11 +1,4 @@
 import * as React from 'react';
-import {
-	ChartHeader,
-	ChartGrid,
-	ChartWrapper,
-	ChartsPageWrapper,
-	ChartTimeRange
-} from '../../styles/Styles';
 import CoresLoadLineChart from '../../components/charts/serverResources/CoresLoadLineChart';
 import PercentMemoryChart from '../../components/charts/serverResources/PercentMemoryChart';
 import MemoryUsedChart from '../../components/charts/serverResources/MemoryUsedChart';
@@ -19,7 +12,18 @@ import {
 	memoryParser,
 	memoryMbParser
 } from 'src/services/chartParser';
-import { Chart, ChartInfo } from '../../styles/ChartStyles';
+import { CommentText, UserText, Chart, ChartInfo, ChartHeader,
+	ChartGrid,
+	ChartWrapper,
+	ChartsPageWrapper,
+	ChartTimeRange,
+	UserBar, 
+	Title,
+	Select,
+	OptionActive,
+	Option} from './ServerResourcesStyles'; 
+import { ArrowDropDown } from 'styled-icons/material';
+import AppSelect from './AppSelect';
 
 let timerID;
 
@@ -40,6 +44,8 @@ interface ServerResourcesState {
 	interval: Number;
 	currentCpuLog: any;
 	currentMemoryLog: any;
+	popup: boolean;
+	wrapperRef: any;
 }
 
 class ServerResources extends React.Component<
@@ -55,9 +61,13 @@ class ServerResources extends React.Component<
 			memoryMbLogs: [],
 			interval: 1000,
 			currentCpuLog: {},
-			currentMemoryLog: {}
+			currentMemoryLog: {},
+			popup: false,
+			wrapperRef: undefined
 		};
+
 	}
+
 
 	componentDidMount() {
 		clearInterval(timerID);
@@ -80,11 +90,11 @@ class ServerResources extends React.Component<
 	render() {
 		return (
 			<ChartsPageWrapper>
-				<h1 style={{ textAlign: 'center', marginBottom: '100px' }}>
+				<Title>
 					Server Resources
-				</h1>
+				</Title>
 
-				
+				<AppSelect />
 
 				<ChartGrid>
 					<ChartWrapper>
@@ -104,8 +114,8 @@ class ServerResources extends React.Component<
 							<div>
 								{this.state.currentCpuLog.data
 									? this.state.currentCpuLog.data.cores.map(
-											el => (
-												<div>
+											(el, i) => (
+												<div key={i}>
 													{el.coreName}:{' '}
 													{el.coreLoadPercentages}
 												</div>
@@ -183,3 +193,4 @@ const ServerResourcesConnected = connect(
 )(ServerResources);
 
 export default ServerResourcesConnected;
+
