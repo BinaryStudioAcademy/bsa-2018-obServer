@@ -11,7 +11,7 @@ export function cpuLogsReducer(
 		case constants.GET_NEW_CPU_LOG:
 			return [...state];
 		case constants.GET_NEW_CPU_LOG_SUCCESS:
-			if ( state.length > 6) {
+			if (state.length > 6) {
 				state.shift();
 				return [...state, ...action.payload.cpuLogs];
 			} else {
@@ -30,12 +30,12 @@ export function memoryLogsReducer(
 		case constants.GET_NEW_MEMORY_LOG:
 			return [...state];
 		case constants.GET_NEW_MEMORY_LOG_SUCCESS:
-			if ( state.length > 6) {
+			if (state.length > 6) {
 				state.shift();
 				return [...state, ...action.payload.memoryLogs];
 			} else {
 				return [...state, ...action.payload.memoryLogs];
-			}	
+			}
 		default:
 			return state;
 	}

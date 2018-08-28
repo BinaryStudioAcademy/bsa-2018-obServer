@@ -19,6 +19,7 @@ import {
 	memoryParser,
 	memoryMbParser
 } from 'src/services/chartParser';
+import { Chart, ChartInfo } from '../../styles/ChartStyles';
 
 let timerID;
 
@@ -37,6 +38,8 @@ interface ServerResourcesState {
 	memoryLogs: Array<any>;
 	memoryMbLogs: Array<any>;
 	interval: Number;
+	currentCpuLog: any;
+	currentMemoryLog: any;
 }
 
 class ServerResources extends React.Component<
@@ -50,7 +53,9 @@ class ServerResources extends React.Component<
 			cpuLogs: [],
 			memoryLogs: [],
 			memoryMbLogs: [],
-			interval: 1000
+			interval: 1000,
+			currentCpuLog: {},
+			currentMemoryLog: {}
 		};
 	}
 
@@ -61,6 +66,9 @@ class ServerResources extends React.Component<
 			this.setState({ memoryLogs: memoryParser(this.props.memoryLogs) });
 			this.setState({
 				memoryMbLogs: memoryMbParser(this.props.memoryLogs)
+			});
+			this.setState({
+				currentCpuLog: this.props.cpuLogs[this.props.cpuLogs.length - 1]
 			});
 		}, 1000);
 	}
@@ -76,42 +84,80 @@ class ServerResources extends React.Component<
 					Server Resources
 				</h1>
 
+				
+
 				<ChartGrid>
 					<ChartWrapper>
-						<ChartHeader>
-							<h3>CPU Load, %</h3>
-							<ChartTimeRange>
-								<Timer size="24px" /> last 10 minutes
-							</ChartTimeRange>
-						</ChartHeader>
-						<CoresLoadLineChart
-							data={this.state.cpuLogs}
-							timeRange="last 10 minutes"
-						/>
+						<Chart>
+							<ChartHeader>
+								<h3>CPU Load, %</h3>
+								<ChartTimeRange>
+									<Timer size="24px" /> last 10 minutes
+								</ChartTimeRange>
+							</ChartHeader>
+							<CoresLoadLineChart
+								data={this.state.cpuLogs}
+								timeRange="last 10 minutes"
+							/>
+						</Chart>
+						<ChartInfo>
+							<div>
+								{this.state.currentCpuLog.data
+									? this.state.currentCpuLog.data.cores.map(
+											el => (
+												<div>
+													{el.coreName}:{' '}
+													{el.coreLoadPercentages}
+												</div>
+											)
+									  )
+									: undefined}
+							</div>
+							<div>
+								{this.state.currentCpuLog.timestamp !== ''
+									? this.state.currentCpuLog.timestamp
+									: undefined}
+							</div>
+							<div>a3</div>
+						</ChartInfo>
 					</ChartWrapper>
 					<ChartWrapper>
-						<ChartHeader>
-							<h3>Memory Load, %</h3>
-							<ChartTimeRange>
-								<Timer size="24px" /> last hour
-							</ChartTimeRange>
-						</ChartHeader>
-						<PercentMemoryChart
-							data={this.state.memoryLogs}
-							timeRange="last hour"
-						/>
+						<Chart>
+							<ChartHeader>
+								<h3>Memory Load, %</h3>
+								<ChartTimeRange>
+									<Timer size="24px" /> last hour
+								</ChartTimeRange>
+							</ChartHeader>
+							<PercentMemoryChart
+								data={this.state.memoryLogs}
+								timeRange="last hour"
+							/>
+						</Chart>
+						<ChartInfo>
+							<div>a1</div>
+							<div>a2</div>
+							<div>a3</div>
+						</ChartInfo>
 					</ChartWrapper>
 					<ChartWrapper>
-						<ChartHeader>
-							<h3>Used Memory, MB</h3>
-							<ChartTimeRange>
-								<Timer size="24px" /> last day
-							</ChartTimeRange>
-						</ChartHeader>
-						<MemoryUsedChart
-							data={this.state.memoryMbLogs}
-							timeRange="last day"
-						/>
+						<Chart>
+							<ChartHeader>
+								<h3>Used Memory, MB</h3>
+								<ChartTimeRange>
+									<Timer size="24px" /> last day
+								</ChartTimeRange>
+							</ChartHeader>
+							<MemoryUsedChart
+								data={this.state.memoryMbLogs}
+								timeRange="last day"
+							/>
+						</Chart>
+						<ChartInfo>
+							<div>a1</div>
+							<div>a2</div>
+							<div>a3</div>
+						</ChartInfo>
 					</ChartWrapper>
 				</ChartGrid>
 			</ChartsPageWrapper>
