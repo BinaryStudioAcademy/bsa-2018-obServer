@@ -39,19 +39,20 @@ class LogService {
   }
 
   async getLogsForInterval(companyId, appId, logIntervals, callback) {
-    const appLogTypes = parseLogTypesFromIntervals(logIntervals, true);
+    const appLogTypes = parseLogTypesFromIntervals(logIntervals, true, appId);
     const serverLogTypes = parseLogTypesFromIntervals(logIntervals, false);
     const intervals = getIntervals(logIntervals);
     console.log(appLogTypes);
     console.log(serverLogTypes);
     console.log(intervals);
+    console.log(appId);
 
     logRepository.getAllByCompanyIdAppId(companyId, appId, serverLogTypes, appLogTypes, (err, logs) => {
       if (err) {
         callback(err);
         return;
       }
-      console.log(logs[0].appsData);
+      
       const aggregatedLogs = {};
 
       serverLogTypes.forEach((logName) => {
@@ -102,8 +103,6 @@ const aggregateLogs = (logs, interval, logType) => {
   if (logs.length === 0) {
     return [];
   }
-
-  // const logType = logs[0].logType;
 
   const slicedLogs = sliceLogsByInterval(logs, interval);
   return getAvgLogs(slicedLogs, logType);
@@ -314,7 +313,7 @@ const createHttpAvgLog = (logMessage) => {
   return avgLog;
 };
 
-const parseLogTypesFromIntervals = (intervals, returnAppLogs) => {
+const parseLogTypesFromIntervals = (intervals, returnAppLogs, hasAppId) => {
   const appLogs = {
     httpInterval: logTypes.HTTP_STATS 
   };
@@ -324,14 +323,17 @@ const parseLogTypesFromIntervals = (intervals, returnAppLogs) => {
   }
 
   const parsedLogTypes = [];
-  if (returnAppLogs) {
+
+  if (returnAppLogs && hasAppId) {
     for (let key in intervals) {
       const logType = appLogs[key];
       if (logType) {
         parsedLogTypes.push(logType);
       }
     }
-  } else {
+  } 
+
+  if (!returnAppLogs) {
     for (let key in intervals) {
       const logType = serverLogs[key];
       if (logType) {
@@ -339,6 +341,7 @@ const parseLogTypesFromIntervals = (intervals, returnAppLogs) => {
       }
     }
   }
+
   return parsedLogTypes;
 };
 
