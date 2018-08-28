@@ -1,14 +1,15 @@
-const apiResponse = require("express-api-response");
+const apiResponse = require('express-api-response'),
+	router = require('express').Router();
 
-module.exports = app => {
-  app.get(
-    "/log",
-    (req, res, next) => {
-      console.log("DATA LOG!!!");
-      res.data = null;
-      res.err = null;
-      next();
-    },
-    apiResponse
-  );
-};
+router.get(
+	'/',
+	(req, res, next) => {
+		console.log('DATA LOG!!!');
+		res.data = null;
+		res.err = null;
+		next();
+	},
+	apiResponse
+);
+
+module.exports = router;

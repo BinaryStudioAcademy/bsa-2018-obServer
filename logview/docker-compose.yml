@@ -1,28 +1,28 @@
-version: "3"
+version: "2.0"
 services:
-  app:
-    build: .
-    volumes:
-      - "./:/src/"
-    ports:
-      - ${APP_PORT}:${APP_PORT}
-    environment:
-      - NODE_ENV=development
-      - DATABASE_URL=postgres://${POSTGRES_USER}:${POSTGRES_PWD}@postgres/${POSTGRES_DB}
-    command: /src/node_modules/.bin/nodemon --legacy-watch /src/backend/server.js
-    links:
-        - mongo
-        - postgres:postgres
-    networks:
-      - postgres
+  # app:
+  #   build: .
+  #   volumes:
+  #     - "./:/src/"
+  #   ports:
+  #     - ${APP_PORT}:${APP_PORT}
+  #   environment:
+  #     - NODE_ENV=development
+  #     - DATABASE_URL=postgres://${POSTGRES_USER}:${POSTGRES_PWD}@postgres/${POSTGRES_DB}
+  #   command: yarn start
+  #   links:
+  #       # - mongo
+  #       - postgres:postgres
+  #   networks:
+  #     - postgres
   postgres:
     image: postgres:9.6-alpine
     container_name: logview-postgres
     working_dir: /src/
-    # volumes:
-    #   - ./postgresdata:/src/postgresdata
+    volumes:
+      - ./postgresdata:/src/postgresdata
     ports:
-      - ${POSTGRES_PORT}:${POSTGRES_PORT}
+      - ${POSTGRES_EXTERNAL_PORT}:${POSTGRES_INTERNAL_PORT}
     networks:
       - postgres
     environment:
@@ -46,13 +46,13 @@ services:
     networks:
       - postgres
     restart: unless-stopped
-  mongo:
-      container_name: logview-mongo
-      image: mongo
-      volumes:
-        - ./mongovolume:/data/db"
-      ports:
-        - ${MONGO_DB_EXTERNAL_PORT}:${MONGO_DB_INTERNAL_PORT}
+  # mongo:
+  #     container_name: logview-mongo
+  #     image: mongo
+  #     volumes:
+  #       - ./mongovolume:/data/db"
+  #     ports:
+  #       - ${MONGO_DB_EXTERNAL_PORT}:${MONGO_DB_INTERNAL_PORT}
 networks:
   postgres:
     driver: bridge

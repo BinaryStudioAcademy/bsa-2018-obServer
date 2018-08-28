@@ -1,6 +1,12 @@
 #yarn
+**/package-lock.json
 **/yarn-error.log
+**/debug.log
 **/yarn.lock
+
+# Sequelize
+**/sequelize_data.json
+**/sequelize_meta.json
 
 # compiled output
 **/dist
@@ -34,3 +40,9 @@
 # System Files
 .DS_Store
 Thumbs.db
+
+aggr_mongovolume
+postgres_db
+raw_mongovolume
+mongovolume
+.vscode/launch.json

@@ -1,1 +1,1 @@
-module.exports = require("cnfg")(__dirname);
+module.exports = require('cnfg')(__dirname);
