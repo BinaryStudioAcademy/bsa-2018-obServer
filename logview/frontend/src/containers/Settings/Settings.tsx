@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Route, Link, RouteComponentProps } from 'react-router-dom';
+import { Route, Link, RouteComponentProps, Redirect } from 'react-router-dom';
 import { UserEdit, Database } from 'styled-icons/fa-solid';
 import UserSettings from './UserSettings';
 import DataSettings from './DataSettings';
@@ -8,7 +8,7 @@ import {
 	SettingsMenuWrapper
 } from 'src/styles/SettingsFormStyles';
 
-interface MatchParams {}
+interface MatchParams { }
 
 interface SettingsState {
 	active?: string;
@@ -17,7 +17,7 @@ interface SettingsState {
 class Settings extends React.Component<
 	RouteComponentProps<MatchParams>,
 	SettingsState
-> {
+	> {
 	constructor(props: RouteComponentProps<MatchParams>) {
 		super(props);
 	}
@@ -47,7 +47,13 @@ class Settings extends React.Component<
 						</Link>
 					</SettingsMenuLink>
 				</SettingsMenuWrapper>
-
+				<Route
+					exact
+					path={`${match.url}/`}
+					render={() => (
+						<Redirect to={`${match.url}/user`} />
+					)}
+				/>
 				<Route
 					exact
 					path={`${match.url}/user`}
