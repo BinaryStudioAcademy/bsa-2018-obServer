@@ -15,10 +15,10 @@ class Profile extends React.Component<ProfileProps, ProfileState> {
 		this.props.actions.fetchCompanyUsers();
 	}
 	render() {
-		const user = sessionStorage.getItem('observerUser');
+		const user = JSON.parse(sessionStorage.getItem('observerUser'));
 		return (
 			<div>
-				<h3>{user}</h3>
+				<h3>{user.name}</h3>
 			</div>
 		);
 	}
