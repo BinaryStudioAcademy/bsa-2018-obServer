@@ -1,11 +1,7 @@
 import styled, { StyledFunction } from 'styled-components';
-import { media } from './styles-utils';
+import { media, colors } from './styles-utils';
 
 const userEditIcon = require('src/assets/edit.png');
-const background = {
-	switchOn: '#7f78ce',
-	switchOff: '#ccc'
-};
 
 export const CheckBoxSwitchWrapper = styled.div`
 	display: grid;
@@ -30,7 +26,7 @@ export const CheckBoxSlider = styled.span`
 	right: 0;
 	bottom: 0;
 	border-radius: 34px;
-	background-color: ${background.switchOff};
+	background-color: #ccc;
 	-webkit-transition: 0.4s;
 	transition: 0.4s;
 
@@ -52,11 +48,11 @@ export const CheckBoxInput = styled.input`
 	display: none;
 
 	&:checked + span {
-		background-color: ${background.switchOn};
+		background-color: ${colors.violet};
 	}
 
 	&:focus + span {
-		box-shadow: 0 0 1px ${background.switchOn};
+		box-shadow: 0 0 1px ${colors.violet};
 	}
 
 	&:checked + span:before {
@@ -71,14 +67,14 @@ export const CheckBoxSwitchLabel = styled.label`
 `;
 
 export const SettingFormGroup = styled.div`
-border-top: 3px solid ${background.switchOn};
+border-top: 3px solid ${colors.violet};
 background: #f1f1f1;
 padding: 15px;
 margin-bottom: 50px;
 }`;
 
 export const SettingFormGroupInput = styled.div`
-border-top: 3px solid ${background.switchOn};
+border-top: 3px solid ${colors.violet};
 background: #f1f1f1;
 padding: 15px;
 margin-bottom: 50px;
@@ -89,7 +85,7 @@ ${media.desktop`grid-template-columns: 1fr;`};
 }`;
 
 export const SettingFormGroupOneInput = styled.div`
-border-top: 3px solid ${background.switchOn};
+border-top: 3px solid ${colors.violet};
 background: #f1f1f1;
 padding: 15px;
 margin-bottom: 50px;
@@ -128,7 +124,7 @@ export const SettingInput = styled.input`
 export const SettingsSubmitButton = styled.button`
 float: right;
 padding: 10px 30px;
-background-color: ${background.switchOn};
+background-color: ${colors.violet};
 color: #fff;
 text-transform: uppercase;
 border: none;
