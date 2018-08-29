@@ -1,8 +1,11 @@
-const os = require("os");
+const free = require("free-memory");
 
-module.exports = () => {
-  const freeMemory = Math.floor(os.freemem() / 10e5);
-  const allMemory = Math.floor(os.totalmem() / 10e5);
-  const freeMemoryPercentage = Math.floor(freeMemory / allMemory * 100);
-  return { freeMemory, allMemory, freeMemoryPercentage };
+module.exports = (callback) => {
+  free((err, info) => {
+    const freeMemory = Math.floor((info.mem.total - info.mem.used) / 1024);
+    const allMemory = Math.floor(info.mem.total / 1024);
+    const freeMemoryPercentage = Math.floor(freeMemory / allMemory * 100);
+    
+    callback({ freeMemory, allMemory, freeMemoryPercentage });
+  });
 }
