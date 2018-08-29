@@ -67,7 +67,6 @@ export default class ErrChart extends React.Component<any, any> {
 					<YAxis strokeWidth={0} />
 					<CartesianGrid strokeDasharray="3 3" />
 					<Tooltip content={renderTooltipContent} />
-					<Legend wrapperStyle={{ bottom: 10 }} />
 					{this.renderLines()}}
 				</LineChart>
 			</ResponsiveContainer>

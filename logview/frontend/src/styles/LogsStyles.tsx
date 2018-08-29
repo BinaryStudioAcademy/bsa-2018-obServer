@@ -27,20 +27,39 @@ export const LogsSearchForm = styled.form`
     `};
 `;
 
-export const LevelPicker = styled.select`
+export const LevelPicker = styled.div`
 	width: 40%;
 	height: 40px;
+	background-color: #ddd;
 	border-radius: 5px;
+	border: 1px solid grey;
+	padding: 0 0 0 1vw;
 	color: #555;
 	font-weight: bold;
+	font-size: 13.3333px;
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: space-between;
+	align-items: center;
 	:hover {
-		background-color: #ddd;
+		background-color: #aaa;
+	}
+	:hover span {
+		display: none;
+	}
+	:hover label {
+		display: block;
+		width: 30%;
 	}
 	${media.desktop`
-        width: 92%;
+        width: 90%;
         margin-right: 0;
         margin-bottom: 3%;
     `};
+`;
+
+export const Level = styled.label`
+	display: none;
 `;
 
 export const TimeSpanPicker = styled.select`
@@ -85,7 +104,7 @@ export const LogsList = styled.ul`
 	background-color: rgb(29, 31, 39);
 	font-family: Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
 		monospace;
-	overflow-y: scroll;
+	overflow-y: auto;
 `;
 
 export const LogItem = styled.li`

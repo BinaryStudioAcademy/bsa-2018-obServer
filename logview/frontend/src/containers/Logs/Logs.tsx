@@ -7,6 +7,7 @@ import {
 	ChartHeader,
 	LogsSearchForm,
 	LevelPicker,
+	Level,
 	TimeSpanPicker,
 	SearchButton,
 	LogsList,
@@ -39,7 +40,7 @@ interface LogsProps {
 
 interface LogsState {
 	filters: {
-		level: number;
+		levels: { error; warn; info; verbose; debug; silly };
 		timespan: string;
 	};
 	filteredLogs: Array<{ timestamp; level; text }>;
@@ -52,7 +53,14 @@ class Logs extends React.Component<LogsProps, LogsState> {
 
 		this.state = {
 			filters: {
-				level: 2,
+				levels: {
+					error: true,
+					warn: true,
+					info: true,
+					verbose: false,
+					debug: false,
+					silly: false
+				},
 				timespan: 'last 24 hours'
 			},
 			filteredLogs: [],
@@ -60,22 +68,98 @@ class Logs extends React.Component<LogsProps, LogsState> {
 		};
 
 		this.applyFilters = this.applyFilters.bind(this);
-		this.handleChange = this.handleChange.bind(this);
+		this.handleLevelsChange = this.handleLevelsChange.bind(this);
+		this.handleTimespanChange = this.handleTimespanChange.bind(this);
 	}
 
 	componentDidMount() {
-		this.applyFilters(LOGS, this.state.filters);
+		let nextState = {
+			...this.state,
+			filteredLogs: this.filterLogs(LOGS, this.state.filters),
+			errStats: this.calculateErrStats(
+				LOGS,
+				'last 24 hours',
+				Date.now() - 86400000
+			)
+		};
+		this.setState(nextState);
 	}
 
-	applyFilters(logs, filters) {
+	handleLevelsChange(e) {
+		// 	simple approach needs some type fixing
+		//	this.setState({ timespan: e.currentTarget.value; })
+		let nextState = {
+			...this.state,
+			filters: {
+				...this.state.filters,
+				levels: {
+					...this.state.filters.levels,
+					[e.currentTarget.name]: e.currentTarget.checked
+				}
+			}
+		};
+		this.setState(nextState);
+	}
+
+	handleTimespanChange(e) {
+		// 	simple approach needs some type fixing
+		//	this.setState({ timespan: e.currentTarget.value; })
+		let startDateValue;
+		let endDateValue = Date.now();
+
+		switch (e.currentTarget.value) {
+			case 'last hour':
+				startDateValue = endDateValue - 3600000;
+				break;
+			case 'last 24 hours':
+				startDateValue = endDateValue - 86400000;
+				break;
+			case 'last week':
+				startDateValue = endDateValue - 604800000;
+				break;
+			case 'last 30 days':
+				startDateValue = endDateValue - 2592000000;
+				break;
+			case '':
+			default:
+				startDateValue = 0;
+				break;
+		}
+
+		let nextState = {
+			...this.state,
+			filters: {
+				...this.state.filters,
+				timespan: e.currentTarget.value
+			},
+			errStats: this.calculateErrStats(
+				LOGS,
+				e.currentTarget.value,
+				startDateValue
+			)
+		};
+		this.setState(nextState);
+	}
+
+	filterLogs(logs, filters) {
 		// sorting by log level
+
+		// might be not needed (depending on format of log.level value)
+		const levels = {
+			0: 'error',
+			1: 'warn',
+			2: 'info',
+			3: 'verbose',
+			4: 'debug',
+			5: 'silly'
+		};
 		let filteredByLevel = logs.filter(log => {
-			return log.level <= filters.level;
+			return filters.levels[levels[log.level]] === true;
 		});
 
 		// sorting by date
 		let filteredByDate = [];
-		const endDateValue = Date.now();
+		let endDateValue = Date.now();
 		let startDateValue;
 		switch (filters.timespan) {
 			case 'last hour':
@@ -95,30 +179,25 @@ class Logs extends React.Component<LogsProps, LogsState> {
 				startDateValue = 0;
 				break;
 		}
-		let errData = [{ timestamp: Date.now(), errors: 0 }];
 		filters.timespan && filteredByLevel.length > 0
 			? (filteredByDate = filteredByLevel.filter(log => {
 					return log.timestamp >= startDateValue;
 			  }))
 			: (filteredByDate = filteredByLevel);
+
+		return filteredByDate;
+	}
+
+	applyFilters(logs, filters) {
+		let filteredByDate = this.filterLogs(logs, filters);
 		let nextState = {};
-
-		// calculating errStats
-		if (filters.timespan && filteredByDate.length > 0) {
-			errData = this.calculateErrStats(
-				filteredByDate,
-				filters.timespan,
-				startDateValue
-			);
-		}
-
 		nextState = {
 			...this.state,
-			filteredLogs: filteredByDate,
-			errStats: errData
+			filteredLogs: filteredByDate
 		};
 		this.setState(nextState);
 	}
+
 	/**
 	 * Returns errStats regarding provided period and chart-bars number (here: 10)
 	 * @param logs
@@ -127,11 +206,14 @@ class Logs extends React.Component<LogsProps, LogsState> {
 	 */
 	calculateErrStats(logs, timespan, startDateValue) {
 		const errorLogs = logs.filter(log => {
-			return log.level === 0;
+			return log.level === 0 && log.timestamp >= startDateValue;
 		});
 
 		if (errorLogs.length === 0) {
 			return [{ timestamp: Date.now(), errors: 0 }];
+		}
+		if (timespan === '') {
+			return [{ timestamp: Date.now(), errors: errorLogs.length }];
 		}
 
 		let res = [],
@@ -226,19 +308,6 @@ class Logs extends React.Component<LogsProps, LogsState> {
 		return res;
 	}
 
-	handleChange(e) {
-		// 	simple approach needs some type fixing
-		//	this.setState({ [e.currentTarget.name]: e.currentTarget.value; })
-		const nextState = {
-			...this.state,
-			filters: {
-				...this.state.filters,
-				[e.currentTarget.name]: e.currentTarget.value
-			}
-		};
-		this.setState(nextState);
-	}
-
 	render() {
 		// for searchButton filtering
 		let found;
@@ -275,7 +344,7 @@ class Logs extends React.Component<LogsProps, LogsState> {
 						this.applyFilters(LOGS, this.state.filters);
 					}}
 				>
-					<LevelPicker
+					{/* <LevelPicker
 						name="level"
 						value={this.state.filters.level}
 						onChange={e => this.handleChange(e)}
@@ -287,13 +356,69 @@ class Logs extends React.Component<LogsProps, LogsState> {
 						<option value="3">Verbose</option>
 						<option value="4">Debug</option>
 						<option value="5">Silly</option>
+					</LevelPicker> */}
+					<LevelPicker>
+						<span>Select logs' levels</span>
+						<Level>
+							<input
+								type="checkbox"
+								name="error"
+								checked={this.state.filters.levels.error}
+								onChange={e => this.handleLevelsChange(e)}
+							/>
+							Error
+						</Level>
+						<Level>
+							<input
+								type="checkbox"
+								name="warn"
+								checked={this.state.filters.levels.warn}
+								onChange={e => this.handleLevelsChange(e)}
+							/>
+							Warn
+						</Level>
+						<Level>
+							<input
+								type="checkbox"
+								name="info"
+								checked={this.state.filters.levels.info}
+								onChange={e => this.handleLevelsChange(e)}
+							/>
+							Info
+						</Level>
+						<Level>
+							<input
+								type="checkbox"
+								name="verbose"
+								checked={this.state.filters.levels.verbose}
+								onChange={e => this.handleLevelsChange(e)}
+							/>
+							Verbose
+						</Level>
+						<Level>
+							<input
+								type="checkbox"
+								name="debug"
+								checked={this.state.filters.levels.debug}
+								onChange={e => this.handleLevelsChange(e)}
+							/>
+							Debug
+						</Level>
+						<Level>
+							<input
+								type="checkbox"
+								name="silly"
+								checked={this.state.filters.levels.silly}
+								onChange={e => this.handleLevelsChange(e)}
+							/>
+							Silly
+						</Level>
 					</LevelPicker>
 					<TimeSpanPicker
 						name="timespan"
 						value={this.state.filters.timespan}
-						onChange={e => this.handleChange(e)}
+						onChange={e => this.handleTimespanChange(e)}
 					>
-
 						<option value="last 24 hours">Select time span</option>
 
 						<option value="last hour">last hour</option>
@@ -304,8 +429,7 @@ class Logs extends React.Component<LogsProps, LogsState> {
 
 						<option value="last 30 days">last 30 days</option>
 
-						<option value="">show all</option>
-
+						<option value="">all time</option>
 					</TimeSpanPicker>
 
 					<SearchButton>
