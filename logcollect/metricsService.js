@@ -30,7 +30,9 @@ module.exports = class MetricsService {
   startMemoryMonitor(delay = 1000) {
     if(!this.timersId.memory) {
       this.timersId.memory = setInterval(() => {
-        this.sendMetrics(MetricsService.createLogObject('MEMORY_SERVER', memoryStats()));
+        memoryStats((memData) => {
+          this.sendMetrics(MetricsService.createLogObject('MEMORY_SERVER', memData));
+        });
       }, delay);
     }
   }
