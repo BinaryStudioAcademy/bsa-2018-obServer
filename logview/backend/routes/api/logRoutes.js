@@ -4,8 +4,8 @@ const router = require('express').Router();
 const aggregatedStoragePort = process.env.AGGREGATEDSTORAGE_PORT || 3100;
 
 router.get(
-	'/',
-	async (req, res, next) => {
+  '/',
+  async (req, res, next) => {
     try {
       const headers = {
         'X-COMPANY-TOKEN': req.header('X-COMPANY-TOKEN')
@@ -23,17 +23,17 @@ router.get(
           params: logIntervals
         })
         .then(response => response.data)
-    
+
       res.data = logs;
       res.err = null;
     } catch (error) {
       res.data = null;
-			res.err = error;
-		} finally {
-			next();
+      res.err = error;
+    } finally {
+      next();
     }
-	},
-	apiResponse
+  },
+  apiResponse
 );
 
 module.exports = router;
