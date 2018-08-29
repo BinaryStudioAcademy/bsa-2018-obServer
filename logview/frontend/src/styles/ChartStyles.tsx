@@ -29,24 +29,3 @@ export const ChartTimeRange = styled.div`
 `;
 
 export const ChartGrid = styled.div``;
-
-/*
-export const ChartHeader = styled.div`
-	display: grid;
-	grid-template-columns: 1fr 1fr;
-	height: 60px;
-`;
-
-export const ChartTimeRange = styled.div`
-	text-align: right;
-	color: grey;
-	line-height: 60px;
-`;
-
-export const ChartGrid = styled.div`
-	display: grid;
-	grid-template-columns: 1fr 1fr;
-	grid-gap: 40px;
-	${media.desktop`grid-template-columns: 1fr;`};
-`;
-*/

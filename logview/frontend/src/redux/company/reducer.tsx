@@ -18,17 +18,3 @@ export function userReducer(
 			return state;
 	}
 }
-/*
-[
-    {
-        "name": "bogus",
-        "email": "boguscompany@ukr.net",
-        "active": true
-    },
-    {
-        "name": "harry",
-        "email": "harry@ukr.net",
-        "active": false
-    }
- ]
-*/
