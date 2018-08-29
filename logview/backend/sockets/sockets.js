@@ -13,12 +13,7 @@ module.exports = io => {
 	io.origins('*:*');
 
 	io.on('connection', socket => {
-		console.log(`Connected new socket ${socket.id}`);
-
-		socket.on('getLogs', (companyId, response) => {
-			aggrStoreSocket.emit('getLogs', companyId, logs => {
-				response(logs);
-			});
+		socket.on('getLogs', (companyId) => {
 			socket.join(companyId);
 		});
 
