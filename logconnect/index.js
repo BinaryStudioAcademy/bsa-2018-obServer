@@ -1,5 +1,6 @@
 const requestHelper = require('./utils/apiRequest');
 const httpMiddleware = require('./middleware/http')
+const Logger = require('./utils/logger');
 
 class LogConnect {
   constructor(logcollectPort, app) {
@@ -11,6 +12,9 @@ class LogConnect {
   httpStats() {
     return httpMiddleware(this.sendLog, this.app);
   }
+  logger() {
+    return new Logger(this.sendLog, this.app);
+  }  
 };
 
 module.exports = (logcollectPort, app) => new LogConnect(logcollectPort, app);
