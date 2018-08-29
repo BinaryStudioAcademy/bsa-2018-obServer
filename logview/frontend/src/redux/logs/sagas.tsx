@@ -1,15 +1,19 @@
 import { put, call, take, race } from 'redux-saga/effects';
 import { connect, createSocketChannel } from 'src/services/websockets/logs';
 import * as constants from 'src/redux/logs/constants';
+import { logsAPI } from '../../services';
 
 function* fetchNewLog() {
 	try {
-		const companyId = 'LOG_COLLECT_SECRET_TOKEN';
+		const companyId = 'secret-company-token';
 		const socket = yield call(connect);
 
 		socket.emit('getLogs', companyId, logs => {
-			console.log(logs); // to do, when logs will be not []
+			console.log(logs);
 		});
+
+		// const callback = yield call(logsAPI.resoucesAverages, companyId);
+		// console.log(callback);
 
 		const socketChannel = yield call(createSocketChannel, socket);
 		while (true) {

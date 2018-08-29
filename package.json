@@ -1,5 +1,9 @@
 {
   "dependencies": {
     "cors": "^2.8.4"
+  },
+  "scripts": {
+    "start-servers": "nodemon logcollect/server.js & nodemon rawstorage/server.js & nodemon aggregatedstorage/server.js &",
+    "stop-servers": "killall node"
   }
-}
+ }
