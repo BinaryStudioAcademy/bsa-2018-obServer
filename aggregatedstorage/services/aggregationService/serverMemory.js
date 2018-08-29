@@ -1,7 +1,6 @@
 const logTypes = require('../../utils/logTypes');
 
 module.exports = (slicedLogs) => {
-  console.log(slicedLogs.length);
   const aggregatedServerMemoryLogs = [];
   slicedLogs.forEach((logChunk, i) => {
     if (logChunk.length === 0) {
