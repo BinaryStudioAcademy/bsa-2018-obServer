@@ -67,7 +67,12 @@ class RegisterForm extends React.Component<RegFormProps, RegFormState> {
 		}
 		errors.indexOf(false) !== -1
 			? this.setState({ validateState: validateState })
-			: this.props.actions.userRegister(obj);
+			: this.props.actions.userRegister(
+					obj.name,
+					obj.email,
+					obj.password,
+					obj.company
+			  );
 	}
 
 	render() {
