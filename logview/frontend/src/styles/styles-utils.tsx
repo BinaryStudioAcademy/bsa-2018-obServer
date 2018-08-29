@@ -22,3 +22,15 @@ export const media = Object.keys(sizes).reduce(
 		phone: undefined as any
 	}
 );
+
+export const colors = {
+	violet: 'rgba(127, 120, 206, 1)',
+	blue: 'rgba(124, 184, 252, 1)',
+	gradient:
+		'linear-gradient(to right, rgba(127, 120, 206, 1), rgba(124, 184, 252, 1))',
+	'gradient-reverse':
+		'linear-gradient(to right, rgba(124, 184, 252, 1), rgba(127, 120, 206, 1))',
+	'grey-darken': 'rgb(29,31,39)',
+	grey: '#3d3d3d',
+	'grey-lighten': '#bebec5'
+};

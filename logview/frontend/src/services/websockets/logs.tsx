@@ -1,15 +1,32 @@
-import openSocket from 'socket.io-client';
+import io from 'socket.io-client';
+import { eventChannel } from 'redux-saga';
+import { apply } from 'redux-saga/effects';
 
 const port = 3060;
-const socket = openSocket(`http://localhost:${port}`);
+const url = `http://localhost:${port}`;
 
-export async function fetchLogs() {
-	socket.emit('giveLogs');
-	const promise = new Promise(resolve => {
-		socket.on('logs', data => {
-			resolve(data);
+let socket;
+
+export const connect = () => {
+	socket = io(url);
+	return new Promise(resolve => {
+		socket.on('connect', () => {
+			console.log('CONNECTED');
+			resolve(socket);
 		});
 	});
-	const fetchedData = await promise;
-	return fetchedData;
+};
+
+export const createSocketChannel = socket =>
+	eventChannel(emit => {
+		const handler = data => {
+			emit(data);
+		};
+		socket.on('newLog', handler);
+		const unsubscribe = () => socket.off('newLog', handler);
+		return unsubscribe;
+	});
+
+export function* fetchAllLogs(companyId) {
+	yield apply(socket, socket.emit('getLogs'), companyId);
 }

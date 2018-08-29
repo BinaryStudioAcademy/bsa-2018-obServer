@@ -15,16 +15,18 @@ class EmailConfirm extends React.Component {
 	componentDidMount() {}
 
 	render() {
+		let user = sessionStorage.getItem('observerUser');
+
 		return (
 			<Background>
 				<PasswordResetContainer>
 					<EmailContainer>
 						<Title>Email sent!</Title>
 						<CenteredText>
-							We've sent an email to *here will be email* to
-							confirm validity of your email address. After
-							receiving the email, follow the link provided to
-							complete the registration
+							We've sent an email to <b>{user}</b> to confirm
+							validity of your email address. After receiving the
+							email, follow the link provided to complete the
+							registration
 						</CenteredText>
 					</EmailContainer>
 				</PasswordResetContainer>

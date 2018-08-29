@@ -1,83 +1,35 @@
 import * as React from 'react';
-import { Input, Submit, ErrorText } from '../../styles/Styles';
-import { userInvite } from 'src/redux/user/actions';
-import { connect } from 'react-redux';
+import { fetchCompanyUsers } from 'src/redux/company/actions';
 import { bindActionCreators } from 'redux';
-import { RouteComponentProps } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-interface LoginFormProps {
-	actions: { userInvite: Function };
-	fetchingUserStatus: string;
+interface ProfileProps {
+	onSubmit: Function;
+	actions: { fetchCompanyUsers: Function };
 }
 
-interface ProfileState {
-	email?: string;
-	name?: string;
-	err?: boolean;
-}
+interface ProfileState {}
 
-class Profile extends React.Component<LoginFormProps, ProfileState> {
-	constructor(props: any) {
-		super(props);
-
-		this.state = {
-			email: '',
-			name: '',
-			err: false
-		};
-
-		this.handleFieldChange = this.handleFieldChange.bind(this);
-		this.handleSubmit = this.handleSubmit.bind(this);
-		this.handleLogout = this.handleLogout.bind(this);
+class Profile extends React.Component<ProfileProps, ProfileState> {
+	componentDidMount() {
+		this.props.actions.fetchCompanyUsers();
 	}
-
-	handleFieldChange(e: any) {
-		this.setState({ [e.target.name]: e.target.value });
-	}
-
-	handleSubmit(e: any) {
-		e.preventDefault();
-
-		this.props.actions.userInvite(this.state.email, this.state.name);
-	}
-
-	handleLogout() {}
-
 	render() {
+		const user = JSON.parse(sessionStorage.getItem('observerUser'));
 		return (
-			<React.Fragment>
-				<h2>Invite user</h2>
-				<Input
-					name="email"
-					placeholder="email"
-					onChange={this.handleFieldChange}
-				/>
-				<Input
-					name="name"
-					placeholder="name"
-					onChange={this.handleFieldChange}
-				/>
-				<Submit onClick={this.handleSubmit}>
-					{this.props.fetchingUserStatus === 'success'
-						? 'Sent'
-						: 'Invite'}
-				</Submit>
-				<ErrorText>
-					{this.props.fetchingUserStatus === 'failed'
-						? 'There was an error processing your request'
-						: ''}
-				</ErrorText>
-				<Submit onClick={this.handleLogout}>Logout</Submit>
-			</React.Fragment>
+			<div>
+				<h3>{user.name}</h3>
+			</div>
 		);
 	}
 }
 
-const mapStateToProps = ({ fetchingUserStatus }) => ({
-	fetchingUserStatus
+const mapStateToProps = ({ fetching }) => ({
+	fetching
 });
+
 const mapDispatchToProps = (dispatch: any) => ({
-	actions: bindActionCreators({ userInvite }, dispatch)
+	actions: bindActionCreators({ fetchCompanyUsers }, dispatch)
 });
 
 const ProfileConnected = connect(

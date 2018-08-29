@@ -1,13 +1,24 @@
 export interface UserState {
-	name: string;
-	email: string;
-	password: string;
-	company: string;
+	name?: string;
+	email?: string;
+	company?: string;
+	companyId?: string;
+}
+
+export interface UserRegisterState {
+	name?: string;
+	email?: string;
+	password?: string;
+	company?: string;
 }
 
 export interface UserLoginState {
 	email: string;
 	password: string;
+}
+
+export interface IsLoggedInState {
+	isLoggedIn: boolean;
 }
 
 export interface UserResetPasswordState {

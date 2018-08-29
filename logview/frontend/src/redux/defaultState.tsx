@@ -1,31 +1,63 @@
 import { StoreState } from 'src/types/StoreState';
-import { LogState } from '../types/LogState';
 
 export const defaultState: StoreState = {
 	user: {
 		name: '',
 		email: '',
-		password: '',
-		company: ''
+		company: '',
+		companyId: ''
+	},
+	settings: {
+		serverMemory: undefined,
+		serverCPU: undefined,
+		notificationServerIsDown: undefined,
+		notificationHighRequest: undefined,
+		appsMemory: undefined,
+		appsCPU: undefined,
+		appsErrorLog: undefined,
+		appsHttp: undefined,
+		appsSoket: undefined,
+		listeningPorts: undefined
 	},
 
-	log: {
-		logType: '',
-		data: { message: '', status: '' },
-		timestamp: -1,
-		serverId: -1
-	},
-
-	logs: [
+	cpuLogs: [
 		{
 			logType: '',
-			data: { message: '', status: '' },
-			timestamp: -1,
-			serverId: -1
+			data: {
+				cores: [
+					{
+						coreLoadPercentages: 0,
+						coreName: 'core0'
+					}
+				]
+			},
+			timestamp: '',
+			companyToken: ''
+		}
+	],
+
+	memoryLogs: [
+		{
+			logType: '',
+			data: {
+				allMemory: 0,
+				freeMemory: 0,
+				freeMemoryPercentage: 0
+			},
+			timestamp: '',
+			companyToken: ''
+		}
+	],
+
+	companyUsers: [
+		{
+			name: '',
+			email: '',
+			active: false
 		}
 	],
 
 	fetchingUserStatus: 'unstarted',
-
-	fetchingLogStatus: 'unstarted'
+	fetchingSettingsStatus: 'unstarted',
+	isLoggedIn: false
 };

@@ -1,8 +1,24 @@
-export interface LogsState {
-	logs: Array<{
-		logType: string;
-		data: { message: string; status: string };
-		timestamp: number;
-		serverId: number;
-	}>;
+export interface CpuLogState {
+	logType: string;
+	data: {
+		cores: [
+			{
+				coreLoadPercentages: number;
+				coreName: string;
+			}
+		];
+	};
+	timestamp: string;
+	companyToken: string;
+}
+
+export interface MemoryLogState {
+	companyToken: string;
+	data: {
+		allMemory: number;
+		freeMemory: number;
+		freeMemoryPercentage: number;
+	};
+	logType: string;
+	timestamp: string;
 }

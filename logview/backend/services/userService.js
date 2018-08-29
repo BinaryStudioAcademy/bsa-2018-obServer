@@ -2,6 +2,7 @@ const bcrypt = require('bcrypt'),
 	crypto = require('crypto'),
 	userRepository = require('../domains/postgres/repositories/userRepository'),
 	companyService = require('./companyService'),
+	settingService = require('./settingService'),
 	emailService = require('./emailService'),
 	seedLetter = require('../emailSeeders');
 
@@ -36,6 +37,7 @@ class UserService {
 			const hash = await this.encryptPassword(body.password);
 			const token = await this.generateUserToken();
 			const newCompany = await companyService.create(body.company);
+			await settingService.create(newCompany.id);
 			body.password = hash;
 			body.userActivationToken = token;
 			body.companyId = newCompany.id;

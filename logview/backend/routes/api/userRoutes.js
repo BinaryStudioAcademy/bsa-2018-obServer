@@ -2,8 +2,12 @@ const apiResponse = require('express-api-response'),
 	isLoggedInMiddlewre = require('../../middleware/isLoggedInMiddleware'),
 	userService = require('../../services/userService'),
 	emailService = require('../../services/emailService'),
-	router = require('express').Router(),
-	RESSET_PASSWORD_EXPIRES = 3600000;
+	companyService = require('../../services/companyService');
+(settingService = require('../../services/settingService')),
+	(router = require('express').Router()),
+	(RESSET_PASSWORD_EXPIRES = 3600000);
+
+const eventEmitter = require('../../events');
 
 router.get(
 	'/',
@@ -76,6 +80,33 @@ router.put(
 		} catch (err) {
 			res.data = null;
 			res.err = err;
+		} finally {
+			next();
+		}
+	},
+	apiResponse
+);
+
+router.put(
+	'/account/info',
+	isLoggedInMiddlewre,
+	async (req, res, next) => {
+		try {
+			const { name, company } = req.body;
+			await userService.update(req.user.id, { name: name });
+			await companyService.update(req.user.companyId, {
+				name: company
+			});
+			res.data = {
+				name: req.body.name,
+				email: req.body.email,
+				company: req.body.company,
+				companyId: req.body.companyId
+			};
+			res.err = null;
+		} catch (error) {
+			res.data = null;
+			res.err = error;
 		} finally {
 			next();
 		}
@@ -234,6 +265,77 @@ router.get(
 				req.user.companyId
 			);
 			res.data = data;
+			res.err = null;
+		} catch (error) {
+			res.data = null;
+			res.err = error;
+		} finally {
+			next();
+		}
+	},
+	apiResponse
+);
+
+router.get(
+	'/account/info',
+	isLoggedInMiddlewre,
+	async (req, res, next) => {
+		try {
+			const dataUser = await userService.findById(req.user.id);
+			const dataCompany = await companyService.findById(
+				req.user.companyId
+			);
+			res.data = {
+				name: dataUser.name,
+				email: dataUser.email,
+				companyId: dataUser.companyId,
+				company: dataCompany.name
+			};
+			res.err = null;
+		} catch (error) {
+			res.data = null;
+			res.err = error;
+		} finally {
+			next();
+		}
+	},
+	apiResponse
+);
+
+router.get(
+	'/company/settings',
+	async (req, res, next) => {
+		try {
+			const setting = await settingService.findByCompanyId(
+				req.user.companyId
+			);
+			res.data = setting;
+			res.err = null;
+		} catch (error) {
+			res.data = null;
+			res.err = error;
+		} finally {
+			next();
+		}
+	},
+	apiResponse
+);
+
+router.put(
+	'/company/settings',
+	async (req, res, next) => {
+		try {
+			const settingId = (await settingService.findByCompanyId(
+				req.user.companyId
+			)).id;
+			await settingService.update(settingId, req.body);
+			const setting = await settingService.findByCompanyId(
+				req.user.companyId
+			);
+
+			eventEmitter.emit('update company settings', setting);
+
+			res.data = setting;
 			res.err = null;
 		} catch (error) {
 			res.data = null;

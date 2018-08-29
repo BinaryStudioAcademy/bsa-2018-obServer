@@ -1,6 +1,7 @@
 const apiResponse = require('express-api-response'),
-	isLoggedInMiddlewre = require('../../middleware/isLoggedInMiddleware'),
+	isLoggedInMiddleware = require('../../middleware/isLoggedInMiddleware'),
 	userService = require('../../services/userService'),
+	companyService = require('../../services/companyService'),
 	passport = require('passport'),
 	router = require('express').Router(),
 	passportStrategy = require('../../passport/localStrategy');
@@ -8,22 +9,37 @@ const apiResponse = require('express-api-response'),
 router.post(
 	`/login`,
 	passport.authenticate('local.signin'),
-	(req, res, next) => {
-		res.data = req.user.dataValues;
-		res.err = null;
-		next();
+	async (req, res, next) => {
+		try {
+			const { name, email, companyId } = req.user.dataValues;
+			const companyName = (await companyService.findById(companyId)).name;
+			const data = {
+				name: name,
+				email: email,
+				companyName: companyName
+			};
+			res.data = data;
+			res.err = null;
+		} catch (error) {
+			res.data = null;
+			res.err = error;
+		} finally {
+			next();
+		}
 	},
 	apiResponse
 );
 
-router.get(`/logout`, isLoggedInMiddlewre, (req, res, next) => {
+router.get(`/logout`, isLoggedInMiddleware, (req, res) => {
 	req.logout();
 	res.sendStatus(200);
 });
 
 router.post(
 	'/user/activate/:activationToken',
+	passport.authenticate('local.activationSignin'),
 	async (req, res, next) => {
+		console.log(req.user);
 		try {
 			const user = await userService.findByUserActivationToken(
 				req.params.activationToken
@@ -56,9 +72,5 @@ router.post(
 	},
 	apiResponse
 );
-
-router.post(`/checkloggedin`, isLoggedInMiddlewre, (req, res) => {
-	res.sendStatus(200);
-});
 
 module.exports = router;

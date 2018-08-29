@@ -40,3 +40,9 @@
 # System Files
 .DS_Store
 Thumbs.db
+
+aggr_mongovolume
+postgres_db
+raw_mongovolume
+mongovolume
+.vscode/launch.json
