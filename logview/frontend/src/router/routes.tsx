@@ -8,6 +8,7 @@ import PasswordReset from 'src/containers/PasswordReset/PasswordReset';
 import PasswordChange from 'src/containers/PasswordChange/PasswordChange';
 import EmailConfirm from 'src/containers/EmailConfirm/EmailConfirm';
 import EmailTokenConfirm from 'src/containers/EmailConfirm/EmailTokenConfirm';
+import NotFoundPage from 'src/containers/NotFoundPage/NotFoundPage';
 import ServerResources from 'src/containers/ServerResources/ServerResources';
 import history from './history';
 import 'src/styles/GlobalStyles';
@@ -101,8 +102,7 @@ class Router extends React.Component<RouterProps, RouterState> {
 							component={Dashboard}
 							loggedUser={this.state.loggedUser}
 						/>
-
-						<Route exact path="/socket" component={Socket} />
+						<Route path="*" component={NotFoundPage} />
 					</Switch>
 				</Background>
 			</ConnectedRouter>
