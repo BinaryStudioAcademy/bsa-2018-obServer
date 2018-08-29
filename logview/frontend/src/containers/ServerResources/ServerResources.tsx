@@ -45,6 +45,7 @@ interface ServerResourcesState {
 	currentMemoryLog: any;
 	popup: boolean;
 	wrapperRef: any;
+	active: string;
 }
 
 class ServerResources extends React.Component<
@@ -62,8 +63,11 @@ class ServerResources extends React.Component<
 			currentCpuLog: {},
 			currentMemoryLog: {},
 			popup: false,
-			wrapperRef: undefined
+			wrapperRef: undefined,
+			active: ''
 		};
+
+		this.handleActive = this.handleActive.bind(this);
 	}
 
 	componentDidMount() {
@@ -84,12 +88,16 @@ class ServerResources extends React.Component<
 		clearInterval(timerID);
 	}
 
+	handleActive(activeApp) {
+		this.setState({active: activeApp})
+	}
+
 	render() {
 		return (
 			<ChartsPageWrapper>
 				<Title>Server Resources</Title>
 
-				<Select active="general" options={['app1', 'app2', 'app3']}/>
+				<Select onActive={this.handleActive} options={['app1', 'app2', 'app3']}/>
 
 				<ChartGrid>
 					<ChartWrapper>

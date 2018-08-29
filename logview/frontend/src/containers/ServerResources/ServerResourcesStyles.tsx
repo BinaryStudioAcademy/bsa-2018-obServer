@@ -1,5 +1,4 @@
 import { CommentText, UserText } from '../../styles/TextStyles';
-import { UserPopup } from '../../styles/ContainerStyles';
 import { Chart, ChartInfo } from '../../styles/ChartStyles';
 import {
 	ChartHeader,
@@ -10,8 +9,6 @@ import {
 	UserBar
 } from '../../styles/Styles';
 import { Title } from '../../styles/Styles';
-import styled from 'styled-components';
-import { colors } from '../../styles/styles-utils';
 
 export const ChartGrid = Grid.extend`
 	margin-top: 100px;
