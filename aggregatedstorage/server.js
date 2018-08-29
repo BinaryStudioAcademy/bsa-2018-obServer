@@ -40,6 +40,8 @@ app.get(`${baseUrl}/logs`, (req, res) => {
   logService.getLogsForInterval(companyId, appId, logIntervals, (err, logs) => {
     if (!err) {
       res.send(logs);
+    } else {
+      res.status(404).send(err);
     }
   });
 });
