@@ -116,20 +116,17 @@ class ServerResources extends React.Component<
 						<ChartInfo>
 							<div>
 								{this.state.currentCpuLog.data
-									? this.state.currentCpuLog.data.cores.map(
+									&& this.state.currentCpuLog.data.cores.map(
 											(el, i) => (
 												<div key={i}>
 													{el.coreName}:{' '}
 													{el.coreLoadPercentages}
 												</div>
 											)
-									  )
-									: undefined}
+									  )}
 							</div>
 							<div>
-								{this.state.currentCpuLog.timestamp !== ''
-									? this.state.currentCpuLog.timestamp
-									: undefined}
+								{this.state.currentCpuLog.timestamp !== '' && this.state.currentCpuLog.timestamp }
 							</div>
 							<div>a3</div>
 						</ChartInfo>
