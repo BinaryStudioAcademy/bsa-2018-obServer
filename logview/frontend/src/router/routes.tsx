@@ -8,12 +8,9 @@ import PasswordReset from 'src/containers/PasswordReset/PasswordReset';
 import PasswordChange from 'src/containers/PasswordChange/PasswordChange';
 import EmailConfirm from 'src/containers/EmailConfirm/EmailConfirm';
 import EmailTokenConfirm from 'src/containers/EmailConfirm/EmailTokenConfirm';
-import ServerResources from 'src/containers/ServerResources/ServerResources';
 import history from './history';
 import 'src/styles/GlobalStyles';
-import { Background } from '../styles/Styles';
 import Socket from 'src/containers/Socket';
-// import { isLoggedIn } from '../services';
 import Dashboard from 'src/containers/Dashboard/Dashboard';
 import 'src/styles/GlobalStyles';
 
@@ -27,9 +24,6 @@ interface RouterProps {
 }
 
 interface RouterState {
-	// returns error. Add these to state, please
-
-	// fetchingUserStatus: string;
 	loggedUser: string;
 }
 
@@ -48,7 +42,6 @@ class Router extends React.Component<RouterProps, RouterState> {
 			// (fetchingUserStatus === 'success' ||
 			// 	fetchingUserStatus === 'failed') && (
 			<ConnectedRouter history={history}>
-				<Background>
 					<Switch>
 						<PrivateRoute
 							exact
@@ -95,7 +88,7 @@ class Router extends React.Component<RouterProps, RouterState> {
 							path="/setpassword/"
 							component={PasswordChange}
 						/>
-						<Route
+						<PrivateRoute
 							path="/dashboard"
 							component={Dashboard}
 							loggedUser={this.state.loggedUser}
@@ -103,10 +96,8 @@ class Router extends React.Component<RouterProps, RouterState> {
 
 						<Route exact path="/socket" component={Socket} />
 					</Switch>
-				</Background>
 			</ConnectedRouter>
 		);
-		// );
 	}
 }
 

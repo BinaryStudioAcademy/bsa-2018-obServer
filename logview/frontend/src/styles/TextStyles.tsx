@@ -14,31 +14,15 @@ export const CenteredText = styled.p`
 
 export const RedirectLink = styled.p`
 	margin: 0px;
-
-	a {
+	display: flex;
+	align-items: center;
+ 	a {
 		text-decoration: none;
 		color: rgba(127, 120, 206, 1);
+		color: ${colors.violet};
 		font-size: 16px;
 	}
 `;
-
-export const LogoText = styled.h3`
-	text-align: center;
-	position: absolute;
-	left: 58%;
-	top: 45%;
-	transform: translate(-50%, -50%);
-	background: 0;
-	width: 200px;
-	outline: 0;
-	border: 0;
-	margin: 20px 0;
-	padding-bottom: 10px;
-	font-size: 46px;
-	font-weight: bold;
-	color: rgba(255, 255, 255, 0.8);
-`;
-
 export const ErrorText = styled.span`
 	color: #cc0000;
 	font-size: 12px;
@@ -71,6 +55,7 @@ export const CommentText = styled.p`
 		}
 	}
 `;
+
 interface UserText {
 	popup: boolean;
 }
@@ -82,5 +67,4 @@ export const UserText = styled.p`
 	transition-duration: 0.3s;
 	border-bottom: 1px solid;
 	padding-bottom: 12px;
-	/* width: 100%; */
 `;
