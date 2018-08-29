@@ -4,7 +4,7 @@ import * as constants from 'src/redux/logs/constants';
 
 function* fetchNewLog() {
 	try {
-		const companyId = 'LOG_COLLECT_SECRET_TOKEN';
+		const companyId = 'secret-company-token';
 		const socket = yield call(connect);
 
 		socket.emit('getLogs', companyId, logs => {
@@ -14,7 +14,7 @@ function* fetchNewLog() {
 		const socketChannel = yield call(createSocketChannel, socket);
 		while (true) {
 			const newLog = yield take(socketChannel);
-			delete newLog.app;
+			delete newLog.app; //temporary
 			const newLogArr = [newLog];
 
 			switch (newLog.logType) {
