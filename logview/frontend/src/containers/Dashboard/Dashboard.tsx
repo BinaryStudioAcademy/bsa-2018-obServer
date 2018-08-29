@@ -210,7 +210,8 @@ class Dashboard extends React.Component<DashboardProps, DashboardState> {
 }
 
 const mapStateToProps = ({ fetchingUserStatus, user }) => ({
-	fetchingUserStatus, user
+	fetchingUserStatus,
+	user
 });
 
 const mapDispatchToProps = (dispatch: any) => ({

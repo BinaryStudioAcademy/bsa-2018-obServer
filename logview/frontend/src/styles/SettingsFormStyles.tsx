@@ -166,10 +166,10 @@ export const SettingsMenuWrapper = styled.div`
 `;
 
 export const SettingInputWrapper = styled.div`
-margin-top: 10px;
-label{
-	color: ${colors["grey-darken"]};
-	font-size: 14px;
-    text-transform: uppercase;
-}
+	margin-top: 10px;
+	label {
+		color: ${colors['grey-darken']};
+		font-size: 14px;
+		text-transform: uppercase;
+	}
 `;

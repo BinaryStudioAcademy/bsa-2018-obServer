@@ -1,32 +1,51 @@
 const mongoose = require('mongoose');
 
-const httpStats = mongoose.Schema({
+const httpStats = new mongoose.Schema({
+  _id: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true
+  },
+  route: {
+    type: String,
+    required: true
+  },
+  method: {
+    type: String,
+    required: true
+  },
   requests: {
-    frequency: {
+    count: {
+      type: Number,
+      required: true
+    },
+    time: {
+      type: Number,
+      required: true
+    }
+  },
+  bodySize: {
+    request: {
+      type: Number,
+      required: true
+    },
+    response: {
       type: Number,
       required: true
     }
   },
   responseTime: {
-    type: [{
-      route: {
-        type: String,
-        required: true
-      },
-      min: {
-        type: Number,
-        required: true
-      },
-      max: {
-        type: Number,
-        required: true
-      },
-      avg: {
-        type: Number,
-        required: true
-      }
-    }],
-    required: true
+    min: {
+      type: Number,
+      required: true
+    },
+    max: {
+      type: Number,
+      required: true
+    },
+    avg: {
+      type: Number,
+      required: true
+    }
   },
   timestamp: {
     type: Date,

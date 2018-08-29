@@ -60,24 +60,24 @@ class SettingUserForm extends React.Component<
 				</SettingFormGroupLabel>
 				<SettingFormGroupInput>
 					<SettingInputWrapper>
-					<label>User Name:</label>
-					<SettingInput
-						type="text"
-						placeholder="User Name"
-						name="name"
-						value={this.state.name}
-						onChange={this.handleChange}
-					/>
+						<label>User Name:</label>
+						<SettingInput
+							type="text"
+							placeholder="User Name"
+							name="name"
+							value={this.state.name}
+							onChange={this.handleChange}
+						/>
 					</SettingInputWrapper>
 					<SettingInputWrapper>
-					<label>Company Name:</label>
-					<SettingInput
-						type="text"
-						placeholder="Company Name"
-						name="company"
-						value={this.state.company}
-						onChange={this.handleChange}
-					/>
+						<label>Company Name:</label>
+						<SettingInput
+							type="text"
+							placeholder="Company Name"
+							name="company"
+							value={this.state.company}
+							onChange={this.handleChange}
+						/>
 					</SettingInputWrapper>
 				</SettingFormGroupInput>
 
