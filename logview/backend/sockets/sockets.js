@@ -2,7 +2,8 @@ const ioClient = require('socket.io-client');
 const settingService = require('../services/settingService');
 const eventEmitter = require('../events');
 const port = process.env.APP_PORT;
-const aggrStoreURL = `http://localhost:3001`;
+const aggregatedStoragePort = process.env.AGGREGATEDSTORAGE_PORT;
+const aggrStoreURL = `http://localhost:${aggregatedStoragePort}`;
 const logviewURL = `http://localhost:${port}`;
 
 module.exports = io => {
