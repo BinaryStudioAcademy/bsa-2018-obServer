@@ -7,6 +7,7 @@ import Profile from '../Profile/Profile';
 import HttpStats from '../HttpStats/HttpStats';
 import SocketStats from '../SocketStats/SocketStats';
 import Company from '../Company/Company';
+import { UserState } from 'src/types/UserState';
 import {
 	SideNav,
 	SideLink,
@@ -42,6 +43,7 @@ interface DashboardState {
 
 interface DashboardProps extends RouteComponentProps<MatchParams> {
 	actions: { userLogout: Function };
+	user: UserState;
 }
 
 class Dashboard extends React.Component<DashboardProps, DashboardState> {
@@ -72,7 +74,6 @@ class Dashboard extends React.Component<DashboardProps, DashboardState> {
 
 	render() {
 		const { match } = this.props;
-		const user = sessionStorage.getItem('observerUser');
 		return (
 			<DashboardBackground>
 				<Sidebar>
@@ -173,7 +174,7 @@ class Dashboard extends React.Component<DashboardProps, DashboardState> {
 										</CommentText>
 									</React.Fragment>
 								)}
-								<UserText>{user}</UserText>
+								<UserText>{this.props.user.name}</UserText>
 							</UserPopup>
 						</UserProfile>
 					</UserBar>
@@ -208,8 +209,8 @@ class Dashboard extends React.Component<DashboardProps, DashboardState> {
 	}
 }
 
-const mapStateToProps = ({ fetchingUserStatus }) => ({
-	fetchingUserStatus
+const mapStateToProps = ({ fetchingUserStatus, user }) => ({
+	fetchingUserStatus, user
 });
 
 const mapDispatchToProps = (dispatch: any) => ({

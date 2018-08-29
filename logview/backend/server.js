@@ -77,7 +77,8 @@ postgresDb.sequelize.sync().then(() => {
 
 	const io = require('socket.io')(server);
 	const sockets = require('./sockets/sockets');
-	sockets(io, port);
+	sockets(io);
 });
 
 module.exports = app;
+
