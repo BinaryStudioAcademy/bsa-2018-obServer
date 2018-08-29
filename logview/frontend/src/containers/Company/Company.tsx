@@ -1,22 +1,26 @@
 import * as React from 'react';
 import { Input, Submit, ErrorText } from '../../styles/Styles';
+import { fetchCompanyUsers } from 'src/redux/company/actions';
 import { userInvite } from 'src/redux/user/actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { RouteComponentProps } from 'react-router-dom';
+import UserSingle from './UserSingle';
+import { CompanyUsers, UserItem } from '../../styles/ContainerStyles';
 
-interface LoginFormProps {
-	actions: { userInvite: Function };
+interface CompanyProps {
+	actions: { userInvite: Function; fetchCompanyUsers: Function };
+	companyUsers: Array<Object>;
 	fetchingUserStatus: string;
 }
 
-interface InviteUserState {
+interface CompanyState {
 	email?: string;
 	name?: string;
 	err?: boolean;
 }
 
-class InviteUser extends React.Component<LoginFormProps, InviteUserState> {
+class Company extends React.Component<CompanyProps, CompanyState> {
 	constructor(props: any) {
 		super(props);
 
@@ -29,6 +33,10 @@ class InviteUser extends React.Component<LoginFormProps, InviteUserState> {
 		this.handleFieldChange = this.handleFieldChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.handleLogout = this.handleLogout.bind(this);
+	}
+
+	componentDidMount() {
+		this.props.actions.fetchCompanyUsers();
 	}
 
 	handleFieldChange(e: any) {
@@ -44,6 +52,8 @@ class InviteUser extends React.Component<LoginFormProps, InviteUserState> {
 	handleLogout() {}
 
 	render() {
+		console.log(this.props);
+		const { companyUsers } = this.props;
 		return (
 			<React.Fragment>
 				<h2>Invite user</h2>
@@ -67,21 +77,34 @@ class InviteUser extends React.Component<LoginFormProps, InviteUserState> {
 						? 'There was an error processing your request'
 						: ''}
 				</ErrorText>
+				<CompanyUsers>
+					<UserItem>
+						<p>name</p>
+						<p>email</p>
+						<p>status</p>
+					</UserItem>
+					{companyUsers.length > 1
+						? companyUsers.map((companyUser: any, i) => (
+								<UserSingle key={i} user={companyUser} />
+						  ))
+						: undefined}
+				</CompanyUsers>
 			</React.Fragment>
 		);
 	}
 }
 
-const mapStateToProps = ({ fetchingUserStatus }) => ({
-	fetchingUserStatus
+const mapStateToProps = ({ fetchingUserStatus, companyUsers }) => ({
+	fetchingUserStatus,
+	companyUsers
 });
 const mapDispatchToProps = (dispatch: any) => ({
-	actions: bindActionCreators({ userInvite }, dispatch)
+	actions: bindActionCreators({ userInvite, fetchCompanyUsers }, dispatch)
 });
 
-const InviteUserConnected = connect(
+const CompanyConnected = connect(
 	mapStateToProps,
 	mapDispatchToProps
-)(InviteUser);
+)(Company);
 
-export default InviteUserConnected;
+export default CompanyConnected;

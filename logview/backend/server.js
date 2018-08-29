@@ -74,6 +74,10 @@ postgresDb.sequelize.sync().then(() => {
 	server.on('listening', () => {
 		console.log(`Log View app is launched on port ${port}`);
 	});
+
+	const io = require('socket.io')(server);
+	const sockets = require('./sockets/sockets');
+	sockets(io, port);
 });
 
 module.exports = app;

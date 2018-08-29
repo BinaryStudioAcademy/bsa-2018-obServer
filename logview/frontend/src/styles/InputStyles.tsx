@@ -5,7 +5,8 @@ export const Input = styled.input`
 	border: none;
 	outline: none;
 	padding: 15px;
-	width: 80%;
+	width: 45%;
+	margin: 5px;
 	background: transparent;
 	font-family: 'Muli', sans-serif;
 	border-bottom: 1px solid black;
@@ -25,4 +26,13 @@ export const Input = styled.input`
 		);
 		border-image-slice: 1;
 	}
+`;
+
+export const InputWide = Input.extend`
+	margin-top: 50px;
+	width: 80%;
+`;
+
+export const InputPassword = Input.extend`
+	width: 80%;
 `;

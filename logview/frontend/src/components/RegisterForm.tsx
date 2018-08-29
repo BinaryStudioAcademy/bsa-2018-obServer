@@ -3,11 +3,10 @@ import {
 	Submit,
 	Input,
 	Form,
+	RedirectLink,
 	ErrorText,
-	Title,
-	Redirect,
-	RedirectRegister
-} from 'src/containers/Register/RegisterStyles';
+	CenteredText
+} from 'src/styles/Styles';
 import { Link } from 'react-router-dom';
 import { validateForm } from 'src/services/validate/validate';
 
@@ -74,13 +73,10 @@ class RegisterForm extends React.Component<RegFormProps, RegFormState> {
 		const { name, email, password, company } = this.state;
 		return (
 			<Form>
-				<Title>Create obServer account</Title>
-				<Redirect>
-					or{' '}
-					<RedirectRegister>
-						<Link to="/login">sign in to your account</Link>
-					</RedirectRegister>
-				</Redirect>
+				<h2>Welcome to obServer</h2>
+				<CenteredText>
+					Web-service dedicated to monitor your server in real-time
+				</CenteredText>
 				<Input
 					autoComplete="off"
 					type="text"
@@ -131,7 +127,11 @@ class RegisterForm extends React.Component<RegFormProps, RegFormState> {
 						Company should be at least 3 characters long
 					</ErrorText>
 				)}
-				<Submit onClick={this.handleSubmit}>Create new account</Submit>
+				<Submit onClick={this.handleSubmit}>sign up</Submit>
+
+				<RedirectLink>
+					<Link to="login"> Back to login </Link>
+				</RedirectLink>
 			</Form>
 		);
 	}

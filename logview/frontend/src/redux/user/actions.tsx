@@ -1,13 +1,14 @@
 import * as constants from './constants';
 import {
 	UserState,
+	UserRegisterState,
 	UserLoginState,
 	UserResetPasswordState,
 	UserChangePasswordState
 } from '../../types/UserState';
 
 /* user register */
-export interface UserRegister extends UserState {
+export interface UserRegister extends UserRegisterState {
 	type: constants.USER_REGISTER;
 }
 
@@ -17,6 +18,7 @@ export interface UserRegisterFail {
 
 export interface UserRegisterSuccess {
 	type: constants.USER_REGISTER_SUCCESS;
+	payload: UserState;
 }
 
 /* user login */
@@ -30,6 +32,7 @@ export interface UserLoginFail {
 
 export interface UserLoginSuccess {
 	type: constants.USER_LOGIN_SUCCESS;
+	payload: UserLoginState;
 }
 
 /* password reset */
@@ -72,10 +75,6 @@ export interface UserEmailActivationSuccess {
 	type: constants.USER_EMAIL_ACTIVATION_SUCCESS;
 }
 
-export interface FetchUser {
-	type: constants.FETCH_USER;
-}
-
 /* user invite */
 export interface UserInvite {
 	type: constants.USER_INVITE;
@@ -102,6 +101,34 @@ export interface UserSetPasswordFail {
 
 export interface UserSetPasswordSuccess {
 	type: constants.USER_SET_PASSWORD_SUCCESS;
+}
+
+/* fetch user */
+export interface FetchUser {
+	type: constants.FETCH_USER;
+}
+
+export interface FetchUserFail {
+	type: constants.FETCH_USER_FAILED;
+}
+
+export interface FetchUserSuccess {
+	type: constants.FETCH_USER_SUCCESS;
+	payload: UserState;
+}
+
+/* change(update) user */
+export interface ChangeUser extends UserState {
+	type: constants.CHANGE_USER;
+}
+
+export interface ChangeUserFail {
+	type: constants.CHANGE_USER_FAILED;
+}
+
+export interface ChangeUserSuccess {
+	type: constants.CHANGE_USER_SUCCESS;
+	payload: UserState;
 }
 
 /* user logout */
@@ -139,10 +166,15 @@ export type UserAction =
 	| UserSetPassword
 	| UserSetPasswordFail
 	| UserSetPasswordSuccess
+	| FetchUser
+	| FetchUserFail
+	| FetchUserSuccess
+	| ChangeUser
+	| ChangeUserFail
+	| ChangeUserSuccess
 	| UserLogout
 	| UserLogoutFail
-	| UserLogoutSuccess
-	| FetchUser;
+	| UserLogoutSuccess;
 
 export function userRegister(
 	name: string = '',
@@ -159,15 +191,18 @@ export function userRegister(
 	};
 }
 
-export function userRegisterFail(): UserRegisterFail {
+export function userChange(
+	name: string = '',
+	email: string = '',
+	company: string = '',
+	companyId: string = ''
+): ChangeUser {
 	return {
-		type: constants.USER_REGISTER_FAILED
-	};
-}
-
-export function userRegisterSuccess(): UserRegisterSuccess {
-	return {
-		type: constants.USER_REGISTER_SUCCESS
+		type: constants.CHANGE_USER,
+		name,
+		email,
+		company,
+		companyId
 	};
 }
 
@@ -182,18 +217,6 @@ export function userLogin(
 	};
 }
 
-export function userLoginFail(): UserLoginFail {
-	return {
-		type: constants.USER_LOGIN_FAILED
-	};
-}
-
-export function userLoginSuccess(): UserLoginSuccess {
-	return {
-		type: constants.USER_LOGIN_SUCCESS
-	};
-}
-
 export function userResetPassword(
 	email: string = '',
 	password: string = ''
@@ -201,18 +224,6 @@ export function userResetPassword(
 	return {
 		type: constants.USER_RESET_PASSWORD,
 		email
-	};
-}
-
-export function userResetPasswordFail(): UserResetPasswordFail {
-	return {
-		type: constants.USER_RESET_PASSWORD_FAILED
-	};
-}
-
-export function userResetPasswordSuccess(): UserResetPasswordSuccess {
-	return {
-		type: constants.USER_RESET_PASSWORD_SUCCESS
 	};
 }
 
@@ -224,18 +235,6 @@ export function userChangePassword(
 		type: constants.USER_CHANGE_PASSWORD,
 		newPassword,
 		resetToken
-	};
-}
-
-export function userChangePasswordFail(): UserChangePasswordFail {
-	return {
-		type: constants.USER_CHANGE_PASSWORD_FAILED
-	};
-}
-
-export function userChangePasswordSuccess(): UserChangePasswordSuccess {
-	return {
-		type: constants.USER_CHANGE_PASSWORD_SUCCESS
 	};
 }
 
@@ -254,35 +253,11 @@ export function userEmailActivation(
 	};
 }
 
-export function userEmailActivationFail(): UserEmailActivationFail {
-	return {
-		type: constants.USER_EMAIL_ACTIVATION_FAILED
-	};
-}
-
-export function userEmailActivationSuccess(): UserEmailActivationSuccess {
-	return {
-		type: constants.USER_EMAIL_ACTIVATION_SUCCESS
-	};
-}
-
 export function userInvite(email: string = '', name: string = '') {
 	return {
 		type: constants.USER_INVITE,
 		email,
 		name
-	};
-}
-
-export function userInviteFail(): UserInviteFail {
-	return {
-		type: constants.USER_INVITE_FAILED
-	};
-}
-
-export function userInviteSuccess(): UserInviteSuccess {
-	return {
-		type: constants.USER_INVITE_SUCCESS
 	};
 }
 
@@ -297,33 +272,9 @@ export function userSetPassword(
 	};
 }
 
-export function userSetPasswordFail(): UserSetPasswordFail {
-	return {
-		type: constants.USER_SET_PASSWORD_FAILED
-	};
-}
-
-export function userSetPasswordSuccess(): UserSetPasswordSuccess {
-	return {
-		type: constants.USER_SET_PASSWORD_SUCCESS
-	};
-}
-
 export function userLogout(email: string): UserLogout {
 	return {
 		type: constants.USER_LOGOUT,
 		email
-	};
-}
-
-export function userLogoutFail(): UserLogoutFail {
-	return {
-		type: constants.USER_LOGOUT_FAILED
-	};
-}
-
-export function userLogoutSuccess(): UserLogoutSuccess {
-	return {
-		type: constants.USER_LOGOUT_SUCCESS
 	};
 }

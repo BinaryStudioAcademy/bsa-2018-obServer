@@ -23,6 +23,7 @@ app.post(`${baseUrl}/logs`, (req, res) => {
       console.log(err);
     }
   });
+  io.emit('newLog', req.body);
 });
 
 server.listen(port, () => {

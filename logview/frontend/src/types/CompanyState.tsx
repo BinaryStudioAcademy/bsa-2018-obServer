@@ -1,7 +1,5 @@
 export interface CompanyState {
-	company: Array<{
-		name: string;
-		email: string;
-		active: boolean;
-	}>;
+	name: string;
+	email: string;
+	active: boolean;
 }

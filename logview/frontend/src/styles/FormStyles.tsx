@@ -7,6 +7,7 @@ export const Form = styled.form`
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
+	width: 60%;
 	flex: 1;
 	font-size: 18px;
 	font-family: 'Muli', sans-serif;
