@@ -1,6 +1,6 @@
 import { put, call, take, race } from 'redux-saga/effects';
-import { connect, createSocketChannel } from 'src/services/websockets/logs';
-import * as constants from 'src/redux/logs/constants';
+import { connect, createSocketChannel } from '../../services/websockets/logs';
+import * as constants from './constants';
 
 function* fetchNewLog() {
 	try {
