@@ -1,24 +1,25 @@
 import styled from 'styled-components';
-import { media, colors } from './styles-utils';
+import { media } from './styles-utils';
 
 export const ChartsPageWrapper = styled.div`
 	padding: 60px;
 	margin: auto;
 	min-height: 100%;
-	background-color: #efefef;
+	background-color: #eef3f6;
 `;
 
 export const ChartWrapper = styled.div`
+	background-color: #fff;
 	margin: 10px;
+	padding: 10px 20px;
 	border-radius: 0.25rem;
-	display: flex;
+	border: 1px solid #e5e9ec;
 `;
 
 export const ChartHeader = styled.div`
 	display: flex;
 	justify-content: space-between;
 `;
-
 export const ChartTimeRange = styled.div`
 	text-align: right;
 	color: grey;
@@ -29,24 +30,6 @@ export const ChartTimeRange = styled.div`
 
 export const ChartGrid = styled.div``;
 
-export const Chart = styled.div`
-	padding: 10px;
-	margin: 10px;
-	background-color: #fff;
-	flex: 3;
-`;
-
-export const ChartInfo = styled.div`
-	flex: 1;
-	display: grid;
-	grid-template-rows: repeat(3, 1fr);
-	margin: 10px;
-	grid-gap: 10px;
-
-	div {
-		background: white;
-	}
-`;
 /*
 export const ChartHeader = styled.div`
 	display: grid;

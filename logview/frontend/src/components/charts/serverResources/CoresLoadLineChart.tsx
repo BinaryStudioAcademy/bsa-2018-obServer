@@ -40,7 +40,6 @@ export default class CoresLoadLineChart extends React.Component<any, any> {
 						dot={false}
 						stroke={Color[count]}
 						key={dataKey}
-						isAnimationActive={false}
 					/>
 				);
 				count++;

@@ -267,6 +267,7 @@ class Logs extends React.Component<LogsProps, LogsState> {
 	}
 
 	render() {
+		console.log('State:', this.state);
 		// for searchButton filtering
 		let found;
 		if (this.state.filteredLogs.length === 0) {

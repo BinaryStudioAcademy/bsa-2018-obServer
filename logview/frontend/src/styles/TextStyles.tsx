@@ -56,7 +56,8 @@ export const CommentText = styled.p`
 		display: inline-block;
 		text-decoration: none;
 		color: #bebec5;
-		padding: 12px 0;
+		padding-bottom: 12px;
+		padding-top: 12px;
 		height: 100%;
 		width: 100%;
 	}

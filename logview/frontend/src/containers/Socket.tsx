@@ -40,6 +40,7 @@ class FetchLogs extends React.Component<FetchLogsProps, FetchLogsState> {
 
 	render() {
 		const { cpuLogsState, memoryLogsState } = this.props;
+		console.log(this.props);
 		return (
 			<React.Fragment>
 				<button onClick={this.handleClick}>click me</button>

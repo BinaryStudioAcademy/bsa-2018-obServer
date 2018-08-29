@@ -11,7 +11,7 @@ export const connect = () => {
 	socket = io(url);
 	return new Promise(resolve => {
 		socket.on('connect', () => {
-			console.log('SOCKET CONNECTED');
+			console.log('CONNECTED');
 			resolve(socket);
 		});
 	});

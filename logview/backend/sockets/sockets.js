@@ -1,7 +1,7 @@
 const ioClient = require('socket.io-client');
 
 module.exports = (io, port) => {
-	const aggrStoreSocket = ioClient.connect('http://localhost:3100');
+	const aggrStoreSocket = ioClient.connect('http://localhost:3001');
 
 	io.set('origins', `http://localhost:${port}`);
 	io.origins('*:*');
