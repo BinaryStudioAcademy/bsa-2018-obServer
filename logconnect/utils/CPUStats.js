@@ -9,12 +9,10 @@ class CPUAppStats {
     }
 
     calcCPU(callback) {
-        const { pid } = process;
-        usage.lookup(pid, (err, data) => {
+        usage.lookup(process.pid, (err, data) => {
             if (err) console.error(err);
             else {
-                console.log(data);
-                const { cpu } = data;
+                const cpu  = Math.round(data.cpu * 100) / 100;
                 callback({ cpu });
             }
         });
@@ -27,7 +25,7 @@ class CPUAppStats {
                     const log = createLogObject('CPU_APP', CPUData, this.app);
                     this.sendLog(log);
                 });
-            }, delay)
+            }, delay);
         }
     }
 

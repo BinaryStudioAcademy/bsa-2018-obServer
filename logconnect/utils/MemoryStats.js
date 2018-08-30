@@ -24,7 +24,7 @@ class MemoryAppStats {
                     const log = createLogObject('MEMORY_APP', memoryData, this.app);
                     this.sendLog(log);
                 });
-            }, delay)
+            }, delay);
         }
     }
 
