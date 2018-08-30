@@ -4,23 +4,34 @@ class MemoryAppStats {
     constructor(sendLog, app) {
         this.sendLog = sendLog;
         this.app = app;
-        this.timedId = -1;
+        this.timers = {};
     }
 
     calcMemory(callback) {
-        const { heapTotal, heapUsed } = process.memoryUsage();
+        const heapTotal = this.toMB(process.memoryUsage().heapTotal);
+        const heapUsed = this.toMB(process.memoryUsage().heapUsed);
         callback({ heapTotal, heapUsed });
     }
 
+    toMB(value) {
+        return Math.round(value / 1024 / 1024 * 100) / 100;
+    }
+
     startMemoryMonitor(delay = 1000) {
-        if (!this.timedId) {
-            this.timedId = setInterval(() => {
+        if (!this.timers.memoryTimedId) {
+            this.timers.memoryTimedId = setInterval(() => {
                 this.calcMemory(memoryData => {
-                    this.sendLog('');
+                    const log = createLogObject('MEMORY_APP', memoryData, this.app);
+                    this.sendLog(log);
                 });
             }, delay)
         }
     }
+
+    stopMemoryMonitor() {
+        clearInterval(this.timers.memoryTimedId);
+        delete this.timers.memoryTimedId;
+    }
 }
 
-module.exports = new MemoryAppStats();
+module.exports = MemoryAppStats;
