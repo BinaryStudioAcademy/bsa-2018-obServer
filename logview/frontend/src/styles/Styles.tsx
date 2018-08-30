@@ -30,6 +30,7 @@ import { LoginBackground, Logo } from './ImageStyles';
 import {
 	ChartHeader,
 	ChartGrid,
+	ChartGridTwo,
 	ChartWrapper,
 	ChartsPageWrapper,
 	ChartTimeRange
@@ -60,6 +61,7 @@ export {
 	LinkButton,
 	ChartHeader,
 	ChartGrid,
+	ChartGridTwo,
 	ChartWrapper,
 	ChartsPageWrapper,
 	ChartTimeRange,

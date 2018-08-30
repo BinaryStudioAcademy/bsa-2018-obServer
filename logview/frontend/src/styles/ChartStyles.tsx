@@ -50,3 +50,10 @@ export const ChartGrid = styled.div`
 	${media.desktop`grid-template-columns: 1fr;`};
 `;
 */
+
+export const ChartGridTwo = styled.div`
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-gap: 40px;
+	${media.desktop`grid-template-columns: 1fr;`};
+`;
