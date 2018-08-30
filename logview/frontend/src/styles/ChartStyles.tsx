@@ -53,4 +53,5 @@ export const ChartGridTwo = styled.div`
 	grid-template-columns: 1fr 1fr;
 	grid-gap: 40px;
 	${media.desktop`grid-template-columns: 1fr;`};
+	margin-top: 20px;
 `;

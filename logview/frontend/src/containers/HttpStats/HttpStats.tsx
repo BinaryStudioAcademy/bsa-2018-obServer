@@ -12,7 +12,6 @@ import {
 } from './HttpStatsStyles';
 import { Timer } from 'styled-icons/material';
 import { httpStats, countRoutes, countHttp } from './mockData';
-import Select from 'src/components/Select/Select';
 
 interface HttpStatsProps {}
 
@@ -33,41 +32,38 @@ class HttpStats extends React.Component<HttpStatsProps, HttpStatsState> {
 		this.handleTimeRange = this.handleTimeRange.bind(this);
 	}
 
-	handleTimeRange(activeTimeRange) {
-		this.setState({ timeRange: activeTimeRange });
+	handleTimeRange(event) {
+		this.setState({ timeRange: event.target.value });
 	}
 
-	handleActiveApp(activeApp) {
-		this.setState({ app: activeApp });
+	handleActiveApp(event) {
+		this.setState({ app: event.target.value });
 	}
 
 	render() {
 		return (
 			<React.Fragment>
 				<Title>Http Stats</Title>
-				<Grid>
-					<div>
-						<Select
-							onActive={this.handleActiveApp}
-							options={['app1', 'app2', 'app3']}
-						/>
-					</div>
-					<div>
-						<Select
-							onActive={this.handleTimeRange}
-							options={[
-								'last 10 minutes',
-								'last 30 minutes',
-								'last 12 hours',
-								'last 1 day',
-								'last 1 week',
-								'last 1 month'
-							]}
-						/>
-					</div>
-				</Grid>
 
-				<Grid style={{ marginTop: '100px' }}>
+				<div>
+					<select onChange={this.handleActiveApp}>
+						<option value="app1">app1</option>
+						<option value="app2">app2</option>
+						<option value="app3">app4</option>
+					</select>
+					<select onChange={this.handleTimeRange}>
+						<option value="last 10 minutes">last 10 minutes</option>
+						<option value="last 30 minutes">last 30 minutes</option>
+						<option value="last 1 hour">last 1 hour</option>
+						<option value="last 5 hours">last 5 hours</option>
+						<option value="last 12 hours">last 12 hours</option>
+						<option value="last day">last day</option>
+						<option value="last week">last week</option>
+						<option value="last  month">last month</option>
+					</select>
+				</div>
+
+				<Grid>
 					<ChartWrapper>
 						<Chart>
 							<ChartHeader>
@@ -76,7 +72,10 @@ class HttpStats extends React.Component<HttpStatsProps, HttpStatsState> {
 									<Timer size="24" /> {this.state.timeRange}
 								</ChartTimeRange>
 							</ChartHeader>
-							<HttpCountChart data={countHttp} />
+							<HttpCountChart
+								data={countHttp}
+								timeRange={this.state.timeRange}
+							/>
 						</Chart>
 					</ChartWrapper>
 					<ChartWrapper>
@@ -91,7 +90,6 @@ class HttpStats extends React.Component<HttpStatsProps, HttpStatsState> {
 						</Chart>
 					</ChartWrapper>
 				</Grid>
-
 				<HttpTabel data={httpStats} />
 			</React.Fragment>
 		);
