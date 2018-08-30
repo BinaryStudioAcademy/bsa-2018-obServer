@@ -1,6 +1,12 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import { Title, Submit, PasswordWrapper } from '../../styles/Styles';
+import {
+	Title,
+	Submit,
+	PasswordWrapper,
+	PasswordResetContainer,
+	CenteredText
+} from '../../styles/Styles';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { userEmailActivation } from 'src/redux/user/actions';
@@ -32,18 +38,35 @@ class EmailTokenConfirm extends React.Component<
 	}
 
 	render() {
-		const { fetchingUserStatus } = this.props;
+		const { isLoggedIn, fetchingUserStatus } = this.props;
 		return (
 			(fetchingUserStatus === 'success' ||
 				fetchingUserStatus === 'failed') && (
-				<PasswordWrapper>
-					<Title>Email Successfully Confirmed!</Title>
-					<Submit>
-						<Link to="/dashboard/quickstart">
-							Proceed to Quickstart
-						</Link>
-					</Submit>
-				</PasswordWrapper>
+				<PasswordResetContainer>
+					<PasswordWrapper>
+						{isLoggedIn ? (
+							<React.Fragment>
+								<Title>Email Successfully Confirmed!</Title>
+								// seems link within button doesn't work with
+								Firefox
+								<Submit>
+									<Link to="/dashboard/quickstart">
+										Proceed to Quickstart
+									</Link>
+								</Submit>
+							</React.Fragment>
+						) : (
+							<React.Fragment>
+								<Title>
+									Sorry, your email couldn't be confirmed!
+								</Title>
+								<CenteredText>
+									Try following the link again, please!
+								</CenteredText>
+							</React.Fragment>
+						)}
+					</PasswordWrapper>
+				</PasswordResetContainer>
 			)
 		);
 	}
