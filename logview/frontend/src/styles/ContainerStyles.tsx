@@ -6,6 +6,9 @@ export const Landing = styled.div`
 	display: flex;
 	justify-content: center;
 	align-items: center;
+`;
+
+export const LandingColumn = Landing.extend`
 	flex-wrap: wrap;
 	flex-direction: column;
 `;
