@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-const background = require('src/assets/login-background.jpg');
 
 export const NavAside = styled.aside`
 	width: 200px;

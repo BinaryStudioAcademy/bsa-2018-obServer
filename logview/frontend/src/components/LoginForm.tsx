@@ -4,13 +4,12 @@ import {
 	Input,
 	Form,
 	Row,
-	RedirectContainer,
-	TextLink,
 	RedirectLink,
 	Title,
 	ErrorText,
-	CenteredText
-} from 'src/styles/Styles';
+	Redirect,
+	RedirectRegister,
+} from 'src/containers/Login/LoginStyles';
 import { Link } from 'react-router-dom';
 
 interface LoginFormProps {
@@ -63,9 +62,15 @@ class LoginForm extends React.Component<LoginFormProps, LoginFormState> {
 		return (
 			<Form>
 				<Title>obServer</Title>
-				<CenteredText>
-					Welcome back, please login to your account
-				</CenteredText>
+				<Row>
+					<div>Sign in</div>
+					<Redirect>
+						or{' '}
+						<RedirectRegister>
+							<Link to="register">create an account</Link>
+						</RedirectRegister>
+					</Redirect>
+				</Row>
 				<Input
 					type="email"
 					name="email"
@@ -85,23 +90,11 @@ class LoginForm extends React.Component<LoginFormProps, LoginFormState> {
 					<ErrorText>Email or password is incorrect</ErrorText>
 				)}
 				<Row>
-					<input
-						type="checkbox"
-						checked={this.state.remember}
-						onClick={this.handleCheckbox}
-					/>
-					<span>Remember me</span>
+					<RedirectLink>
+						<Link to="reset">Forgot password?🦄</Link>
+					</RedirectLink>
+					<Submit onClick={this.handleSubmit}>sign in</Submit>
 				</Row>
-				<Submit onClick={this.handleSubmit}>sign in</Submit>
-				<RedirectLink>
-					<Link to="reset">Forgot password?🦄</Link>
-				</RedirectLink>
-				<RedirectContainer>
-					<p>Don't have an account yet?</p>
-					<TextLink>
-						<Link to="register">sign up</Link>
-					</TextLink>
-				</RedirectContainer>
 			</Form>
 		);
 	}

@@ -52,7 +52,6 @@ class Company extends React.Component<CompanyProps, CompanyState> {
 	handleLogout() {}
 
 	render() {
-		console.log(this.props);
 		const { companyUsers } = this.props;
 		return (
 			<React.Fragment>

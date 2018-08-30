@@ -28,21 +28,17 @@ import { Http } from 'styled-icons/material';
 import { Superpowers } from 'styled-icons/fa-brands';
 import { UserPopup, Sidebar } from 'src/styles/ContainerStyles';
 import { CommentText, UserText } from '../../styles/TextStyles';
-import { userLogout } from 'src/redux/user/actions';
+import { userLogout, fetchUser } from 'src/redux/user/actions';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-
-interface MatchParams {
-	// name: string;
-}
 
 interface DashboardState {
 	active?: string;
 	popup?: boolean;
 }
 
-interface DashboardProps extends RouteComponentProps<MatchParams> {
-	actions: { userLogout: Function };
+interface DashboardProps extends RouteComponentProps<{}, {}> {
+	actions: { userLogout: Function; fetchUser: Function };
 	user: UserState;
 }
 
@@ -70,6 +66,10 @@ class Dashboard extends React.Component<DashboardProps, DashboardState> {
 
 	handleLogout() {
 		this.props.actions.userLogout();
+	}
+
+	componentDidMount() {
+		this.props.actions.fetchUser();
 	}
 
 	render() {
@@ -215,7 +215,7 @@ const mapStateToProps = ({ fetchingUserStatus, user }) => ({
 });
 
 const mapDispatchToProps = (dispatch: any) => ({
-	actions: bindActionCreators({ userLogout }, dispatch)
+	actions: bindActionCreators({ userLogout, fetchUser }, dispatch)
 });
 
 const DashboardConnected = connect(
