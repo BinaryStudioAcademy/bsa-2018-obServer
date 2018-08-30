@@ -1,0 +1,17 @@
+{
+	"compilerOptions": {
+		"baseUrl": "./frontend",
+		"outDir": "../dist",
+		"target": "es6",
+		"sourceMap": true,
+		"jsx": "react",
+		"moduleResolution": "node",
+		"experimentalDecorators": true,
+		"noUnusedParameters": false,
+		"noUnusedLocals": false,
+		"skipLibCheck": true, // todo: remove it when @types/lodash is fixed
+		"strictNullChecks": false,
+		"allowSyntheticDefaultImports": true
+	},
+	"include": ["./frontend/src"]
+}

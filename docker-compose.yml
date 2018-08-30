@@ -1,0 +1,57 @@
+version: "2.0"
+services:
+  postgres:
+    image: postgres:9.6-alpine
+    container_name: logview-postgres
+    working_dir: /src/
+    volumes:
+      - ./postgresdata:/src/postgresdata
+    ports:
+      - ${POSTGRES_EXTERNAL_PORT}:${POSTGRES_INTERNAL_PORT}
+    networks:
+      - postgres
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PWD}
+      - POSTGRES_DB=${POSTGRES_DB}
+    restart: unless-stopped
+  pgadmin:
+    container_name: observer-pgadmin
+    image: dpage/pgadmin4
+    volumes:
+      - ./pgadmin:/src/pgadmin
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=${PG_ADMIN_DEFAULT_USER}
+      - PGADMIN_DEFAULT_PASSWORD=${PG_ADMIN_DEFAULT_PASSWROD}
+      # - PGADMIN_ENABLE_TLS=True
+    links:
+      - postgres:postgres
+    ports:
+      - ${PG_ADMIN_EXTERNAL_PORT}:${PG_ADMIN_INTERNAL_PORT}
+    volumes:
+        - ./postgres_db:/data/db
+    networks:
+      - postgres
+    restart: unless-stopped
+  raw-storage:
+      container_name: raw-storage
+      image: mongo
+      volumes:
+        - ./raw_mongovolume:/data/db
+      ports:
+        - ${RAW_DB_EXTERNAL_PORT}:${RAW_DB_INTERNAL_PORT}
+  aggregated-storage:
+      container_name: aggregated-storage
+      image: mongo
+      volumes:
+        - ./aggr_mongovolume:/data/db
+      ports:
+        - ${AGGREGATED_DB_EXTERNAL_PORT}:${AGGREGATED_DB_INTERNAL_PORT}
+  rabbitmq:
+      container_name: rabbitmq
+      image: rabbitmq:3-management
+      ports:
+        - ${RABBITMQ_EXTERNAL_PORT}:${RABBITMQ_INTERNAL_PORT}
+networks:
+  postgres:
+    driver: bridge

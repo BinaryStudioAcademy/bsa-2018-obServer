@@ -1,3 +1,3 @@
 module.exports = {
-  sequilize: null
+	sequilize: null
 };
