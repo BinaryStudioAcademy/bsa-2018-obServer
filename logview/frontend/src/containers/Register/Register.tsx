@@ -3,14 +3,11 @@ import RegisterForm from 'src/components/RegisterForm';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { userRegister } from '../../redux/user/actions';
-import {
-	Wrapper,
-} from 'src/styles/Styles';
+import { Wrapper } from 'src/styles/Styles';
 import { Landing } from '../../styles/ContainerStyles';
 const logo = require('src/assets/logo.png');
 
 interface LoginFormProps {
-	onSubmit: Function;
 	actions: { userRegister: Function };
 }
 
@@ -39,7 +36,9 @@ class Register extends React.Component<LoginFormProps, LoginFormState> {
 	render() {
 		return (
 			<Landing>
-				<RegisterForm onSubmit={this.handleSubmit} />
+				<RegisterForm
+					actions={{ userRegister: this.props.actions.userRegister }}
+				/>
 			</Landing>
 		);
 	}

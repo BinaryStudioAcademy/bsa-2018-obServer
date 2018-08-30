@@ -47,6 +47,11 @@ services:
         - ./aggr_mongovolume:/data/db
       ports:
         - ${AGGREGATED_DB_EXTERNAL_PORT}:${AGGREGATED_DB_INTERNAL_PORT}
+  rabbitmq:
+      container_name: rabbitmq
+      image: rabbitmq:3-management
+      ports:
+        - ${RABBITMQ_EXTERNAL_PORT}:${RABBITMQ_INTERNAL_PORT}
 networks:
   postgres:
     driver: bridge

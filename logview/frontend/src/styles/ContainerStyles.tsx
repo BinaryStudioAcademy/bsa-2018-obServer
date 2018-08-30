@@ -6,7 +6,7 @@ export const Landing = styled.div`
 	display: flex;
 	justify-content: center;
 	align-items: center;
-`
+`;
 
 export const Wrapper = styled.div`
 	display: flex;
@@ -58,10 +58,12 @@ export const DashboardBackground = styled.div`
 `;
 
 export const Main = styled.div`
-	padding: 3%;
+	padding: 3vh 3vw;
 	margin-left: 16%;
 	width: 84%;
+	height: 94vh;
 	background: white;
+	overflow-y: auto;
 `;
 
 export const Sidebar = Column.extend`
