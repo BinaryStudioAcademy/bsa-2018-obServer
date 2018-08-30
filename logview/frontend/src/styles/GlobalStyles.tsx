@@ -1,5 +1,4 @@
 import { injectGlobal } from 'styled-components';
-const background = require('src/assets/login-background.jpg');
 
 // tslint:disable-next-line:no-unused-expression
 injectGlobal`

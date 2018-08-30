@@ -3,15 +3,8 @@ import LoginForm from 'src/components/LoginForm';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { userLogin } from 'src/redux/user/actions';
-import {
-	Wrapper,
-	BackgroundContainer,
-	Box,
-	LogoContainer,
-	LogoText,
-	Logo
-} from 'src/styles/Styles';
-const logo = require('src/assets/logo.png');
+import { Wrapper } from 'src/styles/Styles';
+import { Landing } from '../../styles/ContainerStyles';
 
 interface LoginFormProps {
 	onSubmit: Function;
@@ -25,26 +18,18 @@ class Login extends React.Component<LoginFormProps, {}> {
 		this.handleSubmit = this.handleSubmit.bind(this);
 	}
 
-	async handleSubmit(data: any) {
-		await this.props.actions.userLogin(data.email, data.password);
+	handleSubmit(data: any) {
+		this.props.actions.userLogin(data.email, data.password);
 	}
 
 	render() {
 		return (
-			<Wrapper>
+			<Landing>
 				<LoginForm
 					onSubmit={this.handleSubmit}
 					status={this.props.fetchingUserStatus}
 				/>
-				<BackgroundContainer>
-					<Box>
-						<LogoContainer>
-							<Logo src={logo} />
-							<LogoText>bServer</LogoText>
-						</LogoContainer>
-					</Box>
-				</BackgroundContainer>
-			</Wrapper>
+			</Landing>
 		);
 	}
 }

@@ -11,7 +11,6 @@ export function userReducer(
 		case constants.USER_REGISTER_SUCCESS:
 		case constants.CHANGE_USER_SUCCESS:
 		case constants.FETCH_USER_SUCCESS:
-			console.log('userReducer', action);
 			return {
 				...state,
 				name: action.payload.name,

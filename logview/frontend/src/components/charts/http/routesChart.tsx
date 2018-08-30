@@ -21,7 +21,7 @@ export default class HttpRoutesBarChart extends React.Component<any, any> {
 			<ResponsiveContainer width="100%" aspect={2}>
 				<BarChart
 					data={this.props.data}
-					margin={{ top: 20, right: 30, left: 20, bottom: 20 }}
+					margin={{ top: 20, right: 40, left: 15, bottom: 20 }}
 				>
 					<CartesianGrid strokeDasharray="3 3" />
 					<XAxis

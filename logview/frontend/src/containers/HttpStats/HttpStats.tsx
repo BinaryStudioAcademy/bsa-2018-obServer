@@ -4,48 +4,93 @@ import HttpRoutesBarChart from '../../components/charts/http/routesChart';
 import HttpCountChart from '../../components/charts/http/countHttpChart';
 import {
 	ChartHeader,
-	ChartGridTwo,
+	Grid,
 	ChartWrapper,
-	ChartTimeRange
-} from '../../styles/Styles';
+	ChartTimeRange,
+	Title,
+	Chart
+} from './HttpStatsStyles';
 import { Timer } from 'styled-icons/material';
 import { httpStats, countRoutes, countHttp } from './mockData';
+import Select from 'src/components/Select/Select';
 
-class HttpStats extends React.Component {
+interface HttpStatsProps {}
+
+interface HttpStatsState {
+	timeRange: string;
+	app: string;
+}
+
+class HttpStats extends React.Component<HttpStatsProps, HttpStatsState> {
+	constructor(props: HttpStatsProps) {
+		super(props);
+
+		this.state = {
+			timeRange: 'last 10 minutes',
+			app: 'app1'
+		};
+
+		this.handleTimeRange = this.handleTimeRange.bind(this);
+	}
+
+	handleTimeRange(activeTimeRange) {
+		this.setState({ timeRange: activeTimeRange });
+	}
+
+	handleActiveApp(activeApp) {
+		this.setState({ app: activeApp });
+	}
+
 	render() {
 		return (
 			<React.Fragment>
-				<h1>
-					Http Stats
-					<select>
-						<option>last 10 minutes</option>
-						<option>last 30 minutes</option>
-						<option>last 12 hours</option>
-						<option>last 1 day</option>
-						<option>last 1 week</option>
-						<option>last 1 month</option>
-					</select>
-				</h1>
-				<ChartGridTwo>
+				<Title>Http Stats</Title>
+				<Grid>
+					<div>
+						<Select
+							onActive={this.handleActiveApp}
+							options={['app1', 'app2', 'app3']}
+						/>
+					</div>
+					<div>
+						<Select
+							onActive={this.handleTimeRange}
+							options={[
+								'last 10 minutes',
+								'last 30 minutes',
+								'last 12 hours',
+								'last 1 day',
+								'last 1 week',
+								'last 1 month'
+							]}
+						/>
+					</div>
+				</Grid>
+
+				<Grid style={{ marginTop: '100px' }}>
 					<ChartWrapper>
-						<ChartHeader>
-							<h3>Request Count</h3>
-							<ChartTimeRange>
-								<Timer size="24" /> last 10 minutes
-							</ChartTimeRange>
-						</ChartHeader>
-						<HttpCountChart data={countHttp} />
+						<Chart>
+							<ChartHeader>
+								<h3>Request Count</h3>
+								<ChartTimeRange>
+									<Timer size="24" /> {this.state.timeRange}
+								</ChartTimeRange>
+							</ChartHeader>
+							<HttpCountChart data={countHttp} />
+						</Chart>
 					</ChartWrapper>
 					<ChartWrapper>
-						<ChartHeader>
-							<h3>Routes Count</h3>
-							<ChartTimeRange>
-								<Timer size="24" /> last 10 minutes
-							</ChartTimeRange>
-						</ChartHeader>
-						<HttpRoutesBarChart data={countRoutes} />
+						<Chart>
+							<ChartHeader>
+								<h3>Routes Count</h3>
+								<ChartTimeRange>
+									<Timer size="24" /> {this.state.timeRange}
+								</ChartTimeRange>
+							</ChartHeader>
+							<HttpRoutesBarChart data={countRoutes} />
+						</Chart>
 					</ChartWrapper>
-				</ChartGridTwo>
+				</Grid>
 
 				<HttpTabel data={httpStats} />
 			</React.Fragment>

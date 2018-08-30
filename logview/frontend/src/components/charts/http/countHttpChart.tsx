@@ -21,7 +21,7 @@ export default class HttpCountChart extends React.Component<any, any> {
 			<ResponsiveContainer width="100%" aspect={2}>
 				<LineChart
 					data={this.props.data}
-					margin={{ top: 20, right: 30, left: 20, bottom: 20 }}
+					margin={{ top: 20, right: 40, left: 15, bottom: 20 }}
 				>
 					<CartesianGrid strokeDasharray="3 3" />
 					<XAxis
@@ -29,7 +29,7 @@ export default class HttpCountChart extends React.Component<any, any> {
 						tickFormatter={convertXAxisTime(this.props.timeRange)}
 						strokeWidth={0}
 						minTickGap={20}
-						tick={{ transform: 'translate(0, 5)' }}
+						tick={{ transform: 'translate(0, 10)' }}
 					/>
 					<YAxis strokeWidth={0} minTickGap={20} />
 					<Tooltip content={renderTooltipContent} />

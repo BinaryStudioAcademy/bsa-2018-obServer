@@ -5,8 +5,7 @@ export const Input = styled.input`
 	border: none;
 	outline: none;
 	padding: 15px;
-	width: 45%;
-	margin: 5px;
+	width: 80%;
 	background: transparent;
 	font-family: 'Muli', sans-serif;
 	border-bottom: 1px solid black;

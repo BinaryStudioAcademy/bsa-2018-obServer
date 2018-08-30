@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 
 const cpuServer = mongoose.Schema({
+  _id: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true
+  },
   cores: {
     type: [{
       coreName: {
