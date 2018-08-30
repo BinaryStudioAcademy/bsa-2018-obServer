@@ -12,15 +12,11 @@ import {
 	Main
 } from './ContainerStyles';
 import { Form } from './FormStyles';
-import {
-	Title,
-	RedirectLink,
-	ErrorText,
-	CenteredText
-} from './TextStyles';
+import { Title, RedirectLink, ErrorText, CenteredText } from './TextStyles';
 import {
 	ChartHeader,
 	ChartGrid,
+	ChartGridTwo,
 	ChartWrapper,
 	ChartsPageWrapper,
 	ChartTimeRange
@@ -41,6 +37,7 @@ export {
 	LinkButton,
 	ChartHeader,
 	ChartGrid,
+	ChartGridTwo,
 	ChartWrapper,
 	ChartsPageWrapper,
 	ChartTimeRange,

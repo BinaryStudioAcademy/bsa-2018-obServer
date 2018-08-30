@@ -6,9 +6,9 @@ import {
 	SettingInput,
 	SettingInputWrapper,
 	SettingsSubmitButton
-} from 'src/styles/SettingsFormStyles';
+} from '../../styles/SettingsFormStyles';
 import { User, UserSecret, CheckSquare } from 'styled-icons/fa-solid';
-import { UserState } from 'src/types/UserState';
+import { UserState } from '../../types/UserState';
 
 interface SettingsUserState {
 	name?: string;
