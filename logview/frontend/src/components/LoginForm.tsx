@@ -8,7 +8,7 @@ import {
 	Title,
 	ErrorText,
 	Redirect,
-	RedirectRegister,
+	RedirectRegister
 } from 'src/containers/Login/LoginStyles';
 import { Link } from 'react-router-dom';
 

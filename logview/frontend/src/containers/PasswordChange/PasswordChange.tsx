@@ -1,10 +1,5 @@
 import * as React from 'react';
-import {
-	Submit,
-	Title,
-	ErrorText,
-	CenteredContainer,
-} from 'src/styles/Styles';
+import { Submit, Title, ErrorText, CenteredContainer } from 'src/styles/Styles';
 import { userChangePassword, userSetPassword } from '../../redux/user/actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';

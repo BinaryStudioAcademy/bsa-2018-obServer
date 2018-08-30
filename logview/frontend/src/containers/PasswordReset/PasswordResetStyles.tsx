@@ -9,7 +9,7 @@ import {
 	Row
 } from 'src/styles/Styles';
 
- export const AnimatedComponent = transition.div`
+export const AnimatedComponent = transition.div`
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;

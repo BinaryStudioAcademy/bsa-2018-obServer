@@ -3,9 +3,7 @@ import LoginForm from 'src/components/LoginForm';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { userLogin } from 'src/redux/user/actions';
-import {
-	Wrapper,
-} from 'src/styles/Styles';
+import { Wrapper } from 'src/styles/Styles';
 import { Landing } from '../../styles/ContainerStyles';
 
 interface LoginFormProps {

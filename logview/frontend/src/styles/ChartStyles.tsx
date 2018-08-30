@@ -47,3 +47,11 @@ export const ChartInfo = styled.div`
 		background: white;
 	}
 `;
+
+export const ChartGridTwo = styled.div`
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-gap: 40px;
+	${media.desktop`grid-template-columns: 1fr;`};
+	margin-top: 20px;
+`;

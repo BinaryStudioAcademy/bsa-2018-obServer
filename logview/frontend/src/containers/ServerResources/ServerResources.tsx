@@ -89,7 +89,7 @@ class ServerResources extends React.Component<
 	}
 
 	handleActive(activeApp) {
-		this.setState({active: activeApp})
+		this.setState({ active: activeApp });
 	}
 
 	render() {
@@ -97,7 +97,10 @@ class ServerResources extends React.Component<
 			<ChartsPageWrapper>
 				<Title>Server Resources</Title>
 
-				<Select onActive={this.handleActive} options={['app1', 'app2', 'app3']}/>
+				<Select
+					onActive={this.handleActive}
+					options={['app1', 'app2', 'app3']}
+				/>
 
 				<ChartGrid>
 					<ChartWrapper>
@@ -115,18 +118,19 @@ class ServerResources extends React.Component<
 						</Chart>
 						<ChartInfo>
 							<div>
-								{this.state.currentCpuLog.data
-									&& this.state.currentCpuLog.data.cores.map(
-											(el, i) => (
-												<div key={i}>
-													{el.coreName}:{' '}
-													{el.coreLoadPercentages}
-												</div>
-											)
-									  )}
+								{this.state.currentCpuLog.data &&
+									this.state.currentCpuLog.data.cores.map(
+										(el, i) => (
+											<div key={i}>
+												{el.coreName}:{' '}
+												{el.coreLoadPercentages}
+											</div>
+										)
+									)}
 							</div>
 							<div>
-								{this.state.currentCpuLog.timestamp !== '' && this.state.currentCpuLog.timestamp }
+								{this.state.currentCpuLog.timestamp !== '' &&
+									this.state.currentCpuLog.timestamp}
 							</div>
 							<div>a3</div>
 						</ChartInfo>
