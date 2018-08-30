@@ -47,7 +47,10 @@ function* userLogin(action: UserLogin) {
 			password: action.password
 		});
 
-		sessionStorage.setItem('observerUser', JSON.stringify(currentUser));
+		sessionStorage.setItem(
+			'observerUser',
+			JSON.stringify(currentUser.data)
+		);
 
 		yield put({
 			type: constants.USER_LOGIN_SUCCESS,
@@ -56,7 +59,7 @@ function* userLogin(action: UserLogin) {
 			}
 		});
 
-		window.location.href = window.location.href;
+		// window.location.href = window.location.href;
 	} catch (error) {
 		yield put({
 			type: constants.USER_LOGIN_FAILED
@@ -77,7 +80,7 @@ function* userLogout(action: UserLogout) {
 			}
 		});
 
-		window.location.href = window.location.href;
+		// window.location.href = window.location.href;
 		// yield put(push('/login'));
 	} catch (error) {
 		yield put({
@@ -133,7 +136,10 @@ function* userEmailActivation(action: UserEmailActivation) {
 			activationToken: action.activationToken
 		});
 
-		sessionStorage.setItem('observerUser', JSON.stringify(currentUser));
+		sessionStorage.setItem(
+			'observerUser',
+			JSON.stringify(currentUser.data)
+		);
 
 		yield put({
 			type: constants.USER_EMAIL_ACTIVATION_SUCCESS
@@ -172,7 +178,7 @@ function* userSetPassword(action: UserSetPassword) {
 			type: constants.USER_INVITE_SUCCESS
 		});
 
-		yield put(push('/dashboard/quickstart'));
+		yield put(push('/login'));
 	} catch (error) {
 		yield put({
 			type: constants.USER_INVITE_FAILED

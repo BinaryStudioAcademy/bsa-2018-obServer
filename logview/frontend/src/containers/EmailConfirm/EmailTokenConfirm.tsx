@@ -39,7 +39,9 @@ class EmailTokenConfirm extends React.Component<
 				<PasswordWrapper>
 					<Title>Email Successfully Confirmed!</Title>
 					<Submit>
-						<Link to="/dashboard/quickstart">Proceed to Login</Link>
+						<Link to="/dashboard/quickstart">
+							Proceed to Quickstart
+						</Link>
 					</Submit>
 				</PasswordWrapper>
 			)
