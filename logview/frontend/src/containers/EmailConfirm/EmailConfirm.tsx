@@ -1,4 +1,8 @@
 import * as React from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+
+import { UserState } from 'src/types/UserState';
 import {
 	Background,
 	PasswordResetContainer,
@@ -7,7 +11,16 @@ import {
 	EmailContainer
 } from '../../styles/Styles';
 
-class EmailConfirm extends React.Component {
+interface EmailConfirmState {}
+
+interface EmailConfirmProps {
+	user: UserState;
+}
+
+class EmailConfirm extends React.Component<
+	EmailConfirmProps,
+	EmailConfirmState
+> {
 	constructor(props: any) {
 		super(props);
 	}
@@ -15,7 +28,7 @@ class EmailConfirm extends React.Component {
 	componentDidMount() {}
 
 	render() {
-		let user = sessionStorage.getItem('observerUser');
+		let user = this.props.user;
 
 		return (
 			<Background>
@@ -23,10 +36,10 @@ class EmailConfirm extends React.Component {
 					<EmailContainer>
 						<Title>Email sent!</Title>
 						<CenteredText>
-							We've sent an email to <b>{user}</b> to confirm
-							validity of your email address. After receiving the
-							email, follow the link provided to complete the
-							registration
+							We've sent an email to <b>{user.email}</b> to
+							confirm validity of your email address. After
+							receiving the email, follow the link provided to
+							complete the registration
 						</CenteredText>
 					</EmailContainer>
 				</PasswordResetContainer>
@@ -35,4 +48,18 @@ class EmailConfirm extends React.Component {
 	}
 }
 
-export default EmailConfirm;
+const mapStateToProps = ({ fetchingUserStatus, user }) => ({
+	fetchingUserStatus,
+	user
+});
+
+const mapDispatchToProps = (dispatch: any) => ({
+	actions: bindActionCreators({}, dispatch)
+});
+
+const EmailConfirmConnected = connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(EmailConfirm);
+
+export default EmailConfirmConnected;
