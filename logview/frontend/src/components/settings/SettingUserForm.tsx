@@ -4,6 +4,7 @@ import {
 	SettingFormGroupInput,
 	SettingFormGroupLabel,
 	SettingInput,
+	SettingInputWrapper,
 	SettingsSubmitButton
 } from 'src/styles/SettingsFormStyles';
 import { User, UserSecret, CheckSquare } from 'styled-icons/fa-solid';
@@ -58,20 +59,26 @@ class SettingUserForm extends React.Component<
 					User Settings
 				</SettingFormGroupLabel>
 				<SettingFormGroupInput>
-					<SettingInput
-						type="text"
-						placeholder="User Name"
-						name="name"
-						value={this.state.name}
-						onChange={this.handleChange}
-					/>
-					<SettingInput
-						type="text"
-						placeholder="Company Name"
-						name="company"
-						value={this.state.company}
-						onChange={this.handleChange}
-					/>
+					<SettingInputWrapper>
+						<label>User Name:</label>
+						<SettingInput
+							type="text"
+							placeholder="User Name"
+							name="name"
+							value={this.state.name}
+							onChange={this.handleChange}
+						/>
+					</SettingInputWrapper>
+					<SettingInputWrapper>
+						<label>Company Name:</label>
+						<SettingInput
+							type="text"
+							placeholder="Company Name"
+							name="company"
+							value={this.state.company}
+							onChange={this.handleChange}
+						/>
+					</SettingInputWrapper>
 				</SettingFormGroupInput>
 
 				<SettingFormGroupLabel>

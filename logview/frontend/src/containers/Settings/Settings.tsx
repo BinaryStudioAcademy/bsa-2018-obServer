@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Route, Link, RouteComponentProps } from 'react-router-dom';
+import { Route, Link, RouteComponentProps, Redirect } from 'react-router-dom';
 import { UserEdit, Database } from 'styled-icons/fa-solid';
 import UserSettings from './UserSettings';
 import DataSettings from './DataSettings';
@@ -47,7 +47,11 @@ class Settings extends React.Component<
 						</Link>
 					</SettingsMenuLink>
 				</SettingsMenuWrapper>
-
+				<Route
+					exact
+					path={`${match.url}/`}
+					render={() => <Redirect to={`${match.url}/user`} />}
+				/>
 				<Route
 					exact
 					path={`${match.url}/user`}

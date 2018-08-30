@@ -12,7 +12,7 @@ class LogRepository {
       this.model.update(
         { companyId: log.companyToken },
         { $push: {
-            [`serverData.${logTypes.name[log.logType]}`] : { ...log.data, timestamp: log.timestamp }
+            [`serverData.${logTypes.name[log.logType]}`] : { ...log.data, timestamp: log.timestamp, _id: log._id }
           }
         },
         { upsert: true },
@@ -24,7 +24,7 @@ class LogRepository {
         this.model.update(
           { companyId: log.companyToken, 'appsData.appId': log.app.id },
           { $push: {
-              [`appsData.$.logs.${logTypes.name[log.logType]}`] : { ...log.data, timestamp: log.timestamp }
+              [`appsData.$.logs.${logTypes.name[log.logType]}`] : { ...log.data, timestamp: log.timestamp, _id: log._id }
             }
           },
           { upsert: true },
@@ -38,7 +38,7 @@ class LogRepository {
                 appId: log.app.id,
                 appName: log.app.name,
                 logs: { 
-                  [`${logTypes.name[log.logType]}`] : { ...log.data, timestamp: log.timestamp }
+                  [`${logTypes.name[log.logType]}`] : { ...log.data, timestamp: log.timestamp, _id: log._id }
                 }
               }
             }
@@ -65,6 +65,25 @@ class LogRepository {
         "serverData.cpuServer":  getFilter('serverData', 'cpuServer', fromDate),
       }}
     ], callback);
+  }
+
+  getAllByCompanyIdAppId(companyId, appId, serverLogsList, appLogsList, callback) {
+    const match = { companyId };
+    if (appId) {
+      match['appsData.appId'] = appId;
+    }
+
+    const projection = {};
+    serverLogsList.forEach((serverLogType) => {
+      const dbFieldName = `serverData.${logTypes.name[serverLogType]}`;
+      projection[dbFieldName] = 1;
+    });
+    appLogsList.forEach((appLogType) => {
+      const dbFieldName = `appsData.logs.${logTypes.name[appLogType]}`;
+      projection[dbFieldName] = 1;
+    });
+
+    this.model.find(match, projection, callback);
   }
 }
 
