@@ -12,8 +12,8 @@ class CPUAppStats {
         usage.lookup(process.pid, (err, data) => {
             if (err) console.error(err);
             else {
-                const cpu  = Math.round(data.cpu * 100) / 100;
-                callback({ cpu });
+                const cpuUsagePercentages  = Math.round(data.cpu * 100) / 100;
+                callback({ cpuUsagePercentages });
             }
         });
     }
