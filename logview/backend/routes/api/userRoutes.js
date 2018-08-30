@@ -7,6 +7,8 @@ const apiResponse = require('express-api-response'),
 	(router = require('express').Router()),
 	(RESSET_PASSWORD_EXPIRES = 3600000);
 
+const eventEmitter = require('../../events');
+
 router.get(
 	'/',
 	async (req, res, next) => {
@@ -330,6 +332,9 @@ router.put(
 			const setting = await settingService.findByCompanyId(
 				req.user.companyId
 			);
+
+			eventEmitter.emit('update company settings', setting);
+
 			res.data = setting;
 			res.err = null;
 		} catch (error) {

@@ -14,7 +14,6 @@ import {
 const logo = require('src/assets/logo.png');
 
 interface LoginFormProps {
-	onSubmit: Function;
 	actions: { userRegister: Function };
 }
 
@@ -51,7 +50,9 @@ class Register extends React.Component<LoginFormProps, LoginFormState> {
 						</LogoContainer>
 					</RegisterBox>
 				</BackgroundContainer>
-				<RegisterForm onSubmit={this.handleSubmit} />
+				<RegisterForm
+					actions={{ userRegister: this.props.actions.userRegister }}
+				/>
 			</Wrapper>
 		);
 	}
