@@ -10,12 +10,12 @@ import {
 	ErrorText
 } from 'src/styles/Styles';
 
- export const RedirectRegister = RedirectLink.extend`
+export const RedirectRegister = RedirectLink.extend`
 	display: inherit;
 	margin: 0 5px;
 `;
 
- export const Redirect = styled.div`
+export const Redirect = styled.div`
 	display: flex;
 	justify-content: flex-end;
 	align-items: baseline;
@@ -23,7 +23,7 @@ import {
 	margin: 10px 0;
 `;
 
- export const SubmitButton = Submit.extend`
+export const SubmitButton = Submit.extend`
 	margin-top: 25px;
 `;
 

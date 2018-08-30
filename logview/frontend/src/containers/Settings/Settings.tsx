@@ -6,7 +6,7 @@ import DataSettings from './DataSettings';
 import {
 	SettingsMenuLink,
 	SettingsMenuWrapper
-} from 'src/styles/SettingsFormStyles';
+} from '../../styles/SettingsFormStyles';
 
 interface MatchParams {}
 

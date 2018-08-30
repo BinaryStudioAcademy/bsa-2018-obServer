@@ -9,7 +9,7 @@ interface SelectState {
 }
 
 interface SelectProps {
-    active: string;
+	active: string;
 	options: Array<string>;
 	onActive: Function;
 }
@@ -20,7 +20,7 @@ class Select extends React.Component<SelectProps, SelectState> {
 
 		this.state = {
 			active: '',
-            popup: false,
+			popup: false
 		};
 
 		this.handleClickOutside = this.handleClickOutside.bind(this);
@@ -29,7 +29,7 @@ class Select extends React.Component<SelectProps, SelectState> {
 	}
 
 	componentDidMount() {
-		this.setState({ active: this.props.options[0] })
+		this.setState({ active: this.props.options[0] });
 	}
 
 	handleClickOutside(evt) {
@@ -37,9 +37,9 @@ class Select extends React.Component<SelectProps, SelectState> {
 	}
 
 	handleClick(e) {
-		this.setState({ active: e.target.innerHTML })
-		this.setState({ popup: !this.state.popup })
-		this.props.onActive( e.target.innerHTML );
+		this.setState({ active: e.target.innerHTML });
+		this.setState({ popup: !this.state.popup });
+		this.props.onActive(e.target.innerHTML);
 	}
 
 	togglePopup() {
@@ -55,7 +55,11 @@ class Select extends React.Component<SelectProps, SelectState> {
 				</OptionActive>
 				{this.state.popup && (
 					<React.Fragment>
-                        {this.props.options.map( (option, i) => <Option key={i} onClick={this.handleClick}><span>{option}</span></Option>)}
+						{this.props.options.map((option, i) => (
+							<Option key={i} onClick={this.handleClick}>
+								<span>{option}</span>
+							</Option>
+						))}
 					</React.Fragment>
 				)}
 			</StyledSelect>

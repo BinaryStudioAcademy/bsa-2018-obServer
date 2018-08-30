@@ -16,7 +16,7 @@ export const RedirectLink = styled.p`
 	margin: 0px;
 	display: flex;
 	align-items: center;
- 	a {
+	a {
 		text-decoration: none;
 		color: rgba(127, 120, 206, 1);
 		color: ${colors.violet};
