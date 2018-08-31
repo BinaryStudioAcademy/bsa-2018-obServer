@@ -4,7 +4,8 @@ const {
 	POSTGRES_USER,
 	POSTGRES_PWD,
 	POSTGRES_EXTERNAL_PORT,
-	POSTGRES_IP
+	POSTGRES_IP,
+	DB_DIALECT
 } = process.env;
 
 console.log(`------------------------------------- dbConnect`);
@@ -16,7 +17,7 @@ console.log(`DB_DIALECT: ${DB_DIALECT}`);
 
 const sequelize = new Sequelize(POSTGRES_DB, POSTGRES_USER, POSTGRES_PWD, {
 	host: POSTGRES_IP || 'localhost',
-	dialect: 'postgres',
+	dialect: DB_DIALECT,
 	operatorsAliases: false,
 	port: POSTGRES_EXTERNAL_PORT || 5432,
 	pool: {
