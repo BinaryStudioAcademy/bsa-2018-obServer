@@ -1,6 +1,8 @@
 const requestHelper = require('./utils/apiRequest');
 const httpMiddleware = require('./middleware/http')
 const Logger = require('./utils/logger');
+const MemoryStats = require('./utils/MemoryStats');
+const CPUStats = require('./utils/CPUStats');
 
 class LogConnect {
   constructor(logcollectPort, app) {
@@ -14,7 +16,13 @@ class LogConnect {
   }
   logger() {
     return new Logger(this.sendLog, this.app);
-  }  
+  }
+  CPUStats() {
+    return new CPUStats(this.sendLog, this.app).startCPUMonitor();
+  }
+  memoryStats() {
+    return new MemoryStats(this.sendLog, this.app).startMemoryMonitor();
+  }
 };
 
 module.exports = (logcollectPort, app) => new LogConnect(logcollectPort, app);
