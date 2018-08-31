@@ -1,12 +1,12 @@
-const { POSTGRES_DB, POSTGRES_USER, POSTGRES_PWD } = process.env;
+const { POSTGRES_DB, POSTGRES_USER, POSTGRES_PWD, POSTGRES_IP, DB_DIALECT } = process.env;
 
 module.exports = {
 	development: {
 		username: POSTGRES_USER,
 		password: POSTGRES_PWD,
 		database: POSTGRES_DB,
-		host: process.env.HOST,
-		dialect: process.env.DB_DIALECT,
+		host: POSTGRES_IP,
+		dialect: DB_DIALECT,
 
 		migrationStorage: 'json',
 		migrationStoragePath: 'sequelize_meta.json',
@@ -18,8 +18,8 @@ module.exports = {
 		username: POSTGRES_USER,
 		password: POSTGRES_PWD,
 		database: POSTGRES_DB,
-		host: process.env.HOST,
-		dialect: process.env.DB_DIALECT,
+		host: POSTGRES_IP,
+		dialect: DB_DIALECT,
 
 		migrationStorage: 'json',
 		migrationStoragePath: 'sequelize_meta.json',
@@ -31,8 +31,8 @@ module.exports = {
 		username: POSTGRES_USER,
 		password: POSTGRES_PWD,
 		database: POSTGRES_DB,
-		host: process.env.HOST,
-		dialect: process.env.DB_DIALECT,
+		host: POSTGRES_IP,
+		dialect: DB_DIALECT,
 
 		migrationStorage: 'json',
 		migrationStoragePath: 'sequelize_meta.json',

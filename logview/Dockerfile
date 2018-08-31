@@ -24,6 +24,8 @@ WORKDIR $APP_ROOT
 #     # && yarn \
 #     && yarn build-prod
 
+RUN curl -o- -L https://yarnpkg.com/install.sh | bash
+
 RUN npm -g i typescript \
     && npm -g i sequelize sequelize-cli pg \
     && npm -g i webpack \
