@@ -1,6 +1,6 @@
 const createLog = require('../utils/createLogObject'); 
 
-module.exports = (sendLog, app) => {
+module.exports = (sendLog, appId) => {
   return (req, res, next) => {
     const start = process.hrtime();
     
@@ -15,7 +15,7 @@ module.exports = (sendLog, app) => {
         statusCode: res.statusCode,
         reqSize: +req.get('content-length') || req.socket.bytesRead,
         resSize: +res.getHeader('content-length') || res._contentLength
-      }, app);
+      }, appId);
 
       sendLog(log);
     });

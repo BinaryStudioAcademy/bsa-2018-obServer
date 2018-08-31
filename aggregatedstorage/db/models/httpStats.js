@@ -1,8 +1,12 @@
 const mongoose = require('mongoose');
 
 const httpStats = new mongoose.Schema({
-  _id: {
-    type: mongoose.Schema.Types.ObjectId,
+  companyId: {
+    type: String,
+    required: true
+  },
+  appId: {
+    type: String,
     required: true
   },
   route: {
@@ -13,15 +17,9 @@ const httpStats = new mongoose.Schema({
     type: String,
     required: true
   },
-  requests: {
-    count: {
-      type: Number,
-      required: true
-    },
-    time: {
-      type: Number,
-      required: true
-    }
+  requestsCount: {
+    type: Number,
+    required: true
   },
   bodySize: {
     request: {
@@ -53,4 +51,6 @@ const httpStats = new mongoose.Schema({
   }
 });
 
-module.exports = httpStats;
+const HttpStats = mongoose.model('httpStats', httpStats);
+
+module.exports = HttpStats;

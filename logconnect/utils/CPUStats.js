@@ -2,9 +2,9 @@ const createLogObject = require('./createLogObject');
 const usage = require('usage');
 
 class CPUAppStats {
-    constructor(sendLog, app) {
+    constructor(sendLog, appId) {
         this.sendLog = sendLog;
-        this.app = app;
+        this.appId = appId;
         this.timers = {};
     }
 
@@ -22,7 +22,7 @@ class CPUAppStats {
         if (!this.timers.CPUTimerId) {
             this.timers.CPUTimerId = setInterval(() => {
                 this.calcCPU(CPUData => {
-                    const log = createLogObject('CPU_APP', CPUData, this.app);
+                    const log = createLogObject('CPU_APP', CPUData, this.appId);
                     this.sendLog(log);
                 });
             }, delay);

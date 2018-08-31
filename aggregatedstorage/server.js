@@ -13,7 +13,6 @@ const baseUrl = '/api';
 sockets(io);
 
 logService.init(io);
-logService.configAvgLogs(15000);
 
 amqp.connect(`amqp://localhost:${rabbitmqPort}`, function(err, conn) {
   conn.createChannel(function(err, channel) {

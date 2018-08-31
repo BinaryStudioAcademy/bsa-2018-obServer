@@ -18,23 +18,9 @@ const baseUrl = '/api';
 app.post(`${baseUrl}/logs`, (req, res) => {
   logService.create({ ...req.body, companyToken: req.header('X-ACCESS-TOKEN') }, (err, logMessage) => {
     if (!err) {
-      res.status(200);
+      res.status(200).end();
     } else {
       res.status(400).end();
-    }
-  });
-
-  res.send('ok');
-});
-
-app.get(`${baseUrl}/logs`, (req, res) => {
-  // const companyId = req.header('X-COMPANY-TOKEN');
-  const companyId = req.query.company;
-  const appId = req.query.appid;
-
-  logService.getLogsByCompanyId(companyId, appId, req.query.logtype, (err, logs) => {
-    if (!err) {
-      res.send(logs);
     }
   });
 });

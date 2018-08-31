@@ -5,24 +5,24 @@ const MemoryStats = require('./utils/MemoryStats');
 const CPUStats = require('./utils/CPUStats');
 
 class LogConnect {
-  constructor(logcollectPort, app) {
-    this.app = app;
+  constructor(logcollectPort, appId) {
+    this.appId = appId;
     
     const logcollectUrl = `http://localhost:${logcollectPort}/api/logs`;
     this.sendLog = requestHelper(logcollectUrl);
   }
   httpStats() {
-    return httpMiddleware(this.sendLog, this.app);
+    return httpMiddleware(this.sendLog, this.appId);
   }
   logger() {
-    return new Logger(this.sendLog, this.app);
-  }
+    return new Logger(this.sendLog, this.appId);
+  }  
   CPUStats() {
-    return new CPUStats(this.sendLog, this.app).startCPUMonitor();
+    return new CPUStats(this.sendLog, this.appId).startCPUMonitor();
   }
   memoryStats() {
-    return new MemoryStats(this.sendLog, this.app).startMemoryMonitor();
+    return new MemoryStats(this.sendLog, this.appId).startMemoryMonitor();
   }
 };
 
-module.exports = (logcollectPort, app) => new LogConnect(logcollectPort, app);
+module.exports = (logcollectPort, appId) => new LogConnect(logcollectPort, appId);

@@ -1,112 +1,62 @@
 const connection = require('../db/dbConnect');
-const companyLogs = require('../db/models/companyLogs');
+const cpuServerRepository = require('./logsRepositories/cpuServerRepository');
+const memoryServerRepository = require('./logsRepositories/memoryServerRepository');
+const httpRepository = require('./logsRepositories/httpRepository');
 const logTypes = require('../utils/logTypes');
 
 class LogRepository {
-  constructor() {
-    this.model = companyLogs;
-  }
-
-  async create(log, callback) {
-    if (isThisServerLogType(log.logType)) {
-      this.model.update(
-        { companyId: log.companyToken },
-        { $push: {
-            [`serverData.${logTypes.name[log.logType]}`] : { ...log.data, timestamp: log.timestamp, _id: log._id }
-          }
-        },
-        { upsert: true },
-        callback 
-      );
-    } else {
-      const companyAndAppExist = await this.model.findOne({ companyId: log.companyToken, 'appsData.appId': log.app.id }); 
-      if (companyAndAppExist) {
-        this.model.update(
-          { companyId: log.companyToken, 'appsData.appId': log.app.id },
-          { $push: {
-              [`appsData.$.logs.${logTypes.name[log.logType]}`] : { ...log.data, timestamp: log.timestamp, _id: log._id }
-            }
-          },
-          { upsert: true },
-          callback 
-        ); 
-      } else {
-        this.model.update(
-          { companyId: log.companyToken },
-          { $push: { 
-              appsData: {
-                appId: log.app.id,
-                appName: log.app.name,
-                logs: { 
-                  [`${logTypes.name[log.logType]}`] : { ...log.data, timestamp: log.timestamp, _id: log._id }
-                }
-              }
-            }
-          },
-          { upsert: true },
-          callback 
-        );
-      }
-    }  
-  }
-
-  getByCompanyId(id, callback) {
-    this.model.find({ "companyId": id }, callback);
-  }
-
-  getByCompanyIdByDaysFromNow(id, fromDate, callback) {
-    this.model.aggregate([
-      { $match: {
-          "companyId": "secret-header-token"
-      }},
-      { $project: {
-        companyId: true,  
-        "serverData.memoryServer":  getFilter('serverData', 'memoryServer', fromDate),
-        "serverData.cpuServer":  getFilter('serverData', 'cpuServer', fromDate),
-      }}
-    ], callback);
-  }
-
-  getAllByCompanyIdAppId(companyId, appId, serverLogsList, appLogsList, callback) {
-    const match = { companyId };
-    if (appId) {
-      match['appsData.appId'] = appId;
+  create(log, callback) {
+    switch (log.logType) {
+      case logTypes.CPU_SERVER:
+        cpuServerRepository.create(log, callback);
+        break;
+      case logTypes.MEMORY_SERVER:
+        memoryServerRepository.create(log, callback);
+        break;
+      case logTypes.HTTP_STATS:
+        httpRepository.create(log, callback);
+        break;
+      default:
+        callback(new Error('Wrong log type'));
     }
+  }
 
-    const projection = {};
-    serverLogsList.forEach((serverLogType) => {
-      const dbFieldName = `serverData.${logTypes.name[serverLogType]}`;
-      projection[dbFieldName] = 1;
+  getLogsByCompanyIdAppId(companyId, appId, logType) {
+    const promise = new Promise((resolve, reject) => {
+      switch (logType) {
+        case logTypes.CPU_SERVER:
+          cpuServerRepository.getByCompanyId(companyId, (err, logs) => {
+            if (!err) {
+              resolve(logs);
+            } else {
+              reject(err);
+            }
+          }); 
+          break;
+        case logTypes.MEMORY_SERVER:
+          memoryServerRepository.getByCompanyId(companyId, (err, logs) => {
+            if (!err) {
+              resolve(logs);
+            } else {
+              reject(err);
+            }
+          }); 
+          break;
+        case logTypes.HTTP_STATS:
+          httpRepository.getByCompanyIdAndAppId(companyId, appId, (err, logs) => {
+            if (!err) {
+              resolve(logs);
+            } else {
+              reject(err);
+            }
+          });
+          break;
+        default:
+          reject(new Error('Wrong log type'));
+      }
     });
-    appLogsList.forEach((appLogType) => {
-      const dbFieldName = `appsData.logs.${logTypes.name[appLogType]}`;
-      projection[dbFieldName] = 1;
-    });
-
-    this.model.find(match, projection, callback);
+    return promise;
   }
 }
-
-const isThisServerLogType = (logType) => {
-  if (logType === logTypes.CPU_SERVER || logType === logTypes.MEMORY_SERVER) {
-    return true;
-  }
-  return false;
-};
-
-const getFilter = (dataSource, dataType, fromDate) => {
-  return {
-    $filter: {
-      input: `$${dataSource}.${dataType}`,
-      as: dataType,
-      cond: {
-        $gte: [
-          `$$${dataType}.timestamp`,
-          fromDate
-        ]
-      }
-    }  
-  };
-};
 
 module.exports = new LogRepository();
