@@ -25,7 +25,7 @@ export const CenteredContainer = styled.div`
 	justify-content: space-between;
 	align-items: center;
 	flex-direction: column;
-	position: relative;
+	// position: relative;
 `;
 
 export const PasswordWrapper = CenteredContainer.extend`
