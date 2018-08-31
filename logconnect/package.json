@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.18.0",
+    "socket.io-monitor": "^2.0.1",
     "usage": "^0.7.1"
   }
 }
