@@ -10,7 +10,7 @@ const sequelize = new Sequelize(POSTGRES_DB, POSTGRES_USER, POSTGRES_PWD, {
 	host: POSTGRES_IP | 'localhost',
 	dialect: 'postgres',
 	operatorsAliases: false,
-	port: POSTGRES_EXTERNAL_PORT,
+	port: POSTGRES_EXTERNAL_PORT || 5432,
 	pool: {
 		max: 5,
 		min: 0,
