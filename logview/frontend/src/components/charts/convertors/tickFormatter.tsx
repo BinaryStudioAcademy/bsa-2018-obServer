@@ -32,7 +32,13 @@ export function convertXAxisTime(timeRange) {
 	switch (timeRange) {
 		case 'last 10 minutes':
 			return convertToMinuteSecond;
-		case 'last hour':
+		case 'last 30 minutes':
+			return convertToMinuteSecond;
+		case 'last 1 hour':
+			return convertToHourMinuteSecond;
+		case 'last 5 hours':
+			return convertToHourMinuteSecond;
+		case 'last 12 hours':
 			return convertToHourMinuteSecond;
 		case 'last day':
 		case 'last 24 hours':
@@ -40,6 +46,8 @@ export function convertXAxisTime(timeRange) {
 		case 'last week':
 		case 'last 30 days':
 			return convertToMonthDay;
+		case 'last  month':
+			return convertToDayHourMinute;
 		default:
 			return convertToDayHourMinute;
 	}

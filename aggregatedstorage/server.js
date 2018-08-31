@@ -2,28 +2,47 @@ require('dotenv').config();
 const app = require('express')();
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
-const bodyParser = require('body-parser');
+var amqp = require('amqplib/callback_api');
 const sockets = require('./sockets/sockets');
 const logService = require('./services/logService');
 
 const port = process.env.AGGREGATEDSTORAGE_PORT;
-
-app.use(bodyParser.json({ limit: '5mb' }));
-app.use(bodyParser.urlencoded({ extended: false }));
+const rabbitmqPort = process.env.RABBITMQ_EXTERNAL_PORT;
+const baseUrl = '/api';
 
 sockets(io);
 
-const baseUrl = '/api'
+logService.init(io);
 
-app.post(`${baseUrl}/logs`, (req, res) => {
-  logService.create(req.body, (err, result) => {
-    if(!err) {
-      res.send('ok');
+amqp.connect(`amqp://localhost:${rabbitmqPort}`, function(err, conn) {
+  conn.createChannel(function(err, channel) {
+    const queue = 'logs';
+
+    channel.assertQueue(queue, {durable: false});
+    channel.consume(queue, function(logMessage) {
+      const logObject = JSON.parse(logMessage.content.toString());
+
+      logService.create(logObject, (err, result) => {
+        if(err) {
+          console.log(err);
+        }
+      });
+    }, {noAck: true});
+  });
+});
+
+app.get(`${baseUrl}/logs`, (req, res) => {
+  const companyId = req.header('X-COMPANY-TOKEN');
+  const logIntervals = req.query;
+  let appId = req.header('X-APP-ID') || null;
+
+  logService.getLogsForInterval(companyId, appId, logIntervals, (err, logs) => {
+    if (!err) {
+      res.send(logs);
     } else {
-      console.log(err);
+      res.status(404).send(err);
     }
   });
-  io.emit('newLog', req.body);
 });
 
 server.listen(port, () => {

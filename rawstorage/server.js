@@ -18,15 +18,11 @@ const baseUrl = '/api';
 app.post(`${baseUrl}/logs`, (req, res) => {
   logService.create({ ...req.body, companyToken: req.header('X-ACCESS-TOKEN') }, (err, logMessage) => {
     if (!err) {
-      const { logType, data, timestamp, app, companyToken } = logMessage;
-      sendMetrics({ logType, data, timestamp, app, companyToken });      
-      res.status(200);
+      res.status(200).end();
     } else {
       res.status(400).end();
     }
   });
-
-  res.send('ok');
 });
 
 app.listen(port, () => {

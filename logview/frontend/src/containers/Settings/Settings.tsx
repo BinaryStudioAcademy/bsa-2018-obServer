@@ -6,9 +6,9 @@ import DataSettings from './DataSettings';
 import {
 	SettingsMenuLink,
 	SettingsMenuWrapper
-} from 'src/styles/SettingsFormStyles';
+} from '../../styles/SettingsFormStyles';
 
-interface MatchParams { }
+interface MatchParams {}
 
 interface SettingsState {
 	active?: string;
@@ -17,7 +17,7 @@ interface SettingsState {
 class Settings extends React.Component<
 	RouteComponentProps<MatchParams>,
 	SettingsState
-	> {
+> {
 	constructor(props: RouteComponentProps<MatchParams>) {
 		super(props);
 	}
@@ -50,9 +50,7 @@ class Settings extends React.Component<
 				<Route
 					exact
 					path={`${match.url}/`}
-					render={() => (
-						<Redirect to={`${match.url}/user`} />
-					)}
+					render={() => <Redirect to={`${match.url}/user`} />}
 				/>
 				<Route
 					exact

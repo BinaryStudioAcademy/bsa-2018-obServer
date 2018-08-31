@@ -10,10 +10,10 @@ export const Submit = styled.button`
 	);
 	border: none;
 	outline: none;
-	padding: 10px 70px;
+	padding: 10px 40px;
 	font-size: 16px;
-	margin: 20px 0px 10px 0px;
-	border-radius: 15px;
+	margin-top: 10px;
+	border-radius: 5px;
 	color: white;
 	margin-bottom: 8px;
 	cursor: pointer;

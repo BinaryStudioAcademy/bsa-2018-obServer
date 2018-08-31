@@ -1,23 +1,14 @@
 import * as React from 'react';
-import {
-	Submit,
-	PasswordResetContainer,
-	PasswordWrapper,
-	Title,
-	Row,
-	LinkButton,
-	ErrorText,
-	CenteredContainer,
-	InputWide
-} from 'src/styles/Styles';
+import { Submit, Title, ErrorText, CenteredContainer } from 'src/styles/Styles';
 import { userChangePassword, userSetPassword } from '../../redux/user/actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { History } from 'history';
-import { Link, RouteComponentProps } from 'react-router-dom';
+import { RouteComponentProps } from 'react-router-dom';
 import { validate } from '../../services/validate/validate';
 import queryString from 'query-string';
-import { InputPassword } from '../../styles/InputStyles';
+import { Input } from '../../styles/InputStyles';
+import { Landing, LandingColumn } from '../../styles/ContainerStyles';
 
 interface PasswordChangeProps {
 	history: History;
@@ -86,59 +77,46 @@ class PasswordChange extends React.Component<
 	render() {
 		const { match } = this.props;
 		return (
-			<PasswordResetContainer>
-				<PasswordWrapper>
-					<CenteredContainer>
-						{!this.state.sent ? (
-							<React.Fragment>
-								<Title>
-									{match.url === '/change'
-										? 'Change password'
-										: 'Set password'}
-								</Title>
-								<InputPassword
-									name="newpassword"
-									placeholder="new password"
-									type="password"
-									value={this.state.newpassword}
-									onChange={this.handleFieldChange}
-								/>
-								<ErrorText>{this.state.err}</ErrorText>
-								<InputPassword
-									name="confirmpassword"
-									placeholder="confirm password"
-									type="password"
-									value={this.state.confirmpassword}
-									onChange={this.handleFieldChange}
-								/>
-								<Submit onClick={this.handleSubmit}>
-									{match.url === '/change/'
-										? 'Change'
-										: 'Send'}
-								</Submit>
-							</React.Fragment>
-						) : (
-							<React.Fragment>
-								<Title>
-									{match.url === '/change/'
-										? 'Changed!'
-										: 'Sent!'}
-								</Title>
-								<p>There will be an image here</p>
-							</React.Fragment>
-						)}
-					</CenteredContainer>
-
-					<Row>
-						<LinkButton>
-							<Link to="/login">sign in</Link>
-						</LinkButton>
-						<LinkButton>
-							<Link to="/register">sign up</Link>
-						</LinkButton>
-					</Row>
-				</PasswordWrapper>
-			</PasswordResetContainer>
+			<LandingColumn>
+				<CenteredContainer>
+					{!this.state.sent ? (
+						<React.Fragment>
+							<Title>
+								{match.url === '/change'
+									? 'Change password'
+									: 'Set password'}
+							</Title>
+							<Input
+								name="newpassword"
+								placeholder="new password"
+								type="password"
+								value={this.state.newpassword}
+								onChange={this.handleFieldChange}
+							/>
+							<ErrorText>{this.state.err}</ErrorText>
+							<Input
+								name="confirmpassword"
+								placeholder="confirm password"
+								type="password"
+								value={this.state.confirmpassword}
+								onChange={this.handleFieldChange}
+							/>
+							<Submit onClick={this.handleSubmit}>
+								{match.url === '/change/' ? 'Change' : 'Send'}
+							</Submit>
+						</React.Fragment>
+					) : (
+						<React.Fragment>
+							<Title>
+								{match.url === '/change/'
+									? 'Changed!'
+									: 'Sent!'}
+							</Title>
+							<p>There will be an image here</p>
+						</React.Fragment>
+					)}
+				</CenteredContainer>
+			</LandingColumn>
 		);
 	}
 }

@@ -1,20 +1,52 @@
+const mongoose = require('mongoose');
 const logRepository = require('../repositories/logRepository');
+const logTypes = require('../utils/logTypes');
+const { aggregateLogs, parseLogTypesFromIntervals, parseIntervals } = require('./aggregationService');
+const { logNeedRealtimeAggregation, aggregateRealTimeLog } = require('./realTimeAggregationService');
 
 class LogService {
+  constructor() {
+    this.io = null;
+  }
+
+  init(io) {
+    this.io = io;
+  }
+
   create(logMessage, callback) {
-    logRepository.create(logMessage, callback);
+    if (logNeedRealtimeAggregation(logMessage.logType)) {
+      aggregateRealTimeLog(logMessage);
+    } else {
+      logRepository.create(logMessage, (err, doc) => {
+        if (!err) {
+          this.io.emit('newLog', doc);      
+        } else {
+          callback(err);
+        }
+      });
+    }
   }
 
-  getLogsByCompanyId(id, callback) {
-    logRepository.getByCompanyId(id, callback);
-  }
+  getLogsForInterval(companyId, appId, logIntervals, callback) {
+    const parsedLogTypes = parseLogTypesFromIntervals(logIntervals, appId);
+    const intervals = parseIntervals(logIntervals);
+    const aggregatedLogs = {};
 
-  getLogsByCompanyByDaysFromNow(id, daysCount, callback) {
-    let fromDate = new Date();
-    fromDate.setDate(fromDate.getDate() - daysCount);
+    parsedLogTypes.forEach(async (logType, i, arr) => {
+      let logs = [];
+      try {
+        logs = await logRepository.getLogsByCompanyIdAppId(companyId, appId, logType);
+      } catch(err) {
+        callback(err);
+        return;
+      }
+      const timeIntervalForType = intervals[logType];
+      const avgLogsForType = aggregateLogs(logs, timeIntervalForType, logType);
+      aggregatedLogs[logTypes.name[logType]] = avgLogsForType;
 
-    logRepository.getByCompanyIdByDaysFromNow(id, fromDate, callback);
+      if (i === arr.length - 1) callback(null, aggregatedLogs);
+    });
   }
-}
+} 
 
 module.exports = new LogService();

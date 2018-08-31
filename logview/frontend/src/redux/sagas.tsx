@@ -1,6 +1,6 @@
 import { all, fork } from 'redux-saga/effects';
 import userSaga from './user/sagas';
-import logsSaga from 'src/redux/logs/sagas';
+import logsSaga from './logs/sagas';
 import settingsSaga from './settings/sagas';
 import companySaga from './company/sagas';
 

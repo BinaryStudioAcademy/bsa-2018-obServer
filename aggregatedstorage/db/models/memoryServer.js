@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 
 const memoryServer = mongoose.Schema({
+  companyId: {
+    type: String,
+    required: true
+  },
   freeMemory: {
     type: Number,
     required: true
@@ -19,4 +23,6 @@ const memoryServer = mongoose.Schema({
   }
 });
 
-module.exports = memoryServer;
+const MemoryServer = mongoose.model('memoryServerStats', memoryServer);
+
+module.exports = MemoryServer;

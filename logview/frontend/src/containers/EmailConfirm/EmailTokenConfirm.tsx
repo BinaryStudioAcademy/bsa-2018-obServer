@@ -1,11 +1,12 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import { Title, Submit, PasswordWrapper } from '../../styles/Styles';
+import { Title, Submit, PasswordWrapper, RedirectLink } from '../../styles/Styles';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { userEmailActivation } from 'src/redux/user/actions';
 import { History } from 'history';
 import queryString from 'query-string';
+import { LandingColumn } from '../../styles/ContainerStyles';
 
 interface EmailTokenProps {
 	history: History;
@@ -36,14 +37,14 @@ class EmailTokenConfirm extends React.Component<
 		return (
 			(fetchingUserStatus === 'success' ||
 				fetchingUserStatus === 'failed') && (
-				<PasswordWrapper>
+				<LandingColumn>
 					<Title>Email Successfully Confirmed!</Title>
-					<Submit>
+					<RedirectLink>
 						<Link to="/dashboard/quickstart">
 							Proceed to Quickstart
 						</Link>
-					</Submit>
-				</PasswordWrapper>
+					</RedirectLink>
+				</LandingColumn>
 			)
 		);
 	}

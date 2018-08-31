@@ -52,7 +52,6 @@ class Company extends React.Component<CompanyProps, CompanyState> {
 	handleLogout() {}
 
 	render() {
-		console.log(this.props);
 		const { companyUsers } = this.props;
 		return (
 			<React.Fragment>
@@ -83,11 +82,10 @@ class Company extends React.Component<CompanyProps, CompanyState> {
 						<p>email</p>
 						<p>status</p>
 					</UserItem>
-					{companyUsers.length > 1
-						? companyUsers.map((companyUser: any, i) => (
-								<UserSingle key={i} user={companyUser} />
-						  ))
-						: undefined}
+					{companyUsers.length > 0 &&
+						companyUsers.map((companyUser: any, i) => (
+							<UserSingle key={i} user={companyUser} />
+						))}
 				</CompanyUsers>
 			</React.Fragment>
 		);

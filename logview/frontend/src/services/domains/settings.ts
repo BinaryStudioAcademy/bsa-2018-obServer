@@ -1,4 +1,4 @@
-import api from 'src/services/adapter';
+import api from '../adapter';
 import { SettingsState } from '../../types/SettingsState';
 
 export default {
