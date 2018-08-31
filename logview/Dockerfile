@@ -25,10 +25,11 @@ WORKDIR $APP_ROOT
 #     && yarn build-prod
 
 RUN npm -g i typescript \
-    && npm -g webpack \
-    # && yarn global add sequelize sequelize-cli pg \
-    # && yarn \
+    && npm -g i webpack \
     && npm run build-prod
+
+# && yarn global add sequelize sequelize-cli pg \
+# && yarn \
 
 WORKDIR $APP_ROOT
 
