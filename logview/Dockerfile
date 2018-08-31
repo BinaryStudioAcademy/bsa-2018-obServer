@@ -29,11 +29,11 @@ RUN curl -o- -L https://yarnpkg.com/install.sh | bash
 RUN yarn global add typescript \
     && yarn global add sequelize sequelize-cli pg \
     && yarn global add webpack \
-    && yarn build-prod
 
 WORKDIR $APP_ROOT
 
 RUN yarn
+RUN yarn build-prod
 
 EXPOSE 8080
 
