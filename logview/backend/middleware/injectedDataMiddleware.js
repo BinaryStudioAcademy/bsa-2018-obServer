@@ -1,4 +1,5 @@
 const fs = require('fs');
+const path = require('path');
 const replaceStream = require('replacestream');
 
 module.exports = (req, res, obj, error) => {
@@ -22,6 +23,7 @@ module.exports = (req, res, obj, error) => {
 				`${__dirname}/../../frontend/index_prod.html`
 			);
 		}
+		console.log(indexPath);
 		fs.createReadStream(indexPath)
 			.pipe(
 				replaceStream(
