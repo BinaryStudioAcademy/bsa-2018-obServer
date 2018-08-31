@@ -4,13 +4,13 @@ import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import { connectRouter, routerMiddleware } from 'connected-react-router';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import Router from 'src/router/routes';
+import Router from './router/routes';
 import createSagaMiddleware from 'redux-saga';
-import history from 'src/router/history';
+import history from './router/history';
 
-import reducer from 'src/redux/reducer';
-import { StoreState } from 'src/types/StoreState';
-import sagas from 'src/redux/sagas';
+import reducer from './redux/reducer';
+import { StoreState } from './types/StoreState';
+import sagas from './redux/sagas';
 
 const sagaMiddleware = createSagaMiddleware();
 

@@ -23,7 +23,7 @@ interface RegFormState {
 	};
 }
 interface RegFormProps {
-	onSubmit: Function;
+	actions: { userRegister: Function };
 }
 
 class RegisterForm extends React.Component<RegFormProps, RegFormState> {
@@ -61,12 +61,18 @@ class RegisterForm extends React.Component<RegFormProps, RegFormState> {
 		};
 
 		let validateState = validateForm(obj);
-		this.setState({ validateState: validateState });
 		let errors = [];
 		for (let errorStatus in validateState) {
 			errors.push(validateState[errorStatus]);
 		}
-		errors.indexOf(false) ? this.props.onSubmit(obj) : undefined;
+		errors.indexOf(false) !== -1
+			? this.setState({ validateState: validateState })
+			: this.props.actions.userRegister(
+					obj.name,
+					obj.email,
+					obj.password,
+					obj.company
+			  );
 	}
 
 	render() {

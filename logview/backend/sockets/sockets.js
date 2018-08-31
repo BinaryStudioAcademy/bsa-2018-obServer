@@ -13,7 +13,7 @@ module.exports = io => {
 	io.origins('*:*');
 
 	io.on('connection', socket => {
-		socket.on('getLogs', (companyId) => {
+		socket.on('getLogs', companyId => {
 			socket.join(companyId);
 		});
 

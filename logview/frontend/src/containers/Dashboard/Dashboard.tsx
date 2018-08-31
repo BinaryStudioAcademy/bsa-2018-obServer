@@ -7,7 +7,7 @@ import Profile from '../Profile/Profile';
 import HttpStats from '../HttpStats/HttpStats';
 import SocketStats from '../SocketStats/SocketStats';
 import Company from '../Company/Company';
-import { UserState } from 'src/types/UserState';
+import { UserState } from '../../types/UserState';
 import {
 	SideNav,
 	SideLink,
@@ -17,7 +17,7 @@ import {
 	UserBar,
 	Profile as UserProfile,
 	NotificationIcon
-} from 'src/styles/Styles';
+} from '../../styles/Styles';
 import ServerResources from '../ServerResources/ServerResources';
 import { Dashboard as DashboardIcon } from 'styled-icons/material';
 import { FileAlt } from 'styled-icons/fa-regular';
@@ -26,23 +26,19 @@ import { Settings as SettingsIcon } from 'styled-icons/feather';
 import { Terminal } from 'styled-icons/octicons';
 import { Http } from 'styled-icons/material';
 import { Superpowers } from 'styled-icons/fa-brands';
-import { UserPopup, Sidebar } from 'src/styles/ContainerStyles';
+import { UserPopup, Sidebar } from '../../styles/ContainerStyles';
 import { CommentText, UserText } from '../../styles/TextStyles';
-import { userLogout } from 'src/redux/user/actions';
+import { userLogout, fetchUser } from 'src/redux/user/actions';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-
-interface MatchParams {
-	// name: string;
-}
 
 interface DashboardState {
 	active?: string;
 	popup?: boolean;
 }
 
-interface DashboardProps extends RouteComponentProps<MatchParams> {
-	actions: { userLogout: Function };
+interface DashboardProps extends RouteComponentProps<{}, {}> {
+	actions: { userLogout: Function; fetchUser: Function };
 	user: UserState;
 }
 
@@ -70,6 +66,10 @@ class Dashboard extends React.Component<DashboardProps, DashboardState> {
 
 	handleLogout() {
 		this.props.actions.userLogout();
+	}
+
+	componentDidMount() {
+		this.props.actions.fetchUser();
 	}
 
 	render() {
@@ -215,7 +215,7 @@ const mapStateToProps = ({ fetchingUserStatus, user }) => ({
 });
 
 const mapDispatchToProps = (dispatch: any) => ({
-	actions: bindActionCreators({ userLogout }, dispatch)
+	actions: bindActionCreators({ userLogout, fetchUser }, dispatch)
 });
 
 const DashboardConnected = connect(
