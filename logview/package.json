@@ -29,7 +29,7 @@
 		"prettify": "prettier --write  frontend/**/*.{js,ts,tsx,json,css,md} backend/**/*.{js,json,css,md}",
 		"storybook": "start-storybook -p 6006",
 		"migrate": "./node_modules/.bin/sequelize db:migrate && ./node_modules/.bin/sequelize db:seed:all",
-		"start-prod": "npm run migrate && nodemon --legacy-watch ./backend/server.js"
+		"start-prod": "ls && npm run migrate && nodemon --legacy-watch ./backend/server.js"
 	},
 	"husky": {
 		"hooks": {

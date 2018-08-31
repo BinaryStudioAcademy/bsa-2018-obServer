@@ -25,6 +25,7 @@ WORKDIR $APP_ROOT
 #     && yarn build-prod
 
 RUN npm -g i typescript \
+    && npm -g i sequelize sequelize-cli pg \
     && npm -g i webpack \
     && npm run build-prod
 
