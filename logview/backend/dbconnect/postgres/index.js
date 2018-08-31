@@ -3,10 +3,11 @@ const {
 	POSTGRES_DB,
 	POSTGRES_USER,
 	POSTGRES_PWD,
-	POSTGRES_EXTERNAL_PORT
+	POSTGRES_EXTERNAL_PORT,
+	POSTGRES_IP
 } = process.env;
 const sequelize = new Sequelize(POSTGRES_DB, POSTGRES_USER, POSTGRES_PWD, {
-	host: 'localhost',
+	host: POSTGRES_IP | 'localhost',
 	dialect: 'postgres',
 	operatorsAliases: false,
 	port: POSTGRES_EXTERNAL_PORT,
