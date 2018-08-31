@@ -21,14 +21,14 @@
 		"webpack-hot-middleware": "^2.22.3"
 	},
 	"scripts": {
-		"start": "yarn --production=false && nodemon --legacy-watch ./backend/server.js",
+		"start": "nodemon --legacy-watch ./backend/server.js",
 		"watch-front": "nodemon ./scripts/front.js",
 		"build": "webpack --config webpack.config.js",
 		"watch": "webpack --watch --config webpack.config.js",
 		"prettify": "prettier --write  frontend/**/*.{js,ts,tsx,json,css,md} backend/**/*.{js,json,css,md}",
 		"storybook": "start-storybook -p 6006",
 		"migrate": "./node_modules/.bin/sequelize db:migrate && ./node_modules/.bin/sequelize db:seed:all",
-		"start-prod": "yarn --production=true && yarn migrate && nodemon --legacy-watch ./backend/server.js"
+		"start-prod": "npm run migrate && nodemon --legacy-watch ./backend/server.js"
 	},
 	"husky": {
 		"hooks": {
