@@ -26,9 +26,8 @@ jobs:
   include:
     - stage: build docker image
       script:
-        - cd ./logview
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-        - docker build -t logview .
+        - docker build -t logview ./logview
         - docker tag logview $DOCKER_USERNAME/logview
         - docker push $DOCKER_USERNAME/logview
 branches:
