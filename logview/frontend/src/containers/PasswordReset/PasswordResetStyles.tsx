@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 import transition from 'styled-transition-group';
 import {
-	Submit,
+	Submit as SubmitButton,
 	CenteredContainer,
 	Title,
-	Input,
+	Input as TextInput,
 	RedirectLink,
 	Row
 } from 'src/styles/Styles';
@@ -32,4 +32,13 @@ export const AnimatedComponent = transition.div`
         
     }
 `;
-export { Submit, CenteredContainer, Title, Input, RedirectLink, Row };
+
+export const Input = TextInput.extend`
+    margin: 20px 0;
+`;
+
+export const Submit = SubmitButton.extend`
+    margin-bottom: 20px;
+`;
+
+ export { CenteredContainer, Title, RedirectLink, Row };

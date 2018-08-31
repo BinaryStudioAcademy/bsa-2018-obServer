@@ -7,6 +7,8 @@ import { bindActionCreators } from 'redux';
 import { PaperPlane } from 'styled-icons/fa-regular';
 import { AnimatedComponent, Submit } from './PasswordResetStyles';
 import { Landing } from '../../styles/ContainerStyles';
+import { Link } from 'react-router-dom';
+import { RedirectLink } from '../../styles/Styles';
 
 interface LoginFormProps {
 	actions: { userResetPassword: Function };
@@ -47,7 +49,12 @@ class PasswordReset extends React.Component<LoginFormProps, LoginFormState> {
 					) : (
 						<PasswordResetForm onSubmit={this.handleSubmit} />
 					)}
+					Don't have an account yet?
+					<RedirectLink>
+						<Link to="/register">Sign up</Link>
+					</RedirectLink>
 				</AnimatedComponent>
+
 			</Landing>
 		);
 	}
