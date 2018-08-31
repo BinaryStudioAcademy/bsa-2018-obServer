@@ -19,26 +19,23 @@ WORKDIR $APP_ROOT
 # libxcursor1 libxdamage1 libxext6 libxfixes3 libxi6 libxrandr2 libxrender1 libxss1 libxtst6 \
 # ca-certificates fonts-liberation libappindicator1 libnss3 lsb-release xdg-utils wget
 
-# RUN yarn global add typescript \
-#     # && yarn global add sequelize sequelize-cli pg \
-#     # && yarn \
-#     && yarn build-prod
-
 RUN curl -o- -L https://yarnpkg.com/install.sh | bash
 
-RUN npm -g i typescript \
-    && npm -g i sequelize sequelize-cli pg \
-    && npm -g i webpack \
-    && npm run build-prod
+# RUN npm -g i typescript \
+#     && npm -g i sequelize sequelize-cli pg \
+#     && npm -g i webpack \
+#     && npm run build-prod
 
-# && yarn global add sequelize sequelize-cli pg \
-# && yarn \
+RUN yarn global add typescript \
+    && yarn global add sequelize sequelize-cli pg \
+    && yarn global add webpack \
+    && yarn build-prod
 
 WORKDIR $APP_ROOT
 
-RUN npm i
+RUN yarn
 
 EXPOSE 8080
 
-CMD ["npm", "run", "start-prod" ]
-# CMD ["yarn", "start-prod" ]
+CMD ["yarn", "start-prod" ]
+# CMD ["npm", "run", "start-prod" ]
