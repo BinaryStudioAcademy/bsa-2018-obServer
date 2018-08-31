@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Submit, InputWide, Title } from 'src/styles/Styles';
+import { Submit, Title, Input } from 'src/containers/PasswordReset/PasswordResetStyles';
 import { Link } from 'react-router-dom';
 
 interface PasswordResetFormProps {
@@ -38,7 +38,8 @@ class PasswordResetForm extends React.Component<
 		return (
 			<React.Fragment>
 				<Title>Password reset</Title>
-				<InputWide
+				Enter your email address and we will send you a link to reset your password.
+				<Input
 					type="email"
 					name="email"
 					placeholder="email"
@@ -46,7 +47,7 @@ class PasswordResetForm extends React.Component<
 					value={this.state.email}
 					onChange={this.handleFieldChange}
 				/>
-				<Submit onClick={this.handleSubmit}>send</Submit>
+				<Submit onClick={this.handleSubmit}>Send password reset email</Submit>
 			</React.Fragment>
 		);
 	}

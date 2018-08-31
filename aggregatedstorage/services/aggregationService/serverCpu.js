@@ -12,6 +12,7 @@ module.exports = (slicedLogs) => {
       return;
     }
 
+    let totalCpuLoad = 0;
     let cores = new Array(logChunk[0].cores.length);
     cores.fill(0);
 
@@ -19,16 +20,19 @@ module.exports = (slicedLogs) => {
       item.cores.forEach((core, i) => {
         cores[i] += core.coreLoadPercentages;
       });
+      totalCpuLoad += item.totalLoadPercentages;
       return cores;
     }, cores);
 
     const avgCoreLoad = coreLoadSumm.map(load => Math.round(load / logChunk.length));
+    totalCpuLoad = Math.round(totalCpuLoad / logChunk.length);
 
     aggregatedServerCpuLogs.push({
       logType: logTypes.CPU_SERVER,
       timestamp: logChunk[0].timestamp,
       data: {
-        cores: avgCoreLoad
+        cores: avgCoreLoad,
+        totalLoad: totalCpuLoad
       }
     });
   });

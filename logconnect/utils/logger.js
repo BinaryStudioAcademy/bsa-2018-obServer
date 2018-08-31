@@ -1,9 +1,9 @@
 const createLog = require('./createLogObject');
 
 class Logger {
-    constructor(sendLog, app) {        
+    constructor(sendLog, appId) {        
         this.sendLog = sendLog;
-        this.app = app;
+        this.appId = appId;
     }
     
     error(message) {
@@ -46,7 +46,7 @@ class Logger {
     }
 
     sendData(data) {
-        const log = createLog('LOG', data, this.app);
+        const log = createLog('LOG', data, this.appId);
         this.sendLog(log);
     }
 }

@@ -21,7 +21,7 @@ module.exports = (slicedLogs) => {
         currentLog.responseTimeAvg += item.responseTime.avg;
         currentLog.bodySizeRequest += item.bodySize.request;
         currentLog.bodySizeResponse += item.bodySize.response;
-        currentLog.requestsCount += item.requests.count;
+        currentLog.requestsCount += item.requestsCount;
       } else {
         logsByRouteAndMethod.set(httpLogKey, {
           route: route,
@@ -31,7 +31,7 @@ module.exports = (slicedLogs) => {
           responseTimeAvg: item.responseTime.avg,
           bodySizeRequest: item.bodySize.request,
           bodySizeResponse: item.bodySize.response,
-          requestsCount: item.requests.count
+          requestsCount: item.requestsCount
         });
       }
 
@@ -39,9 +39,11 @@ module.exports = (slicedLogs) => {
 
     const aggregatedLogsForRoutes = [];
     logsByRouteAndMethod.forEach(item => {
-      item.responseTimeAvg = Math.round(item.responseTimeAvg / item.requestsCount); 
-      item.bodySizeRequest = Math.round(item.bodySizeRequest / item.requestsCount); 
-      item.bodySizeResponse = Math.round(item.bodySizeResponse / item.requestsCount);
+      item.responseTimeAvg = Math.ceil(item.responseTimeAvg / item.requestsCount); 
+      item.bodySizeRequest = Math.ceil(item.bodySizeRequest / item.requestsCount); 
+      item.bodySizeResponse = Math.ceil(item.bodySizeResponse / item.requestsCount);
+      item.responseTimeMin = Math.ceil(item.responseTimeMin);
+      item.responseTimeMax = Math.ceil(item.responseTimeMax);
       
       aggregatedLogsForRoutes.push({
         logType: logTypes.HTTP_STATS,
