@@ -5,8 +5,8 @@
 **/yarn.lock
 
 # Sequelize
-**/sequelize_data.json
-**/sequelize_meta.json
+# **/sequelize_data.json
+# **/sequelize_meta.json
 
 # compiled output
 **/dist
