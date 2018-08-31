@@ -6,9 +6,8 @@ ENV APP_ROOT /app
 RUN mkdir $APP_ROOT
 WORKDIR $APP_ROOT
 
-COPY ./backend $APP_ROOT/backend
-COPY ./frontend $APP_ROOT/frontend
-WORKDIR $APP_ROOT/frontend
+COPY ./* .
+WORKDIR $APP_ROOT
 
 # RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add - \
 # echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
