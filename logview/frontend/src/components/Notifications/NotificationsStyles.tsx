@@ -22,7 +22,7 @@ export const NotificationPopup = transition.div`
     &:enter-active {
         opacity: 1;
         transform: translateY(0%);
-        transition: all 200ms ease-out;
+        transition: all 300ms cubic-bezier(.04,.64,.44,1);
     }
     &:exit {
         transform: translateY(0%);
@@ -31,7 +31,7 @@ export const NotificationPopup = transition.div`
     &:exit-active {
         opacity: 0;
         transform: translateY(-50%);
-        transition: all 200ms ease-out;
+        transition: all 300ms cubic-bezier(.04,.64,.44,1);
     }
 `;
 
