@@ -1,9 +1,9 @@
 const createLogObject = require('./createLogObject');
 
 class MemoryAppStats {
-    constructor(sendLog, app) {
+    constructor(sendLog, appId) {
         this.sendLog = sendLog;
-        this.app = app;
+        this.appId = appId;
         this.timers = {};
     }
 
@@ -21,7 +21,7 @@ class MemoryAppStats {
         if (!this.timers.memoryTimedId) {
             this.timers.memoryTimedId = setInterval(() => {
                 this.calcMemory(memoryData => {
-                    const log = createLogObject('MEMORY_APP', memoryData, this.app);
+                    const log = createLogObject('MEMORY_APP', memoryData, this.appId);
                     this.sendLog(log);
                 });
             }, delay);

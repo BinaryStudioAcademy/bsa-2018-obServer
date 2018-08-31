@@ -18,11 +18,11 @@ class LogConnect {
     return new Logger(this.sendLog, this.appId);
   }  
   CPUStats() {
-    return new CPUStats(this.sendLog, this.app).startCPUMonitor();
+    return new CPUStats(this.sendLog, this.appId).startCPUMonitor();
   }
   memoryStats() {
-    return new MemoryStats(this.sendLog, this.app).startMemoryMonitor();
+    return new MemoryStats(this.sendLog, this.appId).startMemoryMonitor();
   }
 };
 
-module.exports = (logcollectPort, app) => new LogConnect(logcollectPort, app);
+module.exports = (logcollectPort, appId) => new LogConnect(logcollectPort, appId);
