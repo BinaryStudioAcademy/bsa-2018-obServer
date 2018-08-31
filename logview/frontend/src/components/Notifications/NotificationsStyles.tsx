@@ -17,16 +17,20 @@ export const NotificationPopup = transition.div`
 
     &:enter {
         opacity: 0.01;
+        transform: translateY(-50%);
     }
     &:enter-active {
         opacity: 1;
+        transform: translateY(0%);
         transition: all 200ms ease-out;
     }
     &:exit {
+        transform: translateY(0%);
         opacity: 1;
     }
     &:exit-active {
         opacity: 0;
+        transform: translateY(-50%);
         transition: all 200ms ease-out;
     }
 `;
