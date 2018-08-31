@@ -9,9 +9,9 @@ cache:
 env:
   global:
     - CLOUDSDK_CORE_DISABLE_PROMPTS=1
-    - INSTANCE=bsa-2018-obServer
+    - INSTANCE=logview
     - ZONE=europe-west3-b
-    - PROJECT=obServer
+    - PROJECT=observer-215008
     - DOCKER_IMAGE_NAME=dmitriybeseda/logview
   
 before_install:
