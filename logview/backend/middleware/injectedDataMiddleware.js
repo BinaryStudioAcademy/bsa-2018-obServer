@@ -14,7 +14,15 @@ module.exports = (req, res, obj, error) => {
 		}
 
 		res.header = ('Content-Type', 'text/html');
-		fs.createReadStream(`${__dirname}/../../frontend/index.html`)
+		let indexPath = path.resolve(
+			`${__dirname}/../../frontend/index_dev.html`
+		);
+		if (process.env.NODE_ENV === 'production') {
+			indexPath = path.resolve(
+				`${__dirname}/../../frontend/index_prod.html`
+			);
+		}
+		fs.createReadStream(indexPath)
 			.pipe(
 				replaceStream(
 					'["data_replace"]',
