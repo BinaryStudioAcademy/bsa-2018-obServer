@@ -6,8 +6,16 @@ const {
 	POSTGRES_EXTERNAL_PORT,
 	POSTGRES_IP
 } = process.env;
+
+console.log(`------------------------------------- dbConnect`);
+console.log(`POSTGRES_DB: ${POSTGRES_DB}`);
+console.log(`POSTGRES_USER: ${POSTGRES_USER}`);
+console.log(`POSTGRES_PWD: ${POSTGRES_PWD}`);
+console.log(`POSTGRES_IP: ${POSTGRES_IP}`);
+console.log(`DB_DIALECT: ${DB_DIALECT}`);
+
 const sequelize = new Sequelize(POSTGRES_DB, POSTGRES_USER, POSTGRES_PWD, {
-	host: POSTGRES_IP | 'localhost',
+	host: POSTGRES_IP || 'localhost',
 	dialect: 'postgres',
 	operatorsAliases: false,
 	port: POSTGRES_EXTERNAL_PORT || 5432,
