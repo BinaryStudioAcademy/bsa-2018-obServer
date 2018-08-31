@@ -8,7 +8,7 @@ import { RouteComponentProps } from 'react-router-dom';
 import { validate } from '../../services/validate/validate';
 import queryString from 'query-string';
 import { Input } from '../../styles/InputStyles';
-import { Landing } from '../../styles/ContainerStyles';
+import { Landing, LandingColumn } from '../../styles/ContainerStyles';
 
 interface PasswordChangeProps {
 	history: History;
@@ -77,7 +77,7 @@ class PasswordChange extends React.Component<
 	render() {
 		const { match } = this.props;
 		return (
-			<Landing>
+			<LandingColumn>
 				<CenteredContainer>
 					{!this.state.sent ? (
 						<React.Fragment>
@@ -116,7 +116,7 @@ class PasswordChange extends React.Component<
 						</React.Fragment>
 					)}
 				</CenteredContainer>
-			</Landing>
+			</LandingColumn>
 		);
 	}
 }

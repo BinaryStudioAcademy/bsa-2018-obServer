@@ -8,6 +8,11 @@ export const Landing = styled.div`
 	align-items: center;
 `;
 
+export const LandingColumn = Landing.extend`
+	flex-wrap: wrap;
+	flex-direction: column;
+`;
+
 export const Wrapper = styled.div`
 	display: flex;
 	background-color: white;
