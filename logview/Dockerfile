@@ -6,7 +6,7 @@ ENV APP_ROOT /app
 RUN mkdir $APP_ROOT
 WORKDIR $APP_ROOT
 
-COPY ./* .
+COPY ./* ./
 WORKDIR $APP_ROOT
 
 # RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add - \
