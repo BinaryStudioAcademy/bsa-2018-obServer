@@ -1,7 +1,7 @@
-const sendHelper = require('./apiRequest');
-const logTypes = require('./utils/logTypes');
-const cpuLoad = require('./osUtils/cpu');
-const memoryStats = require('./osUtils/memory');
+const sendHelper = require('../utils/apiRequest');
+const logTypes = require('../utils/logTypes');
+const cpuLoad = require('../osUtils/cpu');
+const memoryStats = require('../osUtils/memory');
 
 module.exports = class MetricsService {
   constructor(url, companyToken) {

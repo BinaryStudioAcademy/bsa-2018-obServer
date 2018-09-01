@@ -1,7 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
-const MetricsService = require('./metricsService');
+const MetricsService = require('./services/metricsService');
 const eventEmitter = require('./events');
 
 const port = process.env.LOGCOLLECT_PORT;
