@@ -1,8 +1,8 @@
 {
   "dependencies": {
-    "cors": "^2.8.4",
-    "react-table": "^6.8.6"
+    // "cors": "^2.8.4",
   },
+    // "react-table": "^6.8.6"
   "scripts": {
     "start-servers": "nodemon logcollect/server.js & nodemon rawstorage/server.js & nodemon aggregatedstorage/server.js &",
     "stop-servers": "killall node"
