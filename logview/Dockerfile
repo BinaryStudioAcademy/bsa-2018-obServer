@@ -10,8 +10,7 @@ WORKDIR $APP_ROOT
 
 RUN curl -o- -L https://yarnpkg.com/install.sh | bash
 
-RUN yarn global add typescript \
-    && yarn global add webpack
+RUN yarn global add webpack
 
 WORKDIR $APP_ROOT
 
