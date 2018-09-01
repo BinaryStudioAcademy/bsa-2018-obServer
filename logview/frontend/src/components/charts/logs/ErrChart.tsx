@@ -50,10 +50,12 @@ export default class ErrChart extends React.Component<any, any> {
 
 	render() {
 		return (
-			<ResponsiveContainer width="100%" aspect={2}>
+			<ResponsiveContainer width="96%" height="80%">
 				<LineChart
+					width={600}
+					height={300}
 					data={this.props.data}
-					margin={{ top: 20, right: 0, left: -30, bottom: 20 }}
+					margin={{ top: 20, right: 0, left: -10, bottom: 20 }}
 				>
 					<XAxis
 						dataKey="timestamp"
@@ -65,13 +67,20 @@ export default class ErrChart extends React.Component<any, any> {
 					<YAxis strokeWidth={0} />
 					<CartesianGrid strokeDasharray="3 3" />
 					<Tooltip content={renderTooltipContent} />
-					<Legend wrapperStyle={{ bottom: 10 }} />
 					{this.renderLines()}}
 				</LineChart>
 			</ResponsiveContainer>
 		);
 	}
 }
+
+/* 
+	<LineChart>
+		...
+		<Legend />
+       	<Line type="monotone" dataKey="errors" stroke="#8884d8" activeDot={{r: 8}}/>
+    </LineChart>
+*/
 
 const renderTooltipContent = o => {
 	const { payload, label } = o;
