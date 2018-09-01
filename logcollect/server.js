@@ -46,7 +46,7 @@ app.post(`${baseUrl}/logs`, (req, res) => {
 sockets(io);
 
 eventEmitter.on('get new settings', settings => {
-  console.log('get new settings', settings);
+  metricsService.newLogSettings(settings);
 });
 
 app.listen(port, () => {
