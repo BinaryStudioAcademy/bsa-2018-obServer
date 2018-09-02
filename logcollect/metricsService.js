@@ -1,11 +1,13 @@
 const sendHelper = require('./apiRequest');
 const cpuLoad = require('./osUtils/cpu');
 const memoryStats = require('./osUtils/memory');
+const ServerMonitor = require('./osUtils/monitorServer');
 
 module.exports = class MetricsService {
   constructor(url, companyToken) {
     this.timersId = {};
     this.sendMetrics = sendHelper(url, companyToken);
+    this.serverMonitor = new ServerMonitor(this.sendMetrics);
   }
 
   newLog(data) {
@@ -17,6 +19,7 @@ module.exports = class MetricsService {
       this.timersId.cpu = setInterval(() => {
         cpuLoad((cpuData) => {
           this.sendMetrics(MetricsService.createLogObject('CPU_SERVER', cpuData));
+          this.serverMonitor.checkCriticalCPUValue(cpuData, 10);
         });
       }, delay);
     }
@@ -40,6 +43,11 @@ module.exports = class MetricsService {
   stopMemoryMonitor() {
     clearInterval(timersId.memory);
     delete timersId.memory;
+  }
+
+  startServerMonitor() {
+    this.serverMonitor.checkServerIsDown();
+    this.serverMonitor.checkServerExit();
   }
 
   static createLogObject(logType, data) {

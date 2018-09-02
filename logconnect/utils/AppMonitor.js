@@ -7,16 +7,18 @@ class AppMonitor {
     }
 
     startAppMonitor() {
-        process.on('uncaughtException', (data) => {
-            const obj = {
-                message: data.message,
-                name: data.name,
-                stack: data.stack
-            };
-            const log = createLogObject('NOTIFICATION_APP', obj, this.appId);
-            console.log(log);
-            //this.sendLog(log);
-            console.log(`${this.appId} is crashed`);
+        process.prependListener('uncaughtException', (data) => {
+            const { message, name, stack } = data;
+            const notification = {
+                message: `${this.appId} is down`,
+                error: {
+                    message,
+                    name,
+                    stack
+                }
+            };   
+            const log = createLogObject('NOTIFICATION_APP', notification, this.appId);
+            this.sendLog(log);
         });
     }
 }
