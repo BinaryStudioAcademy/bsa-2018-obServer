@@ -21,7 +21,8 @@ export const CenteredContainer = styled.div`
 export const DashboardMain = styled.div`
     display: grid;
     grid-template-columns: 2fr 1fr;
-    grid-gap: 10px;
+    grid-gap: 50px;
+    margin: 5%;
 `;
 
 export const Select = UserPopup.extend`

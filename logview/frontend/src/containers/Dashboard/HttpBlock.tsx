@@ -11,7 +11,7 @@ import {
 } from 'src/containers/HttpStats/HttpStatsStyles';
 import { Timer } from 'styled-icons/material';
 import { httpStats, countRoutes, countHttp } from 'src/containers/HttpStats/mockData';
-import { Grid } from './HttpBlockStyles';
+import { Grid, HttpContainer } from './HttpBlockStyles';
 
 interface HttpStatsProps {}
 
@@ -42,7 +42,7 @@ class HttpStats extends React.Component<HttpStatsProps, HttpStatsState> {
 
 	render() {
 		return (
-			<div>
+			<HttpContainer>
 				<Title>Http Stats</Title>
 
 				<Grid>
@@ -72,7 +72,7 @@ class HttpStats extends React.Component<HttpStatsProps, HttpStatsState> {
 						</Chart>
 					</ChartWrapper>
 				</Grid>
-			</div>
+			</HttpContainer>
 		);
 	}
 }
