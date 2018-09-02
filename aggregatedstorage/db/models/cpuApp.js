@@ -11,4 +11,6 @@ const cpuApp = mongoose.Schema({
   }
 });
 
-module.exports = cpuApp;
+const CpuApp = mongoose.model('cpuApp', cpuApp);
+
+module.exports = CpuApp;

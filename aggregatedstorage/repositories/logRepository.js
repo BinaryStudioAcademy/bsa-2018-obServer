@@ -3,6 +3,7 @@ const cpuServerRepository = require('./logsRepositories/cpuServerRepository');
 const memoryServerRepository = require('./logsRepositories/memoryServerRepository');
 const httpRepository = require('./logsRepositories/httpRepository');
 const memoryAppRepository = require('./logsRepositories/memoryAppRepository');
+const cpuAppRepository = require('./logsRepositories/cpuAppRepository');
 const logTypes = require('../utils/logTypes');
 
 class LogRepository {
@@ -19,6 +20,9 @@ class LogRepository {
         break;
       case logTypes.MEMORY_APP:
         memoryAppRepository.create(log, callback);
+        break;
+      case logTypes.CPU_APP:
+        cpuAppRepository.create(log, callback);
         break;
       default:
         callback(new Error('Wrong log type'));
