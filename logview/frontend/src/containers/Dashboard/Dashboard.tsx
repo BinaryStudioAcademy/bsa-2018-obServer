@@ -31,6 +31,7 @@ import { CommentText, UserText } from '../../styles/TextStyles';
 import { userLogout, fetchUser } from 'src/redux/user/actions';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import Notifications from '../../components/Notifications/Notifications';
 
 interface DashboardState {
 	active?: string;
@@ -80,7 +81,7 @@ class Dashboard extends React.Component<DashboardProps, DashboardState> {
 					<SideNav>
 						<Title>
 							obServer
-							<NotificationIcon size="18px" />
+							<Notifications />
 						</Title>
 						<div>
 							<SideLink

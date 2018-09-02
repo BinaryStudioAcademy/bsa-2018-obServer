@@ -4,8 +4,7 @@ import { UserText, CommentText } from '../../styles/TextStyles';
 import styled from 'styled-components';
 
 export const Select = UserPopup.extend`
-    width: 20%;
-    position: relative;
+    width: 200px;
     padding: 0;
     cursor: default;
 
@@ -18,7 +17,7 @@ export const OptionActive = UserText.extend`
     margin: 0;
     border: none;
     padding: 12px 20px;
-    cursor: pointer;
+	cursor: pointer;
 `;
 
 export const Option = CommentText.extend`
@@ -38,5 +37,5 @@ export const Dropdown = UserPopup.extend`
     position: absolute;
     border-top-left-radius: 0px;
     border-top-right-radius: 0px;
-    width: calc(100% - 40px);
+    width: 160px;
 `;
