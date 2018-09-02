@@ -9,33 +9,35 @@ export const NotificationPopup = transition.div`
     border-radius: 5px;
     display: flex;
     flex-direction: column;
-    left: 50px;
-    top: 0;
+    left: -44px;
+    top: 50px;
     min-width: 300px;
     min-height: 400px;
 	z-index: 2;
 
     &:enter {
         opacity: 0.01;
-        transform: translateY(-50%);
+        transform: translateX(50%);
     }
     &:enter-active {
         opacity: 1;
-        transform: translateY(0%);
+        transform: translateX(0%);
         transition: all 300ms cubic-bezier(.04,.64,.44,1);
     }
     &:exit {
-        transform: translateY(0%);
+        transform: translateX(0%);
         opacity: 1;
     }
     &:exit-active {
         opacity: 0;
-        transform: translateY(-50%);
+        transform: translateX(50%);
         transition: all 300ms cubic-bezier(.04,.64,.44,1);
     }
 `;
 
 export const Wrapper = styled.span`
+    display: flex;
+    align-items: center;
     position: relative;
 `;
 

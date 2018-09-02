@@ -43,7 +43,7 @@ class Notifications extends React.Component<NotificationsProps, NotificationsSta
 	render() {
 		return (
             <Wrapper>
-			    <NotificationIcon size="20" onClick={this.handleClick}/>
+			    <NotificationIcon size="25" onClick={this.handleClick}/>
                 <NotificationPopup unmountOnExit in={this.state.popup} timeout={1000}>
                         <Item>
                             <Timestamp>18/08/2018, 09:48:14</Timestamp>

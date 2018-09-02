@@ -33,6 +33,7 @@ export const Chart = styled.div`
 	padding: 10px;
 	margin: 10px;
 	background-color: #fff;
+	border-radius: 5px;
 	flex: 3;
 `;
 
@@ -42,10 +43,6 @@ export const ChartInfo = styled.div`
 	grid-template-rows: repeat(3, 1fr);
 	margin: 10px;
 	grid-gap: 10px;
-
-	div {
-		background: white;
-	}
 `;
 
 export const ChartGridTwo = styled.div`
