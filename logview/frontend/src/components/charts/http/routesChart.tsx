@@ -32,7 +32,6 @@ export default class HttpRoutesBarChart extends React.Component<any, any> {
 					/>
 					<YAxis strokeWidth={0} />
 					<Tooltip content={renderTooltipContent} />
-					<Legend />
 					<Bar dataKey="count" fill="#8884d8" />
 				</BarChart>
 			</ResponsiveContainer>

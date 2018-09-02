@@ -33,7 +33,6 @@ export default class HttpCountChart extends React.Component<any, any> {
 					/>
 					<YAxis strokeWidth={0} minTickGap={20} />
 					<Tooltip content={renderTooltipContent} />
-					<Legend wrapperStyle={{ bottom: 10 }} />
 					<Line
 						type="linear"
 						dataKey="count"
