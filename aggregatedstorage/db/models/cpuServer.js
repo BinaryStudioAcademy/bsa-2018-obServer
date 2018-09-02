@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 
 const cpuServer = mongoose.Schema({
-  _id: {
-    type: mongoose.Schema.Types.ObjectId,
+  companyId: {
+    type: String,
     required: true
   },
   cores: {
@@ -18,10 +18,16 @@ const cpuServer = mongoose.Schema({
     }],
     require: true
   },
+  totalLoadPercentages: {
+    type: Number,
+    required: true
+  },
   timestamp: {
     type: Date,
     required: true
   },
 });
 
-module.exports = cpuServer;
+const CpuServer = mongoose.model('cpuServerStats', cpuServer);
+
+module.exports = CpuServer;

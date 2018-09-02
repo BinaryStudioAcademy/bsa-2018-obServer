@@ -44,7 +44,7 @@ const getAvgLogs = (slicedLogs, logType) => {
   }
 }
 
-const parseLogTypesFromIntervals = (intervals, returnAppLogs, hasAppId) => {
+const parseLogTypesFromIntervals = (intervals, appId) => {
   const appLogs = {
     httpInterval: logTypes.HTTP_STATS 
   };
@@ -53,24 +53,16 @@ const parseLogTypesFromIntervals = (intervals, returnAppLogs, hasAppId) => {
     serverCpuInterval: logTypes.CPU_SERVER
   }
 
+  const intervalLogTypes = Object.assign({}, appLogs, serverLogs);
+
   const parsedLogTypes = [];
 
-  if (returnAppLogs && hasAppId) {
-    for (let key in intervals) {
-      const logType = appLogs[key];
-      if (logType) {
-        parsedLogTypes.push(logType);
-      }
-    }
-  } 
+  for (let key in intervals) {
+    const logType = intervalLogTypes[key];
+    if (!logType) continue;
+    if (appLogs[key] && !appId) continue;
 
-  if (!returnAppLogs) {
-    for (let key in intervals) {
-      const logType = serverLogs[key];
-      if (logType) {
-        parsedLogTypes.push(logType);
-      }
-    }
+    parsedLogTypes.push(logType);
   }
 
   return parsedLogTypes;

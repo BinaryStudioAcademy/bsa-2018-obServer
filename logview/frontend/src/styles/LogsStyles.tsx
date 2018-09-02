@@ -2,9 +2,10 @@ import styled from 'styled-components';
 import { media } from './styles-utils';
 
 export const ChartWrapper = styled.div`
+	height: 36vh;
 	background-color: #fff;
-	margin: 10px;
-	padding: 10px 20px;
+	margin: 10px 20px 20px 0;
+	padding: 10px 10px;
 	border-radius: 0.25rem;
 	border: 1px solid #e5e9ec;
 `;
@@ -16,7 +17,8 @@ export const ChartHeader = styled.h3`
 export const LogsSearchForm = styled.form`
 	display: flex;
 	justify-content: space-between;
-	width: 94%;
+	width: 98%;
+	margin: 0;
 	margin-right: 0;
 	${media.desktop`
         display: flex;
@@ -25,42 +27,60 @@ export const LogsSearchForm = styled.form`
     `};
 `;
 
-export const LevelPicker = styled.select`
-	width: 18%;
+export const LevelPicker = styled.div`
+	width: 40%;
 	height: 40px;
-	margin-right: 2%;
+	background-color: #ddd;
+	border-radius: 5px;
+	border: 1px solid grey;
+	padding: 0 0 0 1vw;
+	color: #555;
+	font-weight: bold;
+	font-size: 13.3333px;
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: space-between;
+	align-items: center;
+	:hover {
+		background-color: #aaa;
+	}
+	:hover span {
+		display: none;
+	}
+	:hover label {
+		display: block;
+		width: 30%;
+	}
 	${media.desktop`
-        width: 92%;
+        width: 90%;
         margin-right: 0;
         margin-bottom: 3%;
     `};
 `;
 
-export const DateLabel = styled.p`
-	width: 5%;
-	height: 30px;
-	margin: 0;
-	align-self: center;
-	text-align: center;
-	font-size: 0.9rem;
-	${media.desktop`
-        width: 88%;
-    `};
+export const Level = styled.label`
+	display: none;
 `;
 
-export const DatePicker = styled.input`
-	width: 25%;
-	height: 30px;
-	${media.desktop`
-        width: 88%;
-        margin-bottom: 3%;
-    `};
+export const TimeSpanPicker = styled.select`
+    width: 40%;
+    height: 40px;
+	border-radius: 5px;
+	color: #555;
+	font-weight: bold;
+	:hover {
+		background-color: #ddd;
+	}
+    ${media.desktop`
+		width: 92%;
+		margin-right: 0;
+		margin-bottom: 3%;
+	`};
 `;
 
 export const SearchButton = styled.button`
 	width: 16%;
 	height: 40px;
-	margin-left: 2%;
 	border-radius: 5px;
 	background-color: #ddd;
 	color: #555;
@@ -76,14 +96,15 @@ export const SearchButton = styled.button`
 `;
 
 export const LogsList = styled.ul`
-	height: 80%;
+	width: 96%;
+	height: 40vh;
 	padding: 2%;
 	border-radius: 5px;
 	color: #c5c8c6;
 	background-color: rgb(29, 31, 39);
 	font-family: Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
 		monospace;
-	overflow-y: scroll;
+	overflow-y: auto;
 `;
 
 export const LogItem = styled.li`
