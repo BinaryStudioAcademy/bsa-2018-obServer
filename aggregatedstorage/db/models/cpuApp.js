@@ -1,6 +1,14 @@
 const mongoose = require('mongoose');
 
 const cpuApp = mongoose.Schema({
+  companyId: {
+    type: String,
+    required: true
+  },
+  appId: {
+    type: String,
+    required: true
+  },
   cpuUsagePercentages: {
     type: Number,
     required: true
