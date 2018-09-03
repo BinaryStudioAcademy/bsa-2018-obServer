@@ -10,7 +10,6 @@ import {
 	Level,
 	TimeSpanPicker,
 	SearchButton,
-	LogsList,
 	LogItem,
 	LogDate,
 	ErrorLabel,
@@ -28,8 +27,9 @@ import { LOGS } from 'src/containers/Logs/mockData';
 import UpdateTimer from '../../components/UpdateTimer/UpdateTimer';
 import { Submit } from 'src/styles/Styles';
 import { RowContainer } from './DashboardStyles';
-import { LogsContainer } from './LogsStyles';
+import { LogsContainer, LogsList } from './LogsStyles';
 import Select from '../../components/Select/Select';
+import { Link } from 'react-router-dom';
 
 const LEVELS = {
 	0: <ErrorLabel>ERROR</ErrorLabel>,
@@ -163,6 +163,9 @@ class Logs extends React.Component<LogsProps, LogsState> {
 					</Submit>
 				</LogsSearchForm>
 				<LogsList>{found}</LogsList>
+				<Submit>
+					<Link to='/dashboard/logs'>open logs</Link>
+				</Submit>
 			</LogsContainer>
 		);
 	}

@@ -21,6 +21,8 @@ import {
 } from 'src/containers/ServerResources/ServerResourcesStyles';
 import Select from 'src/components/Select/Select';
 import { ChartsWrapper, Title, Chart, ChartGrid } from './ResourcesBlockStyles';
+import { Submit } from '../../styles/Styles';
+import { Link } from 'react-router-dom';
 
 let timerID;
 
@@ -129,6 +131,9 @@ class ServerResources extends React.Component<
 						</ChartInfo>
 					</ChartWrapper>
 				</ChartGrid>
+				<Submit>
+					<Link to='/dashboard/resources'>open resources</Link>
+				</Submit>
 			</ChartsWrapper>
 		);
 	}

@@ -12,6 +12,8 @@ import {
 import { Timer } from 'styled-icons/material';
 import { httpStats, countRoutes, countHttp } from 'src/containers/HttpStats/mockData';
 import { Grid, HttpContainer } from './HttpBlockStyles';
+import { Submit } from '../../styles/Styles';
+import { Link } from 'react-router-dom';
 
 interface HttpStatsProps {}
 
@@ -72,6 +74,9 @@ class HttpStats extends React.Component<HttpStatsProps, HttpStatsState> {
 						</Chart>
 					</ChartWrapper>
 				</Grid>
+				<Submit>
+					<Link to='/dashboard/httpstats'>open http stats</Link>
+				</Submit>
 			</HttpContainer>
 		);
 	}

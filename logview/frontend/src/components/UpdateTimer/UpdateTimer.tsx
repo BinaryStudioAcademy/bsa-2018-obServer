@@ -50,7 +50,6 @@ class UpdateTimer extends React.Component<UpdateTimerProps, UpdateTimerState> {
 	}
 
     handleActive(data) {
-        console.log(data)
         this.setState({active: data})
     }
 

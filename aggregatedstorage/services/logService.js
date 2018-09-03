@@ -19,8 +19,9 @@ class LogService {
     } else {
       logRepository.create(logMessage, (err, doc) => {
         if (!err) {
-          doc.logType = logMessage.logType;
-          this.io.emit('newLog', doc);
+          const logWithLogType = doc.toObject();
+          logWithLogType.logType = logMessage.logType;
+          this.io.emit('newLog', logWithLogType);     
         } else {
           callback(err);
         }

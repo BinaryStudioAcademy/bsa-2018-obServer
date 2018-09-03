@@ -12,7 +12,6 @@ import NotFoundPage from 'src/containers/NotFoundPage/NotFoundPage';
 import history from './history';
 import 'src/styles/GlobalStyles';
 import Dashboard from 'src/containers/Dashboard/Dashboard';
-import DashboardNew from 'src/containers/Dashboard/DashboardNew';
 import 'src/styles/GlobalStyles';
 
 import { connect } from 'react-redux';
@@ -89,11 +88,6 @@ class Router extends React.Component<RouterProps, RouterState> {
 						exact
 						path="/setpassword/"
 						component={PasswordChange}
-					/>
-					<Route
-						exact
-						path="/dashboardnew"
-						component={DashboardNew}
 					/>
 					<PrivateRoute
 						path="/dashboard"
