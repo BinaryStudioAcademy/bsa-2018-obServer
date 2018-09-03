@@ -1,6 +1,5 @@
 #!/bin/bash
 
-export DOCKER_ACCOUNT_NAME=dmitriybeseda
 if [ "$TRAVIS_BRANCH" == "logview"]
 then
     export PROJECT_NAME=logview
@@ -12,6 +11,7 @@ then
     export PROJECT_NAME=aggregated-storage
 fi
 
+export DOCKER_ACCOUNT_NAME=dmitriybeseda
 export DOCKER_IMAGE_NAME=$DOCKER_ACCOUNT_NAME/$PROJECT_NAME
 export INSTANCE=$PROJECT_NAME
 export DOCKER_COMPOSE_V=1.22.0
@@ -28,4 +28,4 @@ gcloud compute --project $PROJECT ssh --zone $ZONE $INSTANCE --command "docker r
     -v "$PWD:/rootfs/$PWD" \
     -w="/rootfs/$PWD" \
     docker/compose:$DOCKER_COMPOSE_V up --build -d"
-gcloud compute --project $PROJECT ssh --zone $ZONE $INSTANCE --command "docker pull $DOCKER_IMAGE_NAME && docker run -it -d -p 80:3060 --name=$PROJECT_NAME --env-file '1.env' $DOCKER_IMAGE_NAME"
+gcloud compute --project $PROJECT ssh --zone $ZONE $INSTANCE --command "docker pull $DOCKER_IMAGE_NAME && docker run -it -d -p 80:3055 --name=$PROJECT_NAME --env-file '1.env' $DOCKER_IMAGE_NAME"
