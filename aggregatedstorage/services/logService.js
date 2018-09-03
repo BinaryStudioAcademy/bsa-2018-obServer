@@ -31,6 +31,11 @@ class LogService {
     const parsedLogTypes = parseLogTypesFromIntervals(logIntervals, appId);
     const intervals = parseIntervals(logIntervals);
     const aggregatedLogs = {};
+    
+    if (parsedLogTypes.length === 0) {
+      callback(new Error('wrong url query parameter'));
+      return;
+    }
 
     parsedLogTypes.forEach(async (logType, i, arr) => {
       let logs = [];
