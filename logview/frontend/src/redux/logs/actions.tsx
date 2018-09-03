@@ -1,5 +1,9 @@
 import * as constants from './constants';
-import { CpuLogState, MemoryLogState } from '../../types/LogsState';
+import {
+	CpuLogState,
+	MemoryLogState,
+	HttpStatsState
+} from '../../types/LogsState';
 
 export interface GetLogs {
 	type: constants.GET_LOGS;
@@ -43,6 +47,21 @@ export interface GetNewCpuLogFail {
 	type: constants.GET_NEW_CPU_LOG_FAILED;
 }
 
+export interface GetNewHttpStats {
+	type: constants.GET_NEW_HTTP_STATS;
+}
+
+export interface GetNewHttpStatsSuccess {
+	type: constants.GET_NEW_HTTP_STATS_SUCCESS;
+	payload: {
+		httpStats: Array<HttpStatsState>;
+	};
+}
+
+export interface GetNewHttpStatsFail {
+	type: constants.GET_NEW_HTTP_STATS_FAILED;
+}
+
 export type LogAction =
 	| GetLogs
 	| GetLogsFail
@@ -52,7 +71,10 @@ export type LogAction =
 	| GetNewMemoryLogSuccess
 	| GetNewCpuLog
 	| GetNewCpuLogFail
-	| GetNewCpuLogSuccess;
+	| GetNewCpuLogSuccess
+	| GetNewHttpStats
+	| GetNewHttpStatsFail
+	| GetNewHttpStatsSuccess;
 
 export function getLogs(): GetLogs {
 	return {
@@ -111,5 +133,12 @@ export function getNewCpuLogSuccess(payload: {
 export function getNewCpuLogsFail(): GetNewCpuLogFail {
 	return {
 		type: constants.GET_NEW_CPU_LOG_FAILED
+	};
+}
+
+export function getNewHttpStats(): GetNewHttpStats {
+	console.log('action getNewHttpStats');
+	return {
+		type: constants.GET_NEW_HTTP_STATS
 	};
 }

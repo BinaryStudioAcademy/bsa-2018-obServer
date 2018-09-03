@@ -39,3 +39,32 @@ export function memoryMbParser(memoryLogs) {
 	});
 	return logs;
 }
+
+export function countHttpParser(httpStats) {
+	const logs = [];
+	httpStats.forEach(log => {
+		let obj = {};
+		obj['count'] = log.data.requestsCount;
+		obj['timestamp'] = log.timestamp;
+		logs.push(obj);
+	});
+	return logs;
+}
+
+export function countRoutesParser(httpStats) {
+	let logs = [];
+	let counts = {};
+	httpStats.forEach(log => {
+		counts[log.data.route] =
+			(log.data.requestsCount || 0) + (counts[log.data.route] || 0);
+	});
+
+	for (var route in counts) {
+		let obj = {};
+		obj['count'] = counts[route];
+		obj['route'] = route;
+		logs.push(obj);
+	}
+
+	return logs;
+}
