@@ -9,6 +9,9 @@ WORKDIR $APP_ROOT
 COPY ./ ./
 WORKDIR $APP_ROOT
 
+RUN apt-get update && \
+    apt-get install -yq curl
+
 RUN curl -o- -L https://yarnpkg.com/install.sh | bash
 
 WORKDIR $APP_ROOT
