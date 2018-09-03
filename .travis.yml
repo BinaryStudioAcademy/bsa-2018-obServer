@@ -22,18 +22,8 @@ before_install:
 
 jobs:
   include:
-    if: branch = logview
-    env: PROJECT_NAME=logview
-    if: branch = aggregated-store
-    env: PROJECT_NAME=aggregatedstorage
-    if: branch = raw-store
-    env: PROJECT_NAME=rawstorage
     - stage: build docker image
-      script:
-        - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-        - docker build -t $PROJECT_NAME ./$PROJECT_NAME
-        - docker tag $PROJECT_NAME $DOCKER_USERNAME/$PROJECT_NAME
-        - docker push $DOCKER_USERNAME/$PROJECT_NAME
+      script: bash ./job.sh
 branches:
   only:
     - logview
@@ -42,17 +32,7 @@ branches:
 
 deploy:
   - provider: script
-    script: bash ./deploy_raw.sh
+    script: bash ./deploy.sh
     skip_cleanup: true
     on:
       branch: raw-store
-  - provider: script
-    script: bash ./deploy_logview.sh
-    skip_cleanup: true
-    on:
-      branch: logview
-  - provider: script
-    script: bash ./deploy_aggregated.sh
-    skip_cleanup: true
-    on:
-      branch: aggregated-store
