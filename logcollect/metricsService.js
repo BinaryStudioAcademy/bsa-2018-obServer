@@ -19,7 +19,7 @@ module.exports = class MetricsService {
       this.timersId.cpu = setInterval(() => {
         cpuLoad((cpuData) => {
           this.sendMetrics(MetricsService.createLogObject('CPU_SERVER', cpuData));
-          this.serverMonitor.checkCriticalCPUValue(cpuData, 10);
+          this.serverMonitor.checkCriticalCPUValue(cpuData);
         });
       }, delay);
     }
