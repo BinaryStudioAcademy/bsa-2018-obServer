@@ -63,6 +63,33 @@ class LogRepository {
             }
           });
           break;
+        case logTypes.CPU_APP:
+          cpuAppRepository.getByCompanyIdAndAppId(companyId, appId, (err, logs) => {
+            if (!err) {
+              resolve(logs);
+            } else {
+              reject(err);
+            }
+          });
+          break;
+        case logTypes.MEMORY_APP:
+          memoryAppRepository.getByCompanyIdAndAppId(companyId, appId, (err, logs) => {
+            if (!err) {
+              resolve(logs);
+            } else {
+              reject(err);
+            }
+          });
+          break;
+        case logTypes.LOG_MESSAGE:
+          logMessageRepository.getByCompanyIdAndAppId(companyId, appId, (err, logs) => {
+            if (!err) {
+              resolve(logs);
+            } else {
+              reject(err);
+            }
+          });
+          break;
         default:
           reject(new Error('Wrong log type'));
       }
