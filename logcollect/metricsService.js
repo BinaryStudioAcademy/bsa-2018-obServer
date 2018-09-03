@@ -6,13 +6,17 @@ const tcpPing = require('tcp-ping');
 
 module.exports = class MetricsService {
   constructor(url, companyToken) {
-    this.timersId = {};
+    this.timersId = { ping: {} };
     this.sendMetrics = sendHelper(url, companyToken);
     this.serverMonitor = new ServerMonitor(this.sendMetrics);
   }
 
   newLog(data) {
-    this.sendMetrics(data);
+    if (data.logType === 'PING_INIT') {
+      this.ping(data.data.pingPort, data.appId);
+    } else {
+      this.sendMetrics(data);
+    }
   }
 
   startCPUMonitor(delay = 1000) {
@@ -50,17 +54,17 @@ module.exports = class MetricsService {
     this.ping();
   }
 
-  ping(appPort = 3200, delay = 1000) {
-    if(!this.timersId.ping) {
-      this.timersId.ping = setInterval(() => {
+  ping(appPort = 3200, appId, delay = 1000) {
+    if(!this.timersId.ping[appId]) {
+      this.timersId.ping[appId] = setInterval(() => {
         tcpPing.ping({port: appPort}, (err, data) => {
           if (err) console.log(err);
           else if (this.checkBadPing(data)) {
             console.log(data);
             const notification = {
-              message: 'App ${appId} is down'
+              message: `App ${appId} is down`
             }; 
-            this.sendMetrics(MetricsService.createLogObject('NOTIFICATION_SERVER', notification, /* appId */));
+            this.sendMetrics(MetricsService.createLogObject('NOTIFICATION_SERVER', notification, appId ));
           }
         });
       }, delay);
@@ -72,11 +76,12 @@ module.exports = class MetricsService {
     return isNaN(avg) && results[0].hasOwnProperty('err') ? true : false;
   }
 
-  static createLogObject(logType, data) {
+  static createLogObject(logType, data, appId) {
     return {
       logType: logType,
       data: data,
       timestamp: new Date(),
+      ...(appId && { appId })
     };
   }
 }
