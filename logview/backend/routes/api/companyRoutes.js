@@ -52,6 +52,7 @@ router.delete(
 
 router.get(
 	'/settings',
+	isLoggedInMiddleware,
 	async (req, res, next) => {
 		try {
 			const setting = await settingService.findByCompanyId(
@@ -71,6 +72,7 @@ router.get(
 
 router.put(
 	'/settings',
+	isLoggedInMiddleware,
 	async (req, res, next) => {
 		try {
 			const settingId = (await settingService.findByCompanyId(
