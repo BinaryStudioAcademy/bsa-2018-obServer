@@ -19,6 +19,7 @@ class LogService {
     } else {
       logRepository.create(logMessage, (err, doc) => {
         if (!err) {
+          doc.logType = logMessage.logType;
           this.io.emit('newLog', doc);      
         } else {
           callback(err);
@@ -31,6 +32,11 @@ class LogService {
     const parsedLogTypes = parseLogTypesFromIntervals(logIntervals, appId);
     const intervals = parseIntervals(logIntervals);
     const aggregatedLogs = {};
+    
+    if (parsedLogTypes.length === 0) {
+      callback(new Error('wrong url query parameter'));
+      return;
+    }
 
     parsedLogTypes.forEach(async (logType, i, arr) => {
       let logs = [];

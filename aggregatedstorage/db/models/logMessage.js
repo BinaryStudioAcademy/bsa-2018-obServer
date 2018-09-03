@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const cpuApp = mongoose.Schema({
+const logMessage = mongoose.Schema({
   companyId: {
     type: String,
     required: true
@@ -9,8 +9,12 @@ const cpuApp = mongoose.Schema({
     type: String,
     required: true
   },
-  cpuUsagePercentages: {
+  logLevel: {
     type: Number,
+    required: true
+  },
+  message: {
+    type: String,
     required: true
   },
   timestamp: {
@@ -19,6 +23,6 @@ const cpuApp = mongoose.Schema({
   }
 });
 
-const CpuApp = mongoose.model('cpuApp', cpuApp);
+const LogMessage = mongoose.model('logMessage', logMessage);
 
-module.exports = CpuApp;
+module.exports = LogMessage;

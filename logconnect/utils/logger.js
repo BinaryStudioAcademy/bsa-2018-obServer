@@ -46,7 +46,7 @@ class Logger {
     }
 
     sendData(data) {
-        const log = createLog('LOG', data, this.appId);
+        const log = createLog('LOG_MESSAGE', data, this.appId);
         this.sendLog(log);
     }
 }
