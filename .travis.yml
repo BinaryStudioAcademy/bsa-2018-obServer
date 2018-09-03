@@ -42,15 +42,15 @@ branches:
 
 deploy:
   - provider: script
-    script: bash ./deploy_logview.sh
-    skip_cleanup: true
-    on:
-      branch: logview
-  - provider: script
     script: bash ./deploy_raw.sh
     skip_cleanup: true
     on:
       branch: raw-store
+  - provider: script
+    script: bash ./deploy_logview.sh
+    skip_cleanup: true
+    on:
+      branch: logview
   - provider: script
     script: bash ./deploy_aggregated.sh
     skip_cleanup: true
