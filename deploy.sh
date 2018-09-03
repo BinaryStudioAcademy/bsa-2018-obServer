@@ -1,13 +1,13 @@
 #!/bin/bash
 
 export DOCKER_ACCOUNT_NAME=dmitriybeseda
-if [ "$TRAVIS_BRANCH" = "logview"]
+if [ "$TRAVIS_BRANCH" == "logview"]
 then
     export PROJECT_NAME=logview
-elif [ "$TRAVIS_BRANCH" = "raw-store"]
+elif [ "$TRAVIS_BRANCH" == "raw-store"]
 then
     export PROJECT_NAME=raw-storage
-elif [ "$TRAVIS_BRANCH" = "aggregated-store"]
+elif [ "$TRAVIS_BRANCH" == "aggregated-store"]
 then
     export PROJECT_NAME=aggregated-storage
 fi
