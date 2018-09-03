@@ -1,12 +1,13 @@
 #!/bin/bash
 
-if [$TRAVIS_BRANCH=logview]
+echo $TRAVIS_BRANCH
+if [ "$TRAVIS_BRANCH" == "logview" ]
 then
     export PROJECT_NAME=logview
-elif [$TRAVIS_BRANCH=raw-storage]
+elif [ "$TRAVIS_BRANCH" == "raw-storage" ]
 then
     export PROJECT_NAME=rawstorage
-elif [$TRAVIS_BRANCH=aggregated-storage]
+elif [ "$TRAVIS_BRANCH" == "aggregated-storage" ]
 then
     export PROJECT_NAME=aggregatedstorage
 fi

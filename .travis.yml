@@ -24,6 +24,7 @@ jobs:
   include:
     - stage: build docker image
       script: bash ./job.sh
+      
 branches:
   only:
     - logview
