@@ -13,21 +13,6 @@ class ServerMonitor {
         }
     }
 
-    checkServerIsDown() {
-        process.prependListener('uncaughtException', (data) => {
-            const { message, name, stack } = data; 
-            const notification = {
-                message: 'Server is down',
-                error: {
-                    message,
-                    name,
-                    stack
-                }
-            }; 
-            this.sendLog(ServerMonitor.createLogObject('NOTIFICATION_SERVER', notification));  
-        });    
-    }
-
     static createLogObject(logType, data) {
         return {
             logType: logType,
