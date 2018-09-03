@@ -47,7 +47,6 @@ module.exports = class MetricsService {
 
   startServerMonitor() {
     this.serverMonitor.checkServerIsDown();
-    this.serverMonitor.checkServerExit();
   }
 
   static createLogObject(logType, data) {
