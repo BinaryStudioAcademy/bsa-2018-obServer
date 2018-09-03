@@ -1,5 +1,4 @@
 FROM node:8.11.4
-FROM rabbitmq
 
 ENV APP_ROOT /app
 
