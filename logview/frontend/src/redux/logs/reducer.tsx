@@ -1,6 +1,10 @@
 import * as constants from './constants';
 import { LogAction } from './actions';
-import { CpuLogState, MemoryLogState } from '../../types/LogsState';
+import {
+	CpuLogState,
+	MemoryLogState,
+	HttpStatsState
+} from '../../types/LogsState';
 import { defaultState } from '../defaultState';
 
 export function cpuLogsReducer(
@@ -36,6 +40,37 @@ export function memoryLogsReducer(
 			} else {
 				return [...state, ...action.payload.memoryLogs];
 			}
+		default:
+			return state;
+	}
+}
+
+export function httpStatsReducer(
+	state: Array<HttpStatsState> = defaultState.httpStats,
+	action: LogAction
+): Array<HttpStatsState> {
+	switch (action.type) {
+		case constants.GET_NEW_HTTP_STATS_SUCCESS:
+			return [...action.payload.httpStats];
+		default:
+			return state;
+	}
+}
+
+export function fetchingLogsReducer(state = 'unstarted', action: LogAction) {
+	switch (action.type) {
+		case constants.GET_NEW_CPU_LOG_SUCCESS:
+		case constants.GET_NEW_MEMORY_LOG_SUCCESS:
+		case constants.GET_NEW_HTTP_STATS_SUCCESS:
+			return 'success';
+		case constants.GET_NEW_CPU_LOG_FAILED:
+		case constants.GET_NEW_MEMORY_LOG_FAILED:
+		case constants.GET_NEW_HTTP_STATS_FAILED:
+			return 'failed';
+		case constants.GET_NEW_CPU_LOG:
+		case constants.GET_NEW_MEMORY_LOG:
+		case constants.GET_NEW_HTTP_STATS:
+			return 'pending';
 		default:
 			return state;
 	}

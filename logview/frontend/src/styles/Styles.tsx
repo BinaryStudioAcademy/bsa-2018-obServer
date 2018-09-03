@@ -19,7 +19,8 @@ import {
 	ChartGridTwo,
 	ChartWrapper,
 	ChartsPageWrapper,
-	ChartTimeRange
+	ChartTimeRange,
+	SelectChartPage
 } from './ChartStyles';
 import { Input, InputWide } from './InputStyles';
 import { NotificationIcon } from './IconStyles';
@@ -52,5 +53,6 @@ export {
 	NotificationIcon,
 	Profile,
 	DashboardBackground,
-	Main
+	Main,
+	SelectChartPage
 };
