@@ -1,0 +1,14 @@
+version: "2.0"
+services:
+  raw-storage-db:
+      container_name: raw-storage
+      image: mongo
+      volumes:
+        - /home/rawdb/raw_mongovolume:/data/db
+      ports:
+        - ${RAW_DB_EXTERNAL_PORT}:${RAW_DB_INTERNAL_PORT}
+  rabbitmq:
+      container_name: rabbitmq
+      image: rabbitmq:3-management
+      ports:
+        - ${RABBITMQ_EXTERNAL_PORT}:${RABBITMQ_INTERNAL_PORT}
