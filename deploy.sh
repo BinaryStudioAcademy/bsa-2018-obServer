@@ -1,5 +1,8 @@
 #!/bin/bash
 
+export DOCKER_IMAGE_NAME=dmitriybeseda/logview
+export INSTANCE=logview
+
 set -e
 
 echo $GCLOUD_SERVICE_KEY_STG | base64 --decode -i > ${HOME}/gcloud-service-key.json
