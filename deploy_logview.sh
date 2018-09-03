@@ -1,7 +1,8 @@
 #!/bin/bash
 
+export DOCKER_ACCOUNT_NAME=dmitriybeseda
 export PROJECT_NAME=logview
-export DOCKER_IMAGE_NAME=dmitriybeseda/$PROJECT_NAME
+export DOCKER_IMAGE_NAME=$DOCKER_ACCOUNT_NAME/$PROJECT_NAME
 export INSTANCE=$PROJECT_NAME
 
 set -e

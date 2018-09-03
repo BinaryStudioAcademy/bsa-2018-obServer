@@ -9,10 +9,8 @@ cache:
 env:
   global:
     - CLOUDSDK_CORE_DISABLE_PROMPTS=1
-    # - INSTANCE=logview
     - ZONE=europe-west3-b
     - PROJECT=observer-215008
-    # - DOCKER_IMAGE_NAME=dmitriybeseda/logview
   
 before_install:
   - if [ ! -d $HOME/google-cloud-sdk/bin ]; then
@@ -24,12 +22,18 @@ before_install:
 
 jobs:
   include:
+    if: branch = logview
+    env: PROJECT_NAME=logview
+    if: branch = aggregated-store
+    env: PROJECT_NAME=aggregatedstorage
+    if: branch = raw-store
+    env: PROJECT_NAME=rawstorage
     - stage: build docker image
       script:
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-        - docker build -t logview ./logview
-        - docker tag logview $DOCKER_USERNAME/logview
-        - docker push $DOCKER_USERNAME/logview
+        - docker build -t $PROJECT_NAME ./$PROJECT_NAME
+        - docker tag $PROJECT_NAME $DOCKER_USERNAME/$PROJECT_NAME
+        - docker push $DOCKER_USERNAME/$PROJECT_NAME
 branches:
   only:
     - logview
