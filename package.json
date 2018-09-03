@@ -1,10 +1,14 @@
 {
   "dependencies": {
     "cors": "^2.8.4",
-    "react-table": "^6.8.6"
+    "express": "^4.16.3",
+    "free-memory": "^1.0.0",
+    "nodemon": "^1.18.4",
+    "react-table": "^6.8.6",
+    "socket.io-client": "^2.1.1"
   },
   "scripts": {
     "start-servers": "nodemon logcollect/server.js & nodemon rawstorage/server.js & nodemon aggregatedstorage/server.js &",
     "stop-servers": "killall node"
   }
- }
+}

@@ -52,8 +52,8 @@ function* fetchHttpStats(action: GetNewHttpStats) {
 	try {
 		const currentHttpStats = yield call(
 			logsAPI.getHttpStats,
-			'companyId',
-			'appId'
+			'secret-company-token',
+			'MyAppId'
 		);
 		console.log('saga fetchHttpStats', currentHttpStats);
 		yield put({

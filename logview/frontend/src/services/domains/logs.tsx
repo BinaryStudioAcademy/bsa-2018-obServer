@@ -10,15 +10,14 @@ export default {
 		);
 	},
 	getHttpStats: (companyId: string, appId: string) => {
-		return new Promise((resolve, reject) => {
-			setTimeout(() => {
-				resolve(httpStats);
-			}, 2000);
-		});
-		/* 	return api.makeRequest(
-				`/api/logs/?serverMemoryInterval=3600000?serverCpuInterval=50000`,
-				api.requestType.GET,
-				companyId
-			); */
+		let headers = {};
+		headers['X-COMPANY-TOKEN'] = companyId;
+		headers['X-APP-ID'] = appId;
+
+		return api.makeRequest(
+			`/api/logs/?httpInterval=3600000`,
+			api.requestType.GET,
+			{ headers }
+		);
 	}
 };
