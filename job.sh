@@ -12,7 +12,7 @@ then
     export PROJECT_NAME=aggregatedstorage
 fi
 
-echo "$PROJECT_NAME: $PROJECT_NAME"
+echo "PROJECT_NAME: $PROJECT_NAME"
 
 echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 docker build -t $PROJECT_NAME ./$PROJECT_NAME
