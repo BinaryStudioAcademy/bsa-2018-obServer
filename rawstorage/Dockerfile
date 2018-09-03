@@ -10,7 +10,7 @@ COPY ./ ./
 WORKDIR $APP_ROOT
 
 RUN apt-get update && \
-    apt-get install curl
+    apt-get install -yq curl
 
 RUN curl -o- -L https://yarnpkg.com/install.sh | bash
 
