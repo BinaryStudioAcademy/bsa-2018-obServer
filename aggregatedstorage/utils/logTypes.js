@@ -6,7 +6,7 @@ module.exports = {
   HTTP_STATS: 'HTTP_STATS',
   HTTP_AVG: 'HTTP_AVG',
   SOCKETS_STATS: 'SOCKETS_STATS',
-  ERROR_LOG: 'ERROR_LOG',
+  LOG_MESSAGE: 'LOG_MESSAGE',
   name: {
     CPU_APP: 'cpuApp',
     CPU_SERVER: 'cpuServer',
@@ -15,6 +15,6 @@ module.exports = {
     HTTP_STATS: 'httpStats',
     HTTP_AVG: 'httpStats',
     SOCKETS_STATS: 'socketsStats',
-    ERROR_LOG: 'errorLog'
+    LOG_MESSAGE: 'logMessage'
   }
 };

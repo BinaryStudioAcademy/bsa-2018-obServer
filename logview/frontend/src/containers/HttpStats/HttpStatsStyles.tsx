@@ -6,7 +6,8 @@ import {
 	ChartWrapper,
 	ChartsPageWrapper,
 	ChartTimeRange,
-	UserBar
+	UserBar,
+	SelectChartPage
 } from '../../styles/Styles';
 import { Title } from '../../styles/Styles';
 
@@ -25,5 +26,6 @@ export {
 	ChartTimeRange,
 	UserBar,
 	Title,
-	Grid
+	Grid,
+	SelectChartPage
 };

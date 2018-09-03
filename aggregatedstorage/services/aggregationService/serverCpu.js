@@ -27,14 +27,16 @@ module.exports = (slicedLogs) => {
     const avgCoreLoad = coreLoadSumm.map(load => Math.round(load / logChunk.length));
     totalCpuLoad = Math.round(totalCpuLoad / logChunk.length);
 
-    aggregatedServerCpuLogs.push({
-      logType: logTypes.CPU_SERVER,
-      timestamp: logChunk[0].timestamp,
-      data: {
-        cores: avgCoreLoad,
-        totalLoad: totalCpuLoad
-      }
+    const coresLoad = {};
+    avgCoreLoad.forEach((coreLoad, i) => {
+      coresLoad[`core${i}`] = coreLoad;
     });
+
+    const cpuLogForInterval = Object.assign({}, coresLoad);
+    cpuLogForInterval.timestamp = logChunk[0].timestamp;
+    cpuLogForInterval.totalLoad = totalCpuLoad;
+
+    aggregatedServerCpuLogs.push(cpuLogForInterval);
   });
   return aggregatedServerCpuLogs;
 };

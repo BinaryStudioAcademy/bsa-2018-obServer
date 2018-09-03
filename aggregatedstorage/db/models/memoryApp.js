@@ -1,12 +1,20 @@
 const mongoose = require('mongoose');
 
 const memoryApp = mongoose.Schema({
-  memory: {
-    heap: {
+  companyId: {
+    type: String,
+    required: true
+  },
+  appId: {
+    type: String,
+    required: true
+  },
+  heap: {
+    total: {
       type: Number,
       required: true
     },
-    totalProcessMemory: {
+    used: {
       type: Number,
       required: true
     }
@@ -17,4 +25,6 @@ const memoryApp = mongoose.Schema({
   }
 });
 
-module.exports = memoryApp;
+const MemoryApp = mongoose.model('memoryApp', memoryApp);
+
+module.exports = MemoryApp;
