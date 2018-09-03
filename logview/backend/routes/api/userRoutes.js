@@ -1,5 +1,6 @@
 const apiResponse = require('express-api-response'),
-	isLoggedInMiddlewre = require('../../middleware/isLoggedInMiddleware'),
+	isLoggedInMiddleware = require('../../middleware/isLoggedInMiddleware'),
+	isAdminMiddleware = require('../../middleware/isAdminMiddleware'),
 	userService = require('../../services/userService'),
 	emailService = require('../../services/emailService'),
 	companyService = require('../../services/companyService');
@@ -89,7 +90,7 @@ router.put(
 
 router.put(
 	'/account/info',
-	isLoggedInMiddlewre,
+	isLoggedInMiddleware,
 	async (req, res, next) => {
 		try {
 			const { name, company } = req.body;
@@ -223,10 +224,29 @@ router.post(
 
 router.post(
 	'/invite',
-	isLoggedInMiddlewre,
+	isLoggedInMiddleware,
+	isAdminMiddleware,
 	async (req, res, next) => {
 		try {
 			await userService.invite(req);
+			res.shouldNotHaveData = false;
+			res.failureStatus = 200;
+			res.err = null;
+		} catch (error) {
+			res.data = null;
+			res.err = error;
+		} finally {
+			next();
+		}
+	},
+	apiResponse
+);
+
+router.get(
+	'/invite/:inviteToken',
+	async (req, res, next) => {
+		try {
+			await userService.addUserToCompany(req);
 			res.shouldNotHaveData = false;
 			res.failureStatus = 200;
 			res.err = null;
@@ -245,26 +265,8 @@ router.post(
 	async (req, res, next) => {
 		try {
 			await userService.activateByInvite(req);
-			res.err = null;
-		} catch (error) {
-			res.data = null;
-			res.err = error;
-		} finally {
-			next();
-		}
-	},
-	apiResponse
-);
-
-router.get(
-	'/company/users',
-	isLoggedInMiddlewre,
-	async (req, res, next) => {
-		try {
-			const data = await userService.findUsersOfCompany(
-				req.user.companyId
-			);
-			res.data = data;
+			res.shouldNotHaveData = false;
+			res.failureStatus = 200;
 			res.err = null;
 		} catch (error) {
 			res.data = null;
@@ -278,7 +280,7 @@ router.get(
 
 router.get(
 	'/account/info',
-	isLoggedInMiddlewre,
+	isLoggedInMiddleware,
 	async (req, res, next) => {
 		try {
 			const dataUser = await userService.findById(req.user.id);
@@ -291,51 +293,6 @@ router.get(
 				companyId: dataUser.companyId,
 				company: dataCompany.name
 			};
-			res.err = null;
-		} catch (error) {
-			res.data = null;
-			res.err = error;
-		} finally {
-			next();
-		}
-	},
-	apiResponse
-);
-
-router.get(
-	'/company/settings',
-	async (req, res, next) => {
-		try {
-			const setting = await settingService.findByCompanyId(
-				req.user.companyId
-			);
-			res.data = setting;
-			res.err = null;
-		} catch (error) {
-			res.data = null;
-			res.err = error;
-		} finally {
-			next();
-		}
-	},
-	apiResponse
-);
-
-router.put(
-	'/company/settings',
-	async (req, res, next) => {
-		try {
-			const settingId = (await settingService.findByCompanyId(
-				req.user.companyId
-			)).id;
-			await settingService.update(settingId, req.body);
-			const setting = await settingService.findByCompanyId(
-				req.user.companyId
-			);
-
-			eventEmitter.emit('update company settings', setting);
-
-			res.data = setting;
 			res.err = null;
 		} catch (error) {
 			res.data = null;
