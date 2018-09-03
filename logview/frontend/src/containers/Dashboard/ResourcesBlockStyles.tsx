@@ -1,6 +1,6 @@
 import { ChartsPageWrapper } from "../../styles/Styles";
 import { colors } from "../../styles/styles-utils";
-import { Title as ResourcesTitle, Chart as ResourcesChart} from 'src/containers/ServerResources/ServerResourcesStyles';
+import { Title as ResourcesTitle, Chart as ResourcesChart, ChartGrid as ResourcesChartGrid} from 'src/containers/ServerResources/ServerResourcesStyles';
 
 export const ChartsWrapper = ChartsPageWrapper.extend`
     margin: 0;
@@ -14,4 +14,8 @@ export const Title = ResourcesTitle.extend`
 
 export const Chart = ResourcesChart.extend`
     background-color: white;
+`;
+
+export const ChartGrid = ResourcesChartGrid.extend`
+    margin-top: 30px;
 `;

@@ -10,7 +10,7 @@ export const NotificationPopup = transition.div`
     display: flex;
     flex-direction: column;
     left: -44px;
-    top: 50px;
+    top: 70px;
     min-width: 300px;
     min-height: 400px;
 	z-index: 2;

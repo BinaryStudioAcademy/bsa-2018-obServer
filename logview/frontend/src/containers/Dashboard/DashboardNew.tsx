@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Route, Link, RouteComponentProps } from 'react-router-dom';
 import Quickstart from '../Quickstart/Quickstart';
 import Settings from '../Settings/Settings';
-import Logs from '../Logs/Logs';
+import Logs from './Logs';
 import Profile from '../Profile/Profile';
 import HttpStats from './HttpBlock';
 import SocketStats from '../SocketStats/SocketStats';
@@ -11,15 +11,15 @@ import { UserState } from '../../types/UserState';
 import { userLogout, fetchUser } from 'src/redux/user/actions';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { DashboardMain, DashboardNav, DashboardWrapper, Select as StyledSelect, OptionActive, Option, RowContainer, CenteredContainer, Title } from './DashboardStyles';
+import { DashboardMain, DashboardNav, DashboardWrapper, Select as StyledSelect, OptionActive, Option, RowContainer, CenteredContainer, Title, Dropdown } from './DashboardStyles';
 import {
 	Profile as UserProfile,
 } from '../../styles/Styles';
 import Select from 'src/components/Select/Select';
-import { Dropdown } from '../../components/Select/SelectStyles';
 import { ArrowDropDown } from 'styled-icons/material';
 import ResourcesBlock from './ResourcesBlock';
 import Notifications from '../../components/Notifications/Notifications';
+import { SettingsIcon } from '../../styles/IconStyles';
 
 interface DashboardState {
 	active?: string;
@@ -73,6 +73,9 @@ class Dashboard extends React.Component<DashboardProps, DashboardState> {
 						</CenteredContainer>
                     </RowContainer>
 					<RowContainer>
+						<CenteredContainer>
+							<SettingsIcon size="25"/>
+						</CenteredContainer>
 						<Notifications />
 						<CenteredContainer>
 							<StyledSelect popup={this.state.popup}>
@@ -101,7 +104,7 @@ class Dashboard extends React.Component<DashboardProps, DashboardState> {
                 <DashboardMain>
                     <ResourcesBlock />
                     <HttpStats />
-                    <div>logs</div>
+                    <Logs />
                 </DashboardMain>
 
             </DashboardWrapper>

@@ -5,15 +5,19 @@ import { logsAPI } from '../../services';
 
 function* fetchNewLog() {
 	try {
-		const companyId = 'secret-company-token';
+		const companyToken = 'secret-company-token';
 		const socket = yield call(connect);
 
-		socket.emit('getLogs', companyId, logs => {
-			console.log(logs);
-		});
+		socket.emit('getLogs', companyToken);
+		socket.emit('test', 'lolz');
 
-		// const callback = yield call(logsAPI.resoucesAverages, companyId);
-		// console.log(callback);
+		const callback = yield call(logsAPI.resoucesAverages, { 'X-COMPANY-TOKEN': companyToken });
+		console.log(callback);
+
+		socket.on('newLog', (data) => {
+			console.log('FROM CALLBACK');
+			console.log(data);	
+		});
 
 		const socketChannel = yield call(createSocketChannel, socket);
 		while (true) {

@@ -12,6 +12,7 @@ import {
 } from './HttpStatsStyles';
 import { Timer } from 'styled-icons/material';
 import { httpStats, countRoutes, countHttp } from './mockData';
+import UpdateTimer from '../../components/UpdateTimer/UpdateTimer';
 
 interface HttpStatsProps {}
 
@@ -72,6 +73,7 @@ class HttpStats extends React.Component<HttpStatsProps, HttpStatsState> {
 									<Timer size="24" /> {this.state.timeRange}
 								</ChartTimeRange>
 							</ChartHeader>
+							<UpdateTimer />
 							<HttpCountChart
 								data={countHttp}
 								timeRange={this.state.timeRange}

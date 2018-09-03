@@ -23,8 +23,9 @@ import {
 	NotFound
 } from 'src/styles/LogsStyles';
 
-import { LOGS } from './mockData';
 import { filterLogs, calculateErrStats } from 'src/services/logstats/logs';
+import { LOGS } from 'src/containers/Logs/mockData';
+import UpdateTimer from '../../components/UpdateTimer/UpdateTimer';
 
 const LEVELS = {
 	0: <ErrorLabel>ERROR</ErrorLabel>,
@@ -73,17 +74,8 @@ class Logs extends React.Component<LogsProps, LogsState> {
 		this.handleTimespanChange = this.handleTimespanChange.bind(this);
 	}
 
-	componentDidMount() {
-		let nextState = {
-			...this.state,
-			filteredLogs: filterLogs(LOGS, this.state.filters),
-			errStats: calculateErrStats(LOGS, 'last 24 hours')
-		};
-		this.setState(nextState);
-	}
 
 	handleLevelsChange(e) {
-		//	this.setState({ timespan: e.currentTarget.value; })
 		let nextState = {
 			...this.state,
 			filters: {
@@ -98,7 +90,6 @@ class Logs extends React.Component<LogsProps, LogsState> {
 	}
 
 	handleTimespanChange(e) {
-		//	this.setState({ timespan: e.currentTarget.value; })
 		let nextState = {
 			...this.state,
 			filters: {
@@ -121,7 +112,6 @@ class Logs extends React.Component<LogsProps, LogsState> {
 	}
 
 	render() {
-		// for searchButton filtering
 		let found;
 		if (this.state.filteredLogs.length === 0) {
 			found = <NotFound>Nothing found</NotFound>;
@@ -140,14 +130,7 @@ class Logs extends React.Component<LogsProps, LogsState> {
 		}
 
 		return (
-			<React.Fragment>
-				<ChartWrapper>
-					<ChartHeader>Errors Statistics</ChartHeader>
-					<ErrChart
-						data={this.state.errStats}
-						timeRange={this.state.filters.timespan}
-					/>
-				</ChartWrapper>
+			<div>
 				<LogsSearchForm>
 					<LevelPicker>
 						<span>Select logs' levels</span>
@@ -206,20 +189,13 @@ class Logs extends React.Component<LogsProps, LogsState> {
 							Silly
 						</Level>
 					</LevelPicker>
-					<TimeSpanPicker
+					{/* <TimeSpanPicker
 						name="timespan"
 						value={this.state.filters.timespan}
 						onChange={this.handleTimespanChange}
-					>
-						<option value="last 10 minutes">last 10 minutes</option>
-						<option value="last 30 minutes">last 30 minutes</option>
-						<option value="last hour">last hour</option>
-						<option value="last 5 hours">last 5 hours</option>
-						<option value="last 12 hours">last 12 hours</option>
-						<option value="last 24 hours">last 24 hours</option>
-						<option value="last week">last week</option>
-						<option value="last 30 days">last 30 days</option>
-					</TimeSpanPicker>
+					> */}
+					<UpdateTimer />
+					{/* </TimeSpanPicker> */}
 
 					<SearchButton
 						onClick={e => {
@@ -231,7 +207,7 @@ class Logs extends React.Component<LogsProps, LogsState> {
 					</SearchButton>
 				</LogsSearchForm>
 				<LogsList>{found}</LogsList>
-			</React.Fragment>
+			</div>
 		);
 	}
 }

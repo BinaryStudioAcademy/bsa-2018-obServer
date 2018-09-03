@@ -15,13 +15,12 @@ import {
 import {
 	ChartInfo,
 	ChartHeader,
-	ChartGrid,
 	ChartWrapper,
 	ChartsPageWrapper,
 	ChartTimeRange,
 } from 'src/containers/ServerResources/ServerResourcesStyles';
 import Select from 'src/components/Select/Select';
-import { ChartsWrapper, Title, Chart } from './ResourcesBlockStyles';
+import { ChartsWrapper, Title, Chart, ChartGrid } from './ResourcesBlockStyles';
 
 let timerID;
 

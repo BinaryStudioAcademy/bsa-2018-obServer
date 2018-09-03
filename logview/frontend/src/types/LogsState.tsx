@@ -9,11 +9,12 @@ export interface CpuLogState {
 		];
 	};
 	timestamp: string;
-	companyToken: string;
+	companyId: string;
+	totalLoadPercentages: number;
 }
 
 export interface MemoryLogState {
-	companyToken: string;
+	companyId: string;
 	data: {
 		allMemory: number;
 		freeMemory: number;

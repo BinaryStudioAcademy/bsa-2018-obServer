@@ -2,7 +2,7 @@ import * as React from 'react';
 import CoresLoadLineChart from '../../components/charts/serverResources/CoresLoadLineChart';
 import PercentMemoryChart from '../../components/charts/serverResources/PercentMemoryChart';
 import MemoryUsedChart from '../../components/charts/serverResources/MemoryUsedChart';
-import { Timer } from 'styled-icons/material';
+import { Timer, Update } from 'styled-icons/material';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getLogs, getNewCpuLog, getNewMemoryLog } from 'src/redux/logs/actions';
@@ -23,6 +23,7 @@ import {
 	Title
 } from './ServerResourcesStyles';
 import Select from 'src/components/Select/Select';
+import UpdateTimer from '../../components/UpdateTimer/UpdateTimer';
 
 let timerID;
 
@@ -73,7 +74,6 @@ class ServerResources extends React.Component<
 	componentDidMount() {
 		clearInterval(timerID);
 		timerID = setInterval(() => {
-			console.log(this.props);
 			this.setState({ cpuLogs: cpuParser(this.props.cpuLogs) });
 			this.setState({ memoryLogs: memoryParser(this.props.memoryLogs) });
 			this.setState({
@@ -109,6 +109,7 @@ class ServerResources extends React.Component<
 							<ChartHeader>
 								<h3>CPU Load, %</h3>
 								<ChartTimeRange>
+									<UpdateTimer></UpdateTimer>
 									<Timer size="24px" /> last 10 minutes
 								</ChartTimeRange>
 							</ChartHeader>

@@ -1,11 +1,11 @@
-import api from 'src/services/adapter';
+import api from 'src/services/logsAdapter';
 
 export default {
-	resoucesAverages: (companyId: string) => {
+	resoucesAverages: (headers: any) => {
 		return api.makeRequest(
-			`/api/logs/?serverMemoryInterval=3600000?serverCpuInterval=50000`,
+			`/api/logs?serverMemoryInterval=3600000?serverCpuInterval=50000`,
 			api.requestType.GET,
-			companyId
+			{ 'headers': headers }
 		);
 	}
 };

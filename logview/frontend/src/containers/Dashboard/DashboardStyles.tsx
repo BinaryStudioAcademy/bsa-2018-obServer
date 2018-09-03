@@ -27,6 +27,7 @@ export const DashboardMain = styled.div`
 
 export const Select = UserPopup.extend`
     width: 200px;
+    width: 160px;
     position: relative;
     padding: 0;
     cursor: default;
@@ -63,11 +64,11 @@ export const Option = CommentText.extend`
 `;
 
 export const Dropdown = UserPopup.extend`
-    padding: 0 5px 20px 5px;
+    padding: 5px 20px;
     position: absolute;
     border-top-left-radius: 0px;
     border-top-right-radius: 0px;
-    width: calc(14% - 40px);
+    width: 120px;
 `;
 
 export const RowContainer = styled.div`
