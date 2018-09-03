@@ -73,6 +73,7 @@ export const Dropdown = UserPopup.extend`
 
 export const RowContainer = styled.div`
     display: flex;
+    align-items: center;
 `;
 
 export const Title = DashboardTitle.extend`

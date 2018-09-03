@@ -57,7 +57,6 @@ class UpdateTimer extends React.Component<UpdateTimerProps, UpdateTimerState> {
     render() {
         return (
             <React.Fragment>
-                <Timer size="24px" />
                 <StyledSelect popup={this.state.popup}>
                     <OptionActive onClick={this.togglePopup}>
                         {this.state.active}

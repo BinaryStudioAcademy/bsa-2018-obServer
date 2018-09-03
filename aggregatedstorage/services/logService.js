@@ -20,7 +20,7 @@ class LogService {
       logRepository.create(logMessage, (err, doc) => {
         if (!err) {
           doc.logType = logMessage.logType;
-          this.io.emit('newLog', doc);      
+          this.io.emit('newLog', doc);
         } else {
           callback(err);
         }

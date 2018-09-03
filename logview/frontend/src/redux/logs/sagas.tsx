@@ -15,11 +15,6 @@ function* fetchNewLog() {
 		const callback = yield call(logsAPI.resoucesAverages, { 'X-COMPANY-TOKEN': companyToken });
 		console.log(callback);
 
-		socket.on('newLog', (data) => {
-			console.log('FROM CALLBACK');
-			console.log(data);	
-		});
-
 		const socketChannel = yield call(createSocketChannel, socket);
 		while (true) {
 			const newLog = yield take(socketChannel);

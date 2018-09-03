@@ -29,6 +29,7 @@ module.exports = io => {
 	});
 
 	aggrStoreSocket.on('newLog', log => {
+		console.log(log);
 		io.to(log.companyId).emit('newLog', log);
 	});
 };

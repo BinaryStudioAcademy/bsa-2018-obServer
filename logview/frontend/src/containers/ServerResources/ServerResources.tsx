@@ -82,6 +82,7 @@ class ServerResources extends React.Component<
 			this.setState({
 				currentCpuLog: this.props.cpuLogs[this.props.cpuLogs.length - 1]
 			});
+			console.log(this.props);
 		}, 1000);
 	}
 

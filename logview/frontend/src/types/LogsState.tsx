@@ -1,29 +1,25 @@
 export interface CpuLogState {
 	logType: string;
-	data: {
-		cores: [
-			{
-				coreLoadPercentages: number;
-				coreName: string;
-			}
-		];
-	};
+	cores: [
+		{
+			coreLoadPercentages: number;
+			coreName: string;
+		}
+	];
+	totalLoadPercentage: number;
 	timestamp: string;
 	companyId: string;
-	totalLoadPercentages: number;
 }
-
+​
 export interface MemoryLogState {
 	companyId: string;
-	data: {
-		allMemory: number;
-		freeMemory: number;
-		freeMemoryPercentage: number;
-	};
+	allMemory: number;
+	freeMemory: number;
+	freeMemoryPercentage: number;
 	logType: string;
 	timestamp: string;
 }
-
+​
 export interface HttpStatsState {
 	logType: string;
 	timestamp: string;
