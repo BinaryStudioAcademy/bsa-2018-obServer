@@ -21,7 +21,7 @@ set -e
 echo $GCLOUD_SERVICE_KEY_STG | base64 --decode -i > ${HOME}/gcloud-service-key.json
 gcloud auth activate-service-account --key-file ${HOME}/gcloud-service-key.json
 
-gcloud compute --project $PROJECT ssh --zone $ZONE $INSTANCE --command "docker kill $(docker ps -q) && docker rm $PROJECT_NAME && docker rmi -f $DOCKER_IMAGE_NAME"
+gcloud compute --project $PROJECT ssh --zone $ZONE $INSTANCE --command "docker kill $PROJECT_NAME && docker rm $PROJECT_NAME && docker rmi -f $DOCKER_IMAGE_NAME"
 gcloud compute --project $PROJECT ssh --zone $ZONE $INSTANCE --command "docker run docker/compose:$DOCKER_COMPOSE_V version"
 gcloud compute --project $PROJECT ssh --zone $ZONE $INSTANCE --command "docker run --rm \
     -v /var/run/docker.sock:/var/run/docker.sock \
