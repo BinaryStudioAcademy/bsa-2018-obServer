@@ -24,7 +24,7 @@ RUN ls
 RUN yarn
 
 # RUN docker kill $(docker ps -q)
-RUN docker-compose up --build -d
+# RUN docker-compose up --build -d
 
 EXPOSE 8080
 
