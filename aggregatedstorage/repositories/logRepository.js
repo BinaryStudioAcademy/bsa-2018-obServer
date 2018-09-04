@@ -82,7 +82,7 @@ class LogRepository {
           });
           break;
         case logTypes.LOG_MESSAGE:
-          logMessageRepository.getByCompanyIdAndAppId(companyId, appId, (err, logs) => {
+          logMessageRepository.getByCompanyId(companyId, (err, logs) => {
             if (!err) {
               resolve(logs);
             } else {
