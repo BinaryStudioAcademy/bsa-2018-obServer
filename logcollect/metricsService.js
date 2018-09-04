@@ -41,7 +41,7 @@ module.exports = class MetricsService {
         memoryStats((memData) => {
           this.sendMetrics(MetricsService.createLogObject('MEMORY_SERVER', memData));
         });
-      }, delay);
+      }, delay); 
     }
   }
 
@@ -60,11 +60,12 @@ module.exports = class MetricsService {
         tcpPing.ping({port: appPort}, (err, data) => {
           if (err) console.log(err);
           else if (this.checkBadPing(data)) {
-            console.log(data);
+            console.log(data);            
             const notification = {
               message: `App ${appId} is down`
             }; 
             this.sendMetrics(MetricsService.createLogObject('NOTIFICATION_SERVER', notification, appId ));
+            this.stopPing(appId);
           }
         });
       }, delay);
@@ -74,6 +75,11 @@ module.exports = class MetricsService {
   checkBadPing(data) {
     const { avg, results } = data;
     return isNaN(avg) && results[0].hasOwnProperty('err') ? true : false;
+  }
+
+  stopPing(appId) {
+    clearInterval(this.timersId.ping[appId]);
+    delete this.timersId.ping[appId]; 
   }
 
   static createLogObject(logType, data, appId) {
