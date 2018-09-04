@@ -17,7 +17,6 @@ export const connect = () => {
 	socket = io(url);
 	return new Promise(resolve => {
 		socket.on('connect', () => {
-			console.log('SOCKET CONNECTED');
 			resolve(socket);
 		});
 	});
@@ -27,7 +26,6 @@ export const disconnect = () => {
 	socket = io(url);
 	return new Promise((resolve) => {
         socket.on('disconnect', () => {
-            console.log('SOCKET DISCONNECTED');
             resolve(socket);
         });
 	});
@@ -37,7 +35,6 @@ export const reconnect = () => {
 	socket = io(url);
 	return new Promise((resolve) => {
         socket.on('reconnect', () => {
-            console.log('SOCKET RECONNECTED');
             resolve(socket);
         });
 	});
@@ -77,7 +74,7 @@ const listenServerSaga = function* () {
         yield put({type: constants.CHANNEL_ON});
         const {timeout} = yield race({
             connected: call(connect),
-            timeout: delay(2000),
+            timeout: delay(1000),
         });
         if (timeout) {
             yield put({type: constants.SERVER_OFF});
