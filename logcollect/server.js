@@ -13,7 +13,7 @@ const io = require('socket.io')(server);
 const sockets = require('./sockets/sockets');
 
 const rawStorePort = process.env.RAWSTORAGE_PORT;
-const rawStoreAddress = `http://localhost:${rawStorePort}/api/logs`; // raw store address we will get from config request
+const rawStoreAddress = `http://localhost:${rawStorePort}/api`;
 const metricsService = new MetricsService(rawStoreAddress, companyToken);
 
 const baseUrl = '/api';

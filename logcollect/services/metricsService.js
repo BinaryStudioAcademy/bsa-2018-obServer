@@ -12,7 +12,7 @@ module.exports = class MetricsService {
 
   newLog(data) {
     if(this.logSettings[data.logType]) {
-      this.sendMetrics(data);
+      this.sendMetrics(data, '/logs');
     }
   }
 
@@ -24,6 +24,8 @@ module.exports = class MetricsService {
       this.logSettings[logTypes.MEMORY_APP] = settings.appsMemory;
       this.logSettings[logTypes.HTTP_STATS] = settings.appsHttp;
       this.logSettings[logTypes.LOG] = settings.appsErrorLog;
+      this.logSettings.notificationServerIsDown = settings.notificationServerIsDown;
+      this.logSettings.listeningPorts = settings.listeningPorts;
 
       this.startOrStopServerMonitoringServices();
     }
@@ -40,6 +42,13 @@ module.exports = class MetricsService {
       this.startMemoryMonitor();
     } else {
       this.stopMemoryMonitor();
+    }
+
+    if (this.logSettings.listeningPorts) {
+      this.sendMetrics(
+        { port: this.logSettings.listeningPorts, enabled: this.logSettings.notificationServerIsDown },
+        '/ping'
+      );
     }
   }
 
