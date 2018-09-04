@@ -17,6 +17,7 @@ export const Submit = styled.button`
 	color: white;
 	margin-bottom: 8px;
 	cursor: pointer;
+	margin: auto;
 
 	a {
 		display: flex;
