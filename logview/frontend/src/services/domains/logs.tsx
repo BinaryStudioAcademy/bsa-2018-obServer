@@ -9,13 +9,13 @@ export default {
 			companyId
 		);
 	},
-	getHttpStats: (companyId: string, appId: string) => {
+	getHttpStats: (companyId: string, appId: string, interval: number) => {
 		let headers = {};
 		headers['X-COMPANY-TOKEN'] = companyId;
 		headers['X-APP-ID'] = appId;
 
 		return api.makeRequest(
-			`/api/logs/?httpInterval=3600000`,
+			`/api/logs/?httpInterval=${interval}`,
 			api.requestType.GET,
 			{ headers }
 		);

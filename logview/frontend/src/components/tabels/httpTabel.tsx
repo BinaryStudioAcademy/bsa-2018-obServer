@@ -17,6 +17,7 @@ export default class HttpTabel extends React.Component<any, any> {
 			<div>
 				<ReactTable
 					data={data}
+					minRows={0}
 					columns={[
 						{
 							Header: 'Data',

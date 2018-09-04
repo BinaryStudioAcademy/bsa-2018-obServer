@@ -12,6 +12,6 @@ export interface StoreState {
 	fetchingSettingsStatus: string;
 	cpuLogs: Array<CpuLogState>;
 	memoryLogs: Array<MemoryLogState>;
-	httpStats: Array<HttpStatsState>;
+	httpStats: Array<Array<HttpStatsState>>;
 	fetchingLogsStatus: string;
 }

@@ -49,12 +49,15 @@ export interface GetNewCpuLogFail {
 
 export interface GetNewHttpStats {
 	type: constants.GET_NEW_HTTP_STATS;
+	companyId: string;
+	appId: string;
+	interval: number;
 }
 
 export interface GetNewHttpStatsSuccess {
 	type: constants.GET_NEW_HTTP_STATS_SUCCESS;
 	payload: {
-		httpStats: Array<HttpStatsState>;
+		httpStats: Array<Array<HttpStatsState>>;
 	};
 }
 
@@ -136,9 +139,15 @@ export function getNewCpuLogsFail(): GetNewCpuLogFail {
 	};
 }
 
-export function getNewHttpStats(): GetNewHttpStats {
-	console.log('action getNewHttpStats');
+export function getNewHttpStats(
+	companyId: string,
+	appId: string,
+	interval: number
+): GetNewHttpStats {
 	return {
-		type: constants.GET_NEW_HTTP_STATS
+		type: constants.GET_NEW_HTTP_STATS,
+		companyId,
+		appId,
+		interval
 	};
 }

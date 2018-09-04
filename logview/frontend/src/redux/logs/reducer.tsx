@@ -46,9 +46,9 @@ export function memoryLogsReducer(
 }
 
 export function httpStatsReducer(
-	state: Array<HttpStatsState> = defaultState.httpStats,
+	state: Array<Array<HttpStatsState>> = defaultState.httpStats,
 	action: LogAction
-): Array<HttpStatsState> {
+): Array<Array<HttpStatsState>> {
 	switch (action.type) {
 		case constants.GET_NEW_HTTP_STATS_SUCCESS:
 			return [...action.payload.httpStats];

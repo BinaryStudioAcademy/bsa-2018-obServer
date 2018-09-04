@@ -52,14 +52,14 @@ function* fetchHttpStats(action: GetNewHttpStats) {
 	try {
 		const currentHttpStats = yield call(
 			logsAPI.getHttpStats,
-			'secret-company-token',
-			'MyAppId'
+			action.companyId,
+			action.appId,
+			action.interval
 		);
-		console.log('saga fetchHttpStats', currentHttpStats);
 		yield put({
 			type: constants.GET_NEW_HTTP_STATS_SUCCESS,
 			payload: {
-				...currentHttpStats
+				httpStats: currentHttpStats.data.httpStats
 			}
 		});
 	} catch (error) {

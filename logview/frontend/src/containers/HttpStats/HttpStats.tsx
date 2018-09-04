@@ -17,7 +17,12 @@ import {
 } from './HttpStatsStyles';
 import { Timer } from 'styled-icons/material';
 import { LoaderBars } from 'src/components/loaders';
-import { countHttpParser, countRoutesParser } from 'src/services/chartParser';
+import {
+	countHttpParser,
+	countRoutesParser,
+	httpParser,
+	convertTimeRangeToInterval
+} from 'src/services/chartParser';
 
 interface HttpProps {
 	actions: { getNewHttpStats: Function };
@@ -36,7 +41,7 @@ class HttpStats extends React.Component<HttpProps, HttpState> {
 
 		this.state = {
 			timeRange: 'last 10 minutes',
-			appId: 'app1'
+			appId: 'MyAppId'
 		};
 
 		this.handleTimeRange = this.handleTimeRange.bind(this);
@@ -44,17 +49,29 @@ class HttpStats extends React.Component<HttpProps, HttpState> {
 	}
 
 	componentDidMount() {
-		this.props.actions.getNewHttpStats();
+		this.props.actions.getNewHttpStats(
+			'secret-company-token',
+			this.state.appId,
+			convertTimeRangeToInterval(this.state.timeRange)
+		);
 	}
 
 	handleTimeRange(event) {
 		this.setState({ timeRange: event.target.value });
-		this.props.actions.getNewHttpStats();
+		this.props.actions.getNewHttpStats(
+			'secret-company-token',
+			this.state.appId,
+			convertTimeRangeToInterval(event.target.value)
+		);
 	}
 
 	handleActiveApp(event) {
 		this.setState({ appId: event.target.value });
-		this.props.actions.getNewHttpStats();
+		this.props.actions.getNewHttpStats(
+			'secret-company-token',
+			event.target.value,
+			convertTimeRangeToInterval(this.state.timeRange)
+		);
 	}
 
 	render() {
@@ -64,14 +81,15 @@ class HttpStats extends React.Component<HttpProps, HttpState> {
 
 				<div>
 					<SelectChartPage onChange={this.handleActiveApp}>
-						<option value="app1">app1</option>
-						<option value="app2">app2</option>
-						<option value="app3">app4</option>
+						<option value="MyAppId">app1</option>
+						<option value="MyAppId">app2</option>
+						<option value="MyAppId">app4</option>
 					</SelectChartPage>
 					<SelectChartPage onChange={this.handleTimeRange}>
 						<option value="last 10 minutes">last 10 minutes</option>
 						<option value="last 30 minutes">last 30 minutes</option>
 						<option value="last 1 hour">last 1 hour</option>
+						<option value="last 3 hours">last 3 hours</option>
 						<option value="last 5 hours">last 5 hours</option>
 						<option value="last 12 hours">last 12 hours</option>
 						<option value="last day">last day</option>
@@ -116,7 +134,7 @@ class HttpStats extends React.Component<HttpProps, HttpState> {
 								</Chart>
 							</ChartWrapper>
 						</Grid>
-						<HttpTabel data={this.props.httpStats} />
+						<HttpTabel data={httpParser(this.props.httpStats)} />
 					</div>
 				) : (
 					<LoaderBars />

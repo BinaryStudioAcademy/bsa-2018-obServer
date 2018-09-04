@@ -5,7 +5,7 @@ export function convertToDayHourMinute(timestamp) {
 }
 
 export function convertToHourMinuteSecond(timestamp) {
-	return moment(timestamp).format('HH:mm');
+	return moment(timestamp).format('HH:mm:ss');
 }
 
 export function convertToMinuteSecond(timestamp) {
@@ -37,6 +37,7 @@ export function convertXAxisTime(timeRange) {
 		case 'last 1 hour':
 			return convertToHourMinuteSecond;
 		case 'last 5 hours':
+		case 'last 3 hours':
 			return convertToHourMinuteSecond;
 		case 'last 12 hours':
 			return convertToHourMinuteSecond;
