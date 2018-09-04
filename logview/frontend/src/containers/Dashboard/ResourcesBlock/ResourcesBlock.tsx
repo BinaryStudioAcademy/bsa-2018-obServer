@@ -6,6 +6,7 @@ import { Timer } from 'styled-icons/material';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getLogs, getNewCpuLog, getNewMemoryLog } from 'src/redux/logs/actions';
+import { startChannel, stopChannel } from 'src/redux/sockets/actions'; 
 import { CpuLogState, MemoryLogState } from 'src/types/LogsState';
 import {
 	cpuParser,
@@ -31,6 +32,8 @@ interface ServerResourcesProps {
 		getLogs: Function;
 		getNewCpuLog: Function;
 		getNewMemoryLog: Function;
+		startChannel: Function;
+		stopChannel: Function;
 	};
 	memoryLogs: Array<MemoryLogState>;
 	cpuLogs: Array<CpuLogState>;
@@ -71,6 +74,7 @@ class ServerResources extends React.Component<
 	}
 
 	componentDidMount() {
+		this.props.actions.startChannel();
 		clearInterval(timerID);
 		timerID = setInterval(() => {
 			this.setState({ cpuLogs: cpuParser(this.props.cpuLogs) });
@@ -87,6 +91,7 @@ class ServerResources extends React.Component<
 
 	componentWillUnmount() {
 		clearInterval(timerID);
+		this.props.actions.stopChannel()
 	}
 
 	handleActive(activeApp) {
@@ -147,7 +152,7 @@ const mapStateToProps = ({ cpuLogs, memoryLogs }) => ({
 
 const mapDispatchToProps = (dispatch: any) => ({
 	actions: bindActionCreators(
-		{ getLogs, getNewCpuLog, getNewMemoryLog },
+		{ getLogs, getNewCpuLog, getNewMemoryLog, startChannel, stopChannel },
 		dispatch
 	)
 });

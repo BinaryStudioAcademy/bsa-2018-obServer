@@ -35,7 +35,7 @@ class Dashboard extends React.Component<DashboardProps, DashboardState> {
 	setActive(active) {
 		this.setState({ active });
 	}
-
+	
 	render() {
 		const { match, location } = this.props;
 		return (
