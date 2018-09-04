@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { Search as SearchIcon } from 'styled-icons/material';
 import ErrChart from 'src/components/charts/logs/ErrChart';
+import LogStatsTabel from '../../components/tabels/logStatsTabel';
+import { SelectChartPage } from '../../styles/Styles';
 
 import {
 	ChartWrapper,
@@ -44,7 +46,7 @@ interface LogsState {
 		levels: { error; warn; info; verbose; debug; silly };
 		timespan: string;
 	};
-	filteredLogs: Array<{ timestamp; level; text }>;
+	filteredLogs: Array<{ timestamp; logLevel; message }>;
 	errStats: Array<{ timestamp; errors }>;
 }
 
@@ -62,7 +64,7 @@ class Logs extends React.Component<LogsProps, LogsState> {
 					debug: false,
 					silly: false
 				},
-				timespan: 'last 24 hours'
+				timespan: 'last 10 minutes'
 			},
 			filteredLogs: [],
 			errStats: [{ timestamp: Date.now(), errors: 0 }]
@@ -71,6 +73,7 @@ class Logs extends React.Component<LogsProps, LogsState> {
 		this.applyFilters = this.applyFilters.bind(this);
 		this.handleLevelsChange = this.handleLevelsChange.bind(this);
 		this.handleTimespanChange = this.handleTimespanChange.bind(this);
+		this.handleActiveApp = this.handleActiveApp.bind(this);
 	}
 
 	componentDidMount() {
@@ -110,6 +113,8 @@ class Logs extends React.Component<LogsProps, LogsState> {
 		this.setState(nextState);
 	}
 
+	handleActiveApp(e) {}
+
 	applyFilters(logs, filters) {
 		let filteredByDate = filterLogs(logs, filters);
 		let nextState = {};
@@ -121,6 +126,7 @@ class Logs extends React.Component<LogsProps, LogsState> {
 	}
 
 	render() {
+		console.log('Filtered: ', this.state.filteredLogs);
 		// for searchButton filtering
 		let found;
 		if (this.state.filteredLogs.length === 0) {
@@ -132,8 +138,8 @@ class Logs extends React.Component<LogsProps, LogsState> {
 				return (
 					<LogItem key={i}>
 						<LogDate>{dateString}</LogDate>
-						{LEVELS[logItem.level]}
-						<LogText>{logItem.text}</LogText>
+						{LEVELS[logItem.logLevel]}
+						<LogText>{logItem.message}</LogText>
 					</LogItem>
 				);
 			});
@@ -227,6 +233,11 @@ class Logs extends React.Component<LogsProps, LogsState> {
 
 						<option value="last 30 days">last 30 days</option>
 					</TimeSpanPicker>
+					<SelectChartPage onChange={this.handleActiveApp}>
+						<option value="app1">app1</option>
+						<option value="app2">app2</option>
+						<option value="app3">app4</option>
+					</SelectChartPage>
 
 					<SearchButton
 						onClick={e => {
@@ -237,7 +248,10 @@ class Logs extends React.Component<LogsProps, LogsState> {
 						<SearchIcon size="20px" /> Search
 					</SearchButton>
 				</LogsSearchForm>
-				<LogsList>{found}</LogsList>
+				<LogsList>
+					<LogStatsTabel data={this.state.filteredLogs} />
+					{found}
+				</LogsList>
 			</React.Fragment>
 		);
 	}

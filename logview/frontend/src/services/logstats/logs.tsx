@@ -1,7 +1,5 @@
 /**
  * Returns errStats regarding provided period
- * @param logs
- * @param timespan
  */
 export function calculateErrStats(logs, timespan) {
 	let startDateValue = defineStartDateValue(timespan);
@@ -150,7 +148,7 @@ export function filterLogs(logs, filters) {
 	};
 
 	let filteredByLevel = logs.filter(log => {
-		return filters.levels[levels[log.level]] === true;
+		return filters.levels[levels[log.logLevel]] === true;
 	});
 
 	// sorting by date
