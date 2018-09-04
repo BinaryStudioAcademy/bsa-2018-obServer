@@ -1,23 +1,16 @@
 import * as React from 'react';
-import { Route, Link, RouteComponentProps } from 'react-router-dom';
-import Quickstart from '../Quickstart/Quickstart';
-import Settings from '../Settings/Settings';
-import Logs from '../Logs/Logs';
-import LogsBlock from './Logs';
+import { Link, RouteComponentProps } from 'react-router-dom';
+import LogsBlock from './LogsBlock/Logs';
 import Profile from './Profile';
-import HttpStats from '../HttpStats/HttpStats';
-import HttpBlock from './HttpBlock';
-import SocketStats from '../SocketStats/SocketStats';
-import Company from '../Company/Company';
+import HttpBlock from './HttpBlock/HttpBlock';
 import { DashboardMain, DashboardNav, DashboardWrapper, RowContainer, CenteredContainer, Title } from './DashboardStyles';
 import {
 	Profile as UserProfile, Submit,
 } from '../../styles/Styles';
 import Select from 'src/components/Select/Select';
-import ResourcesBlock from './ResourcesBlock';
+import ResourcesBlock from './ResourcesBlock/ResourcesBlock';
 import Notifications from '../../components/Notifications/Notifications';
 import { SettingsIcon } from '../../styles/IconStyles';
-import ServerResources from '../ServerResources/ServerResources';
 import DashboardRoutes from './DashboardRoutes';
 
 interface DashboardState {
@@ -49,7 +42,7 @@ class Dashboard extends React.Component<DashboardProps, DashboardState> {
             <DashboardWrapper>
                 <DashboardNav>
                     <RowContainer>
-                        <Title>obServer</Title>
+                        <Title><Link to="/dashboard">obServer</Link></Title>
 						<CenteredContainer>
 	                        <Select onActive={false} options={['app1', 'app2', 'app3']}/>
 						</CenteredContainer>

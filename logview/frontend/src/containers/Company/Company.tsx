@@ -58,8 +58,8 @@ class Company extends React.Component<CompanyProps, CompanyState> {
 		const { companyUsers } = this.props;
 		return (
 			<CompanyUsers>
-				<FormStatusIcon onClick={this.handleForm}>
-					{!this.state.form ? <PlusCircleIcon size="40" /> : <TimesCircleIcon size="40" />}
+				<FormStatusIcon >
+					{!this.state.form ? <PlusCircleIcon size="40" onClick={this.handleForm}/> : <TimesCircleIcon size="40" onClick={this.handleForm}/>}
 				</FormStatusIcon>
 				
 				

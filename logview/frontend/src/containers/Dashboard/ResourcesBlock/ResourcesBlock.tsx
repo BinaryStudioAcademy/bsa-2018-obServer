@@ -20,8 +20,8 @@ import {
 	ChartTimeRange,
 } from 'src/containers/ServerResources/ServerResourcesStyles';
 import Select from 'src/components/Select/Select';
-import { ChartsWrapper, Title, Chart, ChartGrid } from './ResourcesBlockStyles';
-import { Submit } from '../../styles/Styles';
+import { ChartsWrapper, Title, Chart, ChartGrid, TitleSmall } from './ResourcesBlockStyles';
+import { Submit } from 'src/styles/Styles';
 import { Link } from 'react-router-dom';
 
 let timerID;
@@ -81,6 +81,7 @@ class ServerResources extends React.Component<
 			this.setState({
 				currentCpuLog: this.props.cpuLogs[this.props.cpuLogs.length - 1]
 			});
+			console.log(this.state.currentCpuLog)
 		}, 1000);
 	}
 
@@ -113,8 +114,13 @@ class ServerResources extends React.Component<
 						</Chart>
 						<ChartInfo>
 							<div>
-								{this.state.currentCpuLog.data &&
-									this.state.currentCpuLog.data.cores.map(
+								<TitleSmall>Total CPU load:</TitleSmall>
+								{this.state.currentCpuLog.totalLoadPercentages}
+							</div>
+							<div>
+								<TitleSmall>Cores CPU load:</TitleSmall>
+								{this.state.currentCpuLog.cores &&
+									this.state.currentCpuLog.cores.map(
 										(el, i) => (
 											<div key={i}>
 												{el.coreName}:{' '}
@@ -123,11 +129,6 @@ class ServerResources extends React.Component<
 										)
 									)}
 							</div>
-							<div>
-								{this.state.currentCpuLog.timestamp !== '' &&
-									this.state.currentCpuLog.timestamp}
-							</div>
-							<div>a3</div>
 						</ChartInfo>
 					</ChartWrapper>
 				</ChartGrid>

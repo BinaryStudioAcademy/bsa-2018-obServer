@@ -78,4 +78,14 @@ export const RowContainer = styled.div`
 
 export const Title = DashboardTitle.extend`
     margin: 20px;
+
+    a {
+        text-decoration: none;
+        color: #3d3d3d;
+        transition-duration: 0.3s;
+    }
+
+    a:hover {
+        color: ${colors.violet}
+    }
 `;

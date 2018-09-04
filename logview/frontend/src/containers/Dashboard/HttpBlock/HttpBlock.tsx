@@ -1,18 +1,17 @@
 import * as React from 'react';
-import HttpTabel from '../../components/tabels/httpTabel';
-import HttpRoutesBarChart from '../../components/charts/http/routesChart';
-import HttpCountChart from '../../components/charts/http/countHttpChart';
+import HttpTabel from 'src/components/tabels/httpTabel';
+import HttpRoutesBarChart from 'src/components/charts/http/routesChart';
+import HttpCountChart from 'src/components/charts/http/countHttpChart';
 import {
 	ChartHeader,
 	ChartWrapper,
 	ChartTimeRange,
-	Title,
 	Chart
 } from 'src/containers/HttpStats/HttpStatsStyles';
 import { Timer } from 'styled-icons/material';
 import { httpStats, countRoutes, countHttp } from 'src/containers/HttpStats/mockData';
-import { Grid, HttpContainer } from './HttpBlockStyles';
-import { Submit } from '../../styles/Styles';
+import { Grid, HttpContainer, Title } from './HttpBlockStyles';
+import { Submit } from 'src/styles/Styles';
 import { Link } from 'react-router-dom';
 
 interface HttpStatsProps {}

@@ -40,7 +40,7 @@ export const Chart = styled.div`
 export const ChartInfo = styled.div`
 	flex: 1;
 	display: grid;
-	grid-template-rows: repeat(3, 1fr);
+	grid-template-rows: repeat(2, 1fr);
 	margin: 10px;
 	grid-gap: 10px;
 `;
@@ -50,7 +50,6 @@ export const ChartGridTwo = styled.div`
 	grid-template-columns: 1fr 1fr;
 	grid-gap: 40px;
 	${media.desktop`grid-template-columns: 1fr;`};
-	margin: 20px -20px;
 `;
 
 export const SelectChartPage = styled.select`
