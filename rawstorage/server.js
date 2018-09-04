@@ -3,6 +3,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const logService = require('./services/logService');
 const sendHelper = require('./utils/apiRequest');
+const Ping = require('./utils/ping');
 
 const app = express();
 const port = process.env.RAWSTORAGE_PORT;
@@ -23,6 +24,12 @@ app.post(`${baseUrl}/logs`, (req, res) => {
       res.status(400).end();
     }
   });
+});
+
+app.post(`${baseUrl}/ping`, (req, res) => {
+  const { port } = req.body;
+  const ping = new Ping(port);
+  ping.startPing();
 });
 
 app.listen(port, () => {
