@@ -1,16 +1,16 @@
-import { put, call, take, race, all, takeLatest } from 'redux-saga/effects';
-import { connect, createSocketChannel } from 'src/services/websockets/logs';
+import { put, call, take, race, all, takeLatest, cancelled } from 'redux-saga/effects';
+import { connect, createSocketChannel, disconnect } from 'src/services/websockets/logs';
 import * as constants from 'src/redux/logs/constants';
 import { GetNewHttpStats, getNewHttpStats } from './actions';
 import { logsAPI } from '../../services';
+let socket;
 
-function* fetchNewLog() {
+/*function* fetchNewLog() {
 	try {
 		const companyToken = 'secret-company-token';
-		const socket = yield call(connect);
+		socket = yield call(connect);
 
 		socket.emit('getLogs', companyToken);
-		socket.emit('test', 'lolz');
 
 		const callback = yield call(logsAPI.resoucesAverages, { 'X-COMPANY-TOKEN': companyToken });
 		console.log(callback);
@@ -18,7 +18,7 @@ function* fetchNewLog() {
 		const socketChannel = yield call(createSocketChannel, socket);
 		while (true) {
 			const newLog = yield take(socketChannel);
-			delete newLog.app;
+			delete newLog.app; //temporary
 			const newLogArr = [newLog];
 
 			switch (newLog.logType) {
@@ -44,9 +44,13 @@ function* fetchNewLog() {
 		}
 	} catch (err) {
 		console.error(err);
+	} finally {
+		if (yield cancelled()) {
+			yield call(disconnect);
+		}
 	}
 }
-
+*/
 function* fetchHttpStats(action: GetNewHttpStats) {
 	try {
 		const currentHttpStats = yield call(
@@ -71,9 +75,10 @@ function* fetchHttpStats(action: GetNewHttpStats) {
 export default function* logSaga() {
 	yield all([takeLatest(constants.GET_NEW_HTTP_STATS, fetchHttpStats)]);
 
-	while (true) {
+	/*while (true) {
 		yield race({
-			task: call(fetchNewLog)
+			task: call(fetchNewLog),
+			cancel: call(disconnect)
 		});
-	}
+	}*/
 }
