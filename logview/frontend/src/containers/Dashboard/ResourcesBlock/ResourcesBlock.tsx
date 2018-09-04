@@ -1,8 +1,8 @@
 import * as React from 'react';
-import CoresLoadLineChart from '../../components/charts/serverResources/CoresLoadLineChart';
-import PercentMemoryChart from '../../components/charts/serverResources/PercentMemoryChart';
-import MemoryUsedChart from '../../components/charts/serverResources/MemoryUsedChart';
-import { Timer, Update } from 'styled-icons/material';
+import CoresLoadLineChart from 'src/components/charts/serverResources/CoresLoadLineChart';
+import PercentMemoryChart from 'src/components/charts/serverResources/PercentMemoryChart';
+import MemoryUsedChart from 'src/components/charts/serverResources/MemoryUsedChart';
+import { Timer } from 'styled-icons/material';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getLogs, getNewCpuLog, getNewMemoryLog } from 'src/redux/logs/actions';
@@ -13,17 +13,16 @@ import {
 	memoryMbParser
 } from 'src/services/chartParser';
 import {
-	Chart,
 	ChartInfo,
 	ChartHeader,
-	ChartGrid,
 	ChartWrapper,
 	ChartsPageWrapper,
 	ChartTimeRange,
-	Title
-} from './ServerResourcesStyles';
+} from 'src/containers/ServerResources/ServerResourcesStyles';
 import Select from 'src/components/Select/Select';
-import UpdateTimer from '../../components/UpdateTimer/UpdateTimer';
+import { ChartsWrapper, Title, Chart, ChartGrid, TitleSmall } from './ResourcesBlockStyles';
+import { Submit } from 'src/styles/Styles';
+import { Link } from 'react-router-dom';
 
 let timerID;
 
@@ -82,6 +81,7 @@ class ServerResources extends React.Component<
 			this.setState({
 				currentCpuLog: this.props.cpuLogs[this.props.cpuLogs.length - 1]
 			});
+			console.log(this.state.currentCpuLog)
 		}, 1000);
 	}
 
@@ -95,13 +95,8 @@ class ServerResources extends React.Component<
 
 	render() {
 		return (
-			<ChartsPageWrapper>
+			<ChartsWrapper>
 				<Title>Server Resources</Title>
-
-				<Select
-					onActive={this.handleActive}
-					options={['app1', 'app2', 'app3']}
-				/>
 
 				<ChartGrid>
 					<ChartWrapper>
@@ -109,7 +104,6 @@ class ServerResources extends React.Component<
 							<ChartHeader>
 								<h3>CPU Load, %</h3>
 								<ChartTimeRange>
-									<UpdateTimer></UpdateTimer>
 									<Timer size="24px" /> last 10 minutes
 								</ChartTimeRange>
 							</ChartHeader>
@@ -120,8 +114,13 @@ class ServerResources extends React.Component<
 						</Chart>
 						<ChartInfo>
 							<div>
-								{this.state.currentCpuLog.data &&
-									this.state.currentCpuLog.data.cores.map(
+								<TitleSmall>Total CPU load:</TitleSmall>
+								{this.state.currentCpuLog.totalLoadPercentages}
+							</div>
+							<div>
+								<TitleSmall>Cores CPU load:</TitleSmall>
+								{this.state.currentCpuLog.cores &&
+									this.state.currentCpuLog.cores.map(
 										(el, i) => (
 											<div key={i}>
 												{el.coreName}:{' '}
@@ -130,53 +129,13 @@ class ServerResources extends React.Component<
 										)
 									)}
 							</div>
-							<div>
-								{this.state.currentCpuLog.timestamp !== '' &&
-									this.state.currentCpuLog.timestamp}
-							</div>
-							<div>a3</div>
-						</ChartInfo>
-					</ChartWrapper>
-					<ChartWrapper>
-						<Chart>
-							<ChartHeader>
-								<h3>Memory Load, %</h3>
-								<ChartTimeRange>
-									<Timer size="24px" /> last hour
-								</ChartTimeRange>
-							</ChartHeader>
-							<PercentMemoryChart
-								data={this.state.memoryLogs}
-								timeRange="last hour"
-							/>
-						</Chart>
-						<ChartInfo>
-							<div>a1</div>
-							<div>a2</div>
-							<div>a3</div>
-						</ChartInfo>
-					</ChartWrapper>
-					<ChartWrapper>
-						<Chart>
-							<ChartHeader>
-								<h3>Used Memory, MB</h3>
-								<ChartTimeRange>
-									<Timer size="24px" /> last day
-								</ChartTimeRange>
-							</ChartHeader>
-							<MemoryUsedChart
-								data={this.state.memoryMbLogs}
-								timeRange="last day"
-							/>
-						</Chart>
-						<ChartInfo>
-							<div>a1</div>
-							<div>a2</div>
-							<div>a3</div>
 						</ChartInfo>
 					</ChartWrapper>
 				</ChartGrid>
-			</ChartsPageWrapper>
+				<Submit>
+					<Link to='/dashboard/resources'>open resources</Link>
+				</Submit>
+			</ChartsWrapper>
 		);
 	}
 }

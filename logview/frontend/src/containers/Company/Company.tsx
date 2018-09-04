@@ -1,12 +1,11 @@
 import * as React from 'react';
-import { Input, Submit, ErrorText } from '../../styles/Styles';
+import { Input, Submit, ErrorText, CompanyUsers, InviteForm, PlusCircleIcon, TimesCircleIcon, FormStatusIcon, UserItem } from './CompanyStyles';
 import { fetchCompanyUsers } from 'src/redux/company/actions';
 import { userInvite } from 'src/redux/user/actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { RouteComponentProps } from 'react-router-dom';
 import UserSingle from './UserSingle';
-import { CompanyUsers, UserItem } from '../../styles/ContainerStyles';
+import { Title } from '../../styles/Styles';
 
 interface CompanyProps {
 	actions: { userInvite: Function; fetchCompanyUsers: Function };
@@ -18,6 +17,7 @@ interface CompanyState {
 	email?: string;
 	name?: string;
 	err?: boolean;
+	form?: boolean;
 }
 
 class Company extends React.Component<CompanyProps, CompanyState> {
@@ -27,12 +27,13 @@ class Company extends React.Component<CompanyProps, CompanyState> {
 		this.state = {
 			email: '',
 			name: '',
-			err: false
+			err: false,
+			form: false
 		};
 
 		this.handleFieldChange = this.handleFieldChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
-		this.handleLogout = this.handleLogout.bind(this);
+		this.handleForm = this.handleForm.bind(this);
 	}
 
 	componentDidMount() {
@@ -49,45 +50,53 @@ class Company extends React.Component<CompanyProps, CompanyState> {
 		this.props.actions.userInvite(this.state.email, this.state.name);
 	}
 
-	handleLogout() {}
+	handleForm() {
+		this.setState({form: !this.state.form})
+	}
 
 	render() {
 		const { companyUsers } = this.props;
 		return (
-			<React.Fragment>
-				<h2>Invite user</h2>
-				<Input
-					name="email"
-					placeholder="email"
-					onChange={this.handleFieldChange}
-				/>
-				<Input
-					name="name"
-					placeholder="name"
-					onChange={this.handleFieldChange}
-				/>
-				<Submit onClick={this.handleSubmit}>
-					{this.props.fetchingUserStatus === 'success'
-						? 'Sent'
-						: 'Invite'}
-				</Submit>
-				<ErrorText>
-					{this.props.fetchingUserStatus === 'failed'
-						? 'There was an error processing your request'
-						: ''}
-				</ErrorText>
-				<CompanyUsers>
-					<UserItem>
-						<p>name</p>
-						<p>email</p>
-						<p>status</p>
-					</UserItem>
-					{companyUsers.length > 0 &&
-						companyUsers.map((companyUser: any, i) => (
+			<CompanyUsers>
+				<FormStatusIcon >
+					{!this.state.form ? <PlusCircleIcon size="40" onClick={this.handleForm}/> : <TimesCircleIcon size="40" onClick={this.handleForm}/>}
+				</FormStatusIcon>
+				
+				
+				{this.state.form &&
+					<InviteForm>
+						<Title>Invite user</Title>
+						<Input
+							name="name"
+							placeholder="name"
+							onChange={this.handleFieldChange}
+						/>
+						<Input
+							name="email"
+							placeholder="email"
+							onChange={this.handleFieldChange}
+						/>
+						<Submit onClick={this.handleSubmit}>
+							{this.props.fetchingUserStatus === 'success'
+								? 'Sent'
+								: 'Invite'}
+						</Submit>
+					</InviteForm>}
+
+				{companyUsers.length > 0 && 
+					!this.state.form &&
+					<React.Fragment>
+						<UserItem>
+							<p>name</p>
+							<p>email</p>
+							<p>status</p>
+						</UserItem>
+						{ companyUsers.map((companyUser: any, i) => (
 							<UserSingle key={i} user={companyUser} />
 						))}
-				</CompanyUsers>
-			</React.Fragment>
+					</React.Fragment>
+				}
+			</CompanyUsers>
 		);
 	}
 }

@@ -11,7 +11,8 @@ module.exports = {
 				password: await userService.encryptPassword('12345678'),
 				email: data[i].email,
 				active: true,
-				companyId: data[i].companyId
+				companyId: data[i].companyId,
+				admin: data[i].admin ? true : false
 			});
 		}
 	},
@@ -29,13 +30,15 @@ async function generateData() {
 			name: 'Boguslav Barna',
 			email: 'boguslavbarna@gmail.com',
 			companyId: academy.id,
-			userActivationToken: null
+			userActivationToken: null,
+			admin: true
 		},
 		{
 			name: 'Bogdan Koldun',
 			email: 'koldunbohdan@gmail.com',
 			companyId: academy.id,
-			userActivationToken: null
+			userActivationToken: null,
+			admin: true
 		},
 		// {
 		// 	name: 'Dmitriy Beseda',
@@ -47,25 +50,29 @@ async function generateData() {
 			name: 'Ihor Pankiv',
 			email: 'harry.pankiv@gmail.com',
 			companyId: academy.id,
-			userActivationToken: null
+			userActivationToken: null,
+			admin: true
 		},
 		{
 			name: 'Maksym Kostiuk',
 			email: 'maksim.kostyuk@binary-studio.com',
 			companyId: company.id,
-			userActivationToken: null
+			userActivationToken: null,
+			admin: true
 		},
 		{
 			name: 'Nataliia Chernomortseva',
 			email: 'natic2471@gmail.com',
 			companyId: academy.id,
-			userActivationToken: null
+			userActivationToken: null,
+			admin: true
 		},
 		{
 			name: 'Volodymyr Vorobets',
 			email: 'vvorobets@gmail.com',
 			companyId: academy.id,
-			userActivationToken: null
+			userActivationToken: null,
+			admin: true
 		},
 		{
 			name: 'Yelyzaveta Havrylenko',
@@ -83,7 +90,8 @@ async function generateData() {
 			name: 'Taras Dubyk',
 			email: 'tarass.dubyk@gmail.com',
 			companyId: academy.id,
-			userActivationToken: null
+			userActivationToken: null,
+			admin: true
 		}
 	];
 	return data;
