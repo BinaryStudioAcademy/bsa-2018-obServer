@@ -36,8 +36,9 @@ router.put(
 	isAdminMiddleware,
 	async (req, res, next) => {
 		try {
-			const data = await userService.changeUserRights(req);
-			res.data = data;
+			await userService.changeUserRights(req);
+			res.shouldNotHaveData = false;
+			res.failureStatus = 200;
 			res.err = null;
 		} catch (error) {
 			res.data = null;

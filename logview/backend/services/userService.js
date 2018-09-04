@@ -175,15 +175,12 @@ class UserService {
 
 	async changeUserRights(req) {
 		const { email, admin } = req.body;
-		const user = this.findByEmail(email);
+		const user = await this.findByEmail(email);
 		const update = {
 			admin: admin ? true : false
 		};
 		if (!(await this.update(user.id, update))) {
 			throw new Error('Problems during update');
-		} else {
-			const updatedUser = this.findById(user.id);
-			return updatedUser;
 		}
 	}
 
