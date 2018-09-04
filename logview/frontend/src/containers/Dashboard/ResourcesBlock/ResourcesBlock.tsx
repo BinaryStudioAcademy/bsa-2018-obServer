@@ -49,6 +49,7 @@ interface ServerResourcesState {
 	popup: boolean;
 	wrapperRef: any;
 	active: string;
+	initial: boolean;
 }
 
 class ServerResources extends React.Component<
@@ -67,7 +68,8 @@ class ServerResources extends React.Component<
 			currentMemoryLog: {},
 			popup: false,
 			wrapperRef: undefined,
-			active: ''
+			active: '',
+			initial: true
 		};
 
 		this.handleActive = this.handleActive.bind(this);
@@ -76,6 +78,12 @@ class ServerResources extends React.Component<
 	componentDidMount() {
 		this.props.actions.startChannel();
 		clearInterval(timerID);
+		if (this.state.initial) {
+			this.setState({ cpuLogs: cpuParser(this.props.cpuLogs) });
+			this.setState({ memoryLogs: memoryParser(this.props.memoryLogs) });
+			this.setState({ initial: false });
+		}
+
 		timerID = setInterval(() => {
 			this.setState({ cpuLogs: cpuParser(this.props.cpuLogs) });
 			this.setState({ memoryLogs: memoryParser(this.props.memoryLogs) });
