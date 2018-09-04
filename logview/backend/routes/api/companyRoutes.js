@@ -30,6 +30,25 @@ router.get(
 	apiResponse
 );
 
+router.put(
+	'/users/changerights',
+	isLoggedInMiddleware,
+	isAdminMiddleware,
+	async (req, res, next) => {
+		try {
+			const data = await userService.changeUserRights(req);
+			res.data = data;
+			res.err = null;
+		} catch (error) {
+			res.data = null;
+			res.err = error;
+		} finally {
+			next();
+		}
+	},
+	apiResponse
+);
+
 router.delete(
 	'/users',
 	isLoggedInMiddleware,
