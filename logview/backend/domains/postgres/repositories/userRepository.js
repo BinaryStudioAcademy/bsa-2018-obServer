@@ -33,7 +33,7 @@ class UserRepository {
 	}
 	findUsersOfCompany(companyId) {
 		return this.model.findAll({
-			attributes: ['name', 'email', 'active'],
+			attributes: ['name', 'email', 'active', 'admin'],
 			where: { companyId: companyId }
 		});
 	}

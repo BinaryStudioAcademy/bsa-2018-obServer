@@ -2,11 +2,16 @@ const logTypes = require('../../utils/logTypes');
 const serverMemoryAvg = require('./serverMemory');
 const serverCpuAvg = require('./serverCpu');
 const appHttpStatsAvg = require('./appHttp');
-
+const appCpuAvg = require('./appCpu');
+const appMemoryAvg = require('./appMemory');
 
 const aggregateLogs = (logs, interval, logType) => {
   if (logs.length === 0) {
     return [];
+  }
+
+  if (logDoNotNeedAggregation(logType)) {
+    return logs;
   }
 
   const slicedLogs = sliceLogsByInterval(logs, interval);
@@ -39,6 +44,10 @@ const getAvgLogs = (slicedLogs, logType) => {
       return serverCpuAvg(slicedLogs);
     case logTypes.HTTP_STATS:
       return appHttpStatsAvg(slicedLogs);
+    case logTypes.CPU_APP:
+      return appCpuAvg(slicedLogs);
+    case logTypes.MEMORY_APP:
+      return appMemoryAvg(slicedLogs);
     default:
       return [];
   }
@@ -46,11 +55,14 @@ const getAvgLogs = (slicedLogs, logType) => {
 
 const parseLogTypesFromIntervals = (intervals, appId) => {
   const appLogs = {
-    httpInterval: logTypes.HTTP_STATS 
+    httpInterval: logTypes.HTTP_STATS,
+    appCpuInterval: logTypes.CPU_APP,
+    appMemoryInterval: logTypes.MEMORY_APP
   };
   const serverLogs = {
     serverMemoryInterval: logTypes.MEMORY_SERVER,
-    serverCpuInterval: logTypes.CPU_SERVER
+    serverCpuInterval: logTypes.CPU_SERVER,
+    logMessageInterval: logTypes.LOG_MESSAGE
   }
 
   const intervalLogTypes = Object.assign({}, appLogs, serverLogs);
@@ -72,7 +84,10 @@ const parseIntervals = (intervals) => {
   const intervalLogTypes = {
     httpInterval: logTypes.HTTP_STATS,
     serverMemoryInterval: logTypes.MEMORY_SERVER,
-    serverCpuInterval: logTypes.CPU_SERVER
+    serverCpuInterval: logTypes.CPU_SERVER,
+    appCpuInterval: logTypes.CPU_APP,
+    appMemoryInterval: logTypes.MEMORY_APP,
+    logMessageInterval: logTypes.LOG_MESSAGE
   }
 
   const parsedIntervals = {};
@@ -84,6 +99,8 @@ const parseIntervals = (intervals) => {
   }
   return parsedIntervals;
 };
+
+const logDoNotNeedAggregation = logType => logType === logTypes.LOG_MESSAGE;
 
 module.exports = {
   aggregateLogs,
