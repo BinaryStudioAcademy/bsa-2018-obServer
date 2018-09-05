@@ -16,7 +16,7 @@ class Ping {
                 const notification = {
                   message: `Server on ${ipv4} is down`
                 };
-                logService.create(Ping.createLogObject('NOTIFICATION_SERVER', notification, companyId), (err) => {
+                logService.create(Ping.createLogObject('NOTIFICATION', notification, companyId), (err) => {
                   if (err) console.log(err);
                 }); 
                 this.stopPing(address);

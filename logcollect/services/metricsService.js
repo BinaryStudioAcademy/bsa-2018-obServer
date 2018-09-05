@@ -98,7 +98,6 @@ module.exports = class MetricsService {
         tcpPing.ping({port: appPort}, (err, data) => {
           if (err) console.log(err);
           else if (this.checkBadPing(data)) {
-            console.log(data);            
             const notification = {
               message: `App ${appId} is down`
             }; 
