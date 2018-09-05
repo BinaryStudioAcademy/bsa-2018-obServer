@@ -36,4 +36,4 @@ deploy:
     script: bash ./deploy.sh
     skip_cleanup: true
     on:
-      branch: raw-store
+      branch: logview
