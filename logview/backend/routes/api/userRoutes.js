@@ -229,8 +229,6 @@ router.post(
 	async (req, res, next) => {
 		try {
 			await userService.invite(req);
-			res.shouldNotHaveData = false;
-			res.failureStatus = 200;
 			res.err = null;
 		} catch (error) {
 			res.data = null;
@@ -246,9 +244,8 @@ router.get(
 	'/invite/:inviteToken',
 	async (req, res, next) => {
 		try {
-			await userService.addUserToCompany(req);
-			res.shouldNotHaveData = false;
-			res.failureStatus = 200;
+			const companyName = await userService.addUserToCompany(req);
+			res.data = { companyName };
 			res.err = null;
 		} catch (error) {
 			res.data = null;

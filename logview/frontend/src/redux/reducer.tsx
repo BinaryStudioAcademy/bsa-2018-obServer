@@ -10,6 +10,7 @@ import {
 import { userReducer, fetchingState, isLoggedInState } from './user/reducer';
 import { settingsReducer, fetchingSettingsReducer } from './settings/reducer';
 import { companyReducer } from './company/reducer';
+import { socketsReducer } from './sockets/reducer';
 
 export default combineReducers<StoreState>({
 	user: userReducer,
@@ -22,5 +23,6 @@ export default combineReducers<StoreState>({
 	httpStats: httpStatsReducer,
 	logMessages: logMessagesReducer,
 	fetchingLogsStatus: fetchingLogsReducer,
-	isLoggedIn: isLoggedInState
+	isLoggedIn: isLoggedInState,
+	sockets: socketsReducer
 });

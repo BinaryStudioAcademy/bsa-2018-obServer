@@ -1,12 +1,10 @@
 import * as React from 'react';
-import {
-	Title,
-} from '../../styles/Styles';
+import { Title } from '../../styles/Styles';
 import { LandingColumn } from '../../styles/ContainerStyles';
 
 class EmailConfirm extends React.Component {
 	render() {
-		let user = JSON.parse(sessionStorage.getItem('user'));
+		let user = JSON.parse(sessionStorage.getItem('observerUser'));
 
 		return (
 			<LandingColumn>

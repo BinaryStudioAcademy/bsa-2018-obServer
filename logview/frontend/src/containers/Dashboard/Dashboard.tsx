@@ -3,10 +3,15 @@ import { Link, RouteComponentProps } from 'react-router-dom';
 import LogsBlock from './LogsBlock/Logs';
 import Profile from './Profile';
 import HttpBlock from './HttpBlock/HttpBlock';
-import { DashboardMain, DashboardNav, DashboardWrapper, RowContainer, CenteredContainer, Title } from './DashboardStyles';
 import {
-	Profile as UserProfile, Submit,
-} from '../../styles/Styles';
+	DashboardMain,
+	DashboardNav,
+	DashboardWrapper,
+	RowContainer,
+	CenteredContainer,
+	Title
+} from './DashboardStyles';
+import { Profile as UserProfile, Submit } from '../../styles/Styles';
 import Select from 'src/components/Select/Select';
 import ResourcesBlock from './ResourcesBlock/ResourcesBlock';
 import Notifications from '../../components/Notifications/Notifications';
@@ -26,7 +31,7 @@ class Dashboard extends React.Component<DashboardProps, DashboardState> {
 		super(props);
 
 		this.state = {
-			active: '',
+			active: ''
 		};
 
 		this.setActive = this.setActive.bind(this);
@@ -39,44 +44,48 @@ class Dashboard extends React.Component<DashboardProps, DashboardState> {
 	render() {
 		const { match, location } = this.props;
 		return (
-            <DashboardWrapper>
-                <DashboardNav>
-                    <RowContainer>
-                        <Title><Link to="/dashboard">obServer</Link></Title>
-						<CenteredContainer>
-	                        <Select onActive={false} options={['app1', 'app2', 'app3']}/>
-						</CenteredContainer>
-                    </RowContainer>
+			<DashboardWrapper>
+				<DashboardNav>
 					<RowContainer>
-						<CenteredContainer>							
+						<Title>
+							<Link to="/dashboard">obServer</Link>
+						</Title>
+						<CenteredContainer>
+							<Select
+								onActive={false}
+								options={['app1', 'app2', 'app3']}
+							/>
+						</CenteredContainer>
+					</RowContainer>
+					<RowContainer>
+						<CenteredContainer>
 							<Link to="/dashboard/settings">
-								<SettingsIcon size="25"/>
+								<SettingsIcon size="25" />
 							</Link>
 						</CenteredContainer>
 						<Notifications />
 						<Profile />
 					</RowContainer>
-                </DashboardNav>
+				</DashboardNav>
 
-				<DashboardRoutes url={match.url}/>
-				
-                <DashboardMain>
-					{ location.pathname === '/dashboard' && (
+				<DashboardRoutes url={match.url} />
+
+				<DashboardMain>
+					{location.pathname === '/dashboard' && (
 						<React.Fragment>
 							<div>
 								<ResourcesBlock />
 							</div>
-							<div >
+							<div>
 								<HttpBlock />
 							</div>
-							<div >
+							<div>
 								<LogsBlock />
 							</div>
 						</React.Fragment>
 					)}
-				    
-                </DashboardMain>
-            </DashboardWrapper>
+				</DashboardMain>
+			</DashboardWrapper>
 		);
 	}
 }
