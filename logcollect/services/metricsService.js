@@ -2,16 +2,21 @@ const sendHelper = require('../utils/apiRequest');
 const logTypes = require('../utils/logTypes');
 const cpuLoad = require('../osUtils/cpu');
 const memoryStats = require('../osUtils/memory');
+const ServerMonitor = require('../osUtils/monitorServer');
+const tcpPing = require('tcp-ping');
 
 module.exports = class MetricsService {
   constructor(url, companyToken) {
-    this.timersId = {};
+    this.timersId = { ping: {} };
     this.sendMetrics = sendHelper(url, companyToken);
+    this.serverMonitor = new ServerMonitor(this.sendMetrics);
     this.logSettings = {};
   }
 
   newLog(data) {
-    if(this.logSettings[data.logType]) {
+    if (data.logType === 'PING_INIT') {
+      this.ping(data.data.pingPort, data.appId);
+    } else if (this.logSettings[data.logType]) {
       this.sendMetrics(data, '/logs');
     }
   }
@@ -57,6 +62,7 @@ module.exports = class MetricsService {
       this.timersId.cpu = setInterval(() => {
         cpuLoad((cpuData) => {
           this.newLog(MetricsService.createLogObject(logTypes.CPU_SERVER, cpuData));
+          this.serverMonitor.checkCriticalCPUValue(cpuData);
         });
       }, delay);
     }
@@ -82,11 +88,44 @@ module.exports = class MetricsService {
     delete this.timersId.memory;
   }
 
-  static createLogObject(logType, data) {
+  startServerMonitor() {
+    this.ping();
+  }
+
+  ping(appPort = 3200, appId, delay = 1000) {
+    if(!this.timersId.ping[appId]) {
+      this.timersId.ping[appId] = setInterval(() => {
+        tcpPing.ping({port: appPort}, (err, data) => {
+          if (err) console.log(err);
+          else if (this.checkBadPing(data)) {
+            console.log(data);            
+            const notification = {
+              message: `App ${appId} is down`
+            }; 
+            this.sendMetrics(MetricsService.createLogObject('NOTIFICATION_SERVER', notification, appId ));
+            this.stopPing(appId);
+          }
+        });
+      }, delay);
+    }
+  }
+
+  checkBadPing(data) {
+    const { avg, results } = data;
+    return isNaN(avg) && results[0].hasOwnProperty('err') ? true : false;
+  }
+
+  stopPing(appId) {
+    clearInterval(this.timersId.ping[appId]);
+    delete this.timersId.ping[appId]; 
+  }
+
+  static createLogObject(logType, data, appId) {
     return {
       logType: logType,
       data: data,
       timestamp: new Date(),
+      ...(appId && { appId })
     };
   }
 }
