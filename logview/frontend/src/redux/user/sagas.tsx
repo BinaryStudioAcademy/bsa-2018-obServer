@@ -159,10 +159,12 @@ function* userEmailActivation(action: UserEmailActivation) {
 
 function* userInvite(action: UserInvite) {
 	try {
-		yield call(userAPI.inviteUser, {
+		const res = yield call(userAPI.inviteUser, {
 			email: action.email,
-			name: action.name
+			name: action.name,
+			admin: action.admin
 		});
+		console.log(res);
 
 		yield put({
 			type: constants.USER_INVITE_SUCCESS
