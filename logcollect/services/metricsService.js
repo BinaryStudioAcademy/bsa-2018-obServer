@@ -102,7 +102,7 @@ module.exports = class MetricsService {
             const notification = {
               message: `App ${appId} is down`
             }; 
-            this.sendMetrics(MetricsService.createLogObject('NOTIFICATION_SERVER', notification, appId ));
+            this.sendMetrics(MetricsService.createLogObject('NOTIFICATION', notification, appId ), '/logs');
             this.stopPing(appId);
           }
         });
