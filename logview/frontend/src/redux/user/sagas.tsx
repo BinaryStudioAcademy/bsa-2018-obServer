@@ -24,7 +24,7 @@ function* userRegister(action: UserRegister) {
 			password: action.password,
 			company: action.company
 		});
-		
+
 		sessionStorage.setItem(
 			'observerUser',
 			JSON.stringify(currentUser.data)
