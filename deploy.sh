@@ -5,7 +5,7 @@ then
     export PROJECT_NAME=logview
 elif [ "$TRAVIS_BRANCH" == "raw-store" ]
 then
-    export PROJECT_NAME=raw-storage-1
+    export PROJECT_NAME=raw-storage
 elif [ "$TRAVIS_BRANCH" == "aggregated-store" ]
 then
     export PROJECT_NAME=aggregated-storage
