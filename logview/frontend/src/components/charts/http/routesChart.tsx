@@ -18,7 +18,7 @@ import {
 export default class HttpRoutesBarChart extends React.Component<any, any> {
 	render() {
 		return (
-			<ResponsiveContainer width="100%" aspect={2}>
+			<ResponsiveContainer width="100%" height="80%" aspect={2}>
 				<BarChart
 					data={this.props.data}
 					margin={{ top: 20, right: 40, left: 15, bottom: 20 }}

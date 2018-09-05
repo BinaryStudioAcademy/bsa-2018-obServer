@@ -1,9 +1,15 @@
 import { combineReducers } from 'redux';
 import { StoreState } from '../types/StoreState';
-import { cpuLogsReducer, memoryLogsReducer } from 'src/redux/logs/reducer';
+import {
+	cpuLogsReducer,
+	memoryLogsReducer,
+	httpStatsReducer,
+	fetchingLogsReducer
+} from './logs/reducer';
 import { userReducer, fetchingState, isLoggedInState } from './user/reducer';
 import { settingsReducer, fetchingSettingsReducer } from './settings/reducer';
 import { companyReducer } from './company/reducer';
+import { socketsReducer } from './sockets/reducer';
 
 export default combineReducers<StoreState>({
 	user: userReducer,
@@ -13,5 +19,8 @@ export default combineReducers<StoreState>({
 	fetchingUserStatus: fetchingState,
 	cpuLogs: cpuLogsReducer,
 	memoryLogs: memoryLogsReducer,
-	isLoggedIn: isLoggedInState
+	httpStats: httpStatsReducer,
+	fetchingLogsStatus: fetchingLogsReducer,
+	isLoggedIn: isLoggedInState,
+	sockets: socketsReducer
 });

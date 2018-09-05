@@ -3,23 +3,38 @@ export function cpuParser(cpuLogs) {
 	cpuLogs.forEach((log, index) => {
 		if (index > 0) {
 			let obj = {};
-			log.data.cores.forEach(core => {
+			log.cores.forEach(core => {
 				obj[core.coreName] = core.coreLoadPercentages;
 			});
 			obj['timestamp'] = log.timestamp;
+			obj['totalLoadPercentages'] = log.totalLoadPercenteges;
 			logs.push(obj);
 		}
 	});
 	return logs;
 }
-
+​
 export function memoryParser(memoryLogs) {
 	const logs = [];
 	memoryLogs.forEach((log, index) => {
 		if (index > 0) {
 			let obj = {};
-			obj['freeMemory'] = log.data.freeMemory;
-			obj['usedMemory'] = log.data.allMemory - log.data.freeMemory;
+			obj['freeMemory'] = log.freeMemory;
+			obj['usedMemory'] = log.allMemory - log.freeMemory;
+			obj['timestamp'] = log.timestamp;
+			obj['freeMemoryPercentage'] = log.freeMemoryPercentage;
+			logs.push(obj);
+		}
+	});
+	return logs;
+}
+​
+export function memoryMbParser(memoryLogs) {
+	const logs = [];
+	memoryLogs.forEach((log, index) => {
+		if (index > 0) {
+			let obj = {};
+			obj['usedMemory'] = log.allMemory - log.freeMemory;
 			obj['timestamp'] = log.timestamp;
 			logs.push(obj);
 		}
@@ -27,15 +42,31 @@ export function memoryParser(memoryLogs) {
 	return logs;
 }
 
-export function memoryMbParser(memoryLogs) {
+export function countHttpParser(httpStats) {
 	const logs = [];
-	memoryLogs.forEach((log, index) => {
-		if (index > 0) {
-			let obj = {};
-			obj['usedMemory'] = log.data.allMemory - log.data.freeMemory;
-			obj['timestamp'] = log.timestamp;
-			logs.push(obj);
-		}
+	httpStats.forEach(log => {
+		let obj = {};
+		obj['count'] = log.data.requestsCount;
+		obj['timestamp'] = log.timestamp;
+		logs.push(obj);
 	});
+	return logs;
+}
+
+export function countRoutesParser(httpStats) {
+	let logs = [];
+	let counts = {};
+	httpStats.forEach(log => {
+		counts[log.data.route] =
+			(log.data.requestsCount || 0) + (counts[log.data.route] || 0);
+	});
+
+	for (var route in counts) {
+		let obj = {};
+		obj['count'] = counts[route];
+		obj['route'] = route;
+		logs.push(obj);
+	}
+
 	return logs;
 }

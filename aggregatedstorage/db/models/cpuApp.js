@@ -1,6 +1,14 @@
 const mongoose = require('mongoose');
 
 const cpuApp = mongoose.Schema({
+  companyId: {
+    type: String,
+    required: true
+  },
+  appId: {
+    type: String,
+    required: true
+  },
   cpuUsagePercentages: {
     type: Number,
     required: true
@@ -11,4 +19,6 @@ const cpuApp = mongoose.Schema({
   }
 });
 
-module.exports = cpuApp;
+const CpuApp = mongoose.model('cpuApp', cpuApp);
+
+module.exports = CpuApp;

@@ -19,36 +19,30 @@ export const defaultState: StoreState = {
 		appsSoket: undefined,
 		listeningPorts: undefined
 	},
-
 	cpuLogs: [
 		{
 			logType: '',
-			data: {
-				cores: [
-					{
-						coreLoadPercentages: 0,
-						coreName: 'core0'
-					}
-				]
-			},
+			cores: [
+				{
+					coreLoadPercentages: 0,
+					coreName: 'core0'
+				}
+			],
+			totalLoadPercentage: 0,
 			timestamp: '',
-			companyToken: ''
+			companyId: ''
 		}
 	],
-
 	memoryLogs: [
 		{
 			logType: '',
-			data: {
-				allMemory: 0,
-				freeMemory: 0,
-				freeMemoryPercentage: 0
-			},
+			allMemory: 0,
+			freeMemory: 0,
+			freeMemoryPercentage: 0,
 			timestamp: '',
-			companyToken: ''
+			companyId: ''
 		}
 	],
-
 	companyUsers: [
 		{
 			name: '',
@@ -56,8 +50,25 @@ export const defaultState: StoreState = {
 			active: false
 		}
 	],
-
+	httpStats: [
+		{
+			logType: '',
+			timestamp: '',
+			data: {
+				route: '',
+				method: '',
+				responseTimeMin: 0,
+				responseTimeMax: 0,
+				responseTimeAvg: 0,
+				bodySizeRequest: 0,
+				bodySizeResponse: 0,
+				requestsCount: 0
+			}
+		}
+	],
 	fetchingUserStatus: 'unstarted',
 	fetchingSettingsStatus: 'unstarted',
-	isLoggedIn: false
+	fetchingLogsStatus: 'unstarted',
+	isLoggedIn: false,
+	sockets: undefined
 };

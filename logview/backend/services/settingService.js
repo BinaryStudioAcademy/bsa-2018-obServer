@@ -17,7 +17,6 @@ class SettingService {
 	}
 
 	update(id, newData) {
-		console.log(newData);
 		return settingRepository.update(id, newData);
 	}
 

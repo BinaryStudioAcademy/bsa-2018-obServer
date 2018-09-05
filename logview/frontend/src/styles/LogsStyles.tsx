@@ -63,8 +63,8 @@ export const Level = styled.label`
 `;
 
 export const TimeSpanPicker = styled.select`
-    width: 40%;
-    height: 40px;
+	width: 40%;
+	height: 40px;
 	border-radius: 5px;
 	color: #555;
 	font-weight: bold;
