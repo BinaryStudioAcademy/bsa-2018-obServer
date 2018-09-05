@@ -1,6 +1,6 @@
 FROM node:8.11.4
 
-RUN RUN apt-get update
+RUN apt-get update
 # Install MongoDb
 RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 9DA31620334BD75D9DCB49F368818C72E52529D4
 #For Ubuntu 14.04 (Travis Ubuntu bersion)
