@@ -25,6 +25,11 @@ function* userRegister(action: UserRegister) {
 			company: action.company
 		});
 
+		sessionStorage.setItem(
+			'observerUser',
+			JSON.stringify(currentUser.data)
+		);
+
 		yield put({
 			type: constants.USER_REGISTER_SUCCESS,
 			payload: {

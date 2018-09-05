@@ -1,6 +1,11 @@
 import * as React from 'react';
 import onClickOutside from 'react-onclickoutside';
-import { Select as StyledSelect, OptionActive, Option, Dropdown } from './SelectStyles';
+import {
+	Select as StyledSelect,
+	OptionActive,
+	Option,
+	Dropdown
+} from './SelectStyles';
 import { ArrowDropDown } from 'styled-icons/material';
 
 interface SelectState {
@@ -55,7 +60,11 @@ class Select extends React.Component<SelectProps, SelectState> {
 				</OptionActive>
 				{this.state.popup && (
 					<Dropdown popup={this.state.popup}>
-                        {this.props.options.map( (option, i) => <Option key={i} onClick={this.handleClick}><span>{option}</span></Option>)}
+						{this.props.options.map((option, i) => (
+							<Option key={i} onClick={this.handleClick}>
+								<span>{option}</span>
+							</Option>
+						))}
 					</Dropdown>
 				)}
 			</StyledSelect>
