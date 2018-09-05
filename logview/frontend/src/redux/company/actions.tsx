@@ -16,9 +16,9 @@ export interface FetchCompanyUsersSuccess {
 	};
 }
 
-
 export interface UserChangeCompany {
 	type: constants.USER_CHANGE_COMPANY;
+	id: string;
 }
 
 export interface UserChangeCompanyFail {
@@ -30,8 +30,7 @@ export interface UserChangeCompanySuccess {
 	companyName: string;
 }
 
-export interface UserChangeCompany {
-}
+export interface UserChangeCompany {}
 
 export type CompanyAction =
 	| FetchCompanyUsers
@@ -62,9 +61,10 @@ export function fetchCompanyUsersSuccess(payload: {
 	};
 }
 
-export function userChangeCompany(): UserChangeCompany {
+export function userChangeCompany(id: string): UserChangeCompany {
 	return {
-		type: constants.USER_CHANGE_COMPANY
+		type: constants.USER_CHANGE_COMPANY,
+		id
 	};
 }
 

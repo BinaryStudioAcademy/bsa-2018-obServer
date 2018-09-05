@@ -4,6 +4,6 @@ export interface CompanyState {
 	active: boolean;
 }
 
-export interface UserChangeCompany {
+export interface UserChangeCompanyState {
 	companyName: string;
 }

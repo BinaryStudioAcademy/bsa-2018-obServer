@@ -23,14 +23,13 @@ function* fetchCompanyUsers(action: FetchCompanyUsers) {
 
 function* userChagngeCompany(action: UserChangeCompany) {
 	try {
-		const companyUser = yield call(companyAPI.userChangeCompany);
-		
-		// const users = company.data;
-		console.log(action);
+		const companyUser = yield call(companyAPI.userChangeCompany, action.id);
+
+		console.log(companyUser);
 
 		yield put({
 			type: constants.USER_CHANGE_COMPANY_SUCCESS,
-			companyName: action.companyName
+			companyName: companyUser.companyName
 		});
 	} catch (error) {
 		yield put({
