@@ -244,9 +244,8 @@ router.get(
 	'/invite/:inviteToken',
 	async (req, res, next) => {
 		try {
-			await userService.addUserToCompany(req);
-			res.shouldNotHaveData = false;
-			res.successStatus = 200;
+			const companyName = await userService.addUserToCompany(req);
+			res.data = { companyName };
 			res.err = null;
 		} catch (error) {
 			res.data = null;

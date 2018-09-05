@@ -160,6 +160,7 @@ class UserService {
 			};
 			const letter = seedLetter.addToCompany(letterBody);
 			emailService.sendEmail(letter, updatedUser.email);
+			return (await companyService.findById(updatedUser.companyId)).name;
 		} else throw new Error('Problems during updating');
 	}
 
