@@ -1,11 +1,6 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import {
-	Title,
-	Submit,
-	PasswordWrapper,
-	RedirectLink
-} from '../../styles/Styles';
+import { Title, Submit, PasswordWrapper, RedirectLink } from '../../styles/Styles';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { userEmailActivation } from 'src/redux/user/actions';

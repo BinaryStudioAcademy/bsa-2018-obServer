@@ -30,8 +30,7 @@ export const defaultState: StoreState = {
 			],
 			totalLoadPercentage: 0,
 			timestamp: '',
-			companyId: '',
-			companyToken: ''
+			companyId: ''
 		}
 	],
 	memoryLogs: [
@@ -41,8 +40,7 @@ export const defaultState: StoreState = {
 			freeMemory: 0,
 			freeMemoryPercentage: 0,
 			timestamp: '',
-			companyId: '',
-			companyToken: ''
+			companyId: ''
 		}
 	],
 	companyUsers: [

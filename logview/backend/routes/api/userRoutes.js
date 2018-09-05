@@ -229,6 +229,8 @@ router.post(
 	async (req, res, next) => {
 		try {
 			await userService.invite(req);
+			res.shouldNotHaveData = false;
+			res.failureStatus = 200;
 			res.err = null;
 		} catch (error) {
 			res.data = null;
@@ -246,7 +248,7 @@ router.get(
 		try {
 			await userService.addUserToCompany(req);
 			res.shouldNotHaveData = false;
-			res.successStatus = 200;
+			res.failureStatus = 200;
 			res.err = null;
 		} catch (error) {
 			res.data = null;

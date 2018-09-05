@@ -1,27 +1,11 @@
 import * as React from 'react';
-<<<<<<< HEAD
 import { Input, Submit, ErrorText, CompanyUsers, InviteForm, PlusCircleIcon, TimesCircleIcon, FormStatusIcon, UserItem, Row, Status } from './CompanyStyles';
-=======
-import {
-	Input,
-	Submit,
-	ErrorText,
-	CompanyUsers,
-	InviteForm,
-	PlusCircleIcon,
-	TimesCircleIcon,
-	FormStatusIcon,
-	UserItem
-} from './CompanyStyles';
->>>>>>> dev
 import { fetchCompanyUsers } from 'src/redux/company/actions';
 import { userInvite } from 'src/redux/user/actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import UserSingle from './UserSingle';
 import { Title } from '../../styles/Styles';
-import { UserTie as AdminIcon, User as UserIcon } from 'styled-icons/fa-solid';
-import { RowContainer } from '../Dashboard/DashboardStyles';
 import { IconContainer } from './UserSingleStyles';
 import SettingCheckBox from '../../components/settings/SettingCheckBox';
 
@@ -77,11 +61,7 @@ class Company extends React.Component<CompanyProps, CompanyState> {
 	}
 
 	handleForm() {
-<<<<<<< HEAD
-		this.setState({ form: !this.state.form })
-=======
 		this.setState({ form: !this.state.form });
->>>>>>> dev
 	}
 
 	render() {
@@ -89,7 +69,6 @@ class Company extends React.Component<CompanyProps, CompanyState> {
 		const user = JSON.parse(sessionStorage.getItem('observerUser'));
 		return (
 			<CompanyUsers>
-<<<<<<< HEAD
 				<Row>
 					<Title>
 						{user.companyName}
@@ -100,17 +79,6 @@ class Company extends React.Component<CompanyProps, CompanyState> {
 				</Row>
 				
 				{this.state.form &&
-=======
-				<FormStatusIcon>
-					{!this.state.form ? (
-						<PlusCircleIcon size="40" onClick={this.handleForm} />
-					) : (
-						<TimesCircleIcon size="40" onClick={this.handleForm} />
-					)}
-				</FormStatusIcon>
-
-				{this.state.form && (
->>>>>>> dev
 					<InviteForm>
 						<Title>Invite user</Title>
 						<Input
@@ -136,7 +104,6 @@ class Company extends React.Component<CompanyProps, CompanyState> {
 								? 'Sent'
 								: 'Invite'}
 						</Submit>
-<<<<<<< HEAD
 					</InviteForm>}
 
 				{companyUsers.length > 0 && 
@@ -153,24 +120,6 @@ class Company extends React.Component<CompanyProps, CompanyState> {
 						))}
 					</React.Fragment>
 				}
-=======
-					</InviteForm>
-				)}
-
-				{companyUsers.length > 0 &&
-					!this.state.form && (
-						<React.Fragment>
-							<UserItem>
-								<p>name</p>
-								<p>email</p>
-								<p>status</p>
-							</UserItem>
-							{companyUsers.map((companyUser: any, i) => (
-								<UserSingle key={i} user={companyUser} />
-							))}
-						</React.Fragment>
-					)}
->>>>>>> dev
 			</CompanyUsers>
 		);
 	}

@@ -2,23 +2,9 @@ import * as React from 'react';
 import { Timer } from 'styled-icons/material';
 import Select from '../Select/Select';
 import onClickOutside from 'react-onclickoutside';
-import {
-	Select as StyledSelect,
-	OptionActive,
-	Option,
-	Dropdown
-} from '../Select/SelectStyles';
+import { Select as StyledSelect, OptionActive, Option, Dropdown } from '../Select/SelectStyles';
 import { ArrowDropDown } from 'styled-icons/material';
-const options = [
-	'last 10 minutes',
-	'last 30 minutes',
-	'last 1 hour',
-	'last 5 hours',
-	'last 12 hours',
-	'last day',
-	'last week',
-	'last month'
-];
+const options = ['last 10 minutes', 'last 30 minutes', 'last 1 hour', 'last 5 hours', 'last 12 hours', 'last day', 'last week', 'last month'];
 
 interface UpdateTimerState {
 	popup: boolean;
@@ -32,7 +18,7 @@ interface UpdateTimerProps {
 }
 
 class UpdateTimer extends React.Component<UpdateTimerProps, UpdateTimerState> {
-	constructor(props: any) {
+    constructor(props: any) {
 		super(props);
 
 		this.state = {
@@ -63,31 +49,27 @@ class UpdateTimer extends React.Component<UpdateTimerProps, UpdateTimerState> {
 		this.setState({ popup: !this.state.popup });
 	}
 
-	handleActive(data) {
-		this.setState({ active: data });
-	}
+    handleActive(data) {
+        this.setState({active: data})
+    }
 
-	render() {
-		return (
-			<React.Fragment>
-				<StyledSelect popup={this.state.popup}>
-					<OptionActive onClick={this.togglePopup}>
-						{this.state.active}
-						<ArrowDropDown size="20" />
-					</OptionActive>
-					{this.state.popup && (
-						<Dropdown popup={this.state.popup}>
-							{options.map((option, i) => (
-								<Option key={i} onClick={this.handleClick}>
-									<span>{option}</span>
-								</Option>
-							))}
-						</Dropdown>
-					)}
-				</StyledSelect>
-			</React.Fragment>
-		);
-	}
+    render() {
+        return (
+            <React.Fragment>
+                <StyledSelect popup={this.state.popup}>
+                    <OptionActive onClick={this.togglePopup}>
+                        {this.state.active}
+                        <ArrowDropDown size="20" />
+                    </OptionActive>
+                    {this.state.popup && (
+                        <Dropdown popup={this.state.popup}>
+                            {options.map( (option, i) => <Option key={i} onClick={this.handleClick}><span>{option}</span></Option>)}
+                        </Dropdown>
+                    )}
+                </StyledSelect>
+            </React.Fragment>
+        )
+    }
 }
 
 export default onClickOutside(UpdateTimer);

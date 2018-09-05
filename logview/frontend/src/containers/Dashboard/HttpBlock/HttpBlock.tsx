@@ -9,11 +9,7 @@ import {
 	Chart
 } from 'src/containers/HttpStats/HttpStatsStyles';
 import { Timer } from 'styled-icons/material';
-import {
-	httpStats,
-	countRoutes,
-	countHttp
-} from 'src/containers/HttpStats/mockData';
+import { httpStats, countRoutes, countHttp } from 'src/containers/HttpStats/mockData';
 import { Grid, HttpContainer, Title } from './HttpBlockStyles';
 import { Submit } from 'src/styles/Styles';
 import { Link } from 'react-router-dom';
@@ -78,7 +74,7 @@ class HttpStats extends React.Component<HttpStatsProps, HttpStatsState> {
 					</ChartWrapper>
 				</Grid>
 				<Submit>
-					<Link to="/dashboard/httpstats">open http stats</Link>
+					<Link to='/dashboard/httpstats'>open http stats</Link>
 				</Submit>
 			</HttpContainer>
 		);

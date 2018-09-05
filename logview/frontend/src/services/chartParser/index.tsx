@@ -13,6 +13,7 @@ export function cpuParser(cpuLogs) {
 	});
 	return logs;
 }
+​
 export function memoryParser(memoryLogs) {
 	const logs = [];
 	memoryLogs.forEach((log, index) => {
@@ -27,6 +28,7 @@ export function memoryParser(memoryLogs) {
 	});
 	return logs;
 }
+​
 export function memoryMbParser(memoryLogs) {
 	const logs = [];
 	memoryLogs.forEach((log, index) => {
