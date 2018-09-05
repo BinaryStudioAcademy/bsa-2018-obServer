@@ -1,8 +1,9 @@
 import * as React from 'react';
 import { Route, Link, RouteComponentProps, Redirect } from 'react-router-dom';
-import { UserEdit, Database } from 'styled-icons/fa-solid';
+import { UserEdit, Database, Server } from 'styled-icons/fa-solid';
 import UserSettings from './UserSettings';
 import DataSettings from './DataSettings';
+import AppsSettings from './AppsSettings';
 import {
 	SettingsMenuLink,
 	SettingsMenuWrapper
@@ -46,6 +47,16 @@ class Settings extends React.Component<
 							Data Settings
 						</Link>
 					</SettingsMenuLink>
+					<SettingsMenuLink
+						active={
+							location.pathname === '/dashboard/settings/apps'
+						}
+					>
+						<Link to={`${match.url}/apps`}>
+							<Server size="24" />
+							Apps Settings
+						</Link>
+					</SettingsMenuLink>
 				</SettingsMenuWrapper>
 				<Route
 					exact
@@ -61,6 +72,11 @@ class Settings extends React.Component<
 					exact
 					path={`${match.url}/data`}
 					component={DataSettings}
+				/>
+				<Route
+					exact
+					path={`${match.url}/apps`}
+					component={AppsSettings}
 				/>
 			</React.Fragment>
 		);
