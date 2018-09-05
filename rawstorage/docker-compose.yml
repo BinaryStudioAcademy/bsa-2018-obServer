@@ -6,6 +6,9 @@ services:
       links: 
         - raw-storage-db
   raw-storage-db:
+      env:
+        - RAW_DB_EXTERNAL_PORT 27017
+        - RAW_DB_INTERNAL_PORT 27017
       container_name: rawstore
       image: mongo
       volumes:
@@ -13,6 +16,9 @@ services:
       ports:
         - ${RAW_DB_EXTERNAL_PORT}:${RAW_DB_INTERNAL_PORT}
   rabbitmq:
+      env:
+        - RABBITMQ_EXTERNAL_PORT 5672
+        - RABBITMQ_INTERNAL_PORT 5672
       container_name: queue
       image: rabbitmq:3-management
       ports:

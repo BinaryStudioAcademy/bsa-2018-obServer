@@ -27,7 +27,7 @@ then
 elif [ "$TRAVIS_BRANCH" == "raw-store" ]
 then
     # sh /home/ubuntu/setEnv.sh
-    gcloud compute --project $PROJECT ssh --zone $ZONE $INSTANCE --command "docker-compose up --env-file /home/ubuntu/.env && docker-compose up --build app --env-file /home/ubuntu/.env"
+    gcloud compute --project $PROJECT ssh --zone $ZONE $INSTANCE --command "docker-compose up && docker-compose up --build app"
 elif [ "$TRAVIS_BRANCH" == "aggregated-store" ]
 then
     gcloud compute --project $PROJECT ssh --zone $ZONE $INSTANCE --command "docker pull $DOCKER_IMAGE_NAME && docker run -it -d -p 80:3055 --name=$PROJECT_NAME --env-file '1.env' $DOCKER_IMAGE_NAME"
