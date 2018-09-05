@@ -15,7 +15,6 @@ import {
 } from './actions';
 import { push } from 'connected-react-router';
 import * as constants from './constants';
-import { FETCH_COMPANY_USERS } from '../company/constants';
 
 function* userRegister(action: UserRegister) {
 	try {
@@ -159,20 +158,14 @@ function* userEmailActivation(action: UserEmailActivation) {
 
 function* userInvite(action: UserInvite) {
 	try {
-		const res = yield call(userAPI.inviteUser, {
+		yield call(userAPI.inviteUser, {
 			email: action.email,
-			name: action.name,
-			admin: action.admin
+			name: action.name
 		});
-		console.log(res);
 
 		yield put({
 			type: constants.USER_INVITE_SUCCESS
 		});
-
-		yield put({
-			type: FETCH_COMPANY_USERS
-		})
 	} catch (error) {
 		yield put({
 			type: constants.USER_INVITE_FAILED
