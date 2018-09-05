@@ -1,5 +1,15 @@
 import * as React from 'react';
-import { Input, Submit, ErrorText, CompanyUsers, InviteForm, PlusCircleIcon, TimesCircleIcon, FormStatusIcon, UserItem } from './CompanyStyles';
+import {
+	Input,
+	Submit,
+	ErrorText,
+	CompanyUsers,
+	InviteForm,
+	PlusCircleIcon,
+	TimesCircleIcon,
+	FormStatusIcon,
+	UserItem
+} from './CompanyStyles';
 import { fetchCompanyUsers } from 'src/redux/company/actions';
 import { userInvite } from 'src/redux/user/actions';
 import { connect } from 'react-redux';
@@ -51,19 +61,22 @@ class Company extends React.Component<CompanyProps, CompanyState> {
 	}
 
 	handleForm() {
-		this.setState({form: !this.state.form})
+		this.setState({ form: !this.state.form });
 	}
 
 	render() {
 		const { companyUsers } = this.props;
 		return (
 			<CompanyUsers>
-				<FormStatusIcon >
-					{!this.state.form ? <PlusCircleIcon size="40" onClick={this.handleForm}/> : <TimesCircleIcon size="40" onClick={this.handleForm}/>}
+				<FormStatusIcon>
+					{!this.state.form ? (
+						<PlusCircleIcon size="40" onClick={this.handleForm} />
+					) : (
+						<TimesCircleIcon size="40" onClick={this.handleForm} />
+					)}
 				</FormStatusIcon>
-				
-				
-				{this.state.form &&
+
+				{this.state.form && (
 					<InviteForm>
 						<Title>Invite user</Title>
 						<Input
@@ -81,21 +94,22 @@ class Company extends React.Component<CompanyProps, CompanyState> {
 								? 'Sent'
 								: 'Invite'}
 						</Submit>
-					</InviteForm>}
+					</InviteForm>
+				)}
 
-				{companyUsers.length > 0 && 
-					!this.state.form &&
-					<React.Fragment>
-						<UserItem>
-							<p>name</p>
-							<p>email</p>
-							<p>status</p>
-						</UserItem>
-						{ companyUsers.map((companyUser: any, i) => (
-							<UserSingle key={i} user={companyUser} />
-						))}
-					</React.Fragment>
-				}
+				{companyUsers.length > 0 &&
+					!this.state.form && (
+						<React.Fragment>
+							<UserItem>
+								<p>name</p>
+								<p>email</p>
+								<p>status</p>
+							</UserItem>
+							{companyUsers.map((companyUser: any, i) => (
+								<UserSingle key={i} user={companyUser} />
+							))}
+						</React.Fragment>
+					)}
 			</CompanyUsers>
 		);
 	}
