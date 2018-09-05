@@ -9,6 +9,8 @@ module.exports = class MetricsService {
     this.timersId = { ping: {} };
     this.sendMetrics = sendHelper(url, companyToken);
     this.serverMonitor = new ServerMonitor(this.sendMetrics);
+    this.CPULoadCriticalTime = 5000;
+    this.CPULoadCriticalValue = 90;
   }
 
   newLog(data) {
@@ -24,7 +26,7 @@ module.exports = class MetricsService {
       this.timersId.cpu = setInterval(() => {
         cpuLoad((cpuData) => {
           this.sendMetrics(MetricsService.createLogObject('CPU_SERVER', cpuData));
-          this.serverMonitor.checkCriticalCPUValue(cpuData);
+          this.serverMonitor.checkCriticalCPUValue(cpuData, this.CPULoadCriticalValue, this.CPULoadCriticalTime);
         });
       }, delay);
     }
