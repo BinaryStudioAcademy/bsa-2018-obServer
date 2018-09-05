@@ -14,4 +14,5 @@ export interface StoreState {
 	memoryLogs: Array<MemoryLogState>;
 	httpStats: Array<HttpStatsState>;
 	fetchingLogsStatus: string;
+	sockets: any;
 }

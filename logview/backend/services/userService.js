@@ -89,20 +89,22 @@ class UserService {
 	}
 
 	async inviteUserIfExist(req, user) {
-		const inviter = req.user;
-		const { admin } = req.body;
-		const data = JSON.stringify({
-			companyId: inviter.companyId,
-			admin: admin ? true : false
-		});
-		const token = await this.encryptData(data);
-		if (await this.update(user.id, { inviteToken: token })) {
-			const updatedUser = await this.findById(user.id);
-			const link = `http://${req.headers.host}/?inviteToken=${
-				updatedUser.inviteToken
-			}`;
-			this.createAndSendInviteLetter(updatedUser, inviter, link);
-		} else throw new Error('Problems during update');
+		if (user.companyId !== req.user.companyId) {
+			const inviter = req.user;
+			const { admin } = req.body;
+			const data = JSON.stringify({
+				companyId: inviter.companyId,
+				admin: admin ? true : false
+			});
+			const token = await this.encryptData(data);
+			if (await this.update(user.id, { inviteToken: token })) {
+				const updatedUser = await this.findById(user.id);
+				const link = `http://${req.headers.host}/?inviteToken=${
+					updatedUser.inviteToken
+				}`;
+				this.createAndSendInviteLetter(updatedUser, inviter, link);
+			} else throw new Error('Problems during update');
+		} else throw new Error(`${user.email} already in company`);
 	}
 
 	createAndSendInviteLetter(user, inviter, link) {
@@ -118,8 +120,8 @@ class UserService {
 	async invite(req) {
 		const { email } = req.body;
 		const user = await this.findByEmail(email.toLowerCase());
-		if (!user) this.inviteUserIfNotExist(req);
-		else this.inviteUserIfExist(req, user);
+		if (!user) await this.inviteUserIfNotExist(req);
+		else await this.inviteUserIfExist(req, user);
 	}
 
 	async activateByInvite(req) {
@@ -158,6 +160,7 @@ class UserService {
 			};
 			const letter = seedLetter.addToCompany(letterBody);
 			emailService.sendEmail(letter, updatedUser.email);
+			return (await companyService.findById(updatedUser.companyId)).name;
 		} else throw new Error('Problems during updating');
 	}
 
