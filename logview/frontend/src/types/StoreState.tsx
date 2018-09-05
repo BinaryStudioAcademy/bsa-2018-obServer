@@ -1,7 +1,7 @@
 import { CpuLogState, MemoryLogState, HttpStatsState } from './LogsState';
 import { UserState } from './UserState';
 import { SettingsState } from './SettingsState';
-import { CompanyState } from './CompanyState';
+import { CompanyState, UserChangeCompanyState } from './CompanyState';
 
 export interface StoreState {
 	user: UserState;
@@ -15,4 +15,5 @@ export interface StoreState {
 	httpStats: Array<HttpStatsState>;
 	fetchingLogsStatus: string;
 	sockets: any;
+	userChangeCompany: UserChangeCompanyState;
 }

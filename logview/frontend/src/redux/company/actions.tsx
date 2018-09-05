@@ -16,10 +16,30 @@ export interface FetchCompanyUsersSuccess {
 	};
 }
 
+
+export interface UserChangeCompany {
+	type: constants.USER_CHANGE_COMPANY;
+}
+
+export interface UserChangeCompanyFail {
+	type: constants.USER_CHANGE_COMPANY_FAILED;
+}
+
+export interface UserChangeCompanySuccess {
+	type: constants.USER_CHANGE_COMPANY_SUCCESS;
+	companyName: string;
+}
+
+export interface UserChangeCompany {
+}
+
 export type CompanyAction =
 	| FetchCompanyUsers
 	| FetchCompanyUsersFail
-	| FetchCompanyUsersSuccess;
+	| FetchCompanyUsersSuccess
+	| UserChangeCompany
+	| UserChangeCompanyFail
+	| UserChangeCompanySuccess;
 
 export function fetchCompanyUsers(): FetchCompanyUsers {
 	return {
@@ -39,5 +59,26 @@ export function fetchCompanyUsersSuccess(payload: {
 	return {
 		type: constants.FETCH_COMPANY_USERS_SUCCESS,
 		payload
+	};
+}
+
+export function userChangeCompany(): UserChangeCompany {
+	return {
+		type: constants.USER_CHANGE_COMPANY
+	};
+}
+
+export function userChangeCompanyFail(): UserChangeCompanyFail {
+	return {
+		type: constants.USER_CHANGE_COMPANY_FAILED
+	};
+}
+
+export function userChangeCompanySuccess(
+	companyName: string
+): UserChangeCompanySuccess {
+	return {
+		type: constants.USER_CHANGE_COMPANY_SUCCESS,
+		companyName
 	};
 }

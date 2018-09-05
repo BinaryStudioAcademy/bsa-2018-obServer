@@ -16,6 +16,7 @@ import 'src/styles/GlobalStyles';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import UserChangeCompany from '../containers/UserChangeCompany/UserChangeCompany';
 
 interface RouterProps {
 	actions: { userIsLogged: Function };
@@ -93,6 +94,10 @@ class Router extends React.Component<RouterProps, RouterState> {
 						path="/dashboard"
 						component={Dashboard}
 						loggedUser={this.state.loggedUser}
+					/>
+					<Route
+						path="/company-change"
+						component={UserChangeCompany}
 					/>
 					<Route path="*" component={NotFoundPage} />
 				</Switch>

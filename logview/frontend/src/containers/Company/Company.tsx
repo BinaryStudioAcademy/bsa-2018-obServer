@@ -61,7 +61,7 @@ class Company extends React.Component<CompanyProps, CompanyState> {
 	}
 
 	handleForm() {
-		this.setState({ form: !this.state.form });
+		this.setState({ form: !this.state.form })
 	}
 
 	render() {
