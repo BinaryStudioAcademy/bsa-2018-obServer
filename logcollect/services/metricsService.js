@@ -31,7 +31,7 @@ module.exports = class MetricsService {
       this.logSettings[logTypes.MEMORY_APP] = settings.appsMemory;
       this.logSettings[logTypes.HTTP_STATS] = settings.appsHttp;
       this.logSettings[logTypes.LOG] = settings.appsErrorLog;
-      this.logSettings.notificationServerIsDown = settings.notificationServerIsDown;
+      this.logSettings[logTypes.NOTIFICATION] = settings.notificationServerIsDown;
       this.logSettings.listeningPorts = settings.listeningPorts;
 
       this.startOrStopServerMonitoringServices();
@@ -52,10 +52,13 @@ module.exports = class MetricsService {
     }
 
     if (this.logSettings.listeningPorts) {
-      this.sendMetrics(
-        { port: this.logSettings.listeningPorts, enabled: this.logSettings.notificationServerIsDown },
-        '/ping'
-      );
+      setTimeout(() => { // temporary timeout, sending ping settings, need to wait for rawstorage start
+        this.sendMetrics(
+          { port: this.logSettings.listeningPorts, enabled: this.logSettings[logTypes.NOTIFICATION] },
+          '/ping'
+        );
+      }, 4000);
+      
     }
   }
 
