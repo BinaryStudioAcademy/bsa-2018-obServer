@@ -1,33 +1,34 @@
 const tcpPing = require('tcp-ping');
-const sendHelper = require('./apiRequest');
+const logService = require('../services/logService');
 
 class Ping {
-    constructor(port) {
-        this.port = port;
-        this.sendMetrics = sendHelper(url, companyToken);
+    constructor() {
         this.timersId = {};
     }
 
-    startPing (port, delay = 1000) {
-        if(!this.timersId.serverPort) {
-          this.timersId.serverPort = setInterval(() => {
-            tcpPing.ping({ port: port }, (err, data) => {
+    startPing (address, port, companyId, delay = 1000) {
+        if(!this.timersId[address]) {
+          this.timersId[address] = setInterval(() => {
+            tcpPing.ping({ address: address, port: port }, (err, data) => {
               if (err) console.log(err);
               else if (this.checkBadPing(data)) {
+                const ipv4 = address.substr(0, 7) === '::ffff:' ? address.substr(7) : address;
                 const notification = {
-                  message: `Server on ${port} is down`
-                }; 
-                this.sendMetrics(this.createLogObject('NOTIFICATION_SERVER', notification));
-                this.stopPing();
+                  message: `Server on ${ipv4} is down`
+                };
+                logService.create(Ping.createLogObject('NOTIFICATION', notification, companyId), (err) => {
+                  if (err) console.log(err);
+                }); 
+                this.stopPing(address);
               }
             });
           }, delay);
         }
     }
 
-    stopPing() {
-        clearInterval(this.timersId.serverPort);
-        delete this.timersId.serverPort;
+    stopPing(address) {
+        clearInterval(this.timersId[address]);
+        delete this.timersId[address];
     }
 
     checkBadPing(data) {
@@ -35,10 +36,11 @@ class Ping {
         return isNaN(avg) && results[0].hasOwnProperty('err') ? true : false;
     }
 
-    static createLogObject(logType, data) {
+    static createLogObject(logType, data, companyId) {
         return {
-          logType: logType,
-          data: data,
+          logType,
+          data,
+          companyToken: companyId,
           timestamp: new Date()
         };
       }

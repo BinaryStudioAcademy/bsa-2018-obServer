@@ -10,6 +10,7 @@ const port = process.env.RAWSTORAGE_PORT;
 const aggrStorePort = process.env.AGGREGATEDSTORAGE_PORT;
 const aggregatedStorageUrl = `http://localhost:${aggrStorePort}/api/logs`;
 const sendMetrics = sendHelper(aggregatedStorageUrl);
+const ping = new Ping();
 
 app.use(bodyParser.json({ limit: '5mb' }));
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -27,9 +28,17 @@ app.post(`${baseUrl}/logs`, (req, res) => {
 });
 
 app.post(`${baseUrl}/ping`, (req, res) => {
-  const { port } = req.body;
-  const ping = new Ping(port);
-  ping.startPing();
+  const companyId = req.header('X-ACCESS-TOKEN');
+  const address = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+  const { port, enabled } = req.body;
+
+  if (enabled) {
+    ping.startPing(address, port, companyId);
+  } else {
+    ping.stopPing(address);
+  }
+
+  res.sendStatus(200);
 });
 
 app.listen(port, () => {
