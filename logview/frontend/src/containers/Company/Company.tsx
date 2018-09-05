@@ -48,14 +48,16 @@ class Company extends React.Component<CompanyProps, CompanyState> {
 		e.preventDefault();
 
 		this.props.actions.userInvite(this.state.email, this.state.name);
+		this.setState({ form: !this.state.form })
 	}
 
 	handleForm() {
-		this.setState({form: !this.state.form})
+		this.setState({ form: !this.state.form })
 	}
 
 	render() {
 		const { companyUsers } = this.props;
+		console.log(this.props);
 		return (
 			<CompanyUsers>
 				<FormStatusIcon >
