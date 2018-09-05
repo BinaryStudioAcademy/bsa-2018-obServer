@@ -1,5 +1,4 @@
 FROM node:8.11.4
-FROM rabbitmq
 
 ENV APP_ROOT /app
 
@@ -9,9 +8,6 @@ WORKDIR $APP_ROOT
 COPY ./ ./
 WORKDIR $APP_ROOT
 
-RUN curl -o- -L https://yarnpkg.com/install.sh | bash
-
-WORKDIR $APP_ROOT
 
 RUN yarn
 
