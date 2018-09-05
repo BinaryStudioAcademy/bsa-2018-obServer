@@ -32,7 +32,7 @@ app.use(
 app.post(`${baseUrl}/config`, (req, res) => {
   console.log(req.body);
 
-  metricsService.startAppMonitor();
+  metricsService.startServerMonitor();
   metricsService.startCPUMonitor(3000);
   metricsService.startMemoryMonitor(3000);  
 
