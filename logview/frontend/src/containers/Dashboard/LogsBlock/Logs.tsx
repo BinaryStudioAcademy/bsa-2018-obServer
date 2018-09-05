@@ -82,7 +82,7 @@ class Logs extends React.Component<LogsProps, LogsState> {
 	}
 
 	handleActive(data) {
-		this.setState({ active: data });
+		this.setState({active: data})
 	}
 
 	handleLevelsChange(e) {
@@ -142,24 +142,14 @@ class Logs extends React.Component<LogsProps, LogsState> {
 		return (
 			<LogsContainer>
 				<LogsSearchForm>
-					<Select
-						onActive={this.handleActive}
-						options={[
-							'error',
-							'warn',
-							'info',
-							'verbose',
-							'debug',
-							'silly'
-						]}
-					/>
+					<Select onActive={this.handleActive} options={["error", "warn", "info", "verbose", "debug", "silly"]}/>
 
 					{/* <TimeSpanPicker
 						name="timespan"
 						value={this.state.filters.timespan}
 						onChange={this.handleTimespanChange}
 					> */}
-					<UpdateTimer onActive={this.handleActive} />
+					<UpdateTimer onActive={this.handleActive}/>
 					{/* </TimeSpanPicker> */}
 
 					<Submit
@@ -167,17 +157,14 @@ class Logs extends React.Component<LogsProps, LogsState> {
 							e.preventDefault();
 							this.applyFilters(LOGS, this.state.filters);
 						}}
-						style={{ margin: '0px 10px' }}
+						style={{'margin': '0px 10px'}}
 					>
-						<RowContainer>
-							<SearchIcon size="20px" />
-							<span>Search</span>
-						</RowContainer>
+						<RowContainer><SearchIcon size="20px" /><span>Search</span></RowContainer>
 					</Submit>
 				</LogsSearchForm>
 				<LogsList>{found}</LogsList>
 				<Submit>
-					<Link to="/dashboard/logs">open logs</Link>
+					<Link to='/dashboard/logs'>open logs</Link>
 				</Submit>
 			</LogsContainer>
 		);

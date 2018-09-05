@@ -1,13 +1,7 @@
 import * as React from 'react';
 import onClickOutside from 'react-onclickoutside';
 import { NotificationIcon } from '../../styles/Styles';
-import {
-	NotificationPopup,
-	Wrapper,
-	Timestamp,
-	Message,
-	Item
-} from './NotificationsStyles';
+import { NotificationPopup, Wrapper, Timestamp, Message, Item } from './NotificationsStyles';
 
 interface NotificationsState {
 	popup: boolean;
@@ -17,10 +11,7 @@ interface NotificationsProps {
 	options: Array<string>;
 }
 
-class Notifications extends React.Component<
-	NotificationsProps,
-	NotificationsState
-> {
+class Notifications extends React.Component<NotificationsProps, NotificationsState> {
 	constructor(props: any) {
 		super(props);
 
@@ -33,7 +24,9 @@ class Notifications extends React.Component<
 		this.togglePopup = this.togglePopup.bind(this);
 	}
 
-	componentDidMount() {}
+	componentDidMount() {
+
+    }
 
 	handleClickOutside(evt) {
 		this.setState({ popup: false });
@@ -49,27 +42,23 @@ class Notifications extends React.Component<
 
 	render() {
 		return (
-			<Wrapper>
-				<NotificationIcon size="25" onClick={this.handleClick} />
-				<NotificationPopup
-					unmountOnExit
-					in={this.state.popup}
-					timeout={1000}
-				>
-					<Item>
-						<Timestamp>18/08/2018, 09:48:14</Timestamp>
-						<Message>Server down</Message>
-					</Item>
-					<Item>
-						<Timestamp>21/08/2018, 15:34:54</Timestamp>
-						<Message>CPU Critically High Load</Message>
-					</Item>
-					<Item>
-						<Timestamp>20/08/2018, 20:08:14</Timestamp>
-						<Message>-> Relax, we're doing fine</Message>
-					</Item>
-				</NotificationPopup>
-			</Wrapper>
+            <Wrapper>
+			    <NotificationIcon size="25" onClick={this.handleClick}/>
+                <NotificationPopup unmountOnExit in={this.state.popup} timeout={1000}>
+                        <Item>
+                            <Timestamp>18/08/2018, 09:48:14</Timestamp>
+                            <Message>Server down</Message>
+                        </Item>
+                        <Item>
+                            <Timestamp>21/08/2018, 15:34:54</Timestamp>
+                            <Message>CPU Critically High Load</Message>
+                        </Item>
+                        <Item>
+                            <Timestamp>20/08/2018, 20:08:14</Timestamp>
+                            <Message>-> Relax, we're doing fine</Message>
+                        </Item>
+                </NotificationPopup>
+            </Wrapper>
 		);
 	}
 }

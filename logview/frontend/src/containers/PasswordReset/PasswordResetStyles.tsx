@@ -34,11 +34,11 @@ export const AnimatedComponent = transition.div`
 `;
 
 export const Input = TextInput.extend`
-	margin: 20px 0;
+    margin: 20px 0;
 `;
 
 export const Submit = SubmitButton.extend`
-	margin-bottom: 20px;
+    margin-bottom: 20px;
 `;
 
-export { CenteredContainer, Title, RedirectLink, Row };
+ export { CenteredContainer, Title, RedirectLink, Row };
