@@ -21,11 +21,14 @@ set -e
 echo $GCLOUD_SERVICE_KEY_STG | base64 --decode -i > ${HOME}/gcloud-service-key.json
 gcloud auth activate-service-account --key-file ${HOME}/gcloud-service-key.json
 
-# gcloud compute --project $PROJECT ssh --zone $ZONE $INSTANCE --command "(docker kill $PROJECT_NAME || true) && docker rm $PROJECT_NAME && docker rmi -f $DOCKER_IMAGE_NAME"
-gcloud compute --project $PROJECT ssh --zone $ZONE $INSTANCE --command "docker run docker/compose:$DOCKER_COMPOSE_V version"
-# gcloud compute --project $PROJECT ssh --zone $ZONE $INSTANCE --command "docker run --rm \
-#     -v /var/run/docker.sock:/var/run/docker.sock \
-#     -v "$PWD:/rootfs/$PWD" \
-#     -w="/rootfs/$PWD" \
-#     docker/compose:$DOCKER_COMPOSE_V up --build -d"
-gcloud compute --project $PROJECT ssh --zone $ZONE $INSTANCE --command "docker pull $DOCKER_IMAGE_NAME && docker run -it -d -p 80:3055 --name=$PROJECT_NAME --env-file '1.env' $DOCKER_IMAGE_NAME"
+if [ "$TRAVIS_BRANCH" == "logview" ]
+then
+    gcloud compute --project $PROJECT ssh --zone $ZONE $INSTANCE --command "docker pull $DOCKER_IMAGE_NAME && docker run -it -d -p 80:3055 --name=$PROJECT_NAME --env-file '1.env' $DOCKER_IMAGE_NAME"
+elif [ "$TRAVIS_BRANCH" == "raw-store" ]
+then
+    . ~/app/setEnv.sh
+    gcloud compute --project $PROJECT ssh --zone $ZONE $INSTANCE --command "docker-compose up && docker-compose up --build app"
+elif [ "$TRAVIS_BRANCH" == "aggregated-store" ]
+then
+    gcloud compute --project $PROJECT ssh --zone $ZONE $INSTANCE --command "docker pull $DOCKER_IMAGE_NAME && docker run -it -d -p 80:3055 --name=$PROJECT_NAME --env-file '1.env' $DOCKER_IMAGE_NAME"
+fi

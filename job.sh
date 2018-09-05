@@ -14,7 +14,10 @@ fi
 
 echo "PROJECT_NAME: $PROJECT_NAME"
 
-echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-docker build -t $PROJECT_NAME ./$PROJECT_NAME
-docker tag $PROJECT_NAME $DOCKER_USERNAME/$PROJECT_NAME
-docker push $DOCKER_USERNAME/$PROJECT_NAME
+if [ "$TRAVIS_BRANCH" == "logview" ]
+then
+    echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+    docker build -t $PROJECT_NAME ./$PROJECT_NAME
+    docker tag $PROJECT_NAME $DOCKER_USERNAME/$PROJECT_NAME
+    docker push $DOCKER_USERNAME/$PROJECT_NAME
+fi
