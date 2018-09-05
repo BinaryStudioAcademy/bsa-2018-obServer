@@ -41,5 +41,4 @@ export interface FetchingState {
 export interface InviteUserState {
 	email: string;
 	name: string;
-	admin: boolean;
 }
