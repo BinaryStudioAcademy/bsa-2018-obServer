@@ -27,6 +27,7 @@ then
 elif [ "$TRAVIS_BRANCH" == "raw-store" ]
 then
     # sh /home/ubuntu/setEnv.sh
+    ls
     gcloud compute --project $PROJECT ssh --zone $ZONE $INSTANCE --command "docker-compose up && docker-compose up --build app"
 elif [ "$TRAVIS_BRANCH" == "aggregated-store" ]
 then
