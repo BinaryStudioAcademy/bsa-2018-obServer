@@ -1,4 +1,7 @@
 import * as React from 'react';
+<<<<<<< HEAD
+import { Input, Submit, ErrorText, CompanyUsers, InviteForm, PlusCircleIcon, TimesCircleIcon, FormStatusIcon, UserItem, Row, Status } from './CompanyStyles';
+=======
 import {
 	Input,
 	Submit,
@@ -10,12 +13,17 @@ import {
 	FormStatusIcon,
 	UserItem
 } from './CompanyStyles';
+>>>>>>> dev
 import { fetchCompanyUsers } from 'src/redux/company/actions';
 import { userInvite } from 'src/redux/user/actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import UserSingle from './UserSingle';
 import { Title } from '../../styles/Styles';
+import { UserTie as AdminIcon, User as UserIcon } from 'styled-icons/fa-solid';
+import { RowContainer } from '../Dashboard/DashboardStyles';
+import { IconContainer } from './UserSingleStyles';
+import SettingCheckBox from '../../components/settings/SettingCheckBox';
 
 interface CompanyProps {
 	actions: { userInvite: Function; fetchCompanyUsers: Function };
@@ -28,6 +36,7 @@ interface CompanyState {
 	name?: string;
 	err?: boolean;
 	form?: boolean;
+	admin?: boolean;
 }
 
 class Company extends React.Component<CompanyProps, CompanyState> {
@@ -38,12 +47,14 @@ class Company extends React.Component<CompanyProps, CompanyState> {
 			email: '',
 			name: '',
 			err: false,
-			form: false
+			form: false,
+			admin: false
 		};
 
 		this.handleFieldChange = this.handleFieldChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.handleForm = this.handleForm.bind(this);
+		this.handleCheckbox = this.handleCheckbox.bind(this);
 	}
 
 	componentDidMount() {
@@ -54,20 +65,42 @@ class Company extends React.Component<CompanyProps, CompanyState> {
 		this.setState({ [e.target.name]: e.target.value });
 	}
 
+	handleCheckbox() {
+		this.setState({admin: !this.state.admin})
+	}
+
 	handleSubmit(e: any) {
 		e.preventDefault();
 
-		this.props.actions.userInvite(this.state.email, this.state.name);
+		this.props.actions.userInvite(this.state.email, this.state.name, this.state.admin);
+		this.setState({ form: !this.state.form })
 	}
 
 	handleForm() {
+<<<<<<< HEAD
+		this.setState({ form: !this.state.form })
+=======
 		this.setState({ form: !this.state.form });
+>>>>>>> dev
 	}
 
 	render() {
 		const { companyUsers } = this.props;
+		const user = JSON.parse(sessionStorage.getItem('observerUser'));
 		return (
 			<CompanyUsers>
+<<<<<<< HEAD
+				<Row>
+					<Title>
+						{user.companyName}
+					</Title>
+					<FormStatusIcon >
+						{!this.state.form ? <PlusCircleIcon size="40" onClick={this.handleForm}/> : <TimesCircleIcon size="40" onClick={this.handleForm}/>}
+					</FormStatusIcon>
+				</Row>
+				
+				{this.state.form &&
+=======
 				<FormStatusIcon>
 					{!this.state.form ? (
 						<PlusCircleIcon size="40" onClick={this.handleForm} />
@@ -77,6 +110,7 @@ class Company extends React.Component<CompanyProps, CompanyState> {
 				</FormStatusIcon>
 
 				{this.state.form && (
+>>>>>>> dev
 					<InviteForm>
 						<Title>Invite user</Title>
 						<Input
@@ -89,11 +123,37 @@ class Company extends React.Component<CompanyProps, CompanyState> {
 							placeholder="email"
 							onChange={this.handleFieldChange}
 						/>
+						<div>
+							<p>Admin</p>
+							<SettingCheckBox 
+								name="admin"
+								checked={this.state.admin}
+								onChange={this.handleCheckbox}
+							/>
+						</div>
 						<Submit onClick={this.handleSubmit}>
 							{this.props.fetchingUserStatus === 'success'
 								? 'Sent'
 								: 'Invite'}
 						</Submit>
+<<<<<<< HEAD
+					</InviteForm>}
+
+				{companyUsers.length > 0 && 
+					!this.state.form &&
+					<React.Fragment>
+						<UserItem>
+							<IconContainer><p>admin</p></IconContainer>
+							<p>name</p>
+							<p>email</p>
+							<Status>status</Status>
+						</UserItem>
+						{ companyUsers.map((companyUser: any, i) => (
+							<UserSingle key={i} user={companyUser} />
+						))}
+					</React.Fragment>
+				}
+=======
 					</InviteForm>
 				)}
 
@@ -110,6 +170,7 @@ class Company extends React.Component<CompanyProps, CompanyState> {
 							))}
 						</React.Fragment>
 					)}
+>>>>>>> dev
 			</CompanyUsers>
 		);
 	}

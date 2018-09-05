@@ -80,6 +80,7 @@ export interface UserInvite {
 	type: constants.USER_INVITE;
 	email: string;
 	name: string;
+	admin: boolean;
 }
 
 export interface UserInviteFail {
@@ -253,11 +254,12 @@ export function userEmailActivation(
 	};
 }
 
-export function userInvite(email: string = '', name: string = '') {
+export function userInvite(email: string = '', name: string = '', admin: boolean = false) {
 	return {
 		type: constants.USER_INVITE,
 		email,
-		name
+		name,
+		admin
 	};
 }
 
