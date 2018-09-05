@@ -72,9 +72,9 @@ class Company extends React.Component<CompanyProps, CompanyState> {
 		return (
 			<CompanyUsers>
 				<Row>
-					<h3>
+					<Title>
 						{user.companyName}
-					</h3>
+					</Title>
 					<FormStatusIcon >
 						{!this.state.form ? <PlusCircleIcon size="40" onClick={this.handleForm}/> : <TimesCircleIcon size="40" onClick={this.handleForm}/>}
 					</FormStatusIcon>
