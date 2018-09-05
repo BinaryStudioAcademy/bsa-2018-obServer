@@ -94,6 +94,15 @@ class LogRepository {
             }
           });
           break;
+        case logTypes.NOTIFICATION:
+          notificationRepository.getByCompanyId(companyId, (err, logs) => {
+            if (!err) {
+              resolve(logs);
+            } else {
+              reject(err);
+            }
+          });
+          break;
         default:
           reject(new Error('Wrong log type'));
       }
