@@ -1,5 +1,12 @@
-import { Input as CompanyInput, Submit as CompanySubmit, ErrorText } from '../../styles/Styles';
-import { UserItem as CompanyUserItem, CompanyUsers as StyledCompanyUsers } from '../../styles/ContainerStyles';
+import {
+	Input as CompanyInput,
+	Submit as CompanySubmit,
+	ErrorText
+} from '../../styles/Styles';
+import {
+	UserItem as CompanyUserItem,
+	CompanyUsers as StyledCompanyUsers
+} from '../../styles/ContainerStyles';
 import { PlusCircle, XCircle } from 'styled-icons/feather';
 import styled from 'styled-components';
 import { colors } from '../../styles/styles-utils';
@@ -7,45 +14,51 @@ import { RowContainer } from '../Dashboard/DashboardStyles';
 import SettingCheckBox from '../../components/settings/SettingCheckBox';
 
 export const Input = CompanyInput.extend`
-    width: 30%;
+	width: 30%;
 `;
 
 export const Submit = CompanySubmit.extend`
-    margin-top: 20px;
+	margin-top: 20px;
 `;
 
 export const UserItem = CompanyUserItem.extend`
+<<<<<<< HEAD
     display: grid;
     grid-template-columns: 0.8fr 1fr 1fr 1fr;
 
+=======
+	display: grid;
+	grid-template-columns: 2fr 2fr 1fr;
+>>>>>>> dev
 `;
 
 export const CompanyUsers = StyledCompanyUsers.extend`
-    align-items: unset;
-    margin: 80px;
+	align-items: unset;
+	margin: 80px;
 `;
 
 export const PlusCircleIcon = PlusCircle.extend`
-    color: ${colors.violet};
+	color: ${colors.violet};
 `;
 
 export const TimesCircleIcon = XCircle.extend`
-    color: #3d3d3d;
+	color: #3d3d3d;
 `;
 
 export const InviteForm = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 40px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 40px;
 `;
 
 export const FormStatusIcon = styled.div`
-    display: flex;
-    justify-content: flex-end;
+	display: flex;
+	justify-content: flex-end;
 `;
 
+<<<<<<< HEAD
 export const Row = RowContainer.extend`
     justify-content: space-between;
 `;
@@ -55,3 +68,6 @@ export const Status = styled.p`
 `;
 
 export { ErrorText };
+=======
+export { ErrorText };
+>>>>>>> dev

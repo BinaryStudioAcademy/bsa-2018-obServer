@@ -6,7 +6,7 @@ import { Timer, Update } from 'styled-icons/material';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getLogs, getNewCpuLog, getNewMemoryLog } from 'src/redux/logs/actions';
-import { startChannel, stopChannel } from 'src/redux/sockets/actions'; 
+import { startChannel, stopChannel } from 'src/redux/sockets/actions';
 import { CpuLogState, MemoryLogState } from 'src/types/LogsState';
 import {
 	cpuParser,
@@ -76,8 +76,7 @@ class ServerResources extends React.Component<
 		this.handleActive = this.handleActive.bind(this);
 	}
 
-	componentWillMount() {
-	}
+	componentWillMount() {}
 
 	componentDidMount() {
 		clearInterval(timerID);
@@ -87,7 +86,7 @@ class ServerResources extends React.Component<
 			this.setState({ memoryLogs: memoryParser(this.props.memoryLogs) });
 			this.setState({ initial: false });
 		}
-		
+
 		timerID = setInterval(() => {
 			this.setState({ cpuLogs: cpuParser(this.props.cpuLogs) });
 			this.setState({ memoryLogs: memoryParser(this.props.memoryLogs) });
@@ -102,7 +101,7 @@ class ServerResources extends React.Component<
 
 	componentWillUnmount() {
 		clearInterval(timerID);
-		this.props.actions.stopChannel()
+		this.props.actions.stopChannel();
 	}
 
 	handleActive(activeApp) {
@@ -125,7 +124,7 @@ class ServerResources extends React.Component<
 							<ChartHeader>
 								<h3>CPU Load, %</h3>
 								<ChartTimeRange>
-									<UpdateTimer></UpdateTimer>
+									<UpdateTimer />
 									<Timer size="24px" /> last 10 minutes
 								</ChartTimeRange>
 							</ChartHeader>

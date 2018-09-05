@@ -89,7 +89,7 @@ class UserService {
 	}
 
 	async inviteUserIfExist(req, user) {
-		if (user.companyId !== inviter.companyId) {
+		if (user.companyId !== req.user.companyId) {
 			const inviter = req.user;
 			const { admin } = req.body;
 			const data = JSON.stringify({
@@ -104,7 +104,7 @@ class UserService {
 				}`;
 				this.createAndSendInviteLetter(updatedUser, inviter, link);
 			} else throw new Error('Problems during update');
-		} else throw new Error(`${user.email} already in comany`);
+		} else throw new Error(`${user.email} already in company`);
 	}
 
 	createAndSendInviteLetter(user, inviter, link) {
@@ -120,8 +120,8 @@ class UserService {
 	async invite(req) {
 		const { email } = req.body;
 		const user = await this.findByEmail(email.toLowerCase());
-		if (!user) this.inviteUserIfNotExist(req);
-		else this.inviteUserIfExist(req, user);
+		if (!user) await this.inviteUserIfNotExist(req);
+		else await this.inviteUserIfExist(req, user);
 	}
 
 	async activateByInvite(req) {
