@@ -10,7 +10,6 @@ import {
 	Level,
 	TimeSpanPicker,
 	SearchButton,
-	LogsList,
 	LogItem,
 	LogDate,
 	ErrorLabel,
@@ -23,8 +22,14 @@ import {
 	NotFound
 } from 'src/styles/LogsStyles';
 
-import { LOGS } from './mockData';
 import { filterLogs, calculateErrStats } from 'src/services/logstats/logs';
+import { LOGS } from 'src/containers/Logs/mockData';
+import UpdateTimer from 'src/components/UpdateTimer/UpdateTimer';
+import { Submit } from 'src/styles/Styles';
+import { RowContainer } from '../DashboardStyles';
+import { LogsContainer, LogsList } from './LogsStyles';
+import Select from 'src/components/Select/Select';
+import { Link } from 'react-router-dom';
 
 const LEVELS = {
 	0: <ErrorLabel>ERROR</ErrorLabel>,
@@ -46,6 +51,7 @@ interface LogsState {
 	};
 	filteredLogs: Array<{ timestamp; level; text }>;
 	errStats: Array<{ timestamp; errors }>;
+	active: string;
 }
 
 class Logs extends React.Component<LogsProps, LogsState> {
@@ -65,25 +71,21 @@ class Logs extends React.Component<LogsProps, LogsState> {
 				timespan: 'last 24 hours'
 			},
 			filteredLogs: [],
-			errStats: [{ timestamp: Date.now(), errors: 0 }]
+			errStats: [{ timestamp: Date.now(), errors: 0 }],
+			active: ''
 		};
 
 		this.applyFilters = this.applyFilters.bind(this);
 		this.handleLevelsChange = this.handleLevelsChange.bind(this);
 		this.handleTimespanChange = this.handleTimespanChange.bind(this);
+		this.handleActive = this.handleActive.bind(this);
 	}
 
-	componentDidMount() {
-		let nextState = {
-			...this.state,
-			filteredLogs: filterLogs(LOGS, this.state.filters),
-			errStats: calculateErrStats(LOGS, 'last 24 hours')
-		};
-		this.setState(nextState);
+	handleActive(data) {
+		this.setState({active: data})
 	}
 
 	handleLevelsChange(e) {
-		//	this.setState({ timespan: e.currentTarget.value; })
 		let nextState = {
 			...this.state,
 			filters: {
@@ -98,7 +100,6 @@ class Logs extends React.Component<LogsProps, LogsState> {
 	}
 
 	handleTimespanChange(e) {
-		//	this.setState({ timespan: e.currentTarget.value; })
 		let nextState = {
 			...this.state,
 			filters: {
@@ -121,7 +122,6 @@ class Logs extends React.Component<LogsProps, LogsState> {
 	}
 
 	render() {
-		// for searchButton filtering
 		let found;
 		if (this.state.filteredLogs.length === 0) {
 			found = <NotFound>Nothing found</NotFound>;
@@ -140,98 +140,33 @@ class Logs extends React.Component<LogsProps, LogsState> {
 		}
 
 		return (
-			<React.Fragment>
-				<ChartWrapper>
-					<ChartHeader>Errors Statistics</ChartHeader>
-					<ErrChart
-						data={this.state.errStats}
-						timeRange={this.state.filters.timespan}
-					/>
-				</ChartWrapper>
+			<LogsContainer>
 				<LogsSearchForm>
-					<LevelPicker>
-						<span>Select logs' levels</span>
-						<Level>
-							<input
-								type="checkbox"
-								name="error"
-								checked={this.state.filters.levels.error}
-								onChange={this.handleLevelsChange}
-							/>
-							Error
-						</Level>
-						<Level>
-							<input
-								type="checkbox"
-								name="warn"
-								checked={this.state.filters.levels.warn}
-								onChange={this.handleLevelsChange}
-							/>
-							Warn
-						</Level>
-						<Level>
-							<input
-								type="checkbox"
-								name="info"
-								checked={this.state.filters.levels.info}
-								onChange={this.handleLevelsChange}
-							/>
-							Info
-						</Level>
-						<Level>
-							<input
-								type="checkbox"
-								name="verbose"
-								checked={this.state.filters.levels.verbose}
-								onChange={this.handleLevelsChange}
-							/>
-							Verbose
-						</Level>
-						<Level>
-							<input
-								type="checkbox"
-								name="debug"
-								checked={this.state.filters.levels.debug}
-								onChange={this.handleLevelsChange}
-							/>
-							Debug
-						</Level>
-						<Level>
-							<input
-								type="checkbox"
-								name="silly"
-								checked={this.state.filters.levels.silly}
-								onChange={this.handleLevelsChange}
-							/>
-							Silly
-						</Level>
-					</LevelPicker>
-					<TimeSpanPicker
+					<Select onActive={this.handleActive} options={["error", "warn", "info", "verbose", "debug", "silly"]}/>
+
+					{/* <TimeSpanPicker
 						name="timespan"
 						value={this.state.filters.timespan}
 						onChange={this.handleTimespanChange}
-					>
-						<option value="last 10 minutes">last 10 minutes</option>
-						<option value="last 30 minutes">last 30 minutes</option>
-						<option value="last hour">last hour</option>
-						<option value="last 5 hours">last 5 hours</option>
-						<option value="last 12 hours">last 12 hours</option>
-						<option value="last 24 hours">last 24 hours</option>
-						<option value="last week">last week</option>
-						<option value="last 30 days">last 30 days</option>
-					</TimeSpanPicker>
+					> */}
+					<UpdateTimer onActive={this.handleActive}/>
+					{/* </TimeSpanPicker> */}
 
-					<SearchButton
+					<Submit
 						onClick={e => {
 							e.preventDefault();
 							this.applyFilters(LOGS, this.state.filters);
 						}}
+						style={{'margin': '0px 10px'}}
 					>
-						<SearchIcon size="20px" /> Search
-					</SearchButton>
+						<RowContainer><SearchIcon size="20px" /><span>Search</span></RowContainer>
+					</Submit>
 				</LogsSearchForm>
 				<LogsList>{found}</LogsList>
-			</React.Fragment>
+				<Submit>
+					<Link to='/dashboard/logs'>open logs</Link>
+				</Submit>
+			</LogsContainer>
 		);
 	}
 }

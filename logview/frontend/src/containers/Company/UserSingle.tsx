@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { UserItem } from '../../styles/ContainerStyles';
+import { UserItem } from './CompanyStyles';
 
 interface UserSingleProps {
 	user: {
@@ -17,13 +17,11 @@ class UserSingle extends React.Component<UserSingleProps, {}> {
 	render() {
 		const user = this.props.user;
 		return (
-			<React.Fragment>
-				<UserItem>
-					<p>{user.name}</p>
-					<p>{user.email}</p>
-					<p>{user.active ? 'active' : 'pending'}</p>
-				</UserItem>
-			</React.Fragment>
+			<UserItem>
+				<p>{user.name}</p>
+				<p>{user.email}</p>
+				<p>{user.active ? 'active' : 'pending'}</p>
+			</UserItem>
 		);
 	}
 }

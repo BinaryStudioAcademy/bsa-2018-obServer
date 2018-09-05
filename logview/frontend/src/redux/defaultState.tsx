@@ -22,28 +22,25 @@ export const defaultState: StoreState = {
 	cpuLogs: [
 		{
 			logType: '',
-			data: {
-				cores: [
-					{
-						coreLoadPercentages: 0,
-						coreName: 'core0'
-					}
-				]
-			},
+			cores: [
+				{
+					coreLoadPercentages: 0,
+					coreName: 'core0'
+				}
+			],
+			totalLoadPercentage: 0,
 			timestamp: '',
-			companyToken: ''
+			companyId: ''
 		}
 	],
 	memoryLogs: [
 		{
 			logType: '',
-			data: {
-				allMemory: 0,
-				freeMemory: 0,
-				freeMemoryPercentage: 0
-			},
+			allMemory: 0,
+			freeMemory: 0,
+			freeMemoryPercentage: 0,
 			timestamp: '',
-			companyToken: ''
+			companyId: ''
 		}
 	],
 	companyUsers: [
@@ -72,5 +69,6 @@ export const defaultState: StoreState = {
 	fetchingUserStatus: 'unstarted',
 	fetchingSettingsStatus: 'unstarted',
 	fetchingLogsStatus: 'unstarted',
-	isLoggedIn: false
+	isLoggedIn: false,
+	sockets: undefined
 };

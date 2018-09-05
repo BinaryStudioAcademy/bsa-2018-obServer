@@ -4,12 +4,14 @@ const serverCpuAvg = require('./serverCpu');
 const appHttpStatsAvg = require('./appHttp');
 const appCpuAvg = require('./appCpu');
 const appMemoryAvg = require('./appMemory');
-const appLogs = require('./appLogMessage');
-
 
 const aggregateLogs = (logs, interval, logType) => {
   if (logs.length === 0) {
     return [];
+  }
+
+  if (logDoNotNeedAggregation(logType)) {
+    return logs;
   }
 
   const slicedLogs = sliceLogsByInterval(logs, interval);
@@ -46,8 +48,6 @@ const getAvgLogs = (slicedLogs, logType) => {
       return appCpuAvg(slicedLogs);
     case logTypes.MEMORY_APP:
       return appMemoryAvg(slicedLogs);
-    case logTypes.LOG_MESSAGE:
-      return appLogs(slicedLogs);
     default:
       return [];
   }
@@ -57,12 +57,12 @@ const parseLogTypesFromIntervals = (intervals, appId) => {
   const appLogs = {
     httpInterval: logTypes.HTTP_STATS,
     appCpuInterval: logTypes.CPU_APP,
-    appMemoryInterval: logTypes.MEMORY_APP,
-    logMessageInterval: logTypes.LOG_MESSAGE
+    appMemoryInterval: logTypes.MEMORY_APP
   };
   const serverLogs = {
     serverMemoryInterval: logTypes.MEMORY_SERVER,
-    serverCpuInterval: logTypes.CPU_SERVER
+    serverCpuInterval: logTypes.CPU_SERVER,
+    logMessageInterval: logTypes.LOG_MESSAGE
   }
 
   const intervalLogTypes = Object.assign({}, appLogs, serverLogs);
@@ -99,6 +99,8 @@ const parseIntervals = (intervals) => {
   }
   return parsedIntervals;
 };
+
+const logDoNotNeedAggregation = logType => logType === logTypes.LOG_MESSAGE;
 
 module.exports = {
   aggregateLogs,
