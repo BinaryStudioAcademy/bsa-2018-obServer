@@ -212,19 +212,12 @@ class Logs extends React.Component<LogsProps, LogsState> {
 						onChange={this.handleTimespanChange}
 					>
 						<option value="last 10 minutes">last 10 minutes</option>
-
 						<option value="last 30 minutes">last 30 minutes</option>
-
 						<option value="last hour">last hour</option>
-
 						<option value="last 5 hours">last 5 hours</option>
-
 						<option value="last 12 hours">last 12 hours</option>
-
 						<option value="last 24 hours">last 24 hours</option>
-
 						<option value="last week">last week</option>
-
 						<option value="last 30 days">last 30 days</option>
 					</TimeSpanPicker>
 

@@ -8,6 +8,12 @@ module.exports = class GeneralRepository {
   }
 
   getByCompanyId(companyId, callback) {
-    this.model.find({ companyId }, callback);
+    const recentDays = new Date();
+    recentDays.setDate(recentDays.getDate() - 30);
+    this.model.find(
+      { companyId, timestamp: { $gt: recentDays }},
+      { companyId: 0, __v: 0 },
+      callback
+    ); 
   }
 }

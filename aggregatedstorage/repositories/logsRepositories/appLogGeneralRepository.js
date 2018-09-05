@@ -6,6 +6,12 @@ module.exports = class AppLogGeneralRepository extends GeneralRepository {
   }
 
   getByCompanyIdAndAppId(companyId, appId, callback) {
-    this.model.find({ companyId, appId }, callback);    
+    const recentDays = new Date();
+    recentDays.setDate(recentDays.getDate() - 30);
+    this.model.find(
+      { companyId, appId, timestamp: { $gt: recentDays }},
+      { companyId: 0, __v: 0 },
+      callback
+    );    
   }
 }
