@@ -12,9 +12,7 @@ export default class LogStatsTabel extends React.Component<any, any> {
 		};
 	}
 	render() {
-		console.log('Tabel state: ', this.state);
 		const { data } = this.state;
-		console.log('Data: ', data, ' props: ', this.props.data);
 		return (
 			<div>
 				<ReactTable

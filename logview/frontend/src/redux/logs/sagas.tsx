@@ -1,7 +1,7 @@
 import { put, call, take, race, all, takeLatest } from 'redux-saga/effects';
 import { connect, createSocketChannel } from 'src/services/websockets/logs';
 import * as constants from 'src/redux/logs/constants';
-import { GetNewHttpStats, getNewHttpStats } from './actions';
+import { GetNewHttpStats, getNewHttpStats, GetLogMessages } from './actions';
 import { logsAPI } from '../../services';
 
 function* fetchNewLog() {
@@ -12,7 +12,9 @@ function* fetchNewLog() {
 		socket.emit('getLogs', companyToken);
 		socket.emit('test', 'lolz');
 
-		const callback = yield call(logsAPI.resoucesAverages, { 'X-COMPANY-TOKEN': companyToken });
+		const callback = yield call(logsAPI.resoucesAverages, {
+			'X-COMPANY-TOKEN': companyToken
+		});
 		console.log(callback);
 
 		const socketChannel = yield call(createSocketChannel, socket);
@@ -68,12 +70,33 @@ function* fetchHttpStats(action: GetNewHttpStats) {
 	}
 }
 
-export default function* logSaga() {
-	yield all([takeLatest(constants.GET_NEW_HTTP_STATS, fetchHttpStats)]);
-
-	while (true) {
-		yield race({
-			task: call(fetchNewLog)
+function* fetchLogMessages(action: GetLogMessages) {
+	try {
+		const res = yield call(logsAPI.getLogMessages, {
+			'X-COMPANY-TOKEN': action.companyId
+		});
+		yield put({
+			type: constants.GET_LOG_MESSAGES_SUCCESS,
+			payload: {
+				logMessages: res.data.logMessage
+			}
+		});
+	} catch (error) {
+		yield put({
+			type: constants.GET_LOG_MESSAGES_FAILED
 		});
 	}
+}
+
+export default function* logSaga() {
+	yield all([
+		takeLatest(constants.GET_NEW_HTTP_STATS, fetchHttpStats),
+		takeLatest(constants.GET_LOG_MESSAGES, fetchLogMessages)
+	]);
+
+	// while (true) {
+	// 	yield race({
+	// 		task: call(fetchNewLog)
+	// 	});
+	// }
 }

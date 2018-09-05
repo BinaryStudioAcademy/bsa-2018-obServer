@@ -6,7 +6,7 @@ export default {
 		return api.makeRequest(
 			`/api/logs?serverMemoryInterval=3600000?serverCpuInterval=50000`,
 			api.requestType.GET,
-			{ 'headers': headers }
+			{ headers: headers }
 		);
 	},
 	getHttpStats: (companyId: string, appId: string) => {
@@ -20,5 +20,12 @@ export default {
 				api.requestType.GET,
 				companyId
 			); */
+	},
+	getLogMessages: (companyId: any) => {
+		return api.makeRequest(
+			`/api/logs?logMessageInterval=36000000`,
+			api.requestType.GET,
+			{ headers: companyId }
+		);
 	}
 };

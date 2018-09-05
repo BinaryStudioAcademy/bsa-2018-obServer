@@ -30,6 +30,7 @@ export const defaultState: StoreState = {
 			],
 			totalLoadPercentage: 0,
 			timestamp: '',
+			companyToken: '',
 			companyId: ''
 		}
 	],
@@ -40,6 +41,7 @@ export const defaultState: StoreState = {
 			freeMemory: 0,
 			freeMemoryPercentage: 0,
 			timestamp: '',
+			companyToken: '',
 			companyId: ''
 		}
 	],
@@ -64,6 +66,14 @@ export const defaultState: StoreState = {
 				bodySizeResponse: 0,
 				requestsCount: 0
 			}
+		}
+	],
+	logMessages: [
+		{
+			appId: '',
+			timestamp: '',
+			logLevel: 0,
+			message: ''
 		}
 	],
 	fetchingUserStatus: 'unstarted',

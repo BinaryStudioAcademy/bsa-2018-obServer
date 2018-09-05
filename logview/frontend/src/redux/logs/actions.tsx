@@ -2,7 +2,8 @@ import * as constants from './constants';
 import {
 	CpuLogState,
 	MemoryLogState,
-	HttpStatsState
+	HttpStatsState,
+	LogMessagesState
 } from '../../types/LogsState';
 
 export interface GetLogs {
@@ -62,6 +63,22 @@ export interface GetNewHttpStatsFail {
 	type: constants.GET_NEW_HTTP_STATS_FAILED;
 }
 
+export interface GetLogMessages {
+	type: constants.GET_LOG_MESSAGES;
+	companyId: string;
+}
+
+export interface GetLogMessagesSuccess {
+	type: constants.GET_LOG_MESSAGES_SUCCESS;
+	payload: {
+		logMessages: Array<LogMessagesState>;
+	};
+}
+
+export interface GetLogMessagesFail {
+	type: constants.GET_LOG_MESSAGES_FAILED;
+}
+
 export type LogAction =
 	| GetLogs
 	| GetLogsFail
@@ -74,7 +91,10 @@ export type LogAction =
 	| GetNewCpuLogSuccess
 	| GetNewHttpStats
 	| GetNewHttpStatsFail
-	| GetNewHttpStatsSuccess;
+	| GetNewHttpStatsSuccess
+	| GetLogMessages
+	| GetLogMessagesSuccess
+	| GetLogMessagesFail;
 
 export function getLogs(): GetLogs {
 	return {
@@ -140,5 +160,29 @@ export function getNewHttpStats(): GetNewHttpStats {
 	console.log('action getNewHttpStats');
 	return {
 		type: constants.GET_NEW_HTTP_STATS
+	};
+}
+
+export function getLogMessages(
+	companyId: string = 'secret-company-token'
+): GetLogMessages {
+	return {
+		type: constants.GET_LOG_MESSAGES,
+		companyId
+	};
+}
+
+export function getLogMessagesSuccess(payload: {
+	logMessages: Array<LogMessagesState>;
+}): GetLogMessagesSuccess {
+	return {
+		type: constants.GET_LOG_MESSAGES_SUCCESS,
+		payload
+	};
+}
+
+export function getLogMessagesFail(): GetLogMessagesFail {
+	return {
+		type: constants.GET_LOG_MESSAGES_FAILED
 	};
 }

@@ -53,7 +53,7 @@ class FetchLogs extends React.Component<FetchLogsProps, FetchLogsState> {
 								<p>Log Data:</p>
 								{/* <p> message: {log.data}</p> */}
 								{/* <p> status: {log.data}</p> */}
-								<p>serverId: {log.companyToken}</p>
+								{/*<p>serverId: {log.companyToken}</p>*/}
 							</div>
 						);
 					})
@@ -69,7 +69,7 @@ class FetchLogs extends React.Component<FetchLogsProps, FetchLogsState> {
 								<p>Log Data:</p>
 								{/* <p> message: {log.data.cores[0].coreLoadPercentages}</p> */}
 								{/* <p> status: {log.data.cores[0].coreName}</p> */}
-								<p>Company Token: {log.companyToken}</p>
+								{/*<p>Company Token: {log.companyToken}</p>*/}
 							</div>
 						);
 					})
