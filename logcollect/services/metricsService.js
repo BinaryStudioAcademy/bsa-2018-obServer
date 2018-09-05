@@ -90,23 +90,28 @@ module.exports = class MetricsService {
     delete this.timersId.memory;
   }
 
-  startServerMonitor() {
+  startAppMonitor() {
     this.ping();
   }
 
-  ping(appPort = 3200, appId, delay = 1000) {
+  ping(adrress = 'localhsot', appPort = 3200, appId, delay = 1000) {
     if(!this.timersId.ping[appId]) {
       this.timersId.ping[appId] = setInterval(() => {
-        tcpPing.ping({port: appPort}, (err, data) => {
+        tcpPing.probe(adrress, appPort, (err, exist) => {
           if (err) console.log(err);
-          else if (this.checkBadPing(data)) {
-            const notification = {
-              message: `App ${appId} is down`
-            }; 
-            this.sendMetrics(MetricsService.createLogObject('NOTIFICATION', notification, appId ), '/logs');
-            this.stopPing(appId);
+          if (exist) {
+            tcpPing.ping({port: appPort}, (err, data) => {
+              if (err) console.log(err);
+              else if (this.checkBadPing(data)) {
+                const notification = {
+                  message: `App ${appId} is down`
+                }; 
+                this.sendMetrics(MetricsService.createLogObject('NOTIFICATION', notification, appId ), '/logs');
+                this.stopPing(appId);
+              }
+            });
           }
-        });
+        })
       }, delay);
     }
   }
