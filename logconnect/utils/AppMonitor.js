@@ -10,14 +10,14 @@ class AppMonitor {
         process.prependListener('uncaughtException', (data) => {
             const { message, name, stack } = data;
             const notification = {
-                message: `${this.appId} is down`,
+                message: `${this.appId} crashed`,
                 error: {
                     message,
                     name,
                     stack
                 }
             };   
-            const log = createLogObject('NOTIFICATION_APP', notification, this.appId);
+            const log = createLogObject('NOTIFICATION', notification, this.appId);
             this.sendLog(log);
         });
     }
