@@ -1,12 +1,12 @@
 /**
  * Returns errStats regarding provided period
  */
-export function calculateErrStats(logs, timespan) {
+export function calcErrStats(logs, timespan) {
 	let startDateValue = defineStartDateValue(timespan);
 	const errorLogs = logs.filter(log => {
-		return log.level === 0 && log.timestamp >= startDateValue;
+		let timestamp = new Date(log.timestamp);
+		return log.logLevel === 0 && timestamp.valueOf() >= startDateValue;
 	});
-
 	if (errorLogs.length === 0) {
 		return [{ timestamp: Date.now(), errors: 0 }];
 	}
@@ -14,79 +14,34 @@ export function calculateErrStats(logs, timespan) {
 	switch (timespan) {
 		case 'last 10 minutes':
 			// 10 chart bars
-			return calculateErrStatsByTime(
-				errorLogs,
-				startDateValue,
-				60000,
-				10
-			);
+			return calcErrStatsByTime(errorLogs, startDateValue, 60000, 10);
 		case 'last 30 minutes':
 			// 30 chart bars
-			return calculateErrStatsByTime(
-				errorLogs,
-				startDateValue,
-				60000,
-				30
-			);
+			return calcErrStatsByTime(errorLogs, startDateValue, 60000, 30);
 		case 'last hour':
 			// 12 chart bars
-			return calculateErrStatsByTime(
-				errorLogs,
-				startDateValue,
-				300000,
-				12
-			);
+			return calcErrStatsByTime(errorLogs, startDateValue, 300000, 12);
 		case 'last 5 hours':
 			// 20 chart bars
-			return calculateErrStatsByTime(
-				errorLogs,
-				startDateValue,
-				900000,
-				20
-			);
+			return calcErrStatsByTime(errorLogs, startDateValue, 900000, 20);
 		case 'last 12 hours':
 			// 12 chart bars
-			return calculateErrStatsByTime(
-				errorLogs,
-				startDateValue,
-				3600000,
-				12
-			);
+			return calcErrStatsByTime(errorLogs, startDateValue, 3600000, 12);
 		case 'last 24 hours':
 			// 24 chart bars
-			return calculateErrStatsByTime(
-				errorLogs,
-				startDateValue,
-				3600000,
-				24
-			);
+			return calcErrStatsByTime(errorLogs, startDateValue, 3600000, 24);
 		case 'last week':
 			// 8 chart bars
-			return calculateErrStatsByDate(
-				errorLogs,
-				startDateValue,
-				86400000,
-				8
-			);
+			return calcErrStatsByDate(errorLogs, startDateValue, 86400000, 8);
 		case 'last 30 days':
 			// 30 chart bars
-			return calculateErrStatsByDate(
-				errorLogs,
-				startDateValue,
-				86400000,
-				31
-			);
+			return calcErrStatsByDate(errorLogs, startDateValue, 86400000, 31);
 		default:
 			return [{ timestamp: Date.now(), errors: 0 }];
 	}
 }
 
-function calculateErrStatsByDate(
-	errorLogs,
-	startDateValue,
-	stepValue,
-	stepsNumber
-) {
+function calcErrStatsByDate(errorLogs, startDateValue, stepValue, stepsNumber) {
 	let res = [];
 	let startDateStamp = startDateValue;
 	let endDateStamp = startDateStamp + stepValue;
@@ -109,12 +64,7 @@ function calculateErrStatsByDate(
 	return res;
 }
 
-function calculateErrStatsByTime(
-	errorLogs,
-	startDateValue,
-	stepValue,
-	stepsNumber
-) {
+function calcErrStatsByTime(errorLogs, startDateValue, stepValue, stepsNumber) {
 	let res = [];
 	let startDateStamp = startDateValue;
 	let endDateStamp = startDateStamp + stepValue;
@@ -123,8 +73,10 @@ function calculateErrStatsByTime(
 		let item = { timestamp: 0, errors: 0 };
 		item.timestamp = endDateStamp;
 		item.errors = errorLogs.filter(log => {
+			let timestamp = new Date(log.timestamp);
 			return (
-				log.timestamp >= startDateStamp && log.timestamp < endDateStamp
+				timestamp.valueOf() >= startDateStamp &&
+				timestamp.valueOf() < endDateStamp
 			);
 		}).length;
 		res.push(item);
@@ -135,7 +87,8 @@ function calculateErrStatsByTime(
 }
 
 export function filterLogs(logs, filters) {
-	// sorting by log level
+	console.log('Filtering...', logs, filters);
+	// filter by log level
 
 	// might be not needed (depending on format of log.level value)
 	const levels = {
@@ -151,15 +104,15 @@ export function filterLogs(logs, filters) {
 		return filters.levels[levels[log.logLevel]] === true;
 	});
 
-	// sorting by date
+	// filter by date
 	let filteredByDate = [];
 	let startDateValue = defineStartDateValue(filters.timespan);
 	filteredByLevel.length > 0
 		? (filteredByDate = filteredByLevel.filter(log => {
-				return log.timestamp >= startDateValue;
+				let timestamp = new Date(log.timestamp);
+				return timestamp.valueOf() >= startDateValue;
 		  }))
 		: (filteredByDate = filteredByLevel);
-
 	return filteredByDate;
 }
 

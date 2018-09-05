@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { Search as SearchIcon } from 'styled-icons/material';
+// components & their styles
 import ErrChart from 'src/components/charts/logs/ErrChart';
 import LogStatsTabel from '../../components/tabels/logStatsTabel';
+import { LoaderBars } from 'src/components/loaders';
 import { SelectChartPage } from '../../styles/Styles';
-
 import {
 	ChartWrapper,
 	ChartHeader,
@@ -11,34 +12,20 @@ import {
 	LevelPicker,
 	Level,
 	TimeSpanPicker,
-	SearchButton,
-	LogsList,
-	LogItem,
-	LogDate,
-	ErrorLabel,
-	WarnLabel,
-	InfoLabel,
-	VerboseLabel,
-	DebugLabel,
-	SillyLabel,
-	LogText,
-	NotFound
+	LogsList
 } from 'src/styles/LogsStyles';
-
-import { LOGS } from './mockData';
-import { filterLogs, calculateErrStats } from 'src/services/logstats/logs';
-
-const LEVELS = {
-	0: <ErrorLabel>ERROR</ErrorLabel>,
-	1: <WarnLabel>WARN</WarnLabel>,
-	2: <InfoLabel>INFO</InfoLabel>,
-	3: <VerboseLabel>VERBOSE</VerboseLabel>,
-	4: <DebugLabel>DEBUG</DebugLabel>,
-	5: <SillyLabel>SILLY</SillyLabel>
-};
+// redux
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { getLogMessages } from 'src/redux/logs/actions';
+// data & services
+import { filterLogs, calcErrStats } from 'src/services/logstats/logs';
 
 interface LogsProps {
-	// 	actions: { };
+	actions: { getLogMessages: Function };
+	user: { companyId: string };
+	fetchingLogsStatus: string;
+	logMessages: Array<{ timestamp; logLevel; message; appId }>;
 }
 
 interface LogsState {
@@ -69,23 +56,32 @@ class Logs extends React.Component<LogsProps, LogsState> {
 			filteredLogs: [],
 			errStats: [{ timestamp: Date.now(), errors: 0 }]
 		};
-
-		this.applyFilters = this.applyFilters.bind(this);
-		this.handleLevelsChange = this.handleLevelsChange.bind(this);
-		this.handleTimespanChange = this.handleTimespanChange.bind(this);
+		this.handleLevels = this.handleLevels.bind(this);
+		this.handleTimeRange = this.handleTimeRange.bind(this);
 		this.handleActiveApp = this.handleActiveApp.bind(this);
 	}
 
 	componentDidMount() {
+		console.log('companyId: ', this.props.user);
+		this.props.actions.getLogMessages(
+			'f91b35d4-b319-4204-b852-8c5ba6df0615'
+		);
+		// this.props.actions.getLogMessages(this.props.user.companyId);
 		let nextState = {
 			...this.state,
-			filteredLogs: filterLogs(LOGS, this.state.filters),
-			errStats: calculateErrStats(LOGS, 'last 24 hours')
+			filteredLogs: filterLogs(
+				this.props.logMessages,
+				this.state.filters
+			),
+			errStats: calcErrStats(
+				this.props.logMessages,
+				this.state.filters.timespan
+			)
 		};
 		this.setState(nextState);
 	}
 
-	handleLevelsChange(e) {
+	handleLevels(e) {
 		//	this.setState({ timespan: e.currentTarget.value; })
 		let nextState = {
 			...this.state,
@@ -94,65 +90,73 @@ class Logs extends React.Component<LogsProps, LogsState> {
 				levels: {
 					...this.state.filters.levels,
 					[e.currentTarget.name]: e.currentTarget.checked
-				}
+				},
+				filteredLogs: filterLogs(this.props.logMessages, {
+					...this.state.filters,
+					levels: {
+						...this.state.filters.levels,
+						[e.currentTarget.name]: e.currentTarget.checked
+					}
+				})
 			}
 		};
 		this.setState(nextState);
 	}
 
-	handleTimespanChange(e) {
+	handleTimeRange(e) {
 		//	this.setState({ timespan: e.currentTarget.value; })
+		console.log('Logs to filter: ', this.props.logMessages);
 		let nextState = {
 			...this.state,
 			filters: {
 				...this.state.filters,
 				timespan: e.currentTarget.value
 			},
-			errStats: calculateErrStats(LOGS, e.currentTarget.value)
+			filteredLogs: filterLogs(this.props.logMessages, {
+				...this.state.filters,
+				timespan: e.currentTarget.value
+			}),
+			errStats: calcErrStats(
+				this.props.logMessages,
+				e.currentTarget.value
+			) // 2: this.state.filters
 		};
+		console.log("Next state's logs: ", nextState.filteredLogs);
 		this.setState(nextState);
 	}
 
-	handleActiveApp(e) {}
-
-	applyFilters(logs, filters) {
-		let filteredByDate = filterLogs(logs, filters);
-		let nextState = {};
-		nextState = {
+	handleActiveApp(e) {
+		let nextState = {
 			...this.state,
-			filteredLogs: filteredByDate
+			filters: {
+				...this.state.filters
+			},
+			filteredLogs: filterLogs(
+				this.props.logMessages,
+				this.state.filters
+			),
+			errStats: calcErrStats(
+				this.props.logMessages,
+				this.state.filters.timespan
+			) // 2: this.state.filters
 		};
 		this.setState(nextState);
 	}
 
 	render() {
-		console.log('Filtered: ', this.state.filteredLogs);
-		// for searchButton filtering
-		let found;
-		if (this.state.filteredLogs.length === 0) {
-			found = <NotFound>Nothing found</NotFound>;
-		} else {
-			found = this.state.filteredLogs.map((logItem, i) => {
-				const date = new Date(logItem.timestamp);
-				const dateString = date.toLocaleString();
-				return (
-					<LogItem key={i}>
-						<LogDate>{dateString}</LogDate>
-						{LEVELS[logItem.logLevel]}
-						<LogText>{logItem.message}</LogText>
-					</LogItem>
-				);
-			});
-		}
-
+		console.log('State: ', this.state);
 		return (
 			<React.Fragment>
 				<ChartWrapper>
 					<ChartHeader>Errors Statistics</ChartHeader>
-					<ErrChart
-						data={this.state.errStats}
-						timeRange={this.state.filters.timespan}
-					/>
+					{this.props.fetchingLogsStatus === 'success' ? (
+						<ErrChart
+							data={this.state.errStats}
+							timeRange={this.state.filters.timespan}
+						/>
+					) : (
+						<LoaderBars />
+					)}
 				</ChartWrapper>
 				<LogsSearchForm>
 					<LevelPicker>
@@ -162,7 +166,7 @@ class Logs extends React.Component<LogsProps, LogsState> {
 								type="checkbox"
 								name="error"
 								checked={this.state.filters.levels.error}
-								onChange={this.handleLevelsChange}
+								onChange={this.handleLevels}
 							/>
 							Error
 						</Level>
@@ -171,7 +175,7 @@ class Logs extends React.Component<LogsProps, LogsState> {
 								type="checkbox"
 								name="warn"
 								checked={this.state.filters.levels.warn}
-								onChange={this.handleLevelsChange}
+								onChange={this.handleLevels}
 							/>
 							Warn
 						</Level>
@@ -180,7 +184,7 @@ class Logs extends React.Component<LogsProps, LogsState> {
 								type="checkbox"
 								name="info"
 								checked={this.state.filters.levels.info}
-								onChange={this.handleLevelsChange}
+								onChange={this.handleLevels}
 							/>
 							Info
 						</Level>
@@ -189,7 +193,7 @@ class Logs extends React.Component<LogsProps, LogsState> {
 								type="checkbox"
 								name="verbose"
 								checked={this.state.filters.levels.verbose}
-								onChange={this.handleLevelsChange}
+								onChange={this.handleLevels}
 							/>
 							Verbose
 						</Level>
@@ -198,7 +202,7 @@ class Logs extends React.Component<LogsProps, LogsState> {
 								type="checkbox"
 								name="debug"
 								checked={this.state.filters.levels.debug}
-								onChange={this.handleLevelsChange}
+								onChange={this.handleLevels}
 							/>
 							Debug
 						</Level>
@@ -207,7 +211,7 @@ class Logs extends React.Component<LogsProps, LogsState> {
 								type="checkbox"
 								name="silly"
 								checked={this.state.filters.levels.silly}
-								onChange={this.handleLevelsChange}
+								onChange={this.handleLevels}
 							/>
 							Silly
 						</Level>
@@ -215,7 +219,7 @@ class Logs extends React.Component<LogsProps, LogsState> {
 					<TimeSpanPicker
 						name="timespan"
 						value={this.state.filters.timespan}
-						onChange={this.handleTimespanChange}
+						onChange={this.handleTimeRange}
 					>
 						<option value="last 10 minutes">last 10 minutes</option>
 						<option value="last 30 minutes">last 30 minutes</option>
@@ -227,27 +231,37 @@ class Logs extends React.Component<LogsProps, LogsState> {
 						<option value="last 30 days">last 30 days</option>
 					</TimeSpanPicker>
 					<SelectChartPage onChange={this.handleActiveApp}>
-						<option value="app1">app1</option>
-						<option value="app2">app2</option>
-						<option value="app3">app4</option>
+						<option value="">select app</option>
+						<option value="myApp1">app1</option>
+						<option value="myApp2">app2</option>
+						<option value="myApp3">app4</option>
 					</SelectChartPage>
-
-					<SearchButton
-						onClick={e => {
-							e.preventDefault();
-							this.applyFilters(LOGS, this.state.filters);
-						}}
-					>
-						<SearchIcon size="20px" /> Search
-					</SearchButton>
 				</LogsSearchForm>
-				<LogsList>
-					<LogStatsTabel data={this.state.filteredLogs} />
-					{found}
-				</LogsList>
+				{this.props.fetchingLogsStatus === 'success' ? (
+					<LogsList>
+						<LogStatsTabel data={this.state.filteredLogs} />
+					</LogsList>
+				) : (
+					<LoaderBars />
+				)}
 			</React.Fragment>
 		);
 	}
 }
 
-export default Logs;
+const mapStateToProps = ({ user, fetchingLogsStatus, logMessages }) => ({
+	user,
+	fetchingLogsStatus,
+	logMessages
+});
+
+const mapDispatchToProps = (dispatch: any) => ({
+	actions: bindActionCreators({ getLogMessages }, dispatch)
+});
+
+const LogsConnected = connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(Logs);
+
+export default LogsConnected;
