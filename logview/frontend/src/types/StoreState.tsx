@@ -2,7 +2,8 @@ import {
 	CpuLogState,
 	MemoryLogState,
 	HttpStatsState,
-	LogMessagesState
+	LogMessagesState,
+	NotificationState
 } from './LogsState';
 import { UserState } from './UserState';
 import { SettingsState } from './SettingsState';
@@ -29,6 +30,7 @@ export interface StoreState {
 		debug: boolean;
 		silly: boolean;
 	};
+	notificationLogs: Array<NotificationState>;
 	fetchingLogsStatus: string;
 	sockets: any;
 }

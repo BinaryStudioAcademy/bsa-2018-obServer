@@ -41,3 +41,11 @@ export interface LogMessagesState {
 	logLevel: number;
 	message: string;
 }
+
+export interface NotificationState {
+	logType: string;
+	timestamp: string;
+	message: string;
+	companyId: string;
+	appId: string;
+}

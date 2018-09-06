@@ -45,6 +45,15 @@ export const defaultState: StoreState = {
 			companyId: ''
 		}
 	],
+	notificationLogs: [
+		{
+			logType: '',
+			timestamp: '',
+			message: '',
+			companyId: '',
+			appId: ''
+		}
+	],
 	companyUsers: [
 		{
 			name: '',

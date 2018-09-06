@@ -3,7 +3,8 @@ import {
 	CpuLogState,
 	MemoryLogState,
 	HttpStatsState,
-	LogMessagesState
+	LogMessagesState,
+	NotificationState
 } from '../../types/LogsState';
 
 export interface GetLogs {
@@ -92,6 +93,20 @@ export interface HandleTimeRange {
 export interface HandleLogLevels {
 	type: constants.HANDLE_LOG_LEVEL;
 	payload: {};
+
+export interface GetNewNotification {
+	type: constants.GET_NEW_NOTIFICATION;
+}
+
+export interface GetNewNotificationSuccess {
+	type: constants.GET_NEW_NOTIFICATION_SUCCESS;
+	payload: {
+		notificationLogs: Array<NotificationState>;
+	};
+}
+
+export interface GetNewNotificationFail {
+	type: constants.GET_NEW_NOTIFICATION_FAILED;
 }
 
 export type LogAction =
@@ -112,7 +127,10 @@ export type LogAction =
 	| GetLogMessagesFail
 	| HandleActiveApp
 	| HandleTimeRange
-	| HandleLogLevels;
+	| HandleLogLevels
+	| GetNewNotification
+	| GetNewNotificationSuccess
+	| GetNewNotificationFail;
 
 export function getLogs(): GetLogs {
 	return {
@@ -223,5 +241,26 @@ export function handleLogLevels(payload): HandleLogLevels {
 	return {
 		type: constants.HANDLE_LOG_LEVEL,
 		payload
+  };
+}
+
+export function getNewNotification(): GetNewNotification {
+	return {
+		type: constants.GET_NEW_NOTIFICATION
+	};
+}
+
+export function getNewNotificationSuccess(payload: {
+	notificationLogs: Array<NotificationState>;
+}): GetNewNotificationSuccess {
+	return {
+		type: constants.GET_NEW_NOTIFICATION_SUCCESS,
+		payload
+	};
+}
+
+export function getNewNotificationFail(): GetNewNotificationFail {
+	return {
+		type: constants.GET_NEW_NOTIFICATION_FAILED
 	};
 }
