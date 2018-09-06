@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Search as SearchIcon } from 'styled-icons/material';
 // components & their styles
 import ErrChart from 'src/components/charts/logs/ErrChart';
 import LogStatsTabel from '../../components/tabels/logStatsTabel';
@@ -36,6 +35,7 @@ interface LogsProps {
 		handleLogLevels: Function;
 	};
 	user: { companyId: string };
+	fetchingUserStatus: string;
 	fetchingLogsStatus: string;
 	logMessages: Array<LogMessagesState>;
 	activeApp: string;
@@ -77,11 +77,10 @@ class Logs extends React.Component<LogsProps, LogsState> {
 	}
 
 	componentDidMount() {
-		console.log('companyId: ', this.props.user);
-		this.props.actions.getLogMessages(
-			'f91b35d4-b319-4204-b852-8c5ba6df0615'
-		);
-		// this.props.actions.getLogMessages(this.props.user.companyId);
+		console.log('companyId: ', this.props.user.companyId);
+		this.props.actions.getLogMessages(this.props.user.companyId);
+		// doesn't work correctly if try to achieve directly, with no userFetching
+		// needed userFetching while login (activation)
 	}
 
 	handleLevels(e) {
