@@ -31,7 +31,7 @@ export function companyChangeReducer(
 			};
 		case constants.USER_CHANGE_COMPANY_SUCCESS:
 			console.log(action);
-			return  {
+			return {
 				...state
 			};
 		default:

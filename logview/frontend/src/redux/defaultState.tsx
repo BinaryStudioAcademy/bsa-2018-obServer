@@ -31,9 +31,41 @@ export const defaultState: StoreState = {
 			totalLoadPercentage: 0,
 			timestamp: '',
 			companyId: ''
+		},
+		{
+			logType: '',
+			cores: [
+				{
+					coreLoadPercentages: 0,
+					coreName: 'core0'
+				}
+			],
+			totalLoadPercentage: 0,
+			timestamp: '',
+			companyId: ''
+		},
+		{
+			logType: '',
+			cores: [
+				{
+					coreLoadPercentages: 0,
+					coreName: 'core0'
+				}
+			],
+			totalLoadPercentage: 0,
+			timestamp: '',
+			companyId: ''
 		}
 	],
 	memoryLogs: [
+		{
+			logType: '',
+			allMemory: 0,
+			freeMemory: 0,
+			freeMemoryPercentage: 0,
+			timestamp: '',
+			companyId: ''
+		},
 		{
 			logType: '',
 			allMemory: 0,

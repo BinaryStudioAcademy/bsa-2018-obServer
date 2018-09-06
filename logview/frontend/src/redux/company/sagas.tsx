@@ -23,9 +23,8 @@ function* fetchCompanyUsers(action: FetchCompanyUsers) {
 
 function* userChagngeCompany(action: UserChangeCompany) {
 	try {
+		console.log(action.id);
 		const companyUser = yield call(companyAPI.userChangeCompany, action.id);
-
-		console.log(companyUser);
 
 		yield put({
 			type: constants.USER_CHANGE_COMPANY_SUCCESS,

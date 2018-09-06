@@ -1,6 +1,6 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 import transition from 'styled-transition-group';
-import { colors } from "../../styles/styles-utils";
+import { colors } from '../../styles/styles-utils';
 
 export const NotificationPopup = transition.div`
     position: absolute;
@@ -36,24 +36,24 @@ export const NotificationPopup = transition.div`
 `;
 
 export const Wrapper = styled.span`
-    display: flex;
-    align-items: center;
-    position: relative;
+	display: flex;
+	align-items: center;
+	position: relative;
 `;
 
 export const Timestamp = styled.p`
-    border-right: 1px solid white;
-    padding: 10px;
+	border-right: 1px solid white;
+	padding: 10px;
 `;
 
 export const Message = styled.p`
-    padding: 10px;
-`; 
+	padding: 10px;
+`;
 
 export const Item = styled.div`
-    display: grid;
-    grid-template-columns: 100px 1fr;
-    font-size: 14px;
-    font-weight: normal;
-    margin: 10px 10px 0 10px;
+	display: grid;
+	grid-template-columns: 100px 1fr;
+	font-size: 14px;
+	font-weight: normal;
+	margin: 10px 10px 0 10px;
 `;

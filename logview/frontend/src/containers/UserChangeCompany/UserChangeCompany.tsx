@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { userChangeCompany } from 'src/redux/company/actions';
-import { Landing } from '../../styles/ContainerStyles';
-import { Button, Logo, Title } from './UserChangeCompanyStyle';
+import { Button, Logo, Title, Landing } from './UserChangeCompanyStyle';
+import queryString from 'query-string';
 const logo = require('src/assets/invite.png');
 
 interface UserChangeCompanyProps {
@@ -20,13 +20,15 @@ class UserChangeCompany extends React.Component<
 	UserChangeCompanyState
 > {
 	componentDidMount() {
-		this.props.actions.userChangeCompany();
+		this.props.actions.userChangeCompany(
+			queryString.parse(location.search).inviteToken
+		);
 	}
 
 	render() {
 		return (
 			<Landing>
-				<Logo>{logo}</Logo>
+				<Logo src={logo} />
 				<Title>You joined to companyName</Title>
 				<Button>
 					<Link to="/">Proceed to home</Link>
@@ -48,5 +50,3 @@ const UserChangeCompanyConnected = connect(
 )(UserChangeCompany);
 
 export default UserChangeCompanyConnected;
-
-export default UserChangeCompany;

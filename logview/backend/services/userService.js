@@ -144,6 +144,7 @@ class UserService {
 
 	async addUserToCompany(req) {
 		const user = await this.findByInviteToken(req.params.inviteToken);
+		console.log(user);
 		const { companyId, admin } = JSON.parse(
 			this.decryptData(user.inviteToken)
 		);
@@ -151,6 +152,7 @@ class UserService {
 			companyId: companyId,
 			admin: admin
 		};
+		console.log(update);
 		if (await this.update(user.id, update)) {
 			const updatedUser = await this.findById(user.id);
 			const letterBody = {

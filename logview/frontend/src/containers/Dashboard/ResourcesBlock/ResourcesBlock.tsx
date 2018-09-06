@@ -1,12 +1,10 @@
 import * as React from 'react';
 import CoresLoadLineChart from 'src/components/charts/serverResources/CoresLoadLineChart';
-import PercentMemoryChart from 'src/components/charts/serverResources/PercentMemoryChart';
-import MemoryUsedChart from 'src/components/charts/serverResources/MemoryUsedChart';
 import { Timer } from 'styled-icons/material';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getLogs, getNewCpuLog, getNewMemoryLog } from 'src/redux/logs/actions';
-import { startChannel, stopChannel } from 'src/redux/sockets/actions'; 
+import { startChannel, stopChannel } from 'src/redux/sockets/actions';
 import { CpuLogState, MemoryLogState } from 'src/types/LogsState';
 import {
 	cpuParser,
@@ -17,13 +15,20 @@ import {
 	ChartInfo,
 	ChartHeader,
 	ChartWrapper,
-	ChartsPageWrapper,
-	ChartTimeRange,
+	ChartTimeRange
 } from 'src/containers/ServerResources/ServerResourcesStyles';
 import Select from 'src/components/Select/Select';
-import { ChartsWrapper, Title, Chart, ChartGrid, TitleSmall } from './ResourcesBlockStyles';
+import {
+	ChartsWrapper,
+	Title,
+	Chart,
+	ChartGrid,
+	TitleSmall
+} from './ResourcesBlockStyles';
 import { Submit } from 'src/styles/Styles';
 import { Link } from 'react-router-dom';
+import { defaultState } from '../../../redux/defaultState';
+import initialValues from './ResourcesInitalValues';
 
 let timerID;
 
@@ -93,13 +98,13 @@ class ServerResources extends React.Component<
 			this.setState({
 				currentCpuLog: this.props.cpuLogs[this.props.cpuLogs.length - 1]
 			});
-			console.log(this.state.currentCpuLog)
+			console.log(this.state.currentCpuLog);
 		}, 1000);
 	}
 
 	componentWillUnmount() {
 		clearInterval(timerID);
-		this.props.actions.stopChannel()
+		this.props.actions.stopChannel();
 	}
 
 	handleActive(activeApp) {
@@ -121,7 +126,11 @@ class ServerResources extends React.Component<
 								</ChartTimeRange>
 							</ChartHeader>
 							<CoresLoadLineChart
-								data={this.state.cpuLogs}
+								data={
+									this.state.cpuLogs.length > 2
+										? this.state.cpuLogs
+										: initialValues
+								}
 								timeRange="last 10 minutes"
 							/>
 						</Chart>
@@ -146,7 +155,7 @@ class ServerResources extends React.Component<
 					</ChartWrapper>
 				</ChartGrid>
 				<Submit>
-					<Link to='/dashboard/resources'>open resources</Link>
+					<Link to="/dashboard/resources">open resources</Link>
 				</Submit>
 			</ChartsWrapper>
 		);

@@ -10,7 +10,6 @@ export interface CpuLogState {
 	timestamp: string;
 	companyId: string;
 }
-​
 export interface MemoryLogState {
 	companyId: string;
 	allMemory: number;
@@ -19,7 +18,6 @@ export interface MemoryLogState {
 	logType: string;
 	timestamp: string;
 }
-​
 export interface HttpStatsState {
 	logType: string;
 	timestamp: string;
