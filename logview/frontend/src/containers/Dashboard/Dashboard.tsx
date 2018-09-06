@@ -16,7 +16,7 @@ import {
 import { Profile as UserProfile, Submit } from '../../styles/Styles';
 import Select from 'src/components/Select/Select';
 import ResourcesBlock from './ResourcesBlock/ResourcesBlock';
-import Notifications from 'src/containers/Notification/Notifications';
+import Notifications from 'src/components/Notifications/Notifications';
 import { SettingsIcon } from '../../styles/IconStyles';
 import DashboardRoutes from './DashboardRoutes';
 import { getNewNotification } from 'src/redux/logs/actions';
