@@ -2,8 +2,10 @@ module.exports = (slicedLogs) => {
   const aggregatedAppCpuLogs = [];
 
   slicedLogs.forEach((logsChunk) => {
-    if (logsChunk.length === 0) {
-      aggregatedAppCpuLogs.push({});
+    if (logChunk[0].isEmpty) {
+      aggregatedAppCpuLogs.push({
+        cpuUsagePercentages: 0
+      });
       return;
     }
 

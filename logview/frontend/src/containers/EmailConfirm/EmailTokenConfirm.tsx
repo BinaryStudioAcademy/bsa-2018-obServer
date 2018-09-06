@@ -1,6 +1,11 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import { Title, Submit, PasswordWrapper, RedirectLink } from '../../styles/Styles';
+import {
+	Title,
+	Submit,
+	PasswordWrapper,
+	RedirectLink
+} from '../../styles/Styles';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { userEmailActivation } from 'src/redux/user/actions';
@@ -38,12 +43,23 @@ class EmailTokenConfirm extends React.Component<
 			(fetchingUserStatus === 'success' ||
 				fetchingUserStatus === 'failed') && (
 				<LandingColumn>
-					<Title>Email Successfully Confirmed!</Title>
-					<RedirectLink>
-						<Link to="/dashboard/quickstart">
-							Proceed to Quickstart
-						</Link>
-					</RedirectLink>
+					{fetchingUserStatus === 'success' ? (
+						<React.Fragment>
+							<Title>Email Successfully Confirmed!</Title>
+							<RedirectLink>
+								<Link to="/dashboard/quickstart">
+									Proceed to Quickstart
+								</Link>
+							</RedirectLink>
+						</React.Fragment>
+					) : (
+						<React.Fragment>
+							<Title>
+								Sorry, your email couldn't be confirmed!
+							</Title>
+							<p>Try following the link again, please!</p>
+						</React.Fragment>
+					)}
 				</LandingColumn>
 			)
 		);
