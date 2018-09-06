@@ -3,7 +3,8 @@ import { LogAction } from './actions';
 import {
 	CpuLogState,
 	MemoryLogState,
-	HttpStatsState
+	HttpStatsState,
+	NotificationState
 } from '../../types/LogsState';
 import { defaultState } from '../defaultState';
 
@@ -57,19 +58,34 @@ export function httpStatsReducer(
 	}
 }
 
+export function notificationReducer(
+	state: Array<NotificationState> = defaultState.notificationLogs,
+	action: LogAction
+): Array<NotificationState> {
+	switch (action.type) {
+		case constants.GET_NEW_NOTIFICATION_SUCCESS:
+			return [...action.payload.notificationLogs];
+		default:
+			return state;
+	}
+}
+
 export function fetchingLogsReducer(state = 'unstarted', action: LogAction) {
 	switch (action.type) {
 		case constants.GET_NEW_CPU_LOG_SUCCESS:
 		case constants.GET_NEW_MEMORY_LOG_SUCCESS:
 		case constants.GET_NEW_HTTP_STATS_SUCCESS:
+		case constants.GET_NEW_NOTIFICATION_SUCCESS:
 			return 'success';
 		case constants.GET_NEW_CPU_LOG_FAILED:
 		case constants.GET_NEW_MEMORY_LOG_FAILED:
 		case constants.GET_NEW_HTTP_STATS_FAILED:
+		case constants.GET_NEW_NOTIFICATION_FAILED:
 			return 'failed';
 		case constants.GET_NEW_CPU_LOG:
 		case constants.GET_NEW_MEMORY_LOG:
 		case constants.GET_NEW_HTTP_STATS:
+		case constants.GET_NEW_NOTIFICATION:
 			return 'pending';
 		default:
 			return state;
