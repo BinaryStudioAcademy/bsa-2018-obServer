@@ -99,9 +99,9 @@ class UserService {
 			const token = await this.encryptData(data);
 			if (await this.update(user.id, { inviteToken: token })) {
 				const updatedUser = await this.findById(user.id);
-				const link = `http://${req.headers.host}/?inviteToken=${
-					updatedUser.inviteToken
-				}`;
+				const link = `http://${
+					req.headers.host
+				}/company-change?inviteToken=${updatedUser.inviteToken}`;
 				this.createAndSendInviteLetter(updatedUser, inviter, link);
 			} else throw new Error('Problems during update');
 		} else throw new Error(`${user.email} already in company`);
