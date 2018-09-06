@@ -23,6 +23,8 @@ import {
 	handleTimeRange,
 	handleLogLevels
 } from 'src/redux/logs/actions';
+import { LogMessagesState, LogLevelsState } from '../../types/LogsState';
+
 // data & services
 import { filterLogs, calcErrStats } from 'src/services/logstats/logs';
 
@@ -35,17 +37,10 @@ interface LogsProps {
 	};
 	user: { companyId: string };
 	fetchingLogsStatus: string;
-	logMessages: Array<{ timestamp; logLevel; message; appId }>;
+	logMessages: Array<LogMessagesState>;
 	activeApp: string;
 	timeRange: string;
-	logLevels: {
-		error: boolean;
-		warn: boolean;
-		info: boolean;
-		verbose: boolean;
-		debug: boolean;
-		silly: boolean;
-	};
+	logLevels: LogLevelsState;
 }
 
 interface LogsState {

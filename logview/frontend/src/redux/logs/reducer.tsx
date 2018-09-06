@@ -5,6 +5,7 @@ import {
 	MemoryLogState,
 	HttpStatsState,
 	LogMessagesState,
+	LogLevelsState,
 	NotificationState
 } from '../../types/LogsState';
 import { defaultState } from '../defaultState';
@@ -96,28 +97,14 @@ export function timeRangeReducer(
 }
 
 export function logLevelsReducer(
-	state: {
-		error: boolean;
-		warn: boolean;
-		info: boolean;
-		verbose: boolean;
-		debug: boolean;
-		silly: boolean;
-	} = defaultState.logLevels,
+	state: LogLevelsState = defaultState.logLevels,
 	action: LogAction
-): {
-	error: boolean;
-	warn: boolean;
-	info: boolean;
-	verbose: boolean;
-	debug: boolean;
-	silly: boolean;
-} {
+): LogLevelsState {
 	switch (action.type) {
 		case constants.HANDLE_LOG_LEVEL:
 			let level = Object.keys(action.payload)[0];
 			return { ...state, [level]: action.payload[level] };
-    default:
+		default:
 			return state;
 	}
 }

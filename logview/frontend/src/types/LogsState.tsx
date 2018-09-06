@@ -42,6 +42,15 @@ export interface LogMessagesState {
 	message: string;
 }
 
+export interface LogLevelsState {
+	error: boolean;
+	warn: boolean;
+	info: boolean;
+	verbose: boolean;
+	debug: boolean;
+	silly: boolean;
+}
+
 export interface NotificationState {
 	logType: string;
 	timestamp: string;
