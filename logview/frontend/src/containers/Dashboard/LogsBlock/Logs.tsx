@@ -46,7 +46,14 @@ interface LogsProps {
 
 interface LogsState {
 	filters: {
-		levels: { error; warn; info; verbose; debug; silly };
+		levels: {
+			error: boolean;
+			warn: boolean;
+			info: boolean;
+			verbose: boolean;
+			debug: boolean;
+			silly: boolean;
+		};
 		timespan: string;
 	};
 	filteredLogs: Array<{ timestamp; level; text }>;

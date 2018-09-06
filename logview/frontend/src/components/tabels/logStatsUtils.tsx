@@ -27,11 +27,11 @@ export class Method extends React.Component<MethodProps, {}> {
 			case 1:
 				return 'orange';
 			case 2:
-				return 'lightgreen';
+				return 'green';
 			case 3:
-				return 'lightskyblue';
+				return 'skyblue';
 			case 4:
-				return 'white';
+				return 'black';
 			case 5:
 				return 'grey';
 			default:
@@ -60,16 +60,14 @@ export class Method extends React.Component<MethodProps, {}> {
 
 	render() {
 		return (
-			<React.Fragment>
-				<span
-					style={{
-						color: this.switchColor(),
-						transition: 'all .3s ease'
-					}}
-				>
-					{this.switchText()}
-				</span>
-			</React.Fragment>
+			<span
+				style={{
+					color: this.switchColor(),
+					transition: 'all .3s ease'
+				}}
+			>
+				{this.switchText()}
+			</span>
 		);
 	}
 }
