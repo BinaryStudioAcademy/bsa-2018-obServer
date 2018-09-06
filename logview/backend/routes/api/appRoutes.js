@@ -27,7 +27,11 @@ router.post(
 	isLoggedInMiddleware,
 	async (req, res, next) => {
 		try {
-			const data = await appService.create(req.body);
+			const companyId = req.user.companyId;
+			const data = await appService.create({
+				companyId: companyId,
+				name: req.body.name
+			});
 			res.data = data;
 			res.err = null;
 		} catch (err) {

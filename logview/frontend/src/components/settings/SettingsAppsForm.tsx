@@ -1,14 +1,13 @@
 import * as React from 'react';
 import {
-	SettingFormGroup,
-	SettingFormGroupInput,
-	SettingFormGroupLabel,
+	AddNewAppGroupInput,
 	SettingInput,
 	SettingInputWrapper,
-	SettingsSubmitButton
+	AddNewAppButton
 } from '../../styles/SettingsFormStyles';
-import { User, UserSecret, CheckSquare } from 'styled-icons/fa-solid';
+import { Plus } from 'styled-icons/fa-solid';
 import { AppsState } from '../../types/AppsState';
+import AppsTabel from '../tabels/appsTable';
 
 interface SettingAppsState {
 	apps: Array<AppsState>;
@@ -17,7 +16,11 @@ interface SettingAppsState {
 
 interface SettingAppsFormProps {
 	apps: Array<AppsState>;
-	onSubmit: Function;
+	actions: {
+		fetchAppsList: Function;
+		addNewApp: Function;
+		deleteApp: Function;
+	};
 }
 
 class SettingAppsForm extends React.Component<
@@ -42,41 +45,35 @@ class SettingAppsForm extends React.Component<
 
 	handleSubmit(event: any) {
 		event.preventDefault();
-		this.props.onSubmit(this.state);
+		this.props.actions.addNewApp(this.state.newApp);
 	}
 
 	render() {
 		return (
-			<form>
-				<SettingFormGroupLabel>
-					<UserSecret size="18" />
-					Your Apps
-				</SettingFormGroupLabel>
-				<SettingFormGroup>
-					<span>app1</span> - your secret key
-				</SettingFormGroup>
-
-				<SettingFormGroupLabel>
-					<User size="18" />
-					Add New App
-				</SettingFormGroupLabel>
-				<SettingFormGroupInput>
-					<SettingInputWrapper>
-						<SettingInput
-							type="text"
-							placeholder="New App"
-							name="name"
-							onChange={this.handleChange}
-						/>
-					</SettingInputWrapper>
-					<SettingInputWrapper>
-						<SettingsSubmitButton onClick={this.handleSubmit}>
-							<CheckSquare size="18" />
-							Save All Change
-						</SettingsSubmitButton>
-					</SettingInputWrapper>
-				</SettingFormGroupInput>
-			</form>
+			<React.Fragment>
+				<AppsTabel
+					data={this.props.apps}
+					deleteApp={this.props.actions.deleteApp}
+				/>
+				<form>
+					<AddNewAppGroupInput>
+						<SettingInputWrapper>
+							<SettingInput
+								type="text"
+								placeholder="New App"
+								name="newApp"
+								onChange={this.handleChange}
+							/>
+						</SettingInputWrapper>
+						<SettingInputWrapper>
+							<AddNewAppButton onClick={this.handleSubmit}>
+								<Plus size="18" />
+								Add New App
+							</AddNewAppButton>
+						</SettingInputWrapper>
+					</AddNewAppGroupInput>
+				</form>
+			</React.Fragment>
 		);
 	}
 }

@@ -1,45 +1,19 @@
 import api from '../adapter';
-
-const appState = [
-	{
-		appName: 'app1',
-		appId: 'app1ID'
-	},
-	{
-		appName: 'app2',
-		appId: 'app2ID'
-	},
-	{
-		appName: 'app3',
-		appId: 'app3ID'
-	}
-];
+import { AppsState } from '../../types/AppsState';
 
 export default {
-	addNewApp: () => {
-		return new Promise((resolve, reject) => {
-			setTimeout(() => {
-				resolve(appState);
-			}, 1000);
+	addNewApp: (newApp: string) => {
+		return api.makeRequest(`/api/app`, api.requestType.POST, {
+			name: newApp
 		});
 	},
-	deleteApp: () => {
-		return new Promise((resolve, reject) => {
-			setTimeout(() => {
-				resolve(appState);
-			}, 1000);
-		});
-		//return api.makeRequest(`/api/user/company/users`, api.requestType.GET);
+	deleteApp: (appId: string) => {
+		return api.makeRequest(`/api/app/${appId}`, api.requestType.DELETE);
 	},
-	updateApp: () => {
-		//return api.makeRequest(`/api/user/company/users`, api.requestType.GET);
+	updateApp: (app: AppsState) => {
+		return api.makeRequest(`/api/app/${app.id}`, api.requestType.PUT, app);
 	},
 	getAllApps: () => {
-		return new Promise((resolve, reject) => {
-			setTimeout(() => {
-				resolve(appState);
-			}, 1000);
-		});
-		//return api.makeRequest(`/api/user/company/users`, api.requestType.GET);
+		return api.makeRequest(`/api/app`, api.requestType.GET);
 	}
 };

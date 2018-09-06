@@ -15,15 +15,15 @@ import { socketsReducer } from './sockets/reducer';
 export default combineReducers<StoreState>({
 	user: userReducer,
 	companyUsers: companyReducer,
-	fetchingSettingsStatus: fetchingSettingsReducer,
 	settings: settingsReducer,
 	apps: appsReducer,
-	fetchingAppsStatus: fetchingAppsReducer,
-	fetchingUserStatus: fetchingState,
 	cpuLogs: cpuLogsReducer,
 	memoryLogs: memoryLogsReducer,
 	httpStats: httpStatsReducer,
+	sockets: socketsReducer,
+	fetchingUserStatus: fetchingState,
+	fetchingSettingsStatus: fetchingSettingsReducer,
+	fetchingAppsStatus: fetchingAppsReducer,
 	fetchingLogsStatus: fetchingLogsReducer,
-	isLoggedIn: isLoggedInState,
-	sockets: socketsReducer
+	isLoggedIn: isLoggedInState
 });

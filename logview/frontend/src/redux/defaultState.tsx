@@ -21,8 +21,8 @@ export const defaultState: StoreState = {
 	},
 	apps: [
 		{
-			appName: undefined,
-			appId: undefined
+			name: undefined,
+			id: undefined
 		}
 	],
 	cpuLogs: [

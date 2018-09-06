@@ -9,13 +9,17 @@ import {
 import { LoaderOval } from 'src/components/loaders';
 import { AppsState } from 'src/types/AppsState';
 import SettingAppsForm from 'src/components/settings/SettingsAppsForm';
-import { fetchAppsList, addNewApp } from 'src/redux/apps/actions';
+import { fetchAppsList, addNewApp, deleteApp } from 'src/redux/apps/actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 interface SettingsAppsFormProps {
 	apps: Array<AppsState>;
-	actions: { fetchAppsList: Function; addNewApp: Function };
+	actions: {
+		fetchAppsList: Function;
+		addNewApp: Function;
+		deleteApp: Function;
+	};
 	fetchingAppsStatus: string;
 }
 
@@ -25,11 +29,6 @@ class AppsSettings extends React.Component<
 > {
 	constructor(props) {
 		super(props);
-		this.handleSubmit = this.handleSubmit.bind(this);
-	}
-
-	handleSubmit(state: Array<AppsState>) {
-		this.props.actions.addNewApp();
 	}
 
 	componentDidMount() {
@@ -41,7 +40,7 @@ class AppsSettings extends React.Component<
 			<React.Fragment>
 				<SettingAppsForm
 					apps={this.props.apps}
-					onSubmit={this.handleSubmit}
+					actions={this.props.actions}
 				/>
 			</React.Fragment>
 		) : (
@@ -55,7 +54,10 @@ const mapStateToProps = ({ fetchingAppsStatus, apps }) => ({
 	apps
 });
 const mapDispatchToProps = (dispatch: any) => ({
-	actions: bindActionCreators({ fetchAppsList, addNewApp }, dispatch)
+	actions: bindActionCreators(
+		{ fetchAppsList, addNewApp, deleteApp },
+		dispatch
+	)
 });
 
 const AppsSettingsConnected = connect(

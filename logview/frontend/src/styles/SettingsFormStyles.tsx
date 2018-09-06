@@ -84,6 +84,18 @@ gap: 10px;
 ${media.desktop`grid-template-columns: 1fr;`};
 }`;
 
+export const AddNewAppGroupInput = styled.div`
+border: 1px solid rgba(0,0,0,0.1);
+background: #f1f1f1;
+padding: 15px;
+margin-top: 50px;
+margin-bottom: 50px;
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 10px;
+${media.desktop`grid-template-columns: 1fr;`};
+}`;
+
 export const SettingFormGroupOneInput = styled.div`
 border-top: 3px solid ${colors.violet};
 background: #f1f1f1;
@@ -129,6 +141,30 @@ color: #fff;
 text-transform: uppercase;
 border: none;
 font-size: 18px;
+svg{
+	margin-right: 15px;
+}
+&: hover {
+	background-color: ${colors['grey-darken']};
+}
+}`;
+
+export const AddNewAppButton = styled.button`
+float: right;
+padding: 12px 20px;
+margin: 10px 0;
+background-color: ${colors.violet};
+color: #fff;
+text-transform: uppercase;
+border: none;
+font-size: 18px;
+width: 100%;
+svg{
+	margin-right: 15px;
+}
+&: hover {
+	background-color: ${colors['grey-darken']};
+}
 }`;
 
 export const ErrorInputSettings = styled.div`
@@ -171,5 +207,36 @@ export const SettingInputWrapper = styled.div`
 		color: ${colors['grey-darken']};
 		font-size: 14px;
 		text-transform: uppercase;
+	}
+`;
+
+export const AppSecretKey = styled.span`
+	svg {
+		margin-right: 10px;
+		color: #ff9900;
+	}
+`;
+
+export const DeleteAppRow = styled.div`
+	text-align: center;
+	svg {
+		color: ${colors['grey-darken']};
+	}
+	&:hover {
+		svg {
+			color: red;
+		}
+	}
+`;
+
+export const EditAppRow = styled.div`
+	text-align: center;
+	svg {
+		color: ${colors['grey-darken']};
+	}
+	&:hover {
+		svg {
+			color: ${colors.gradient};
+		}
 	}
 `;

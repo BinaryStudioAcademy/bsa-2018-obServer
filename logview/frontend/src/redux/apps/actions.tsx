@@ -15,6 +15,35 @@ export interface AddNewAppFail {
 	type: constants.ADD_NEW_APP_FAILED;
 }
 
+/* delete app */
+export interface DeleteApp {
+	type: constants.DELETE_APP;
+	id: string;
+}
+
+export interface DeleteAppSuccess {
+	type: constants.DELETE_APP_SUCCESS;
+	payload: string;
+}
+
+export interface DeleteAppFail {
+	type: constants.DELETE_APP_FAILED;
+}
+
+/* update app */
+export interface UpdateApp extends AppsState {
+	type: constants.UPDATE_APP;
+}
+
+export interface UpdateAppSuccess {
+	type: constants.UPDATE_APP_SUCCESS;
+	payload: AppsState;
+}
+
+export interface UpdateAppFail {
+	type: constants.UPDATE_APP_FAILED;
+}
+
 /* fetch apps list */
 export interface FetchAppsList {
 	type: constants.FETCH_APPS_LIST;
@@ -30,6 +59,12 @@ export interface FetchAppsListFail {
 }
 
 export type AppsListAction =
+	| DeleteApp
+	| DeleteAppFail
+	| DeleteAppSuccess
+	| UpdateApp
+	| UpdateAppFail
+	| UpdateAppSuccess
 	| AddNewApp
 	| AddNewAppFail
 	| AddNewAppSuccess
@@ -37,11 +72,26 @@ export type AppsListAction =
 	| FetchAppsListFail
 	| FetchAppsListSuccess;
 
-export function addNewApp(appName: string, appId?: string): AddNewApp {
+export function addNewApp(name: string, id?: string): AddNewApp {
 	return {
 		type: constants.ADD_NEW_APP,
-		appName,
-		appId
+		name,
+		id
+	};
+}
+
+export function deleteApp(id: string): DeleteApp {
+	return {
+		type: constants.DELETE_APP,
+		id
+	};
+}
+
+export function updateApp(id: string, name: string): UpdateApp {
+	return {
+		type: constants.UPDATE_APP,
+		id,
+		name
 	};
 }
 

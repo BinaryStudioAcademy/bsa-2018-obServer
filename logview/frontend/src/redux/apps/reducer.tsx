@@ -2,6 +2,7 @@ import * as constants from './constants';
 import { AppsListAction } from './actions';
 import { AppsState } from 'src/types/AppsState';
 import { defaultState } from '../defaultState';
+import { appendFile } from 'fs';
 
 export function appsReducer(
 	state: Array<AppsState> = defaultState.apps,
@@ -14,6 +15,8 @@ export function appsReducer(
 		case constants.ADD_NEW_APP_SUCCESS: {
 			return [...state, action.payload];
 		}
+		case constants.DELETE_APP_SUCCESS:
+			return state.filter(app => app.id !== action.payload);
 		default:
 			return state;
 	}
@@ -26,12 +29,15 @@ export function fetchingAppsReducer(
 	switch (action.type) {
 		case constants.FETCH_APPS_LIST_SUCCESS:
 		case constants.ADD_NEW_APP_SUCCESS:
+		case constants.DELETE_APP_SUCCESS:
 			return 'success';
 		case constants.FETCH_APPS_LIST_FAILED:
 		case constants.ADD_NEW_APP_FAILED:
+		case constants.DELETE_APP_FAILED:
 			return 'failed';
 		case constants.FETCH_APPS_LIST:
 		case constants.ADD_NEW_APP:
+		case constants.DELETE_APP:
 			return 'pending';
 		default:
 			return state;

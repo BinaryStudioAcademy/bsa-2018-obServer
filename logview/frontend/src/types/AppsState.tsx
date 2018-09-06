@@ -1,4 +1,4 @@
 export interface AppsState {
-	appName: string;
-	appId: string;
+	name: string;
+	id: string;
 }
