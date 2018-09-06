@@ -16,6 +16,10 @@ const app = (sequilize, DataTypes) => {
 			companyId: {
 				type: DataTypes.UUID,
 				allowNull: false
+			},
+			port: {
+				type: DataTypes.INTEGER,
+				allowNull: true
 			}
 		},
 		{
