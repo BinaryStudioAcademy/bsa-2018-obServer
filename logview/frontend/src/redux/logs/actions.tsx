@@ -200,9 +200,7 @@ export function getNewHttpStats(): GetNewHttpStats {
 	};
 }
 
-export function getLogMessages(
-	companyId: string = 'secret-company-token'
-): GetLogMessages {
+export function getLogMessages(companyId: string = ''): GetLogMessages {
 	return {
 		type: constants.GET_LOG_MESSAGES,
 		companyId
