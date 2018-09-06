@@ -1,4 +1,5 @@
 FROM node:8.11.4
+VOLUME /logviewvol
 
 ENV APP_ROOT /app
 

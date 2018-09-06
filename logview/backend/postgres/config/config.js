@@ -1,10 +1,18 @@
-const { POSTGRES_DB, POSTGRES_USER, POSTGRES_PWD, POSTGRES_IP, DB_DIALECT } = process.env;
+const {
+	POSTGRES_DB,
+	POSTGRES_USER,
+	POSTGRES_PWD,
+	POSTGRES_IP,
+	DB_DIALECT,
+	NODE_ENV
+} = process.env;
 
 console.log(`POSTGRES_DB: ${POSTGRES_DB}`);
 console.log(`POSTGRES_USER: ${POSTGRES_USER}`);
 console.log(`POSTGRES_PWD: ${POSTGRES_PWD}`);
 console.log(`POSTGRES_IP: ${POSTGRES_IP}`);
 console.log(`DB_DIALECT: ${DB_DIALECT}`);
+console.log(`NODE_ENV: ${NODE_ENV}`);
 
 module.exports = {
 	development: {
@@ -14,9 +22,9 @@ module.exports = {
 		host: POSTGRES_IP || 'localhost',
 		dialect: DB_DIALECT,
 		migrationStorage: 'json',
-		migrationStoragePath: 'sequelize_meta.json',
+		migrationStoragePath: 'logviewvol/sequelize_meta.json',
 		seederStorage: 'json',
-		seederStoragePath: 'sequelize_data.json'
+		seederStoragePath: 'logviewvol/sequelize_data.json'
 	},
 	test: {
 		username: POSTGRES_USER,
@@ -36,8 +44,8 @@ module.exports = {
 		host: POSTGRES_IP || 'localhost',
 		dialect: DB_DIALECT,
 		migrationStorage: 'json',
-		migrationStoragePath: 'sequelize_meta.json',
+		migrationStoragePath: 'logviewvol/sequelize_meta.json',
 		seederStorage: 'json',
-		seederStoragePath: 'sequelize_data.json'
+		seederStoragePath: 'logviewvol/sequelize_data.json'
 	}
 };
