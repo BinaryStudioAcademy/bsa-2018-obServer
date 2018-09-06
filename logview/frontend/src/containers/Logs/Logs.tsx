@@ -87,82 +87,19 @@ class Logs extends React.Component<LogsProps, LogsState> {
 			'f91b35d4-b319-4204-b852-8c5ba6df0615'
 		);
 		// this.props.actions.getLogMessages(this.props.user.companyId);
-		let nextState = {
-			...this.state,
-			filteredLogs: filterLogs(
-				this.props.logMessages,
-				this.props.timeRange,
-				this.props.logLevels
-			),
-			errStats: calcErrStats(
-				this.props.logMessages,
-				this.state.filters.timespan
-			)
-		};
-		this.setState(nextState);
 	}
 
 	handleLevels(e) {
-		//	this.setState({ timespan: e.currentTarget.value; })
-		let nextState = {
-			...this.state,
-			filters: {
-				...this.state.filters,
-				levels: {
-					...this.state.filters.levels,
-					[e.currentTarget.name]: e.currentTarget.checked
-				}
-			},
-			filteredLogs: filterLogs(
-				this.props.logMessages,
-				this.props.timeRange,
-				this.props.logLevels
-			)
-		};
-		this.setState(nextState);
+		this.props.actions.handleLogLevels({
+			[e.currentTarget.name]: e.currentTarget.checked
+		});
 	}
 
 	handleTimeRange(e) {
-		//	this.setState({ timespan: e.currentTarget.value; })
-		console.log('Logs to filter: ', this.props.logMessages);
 		this.props.actions.handleTimeRange(e.currentTarget.value);
-		// let nextState = {
-		// 	...this.state,
-		// 	filters: {
-		// 		...this.state.filters,
-		// 		timespan: e.currentTarget.value
-		// 	},
-		// 	filteredLogs: filterLogs(this.props.logMessages, {
-		// 		...this.state.filters,
-		// 		timespan: e.currentTarget.value
-		// 	}),
-		// 	errStats: calcErrStats(
-		// 		this.props.logMessages,
-		// 		e.currentTarget.value
-		// 	) // 2: this.state.filters
-		// };
-		// console.log("Next state's logs: ", nextState.filteredLogs);
-		// this.setState(nextState);
 	}
 
-	handleActiveApp(e) {
-		let nextState = {
-			...this.state,
-			filters: {
-				...this.state.filters
-			},
-			filteredLogs: filterLogs(
-				this.props.logMessages,
-				this.props.timeRange,
-				this.props.logLevels
-			),
-			errStats: calcErrStats(
-				this.props.logMessages,
-				this.state.filters.timespan
-			) // 2: this.state.filters
-		};
-		this.setState(nextState);
-	}
+	handleActiveApp(e) {}
 
 	render() {
 		console.log('State: ', this.state);
@@ -172,8 +109,12 @@ class Logs extends React.Component<LogsProps, LogsState> {
 					<ChartHeader>Errors Statistics</ChartHeader>
 					{this.props.fetchingLogsStatus === 'success' ? (
 						<ErrChart
-							data={this.state.errStats}
-							timeRange={this.state.filters.timespan}
+							data={calcErrStats(
+								this.props.logMessages,
+								this.props.activeApp,
+								this.props.timeRange
+							)}
+							timeRange={this.props.timeRange}
 						/>
 					) : (
 						<LoaderBars />
@@ -186,7 +127,7 @@ class Logs extends React.Component<LogsProps, LogsState> {
 							<input
 								type="checkbox"
 								name="error"
-								checked={this.state.filters.levels.error}
+								checked={this.props.logLevels.error}
 								onChange={this.handleLevels}
 							/>
 							Error
@@ -195,7 +136,7 @@ class Logs extends React.Component<LogsProps, LogsState> {
 							<input
 								type="checkbox"
 								name="warn"
-								checked={this.state.filters.levels.warn}
+								checked={this.props.logLevels.warn}
 								onChange={this.handleLevels}
 							/>
 							Warn
@@ -204,7 +145,7 @@ class Logs extends React.Component<LogsProps, LogsState> {
 							<input
 								type="checkbox"
 								name="info"
-								checked={this.state.filters.levels.info}
+								checked={this.props.logLevels.info}
 								onChange={this.handleLevels}
 							/>
 							Info
@@ -213,7 +154,7 @@ class Logs extends React.Component<LogsProps, LogsState> {
 							<input
 								type="checkbox"
 								name="verbose"
-								checked={this.state.filters.levels.verbose}
+								checked={this.props.logLevels.verbose}
 								onChange={this.handleLevels}
 							/>
 							Verbose
@@ -222,7 +163,7 @@ class Logs extends React.Component<LogsProps, LogsState> {
 							<input
 								type="checkbox"
 								name="debug"
-								checked={this.state.filters.levels.debug}
+								checked={this.props.logLevels.debug}
 								onChange={this.handleLevels}
 							/>
 							Debug
@@ -231,7 +172,7 @@ class Logs extends React.Component<LogsProps, LogsState> {
 							<input
 								type="checkbox"
 								name="silly"
-								checked={this.state.filters.levels.silly}
+								checked={this.props.logLevels.silly}
 								onChange={this.handleLevels}
 							/>
 							Silly
@@ -253,16 +194,17 @@ class Logs extends React.Component<LogsProps, LogsState> {
 					</TimeSpanPicker>
 				</LogsSearchForm>
 				{this.props.fetchingLogsStatus === 'success' ? (
-					<LogsList>
-						<LogStatsTabel
-							data={filterLogs(
-								this.props.logMessages,
-								this.props.timeRange,
-								this.props.logLevels
-							)}
-						/>
-					</LogsList>
+					// <LogsList>
+					<LogStatsTabel
+						data={filterLogs(
+							this.props.logMessages,
+							this.props.activeApp,
+							this.props.timeRange,
+							this.props.logLevels
+						)}
+					/>
 				) : (
+					// </LogsList>
 					<LoaderBars />
 				)}
 			</React.Fragment>

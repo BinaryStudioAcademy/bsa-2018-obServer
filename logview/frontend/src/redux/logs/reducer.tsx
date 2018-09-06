@@ -115,7 +115,7 @@ export function logLevelsReducer(
 	switch (action.type) {
 		case constants.HANDLE_LOG_LEVEL:
 			let level = Object.keys(action.payload)[0];
-			return { ...state, [level]: action.payload };
+			return { ...state, [level]: action.payload[level] };
 		default:
 			return state;
 	}

@@ -106,13 +106,18 @@ class Logs extends React.Component<LogsProps, LogsState> {
 				...this.state.filters,
 				timespan: e.currentTarget.value
 			},
-			errStats: calcErrStats(LOGS, e.currentTarget.value)
+			errStats: calcErrStats(LOGS, '', e.currentTarget.value)
 		};
 		this.setState(nextState);
 	}
 
 	applyFilters(logs, filters) {
-		let filteredByDate = filterLogs(logs, filters.timespan, filters.levels);
+		let filteredByDate = filterLogs(
+			logs,
+			'',
+			filters.timespan,
+			filters.levels
+		);
 		let nextState = {};
 		nextState = {
 			...this.state,

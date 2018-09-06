@@ -1,9 +1,21 @@
 /**
  * Returns errStats regarding provided period
  */
-export function calcErrStats(logs, timespan) {
-	let startDateValue = defineStartDateValue(timespan);
-	const errorLogs = logs.filter(log => {
+export function calcErrStats(logs, activeApp, timeRange) {
+	// filter by app
+	let filteredByApp = [];
+	activeApp.length > 0
+		? (filteredByApp = logs.filter(log => {
+				return log.appId === activeApp;
+		  }))
+		: (filteredByApp = logs);
+	if (filteredByApp.length === 0) {
+		return [{ timestamp: Date.now(), errors: 0 }];
+	}
+
+	let startDateValue = defineStartDateValue(timeRange);
+
+	const errorLogs = filteredByApp.filter(log => {
 		let timestamp = new Date(log.timestamp);
 		return log.logLevel === 0 && timestamp.valueOf() >= startDateValue;
 	});
@@ -11,7 +23,7 @@ export function calcErrStats(logs, timespan) {
 		return [{ timestamp: Date.now(), errors: 0 }];
 	}
 
-	switch (timespan) {
+	switch (timeRange) {
 		case 'last 10 minutes':
 			// 10 chart bars
 			return calcErrStatsByTime(errorLogs, startDateValue, 60000, 10);
@@ -86,10 +98,7 @@ function calcErrStatsByTime(errorLogs, startDateValue, stepValue, stepsNumber) {
 	return res;
 }
 
-export function filterLogs(logs, timeRange, logLevels) {
-	// filter by log level
-
-	// might be not needed (depending on format of log.level value)
+export function filterLogs(logs, activeApp, timeRange, logLevels) {
 	const levels = {
 		0: 'error',
 		1: 'warn',
@@ -99,9 +108,21 @@ export function filterLogs(logs, timeRange, logLevels) {
 		5: 'silly'
 	};
 
-	let filteredByLevel = logs.filter(log => {
-		return logLevels[levels[log.logLevel]] === true;
-	});
+	// filter by app
+	let filteredByApp = [];
+	activeApp.length > 0
+		? (filteredByApp = logs.filter(log => {
+				return log.appId === activeApp;
+		  }))
+		: (filteredByApp = logs);
+
+	// filter by log level
+	let filteredByLevel = [];
+	filteredByApp.length > 0
+		? (filteredByLevel = filteredByApp.filter(log => {
+				return logLevels[levels[log.logLevel]] === true;
+		  }))
+		: (filteredByLevel = filteredByApp);
 
 	// filter by date
 	let filteredByDate = [];
@@ -112,7 +133,6 @@ export function filterLogs(logs, timeRange, logLevels) {
 				return timestamp.valueOf() >= startDateValue;
 		  }))
 		: (filteredByDate = filteredByLevel);
-	console.log('Filtering...', filteredByDate);
 	return filteredByDate;
 }
 
