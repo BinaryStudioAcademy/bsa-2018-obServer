@@ -28,7 +28,7 @@ then
     gcloud compute --project $PROJECT ssh --zone $ZONE $INSTANCE --command "\ 
     docker stop logview && docker rm logview && docker rmi -f $DOCKER_IMAGE_NAME && \
     docker pull $DOCKER_IMAGE_NAME && \
-    docker run -it -d -p 80:3055 -v /home/$USER/sequelize:/sequelize --name=$PROJECT_NAME --env-file '1.env' $DOCKER_IMAGE_NAME"
+    docker run -it -d -p 80:3060 -v /home/$USER/sequelize:/sequelize --name=$PROJECT_NAME --env-file '1.env' $DOCKER_IMAGE_NAME"
 elif [ "$TRAVIS_BRANCH" == "raw-store" ]
 then
     ls
