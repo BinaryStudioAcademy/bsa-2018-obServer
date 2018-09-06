@@ -22,9 +22,9 @@ module.exports = {
 		host: POSTGRES_IP || 'localhost',
 		dialect: DB_DIALECT,
 		migrationStorage: 'json',
-		migrationStoragePath: 'logviewvol/sequelize_meta.json',
+		migrationStoragePath: 'sequelize_meta.json',
 		seederStorage: 'json',
-		seederStoragePath: 'logviewvol/sequelize_data.json'
+		seederStoragePath: 'sequelize_data.json'
 	},
 	test: {
 		username: POSTGRES_USER,
@@ -44,8 +44,8 @@ module.exports = {
 		host: POSTGRES_IP || 'localhost',
 		dialect: DB_DIALECT,
 		migrationStorage: 'json',
-		migrationStoragePath: 'logviewvol/sequelize_meta.json',
+		migrationStoragePath: '/sequelize/sequelize_meta.json',
 		seederStorage: 'json',
-		seederStoragePath: 'logviewvol/sequelize_data.json'
+		seederStoragePath: '/sequelize/sequelize_data.json'
 	}
 };
