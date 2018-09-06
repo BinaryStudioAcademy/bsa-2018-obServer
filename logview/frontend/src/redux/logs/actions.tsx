@@ -93,6 +93,7 @@ export interface HandleTimeRange {
 export interface HandleLogLevels {
 	type: constants.HANDLE_LOG_LEVEL;
 	payload: {};
+}
 
 export interface GetNewNotification {
 	type: constants.GET_NEW_NOTIFICATION;
@@ -241,7 +242,7 @@ export function handleLogLevels(payload): HandleLogLevels {
 	return {
 		type: constants.HANDLE_LOG_LEVEL,
 		payload
-  };
+	};
 }
 
 export function getNewNotification(): GetNewNotification {
