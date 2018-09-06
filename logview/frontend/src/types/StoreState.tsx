@@ -19,6 +19,16 @@ export interface StoreState {
 	memoryLogs: Array<MemoryLogState>;
 	httpStats: Array<HttpStatsState>;
 	logMessages: Array<LogMessagesState>;
+	activeApp: string;
+	timeRange: string;
+	logLevels: {
+		error: boolean;
+		warn: boolean;
+		info: boolean;
+		verbose: boolean;
+		debug: boolean;
+		silly: boolean;
+	};
 	fetchingLogsStatus: string;
 	sockets: any;
 }

@@ -79,6 +79,21 @@ export interface GetLogMessagesFail {
 	type: constants.GET_LOG_MESSAGES_FAILED;
 }
 
+export interface HandleActiveApp {
+	type: constants.HANDLE_ACTIVE_APP;
+	payload: string;
+}
+
+export interface HandleTimeRange {
+	type: constants.HANDLE_TIME_RANGE;
+	payload: string;
+}
+
+export interface HandleLogLevels {
+	type: constants.HANDLE_LOG_LEVEL;
+	payload: {};
+}
+
 export type LogAction =
 	| GetLogs
 	| GetLogsFail
@@ -94,7 +109,10 @@ export type LogAction =
 	| GetNewHttpStatsSuccess
 	| GetLogMessages
 	| GetLogMessagesSuccess
-	| GetLogMessagesFail;
+	| GetLogMessagesFail
+	| HandleActiveApp
+	| HandleTimeRange
+	| HandleLogLevels;
 
 export function getLogs(): GetLogs {
 	return {
@@ -184,5 +202,26 @@ export function getLogMessagesSuccess(payload: {
 export function getLogMessagesFail(): GetLogMessagesFail {
 	return {
 		type: constants.GET_LOG_MESSAGES_FAILED
+	};
+}
+
+export function handleActiveApp(payload: string): HandleActiveApp {
+	return {
+		type: constants.HANDLE_ACTIVE_APP,
+		payload
+	};
+}
+
+export function handleTimeRange(payload: string): HandleTimeRange {
+	return {
+		type: constants.HANDLE_TIME_RANGE,
+		payload
+	};
+}
+
+export function handleLogLevels(payload): HandleLogLevels {
+	return {
+		type: constants.HANDLE_LOG_LEVEL,
+		payload
 	};
 }

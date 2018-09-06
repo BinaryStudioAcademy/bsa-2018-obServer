@@ -26,7 +26,7 @@ export function calcErrStats(logs, timespan) {
 			return calcErrStatsByTime(errorLogs, startDateValue, 900000, 20);
 		case 'last 12 hours':
 			// 12 chart bars
-			return calcErrStatsByTime(errorLogs, startDateValue, 3600000, 12);
+			return calcErrStatsByTime(errorLogs, startDateValue, 1800000, 24);
 		case 'last 24 hours':
 			// 24 chart bars
 			return calcErrStatsByTime(errorLogs, startDateValue, 3600000, 24);
@@ -86,8 +86,7 @@ function calcErrStatsByTime(errorLogs, startDateValue, stepValue, stepsNumber) {
 	return res;
 }
 
-export function filterLogs(logs, filters) {
-	console.log('Filtering...', logs, filters);
+export function filterLogs(logs, timeRange, logLevels) {
 	// filter by log level
 
 	// might be not needed (depending on format of log.level value)
@@ -101,18 +100,19 @@ export function filterLogs(logs, filters) {
 	};
 
 	let filteredByLevel = logs.filter(log => {
-		return filters.levels[levels[log.logLevel]] === true;
+		return logLevels[levels[log.logLevel]] === true;
 	});
 
 	// filter by date
 	let filteredByDate = [];
-	let startDateValue = defineStartDateValue(filters.timespan);
+	let startDateValue = defineStartDateValue(timeRange);
 	filteredByLevel.length > 0
 		? (filteredByDate = filteredByLevel.filter(log => {
 				let timestamp = new Date(log.timestamp);
 				return timestamp.valueOf() >= startDateValue;
 		  }))
 		: (filteredByDate = filteredByLevel);
+	console.log('Filtering...', filteredByDate);
 	return filteredByDate;
 }
 

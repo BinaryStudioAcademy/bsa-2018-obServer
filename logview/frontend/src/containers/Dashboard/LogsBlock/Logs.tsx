@@ -112,7 +112,7 @@ class Logs extends React.Component<LogsProps, LogsState> {
 	}
 
 	applyFilters(logs, filters) {
-		let filteredByDate = filterLogs(logs, filters);
+		let filteredByDate = filterLogs(logs, filters.timespan, filters.levels);
 		let nextState = {};
 		nextState = {
 			...this.state,

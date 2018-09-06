@@ -70,6 +70,57 @@ export function logMessagesReducer(
 	}
 }
 
+export function activeAppReducer(
+	state: string = defaultState.activeApp,
+	action: LogAction
+): string {
+	switch (action.type) {
+		case constants.HANDLE_ACTIVE_APP:
+			return action.payload;
+		default:
+			return state;
+	}
+}
+
+export function timeRangeReducer(
+	state: string = defaultState.timeRange,
+	action: LogAction
+): string {
+	switch (action.type) {
+		case constants.HANDLE_TIME_RANGE:
+			return action.payload;
+		default:
+			return state;
+	}
+}
+
+export function logLevelsReducer(
+	state: {
+		error: boolean;
+		warn: boolean;
+		info: boolean;
+		verbose: boolean;
+		debug: boolean;
+		silly: boolean;
+	} = defaultState.logLevels,
+	action: LogAction
+): {
+	error: boolean;
+	warn: boolean;
+	info: boolean;
+	verbose: boolean;
+	debug: boolean;
+	silly: boolean;
+} {
+	switch (action.type) {
+		case constants.HANDLE_LOG_LEVEL:
+			let level = Object.keys(action.payload)[0];
+			return { ...state, [level]: action.payload };
+		default:
+			return state;
+	}
+}
+
 export function fetchingLogsReducer(state = 'unstarted', action: LogAction) {
 	switch (action.type) {
 		case constants.GET_NEW_CPU_LOG_SUCCESS:
