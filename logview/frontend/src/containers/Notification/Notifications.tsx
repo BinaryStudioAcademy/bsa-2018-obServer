@@ -10,22 +10,14 @@ import {
 	Message,
 	Item
 } from './NotificationsStyles';
-import { getNewNotification } from 'src/redux/logs/actions';
 import { NotificationState } from 'src/types/LogsState';
-import { startChannel, stopChannel } from 'src/redux/sockets/actions';
 
 interface NotificationsState {
 	popup: boolean;
-	initial: boolean;
-	notifications: Array<NotificationState>;
 }
 
 interface NotificationsProps {
-	actions: {
-		getNewNotification: Function;
-		startChannel: Function;
-	};
-	notifications: Array<NotificationState>;
+	data: Array<NotificationState>;
 	options: Array<string>;
 }
 
@@ -37,22 +29,12 @@ class Notifications extends React.Component<
 		super(props);
 
 		this.state = {
-			popup: false,
-			initial: false,
-			notifications: []
+			popup: false
 		};
 
 		this.handleClickOutside = this.handleClickOutside.bind(this);
 		this.handleClick = this.handleClick.bind(this);
 		this.togglePopup = this.togglePopup.bind(this);
-	}
-
-	componentDidMount() {
-		this.props.actions.startChannel();
-		if (this.state.initial) {
-			this.setState({ notifications: this.props.notifications });
-			this.setState({ initial: false });
-		}
 	}
 
 	handleClickOutside(evt) {
@@ -68,18 +50,18 @@ class Notifications extends React.Component<
 	}
 
 	render() {
-		const { notifications } = this.state;
+		const { data } = this.props;
 		return (
 			<Wrapper>
 				<NotificationIcon size="25" onClick={this.handleClick} />
-				{notifications.length > 0 && notifications.length}
+				{data && data.length > 0 && data.length}
 				<NotificationPopup
 					unmountOnExit
 					in={this.state.popup}
 					timeout={1000}
 				>
-					{notifications.length > 0 ? (
-						notifications.map((notif: any, index) => {
+					{data.length > 0 ? (
+						data.map((notif: any, index) => {
 							<Item key={index}>
 								<Timestamp>{notif.timestamp}</Timestamp>
 								<Message>{notif.message}</Message>
@@ -97,17 +79,4 @@ class Notifications extends React.Component<
 	}
 }
 
-const mapStateToProps = ({ notificationsLogs }) => ({
-	notificationsLogs
-});
-
-const mapDispatchToProps = (dispatch: any) => ({
-	actions: bindActionCreators({ getNewNotification, startChannel }, dispatch)
-});
-
-const NotificationsConnected = connect(
-	mapStateToProps,
-	mapDispatchToProps
-)(Notifications);
-
-export default onClickOutside(NotificationsConnected);
+export default onClickOutside(Notifications);

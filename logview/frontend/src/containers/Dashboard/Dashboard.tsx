@@ -3,6 +3,8 @@ import { Link, RouteComponentProps } from 'react-router-dom';
 import LogsBlock from './LogsBlock/Logs';
 import Profile from './Profile';
 import HttpBlock from './HttpBlock/HttpBlock';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import {
 	DashboardMain,
 	DashboardNav,
@@ -17,13 +19,20 @@ import ResourcesBlock from './ResourcesBlock/ResourcesBlock';
 import Notifications from 'src/containers/Notification/Notifications';
 import { SettingsIcon } from '../../styles/IconStyles';
 import DashboardRoutes from './DashboardRoutes';
+import { getNewNotification } from 'src/redux/logs/actions';
+import { NotificationState } from 'src/types/LogsState';
+import { startChannel, stopChannel } from 'src/redux/sockets/actions';
 
 interface DashboardState {
 	active?: string;
 }
 
 interface DashboardProps extends RouteComponentProps<{}, {}> {
-	actions: { userLogout: Function; fetchUser: Function };
+	actions: {
+		getNewNotification: Function;
+		startChannel: Function;
+	};
+	notifications: Array<NotificationState>;
 }
 
 class Dashboard extends React.Component<DashboardProps, DashboardState> {
@@ -37,12 +46,17 @@ class Dashboard extends React.Component<DashboardProps, DashboardState> {
 		this.setActive = this.setActive.bind(this);
 	}
 
+	componentDidMount() {
+		this.props.actions.startChannel();
+	}
+
 	setActive(active) {
 		this.setState({ active });
 	}
 
 	render() {
-		const { match, location } = this.props;
+		const { match, location, notifications } = this.props;
+		const data = notifications || [];
 		return (
 			<DashboardWrapper>
 				<DashboardNav>
@@ -63,7 +77,7 @@ class Dashboard extends React.Component<DashboardProps, DashboardState> {
 								<SettingsIcon size="25" />
 							</Link>
 						</CenteredContainer>
-						<Notifications />
+						<Notifications data={data} />
 						<Profile />
 					</RowContainer>
 				</DashboardNav>
@@ -90,4 +104,17 @@ class Dashboard extends React.Component<DashboardProps, DashboardState> {
 	}
 }
 
-export default Dashboard;
+const mapStateToProps = ({ notificationsLogs }) => ({
+	notificationsLogs
+});
+
+const mapDispatchToProps = (dispatch: any) => ({
+	actions: bindActionCreators({ getNewNotification, startChannel }, dispatch)
+});
+
+const DashboardConnected = connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(Dashboard);
+
+export default DashboardConnected;
