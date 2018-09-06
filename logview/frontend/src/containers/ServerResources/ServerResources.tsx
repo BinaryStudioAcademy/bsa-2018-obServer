@@ -115,11 +115,6 @@ class ServerResources extends React.Component<
 			<ChartsPageWrapper>
 				<Title>Server Resources</Title>
 
-				<Select
-					onActive={this.handleActive}
-					options={['app1', 'app2', 'app3']}
-				/>
-
 				<ChartGrid>
 					<ChartWrapper>
 						<Chart>

@@ -52,8 +52,17 @@ class Dashboard extends React.Component<DashboardProps, DashboardState> {
 						</Title>
 						<CenteredContainer>
 							<Select
-								onActive={false}
-								options={['app1', 'app2', 'app3']}
+								onActive={this.setActive}
+								options={[
+									{
+										value: 'app1',
+										name: 'app1'
+									},
+									{
+										value: 'app2',
+										name: 'app2'
+									}
+								]}
 							/>
 						</CenteredContainer>
 					</RowContainer>

@@ -15,7 +15,7 @@ interface SelectState {
 
 interface SelectProps {
 	active: string;
-	options: Array<string>;
+	options: Array<{name: string, value: string}>;
 	onActive: Function;
 }
 
@@ -34,7 +34,7 @@ class Select extends React.Component<SelectProps, SelectState> {
 	}
 
 	componentDidMount() {
-		this.setState({ active: this.props.options[0] });
+		this.setState({ active: this.props.options[0].name });
 	}
 
 	handleClickOutside(evt) {
@@ -64,8 +64,9 @@ class Select extends React.Component<SelectProps, SelectState> {
 							<Option
 								key={i}
 								onClick={this.handleClick}
+								value={option.value}
 							>
-								<span>{option}</span>
+								<span>{option.name}</span>
 							</Option>
 						))}
 					</Dropdown>

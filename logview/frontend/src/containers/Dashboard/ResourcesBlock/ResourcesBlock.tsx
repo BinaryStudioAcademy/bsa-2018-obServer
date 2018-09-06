@@ -17,7 +17,6 @@ import {
 	ChartWrapper,
 	ChartTimeRange
 } from 'src/containers/ServerResources/ServerResourcesStyles';
-import Select from 'src/components/Select/Select';
 import {
 	ChartsWrapper,
 	Title,
