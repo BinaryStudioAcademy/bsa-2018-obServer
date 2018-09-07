@@ -1,5 +1,6 @@
+const { MONGO_DB_HOST,  } = process
 const mongoose = require('mongoose');
-const dbUrl = 'mongodb://localhost';
+const dbUrl = `mongodb://${MONGO_DB_HOST || 'localhost'}`;
 const port = process.env.RAW_DB_EXTERNAL_PORT;
 const dbName = 'rawlogs';
 

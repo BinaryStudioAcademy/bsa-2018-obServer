@@ -2,6 +2,7 @@ const apiResponse = require('express-api-response');
 const axios = require('axios');
 const router = require('express').Router();
 const aggregatedStoragePort = process.env.AGGREGATEDSTORAGE_PORT || 3100;
+const aggregatedStorageHost = process.env.AGGREGATEDSTORAGE_HOST || 'localhost';
 
 router.get(
 	'/',
@@ -18,10 +19,13 @@ router.get(
 			const logIntervals = req.query;
 
 			const logs = await axios
-				.get(`http://localhost:${aggregatedStoragePort}/api/logs`, {
-					headers: headers,
-					params: logIntervals
-				})
+				.get(
+					`http://${aggregatedStorageHost}:${aggregatedStoragePort}/api/logs`,
+					{
+						headers: headers,
+						params: logIntervals
+					}
+				)
 				.then(response => response.data);
 
 			res.data = logs;

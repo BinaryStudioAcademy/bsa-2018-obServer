@@ -3,7 +3,8 @@ const settingService = require('../services/settingService');
 const eventEmitter = require('../events');
 const port = process.env.APP_PORT;
 const aggregatedStoragePort = process.env.AGGREGATEDSTORAGE_PORT;
-const aggrStoreURL = `http://localhost:${aggregatedStoragePort}`;
+const aggregatedStorageHost = process.env.AGGREGATEDSTORAGE_HOST || 'localhost';
+const aggrStoreURL = `http://${aggregatedStorageHost}:${aggregatedStoragePort}`;
 const logviewURL = `http://localhost:${port}`;
 
 module.exports = io => {

@@ -1,10 +1,11 @@
 const amqp = require('amqplib/callback_api');
 
-const port = process.env.RABBITMQ_EXTERNAL_PORT;
 const queue = 'logs';
 let logChannel = null;
-
-amqp.connect(`amqp://localhost:${port}`, (err, conn) => {
+const { RABBITMQ_HOST, RABBITMQ_EXTERNAL_PORT } = process.env;
+const host = RABBITMQ_HOST || 'localhost';
+const port = RABBITMQ_EXTERNAL_PORT || 5672
+amqp.connect(`amqp://${host}:${port}`, (err, conn) => {
   if(err) {
     console.log('rabbit connection error' + err);
   } else {
