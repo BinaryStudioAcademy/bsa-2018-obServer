@@ -22,9 +22,8 @@ export const Submit = CompanySubmit.extend`
 `;
 
 export const UserItem = CompanyUserItem.extend`
-    display: grid;
-    grid-template-columns: 0.8fr 1fr 1fr 1fr;
-
+	display: grid;
+	grid-template-columns: 0.8fr 1fr 1fr 1fr;
 `;
 
 export const CompanyUsers = StyledCompanyUsers.extend`
@@ -54,11 +53,11 @@ export const FormStatusIcon = styled.div`
 `;
 
 export const Row = RowContainer.extend`
-    justify-content: space-between;
+	justify-content: space-between;
 `;
 
 export const Status = styled.p`
-    margin-left: 30px;
+	margin-left: 30px;
 `;
 
 export { ErrorText };

@@ -9,9 +9,11 @@ export interface CpuLogState {
 	totalLoadPercentage: number;
 	timestamp: string;
 	companyId: string;
+	companyToken: string;
 }
 export interface MemoryLogState {
 	companyId: string;
+	companyToken: string;
 	allMemory: number;
 	freeMemory: number;
 	freeMemoryPercentage: number;
@@ -31,6 +33,27 @@ export interface HttpStatsState {
 		bodySizeResponse: number;
 		requestsCount: number;
 	};
+}
+
+export interface LogMessagesState {
+	appId: string;
+	timestamp: string;
+	logLevel: number;
+	message: string;
+}
+
+export interface LogErrorState{ 
+	timestamp: number;
+	errors: number;
+}
+
+export interface LogLevelsState {
+	error: boolean;
+	warn: boolean;
+	info: boolean;
+	verbose: boolean;
+	debug: boolean;
+	silly: boolean;
 }
 
 export interface NotificationState {

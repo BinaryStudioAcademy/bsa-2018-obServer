@@ -3,6 +3,7 @@ import {
 	CpuLogState,
 	MemoryLogState,
 	HttpStatsState,
+	LogMessagesState,
 	NotificationState
 } from '../../types/LogsState';
 
@@ -63,6 +64,37 @@ export interface GetNewHttpStatsFail {
 	type: constants.GET_NEW_HTTP_STATS_FAILED;
 }
 
+export interface GetLogMessages {
+	type: constants.GET_LOG_MESSAGES;
+	companyId: string;
+}
+
+export interface GetLogMessagesSuccess {
+	type: constants.GET_LOG_MESSAGES_SUCCESS;
+	payload: {
+		logMessages: Array<LogMessagesState>;
+	};
+}
+
+export interface GetLogMessagesFail {
+	type: constants.GET_LOG_MESSAGES_FAILED;
+}
+
+export interface HandleActiveApp {
+	type: constants.HANDLE_ACTIVE_APP;
+	payload: string;
+}
+
+export interface HandleTimeRange {
+	type: constants.HANDLE_TIME_RANGE;
+	payload: string;
+}
+
+export interface HandleLogLevels {
+	type: constants.HANDLE_LOG_LEVEL;
+	payload: {};
+}
+
 export interface GetNewNotification {
 	type: constants.GET_NEW_NOTIFICATION;
 }
@@ -91,6 +123,12 @@ export type LogAction =
 	| GetNewHttpStats
 	| GetNewHttpStatsFail
 	| GetNewHttpStatsSuccess
+	| GetLogMessages
+	| GetLogMessagesSuccess
+	| GetLogMessagesFail
+	| HandleActiveApp
+	| HandleTimeRange
+	| HandleLogLevels
 	| GetNewNotification
 	| GetNewNotificationSuccess
 	| GetNewNotificationFail;
@@ -159,6 +197,49 @@ export function getNewHttpStats(): GetNewHttpStats {
 	console.log('action getNewHttpStats');
 	return {
 		type: constants.GET_NEW_HTTP_STATS
+	};
+}
+
+export function getLogMessages(companyId: string = ''): GetLogMessages {
+	return {
+		type: constants.GET_LOG_MESSAGES,
+		companyId
+	};
+}
+
+export function getLogMessagesSuccess(payload: {
+	logMessages: Array<LogMessagesState>;
+}): GetLogMessagesSuccess {
+	return {
+		type: constants.GET_LOG_MESSAGES_SUCCESS,
+		payload
+	};
+}
+
+export function getLogMessagesFail(): GetLogMessagesFail {
+	return {
+		type: constants.GET_LOG_MESSAGES_FAILED
+	};
+}
+
+export function handleActiveApp(payload: string): HandleActiveApp {
+	return {
+		type: constants.HANDLE_ACTIVE_APP,
+		payload
+	};
+}
+
+export function handleTimeRange(payload: string): HandleTimeRange {
+	return {
+		type: constants.HANDLE_TIME_RANGE,
+		payload
+	};
+}
+
+export function handleLogLevels(payload): HandleLogLevels {
+	return {
+		type: constants.HANDLE_LOG_LEVEL,
+		payload
 	};
 }
 

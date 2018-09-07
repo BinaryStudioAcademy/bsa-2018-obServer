@@ -30,30 +30,7 @@ export const defaultState: StoreState = {
 			],
 			totalLoadPercentage: 0,
 			timestamp: '',
-			companyId: ''
-		},
-		{
-			logType: '',
-			cores: [
-				{
-					coreLoadPercentages: 0,
-					coreName: 'core0'
-				}
-			],
-			totalLoadPercentage: 0,
-			timestamp: '',
-			companyId: ''
-		},
-		{
-			logType: '',
-			cores: [
-				{
-					coreLoadPercentages: 0,
-					coreName: 'core0'
-				}
-			],
-			totalLoadPercentage: 0,
-			timestamp: '',
+			companyToken: '',
 			companyId: ''
 		}
 	],
@@ -64,14 +41,7 @@ export const defaultState: StoreState = {
 			freeMemory: 0,
 			freeMemoryPercentage: 0,
 			timestamp: '',
-			companyId: ''
-		},
-		{
-			logType: '',
-			allMemory: 0,
-			freeMemory: 0,
-			freeMemoryPercentage: 0,
-			timestamp: '',
+			companyToken: '',
 			companyId: ''
 		}
 	],
@@ -107,6 +77,24 @@ export const defaultState: StoreState = {
 			}
 		}
 	],
+	logMessages: [
+		{
+			appId: '',
+			timestamp: '',
+			logLevel: 0,
+			message: ''
+		}
+	],
+	activeApp: '',
+	timeRange: 'last 10 minutes',
+	logLevels: {
+		error: true,
+		warn: true,
+		info: true,
+		verbose: false,
+		debug: false,
+		silly: false
+	},
 	fetchingUserStatus: 'unstarted',
 	fetchingSettingsStatus: 'unstarted',
 	fetchingLogsStatus: 'unstarted',
