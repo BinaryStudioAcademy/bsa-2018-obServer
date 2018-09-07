@@ -44,7 +44,7 @@ class Select extends React.Component<SelectProps, SelectState> {
 	handleClick(e) {
 		this.setState({ active: e.target.innerHTML });
 		this.setState({ popup: !this.state.popup });
-		this.props.onActive(e.target.innerHTML);
+		this.props.onActive(e.target.innerHTML, e.target.title);
 	}
 
 	togglePopup() {
@@ -64,9 +64,8 @@ class Select extends React.Component<SelectProps, SelectState> {
 							<Option
 								key={i}
 								onClick={this.handleClick}
-								value={option.value}
 							>
-								<span>{option.name}</span>
+								<span title={option.value}>{option.name}</span>
 							</Option>
 						))}
 					</Dropdown>

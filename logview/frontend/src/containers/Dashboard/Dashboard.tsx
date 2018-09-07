@@ -50,8 +50,10 @@ class Dashboard extends React.Component<DashboardProps, DashboardState> {
 		this.props.actions.startChannel();
 	}
 
-	setActive(active) {
+	setActive(active, value) {
+		console.log(value);
 		this.setState({ active });
+		console.log(active);
 	}
 
 	render() {
@@ -69,11 +71,11 @@ class Dashboard extends React.Component<DashboardProps, DashboardState> {
 								onActive={this.setActive}
 								options={[
 									{
-										value: 'app1',
+										value: 'some random id',
 										name: 'app1'
 									},
 									{
-										value: 'app2',
+										value: 'another random id',
 										name: 'app2'
 									}
 								]}

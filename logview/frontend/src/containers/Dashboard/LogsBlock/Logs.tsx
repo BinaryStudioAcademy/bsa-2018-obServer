@@ -145,12 +145,24 @@ class Logs extends React.Component<LogsProps, LogsState> {
 					<Select
 						onActive={this.handleActive}
 						options={[
-							'error',
-							'warn',
-							'info',
-							'verbose',
-							'debug',
-							'silly'
+							{
+								name: 'error'
+							},
+							{
+								name: 'warn'
+							},
+							{
+								name: 'info'
+							},
+							{
+								name: 'verbose'
+							},
+							{
+								name: 'debug'
+							},
+							{
+								name: 'silly'
+							}
 						]}
 					/>
 
