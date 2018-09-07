@@ -22,10 +22,10 @@ import {
 	NotFound
 } from '../../../styles/LogsStyles';
 
-import { filterLogs, calculateErrStats } from '../../../services/logstats/logs';
-import { LOGS } from '../../Logs/mockData';
-import UpdateTimer from '../../../components/UpdateTimer/UpdateTimer';
-import { Submit } from '../../../styles/Styles';
+import { filterLogs, calcErrStats } from 'src/services/logstats/logs';
+import { LOGS } from 'src/containers/Logs/mockData';
+import UpdateTimer from 'src/components/UpdateTimer/UpdateTimer';
+import { Submit } from 'src/styles/Styles';
 import { RowContainer } from '../DashboardStyles';
 import { LogsContainer, LogsList } from './LogsStyles';
 import Select from '../../../components/Select/Select';
@@ -46,7 +46,14 @@ interface LogsProps {
 
 interface LogsState {
 	filters: {
-		levels: { error; warn; info; verbose; debug; silly };
+		levels: {
+			error: boolean;
+			warn: boolean;
+			info: boolean;
+			verbose: boolean;
+			debug: boolean;
+			silly: boolean;
+		};
 		timespan: string;
 	};
 	filteredLogs: Array<{ timestamp; level; text }>;
@@ -106,13 +113,18 @@ class Logs extends React.Component<LogsProps, LogsState> {
 				...this.state.filters,
 				timespan: e.currentTarget.value
 			},
-			errStats: calculateErrStats(LOGS, e.currentTarget.value)
+			errStats: calcErrStats(LOGS, '', e.currentTarget.value)
 		};
 		this.setState(nextState);
 	}
 
 	applyFilters(logs, filters) {
-		let filteredByDate = filterLogs(logs, filters);
+		let filteredByDate = filterLogs(
+			logs,
+			'',
+			filters.timespan,
+			filters.levels
+		);
 		let nextState = {};
 		nextState = {
 			...this.state,

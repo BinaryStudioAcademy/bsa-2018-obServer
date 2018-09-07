@@ -8,8 +8,8 @@ import {
 	cancelled,
 	fork
 } from 'redux-saga/effects';
-import * as constants from './constants';
-import * as logsConstants from '../logs/constants';
+import * as constants from 'src/redux/sockets/constants';
+import * as logsConstants from 'src/redux/logs/constants';
 import {} from './actions';
 import { logsAPI } from '../../services';
 import { delay } from 'redux-saga';

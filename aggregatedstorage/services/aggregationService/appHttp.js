@@ -3,7 +3,7 @@ const logTypes = require('../../utils/logTypes');
 module.exports = (slicedLogs) => {
   const aggregatedAppHttpLogs = [];
   slicedLogs.forEach((logChunk, i) => {
-    if (logChunk.length === 0) {
+    if (logChunk[0].isEmpty) {
       aggregatedAppHttpLogs.push([]);
       return;
     }

@@ -5,13 +5,9 @@ import MemoryUsedChart from '../../../components/charts/serverResources/MemoryUs
 import { Timer } from 'styled-icons/material';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import {
-	getLogs,
-	getNewCpuLog,
-	getNewMemoryLog
-} from '../../../redux/logs/actions';
-import { startChannel, stopChannel } from '../../../redux/sockets/actions';
-import { CpuLogState, MemoryLogState } from '../../../types/LogsState';
+import { getLogs, getNewCpuLog, getNewMemoryLog } from 'src/redux/logs/actions';
+import { startChannel, stopChannel } from 'src/redux/sockets/actions';
+import { CpuLogState, MemoryLogState } from 'src/types/LogsState';
 import {
 	cpuParser,
 	memoryParser,
@@ -23,8 +19,8 @@ import {
 	ChartWrapper,
 	ChartsPageWrapper,
 	ChartTimeRange
-} from '../../ServerResources/ServerResourcesStyles';
-import Select from '../../../components/Select/Select';
+} from 'src/containers/ServerResources/ServerResourcesStyles';
+import Select from 'src/components/Select/Select';
 import {
 	ChartsWrapper,
 	Title,
@@ -32,7 +28,7 @@ import {
 	ChartGrid,
 	TitleSmall
 } from './ResourcesBlockStyles';
-import { Submit } from '../../../styles/Styles';
+import { Submit } from 'src/styles/Styles';
 import { Link } from 'react-router-dom';
 
 let timerID;

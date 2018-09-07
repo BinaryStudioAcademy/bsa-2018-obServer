@@ -20,5 +20,12 @@ export default {
 				api.requestType.GET,
 				companyId
 			); */
+	},
+	getLogMessages: (headers: any) => {
+		return api.makeRequest(
+			`/api/logs?logMessageInterval=36000000`,
+			api.requestType.GET,
+			{ headers: headers }
+		);
 	}
 };
