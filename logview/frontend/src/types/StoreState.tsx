@@ -2,6 +2,7 @@ import {
 	CpuLogState,
 	MemoryLogState,
 	HttpStatsState,
+	LogMessagesState,
 	NotificationState
 } from './LogsState';
 import { UserState } from './UserState';
@@ -18,6 +19,17 @@ export interface StoreState {
 	cpuLogs: Array<CpuLogState>;
 	memoryLogs: Array<MemoryLogState>;
 	httpStats: Array<HttpStatsState>;
+	logMessages: Array<LogMessagesState>;
+	activeApp: string;
+	timeRange: string;
+	logLevels: {
+		error: boolean;
+		warn: boolean;
+		info: boolean;
+		verbose: boolean;
+		debug: boolean;
+		silly: boolean;
+	};
 	notificationLogs: Array<NotificationState>;
 	fetchingLogsStatus: string;
 	sockets: any;

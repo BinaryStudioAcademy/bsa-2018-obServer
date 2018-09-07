@@ -4,6 +4,8 @@ import {
 	CpuLogState,
 	MemoryLogState,
 	HttpStatsState,
+	LogMessagesState,
+	LogLevelsState,
 	NotificationState
 } from '../../types/LogsState';
 import { defaultState } from '../defaultState';
@@ -58,6 +60,55 @@ export function httpStatsReducer(
 	}
 }
 
+export function logMessagesReducer(
+	state: Array<LogMessagesState> = defaultState.logMessages,
+	action: LogAction
+): Array<LogMessagesState> {
+	switch (action.type) {
+		case constants.GET_LOG_MESSAGES_SUCCESS:
+			return [...action.payload.logMessages];
+		default:
+			return state;
+	}
+}
+
+export function activeAppReducer(
+	state: string = defaultState.activeApp,
+	action: LogAction
+): string {
+	switch (action.type) {
+		case constants.HANDLE_ACTIVE_APP:
+			return action.payload;
+		default:
+			return state;
+	}
+}
+
+export function timeRangeReducer(
+	state: string = defaultState.timeRange,
+	action: LogAction
+): string {
+	switch (action.type) {
+		case constants.HANDLE_TIME_RANGE:
+			return action.payload;
+		default:
+			return state;
+	}
+}
+
+export function logLevelsReducer(
+	state: LogLevelsState = defaultState.logLevels,
+	action: LogAction
+): LogLevelsState {
+	switch (action.type) {
+		case constants.HANDLE_LOG_LEVEL:
+			let level = Object.keys(action.payload)[0];
+			return { ...state, [level]: action.payload[level] };
+		default:
+			return state;
+	}
+}
+
 export function notificationReducer(
 	state: Array<NotificationState> = defaultState.notificationLogs,
 	action: LogAction
@@ -75,16 +126,19 @@ export function fetchingLogsReducer(state = 'unstarted', action: LogAction) {
 		case constants.GET_NEW_CPU_LOG_SUCCESS:
 		case constants.GET_NEW_MEMORY_LOG_SUCCESS:
 		case constants.GET_NEW_HTTP_STATS_SUCCESS:
+		case constants.GET_LOG_MESSAGES_SUCCESS:
 		case constants.GET_NEW_NOTIFICATION_SUCCESS:
 			return 'success';
 		case constants.GET_NEW_CPU_LOG_FAILED:
 		case constants.GET_NEW_MEMORY_LOG_FAILED:
 		case constants.GET_NEW_HTTP_STATS_FAILED:
+		case constants.GET_LOG_MESSAGES_FAILED:
 		case constants.GET_NEW_NOTIFICATION_FAILED:
 			return 'failed';
 		case constants.GET_NEW_CPU_LOG:
 		case constants.GET_NEW_MEMORY_LOG:
 		case constants.GET_NEW_HTTP_STATS:
+		case constants.GET_LOG_MESSAGES:
 		case constants.GET_NEW_NOTIFICATION:
 			return 'pending';
 		default:

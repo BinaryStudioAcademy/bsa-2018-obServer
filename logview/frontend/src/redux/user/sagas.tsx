@@ -172,7 +172,7 @@ function* userInvite(action: UserInvite) {
 
 		yield put({
 			type: FETCH_COMPANY_USERS
-		})
+		});
 	} catch (error) {
 		yield put({
 			type: constants.USER_INVITE_FAILED

@@ -1,5 +1,17 @@
 import * as React from 'react';
-import { Input, Submit, ErrorText, CompanyUsers, InviteForm, PlusCircleIcon, TimesCircleIcon, FormStatusIcon, UserItem, Row, Status } from './CompanyStyles';
+import {
+	Input,
+	Submit,
+	ErrorText,
+	CompanyUsers,
+	InviteForm,
+	PlusCircleIcon,
+	TimesCircleIcon,
+	FormStatusIcon,
+	UserItem,
+	Row,
+	Status
+} from './CompanyStyles';
 import { fetchCompanyUsers } from 'src/redux/company/actions';
 import { userInvite } from 'src/redux/user/actions';
 import { connect } from 'react-redux';
@@ -50,14 +62,18 @@ class Company extends React.Component<CompanyProps, CompanyState> {
 	}
 
 	handleCheckbox() {
-		this.setState({admin: !this.state.admin})
+		this.setState({ admin: !this.state.admin });
 	}
 
 	handleSubmit(e: any) {
 		e.preventDefault();
 
-		this.props.actions.userInvite(this.state.email, this.state.name, this.state.admin);
-		this.setState({ form: !this.state.form })
+		this.props.actions.userInvite(
+			this.state.email,
+			this.state.name,
+			this.state.admin
+		);
+		this.setState({ form: !this.state.form });
 	}
 
 	handleForm() {
@@ -70,15 +86,23 @@ class Company extends React.Component<CompanyProps, CompanyState> {
 		return (
 			<CompanyUsers>
 				<Row>
-					<Title>
-						{user.companyName}
-					</Title>
-					<FormStatusIcon >
-						{!this.state.form ? <PlusCircleIcon size="40" onClick={this.handleForm}/> : <TimesCircleIcon size="40" onClick={this.handleForm}/>}
+					<Title>{user.companyName}</Title>
+					<FormStatusIcon>
+						{!this.state.form ? (
+							<PlusCircleIcon
+								size="40"
+								onClick={this.handleForm}
+							/>
+						) : (
+							<TimesCircleIcon
+								size="40"
+								onClick={this.handleForm}
+							/>
+						)}
 					</FormStatusIcon>
 				</Row>
-				
-				{this.state.form &&
+
+				{this.state.form && (
 					<InviteForm>
 						<Title>Invite user</Title>
 						<Input
@@ -93,7 +117,7 @@ class Company extends React.Component<CompanyProps, CompanyState> {
 						/>
 						<div>
 							<p>Admin</p>
-							<SettingCheckBox 
+							<SettingCheckBox
 								name="admin"
 								checked={this.state.admin}
 								onChange={this.handleCheckbox}
@@ -104,22 +128,25 @@ class Company extends React.Component<CompanyProps, CompanyState> {
 								? 'Sent'
 								: 'Invite'}
 						</Submit>
-					</InviteForm>}
+					</InviteForm>
+				)}
 
-				{companyUsers.length > 0 && 
-					!this.state.form &&
-					<React.Fragment>
-						<UserItem>
-							<IconContainer><p>admin</p></IconContainer>
-							<p>name</p>
-							<p>email</p>
-							<Status>status</Status>
-						</UserItem>
-						{ companyUsers.map((companyUser: any, i) => (
-							<UserSingle key={i} user={companyUser} />
-						))}
-					</React.Fragment>
-				}
+				{companyUsers.length > 0 &&
+					!this.state.form && (
+						<React.Fragment>
+							<UserItem>
+								<IconContainer>
+									<p>admin</p>
+								</IconContainer>
+								<p>name</p>
+								<p>email</p>
+								<Status>status</Status>
+							</UserItem>
+							{companyUsers.map((companyUser: any, i) => (
+								<UserSingle key={i} user={companyUser} />
+							))}
+						</React.Fragment>
+					)}
 			</CompanyUsers>
 		);
 	}
