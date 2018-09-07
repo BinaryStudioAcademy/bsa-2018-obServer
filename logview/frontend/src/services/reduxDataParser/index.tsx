@@ -5,6 +5,7 @@ export function parseAppsData(appsData) {
 		let obj = {};
 		obj['id'] = app.id;
 		obj['name'] = app.name;
+		obj['port'] = app.port;
 		apps.push(obj);
 	});
 

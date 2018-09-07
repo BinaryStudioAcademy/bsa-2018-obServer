@@ -2,16 +2,21 @@ import api from '../adapter';
 import { AppsState } from '../../types/AppsState';
 
 export default {
-	addNewApp: (newApp: string) => {
+	addNewApp: (newAppName: string, newAppPort: number) => {
 		return api.makeRequest(`/api/app`, api.requestType.POST, {
-			name: newApp
+			name: newAppName,
+			port: +newAppPort
 		});
 	},
 	deleteApp: (appId: string) => {
 		return api.makeRequest(`/api/app/${appId}`, api.requestType.DELETE);
 	},
 	updateApp: (app: AppsState) => {
-		return api.makeRequest(`/api/app/${app.id}`, api.requestType.PUT, app);
+		console.log('eeee', app);
+		return api.makeRequest(`/api/app/${app.id}`, api.requestType.PUT, {
+			name: app.name,
+			port: app.port
+		});
 	},
 	getAllApps: () => {
 		return api.makeRequest(`/api/app`, api.requestType.GET);

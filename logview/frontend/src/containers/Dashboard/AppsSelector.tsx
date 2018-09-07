@@ -2,10 +2,10 @@ import * as React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { fetchAppsList } from 'src/redux/apps/actions';
+import { fetchAppsList } from '../../redux/apps/actions';
 import { AppsState } from '../../types/AppsState';
-import Select from 'src/components/Select/Select';
-import { convertAppsDataToNames } from 'src/services/reduxDataParser';
+import Select from '../../components/Select/Select';
+import { convertAppsDataToNames } from '../../services/reduxDataParser';
 
 interface AppsSelectorState {}
 

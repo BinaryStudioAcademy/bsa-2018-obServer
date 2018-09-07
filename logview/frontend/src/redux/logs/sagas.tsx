@@ -1,5 +1,5 @@
 import { put, call, all, takeLatest } from 'redux-saga/effects';
-import * as constants from 'src/redux/logs/constants';
+import * as constants from './constants';
 import { GetNewHttpStats, getNewHttpStats } from './actions';
 import { logsAPI } from '../../services';
 

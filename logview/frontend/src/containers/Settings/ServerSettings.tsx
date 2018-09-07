@@ -5,26 +5,32 @@ import {
 	SettingFormGroupLabel,
 	SettingInput,
 	SettingsSubmitButton
-} from 'src/styles/SettingsFormStyles';
-import { LoaderOval } from 'src/components/loaders';
-import { AppsState } from 'src/types/AppsState';
-import SettingAppsForm from 'src/components/settings/SettingsAppsForm';
-import { fetchAppsList, addNewApp, deleteApp } from 'src/redux/apps/actions';
+} from '../../styles/SettingsFormStyles';
+import { LoaderOval } from '../../components/loaders';
+import { AppsState } from '../../types/AppsState';
+import SettingServerForms from '../../components/settings/SettingServerForms';
+import {
+	fetchAppsList,
+	addNewApp,
+	updateApp,
+	deleteApp
+} from '../../redux/apps/actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-interface SettingsAppsFormProps {
+interface ServerSettingsFormProps {
 	apps: Array<AppsState>;
 	actions: {
 		fetchAppsList: Function;
 		addNewApp: Function;
+		updateApp: Function;
 		deleteApp: Function;
 	};
 	fetchingAppsStatus: string;
 }
 
-class AppsSettings extends React.Component<
-	SettingsAppsFormProps,
+class ServerSettings extends React.Component<
+	ServerSettingsFormProps,
 	Array<AppsState>
 > {
 	constructor(props) {
@@ -38,7 +44,7 @@ class AppsSettings extends React.Component<
 	render() {
 		return this.props.fetchingAppsStatus === 'success' ? (
 			<React.Fragment>
-				<SettingAppsForm
+				<SettingServerForms
 					apps={this.props.apps}
 					actions={this.props.actions}
 				/>
@@ -55,7 +61,7 @@ const mapStateToProps = ({ fetchingAppsStatus, apps }) => ({
 });
 const mapDispatchToProps = (dispatch: any) => ({
 	actions: bindActionCreators(
-		{ fetchAppsList, addNewApp, deleteApp },
+		{ fetchAppsList, addNewApp, updateApp, deleteApp },
 		dispatch
 	)
 });
@@ -63,6 +69,6 @@ const mapDispatchToProps = (dispatch: any) => ({
 const AppsSettingsConnected = connect(
 	mapStateToProps,
 	mapDispatchToProps
-)(AppsSettings);
+)(ServerSettings);
 
 export default AppsSettingsConnected;

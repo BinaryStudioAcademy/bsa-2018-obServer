@@ -1,4 +1,4 @@
-import { StoreState } from 'src/types/StoreState';
+import { StoreState } from '../types/StoreState';
 
 export const defaultState: StoreState = {
 	user: {
@@ -22,6 +22,7 @@ export const defaultState: StoreState = {
 	apps: [
 		{
 			name: undefined,
+			port: undefined,
 			id: undefined
 		}
 	],

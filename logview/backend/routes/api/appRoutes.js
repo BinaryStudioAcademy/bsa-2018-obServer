@@ -30,7 +30,8 @@ router.post(
 			const companyId = req.user.companyId;
 			const data = await appService.create({
 				companyId: companyId,
-				name: req.body.name
+				name: req.body.name,
+				port: req.body.port
 			});
 			res.data = data;
 			res.err = null;
@@ -50,7 +51,11 @@ router.put(
 	async (req, res, next) => {
 		try {
 			const data = await appService.update(req.params.id, req.body);
-			res.data = data;
+			res.data = {
+				id: req.params.id,
+				name: req.body.name,
+				port: req.body.port
+			};
 			res.err = null;
 		} catch (err) {
 			res.data = null;

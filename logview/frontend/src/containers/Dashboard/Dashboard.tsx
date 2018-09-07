@@ -12,7 +12,7 @@ import {
 	Title
 } from './DashboardStyles';
 import { Profile as UserProfile, Submit } from '../../styles/Styles';
-import Select from 'src/components/Select/Select';
+import Select from '../../components/Select/Select';
 import ResourcesBlock from './ResourcesBlock/ResourcesBlock';
 import Notifications from '../../components/Notifications/Notifications';
 import { SettingsIcon } from '../../styles/IconStyles';

@@ -1,10 +1,11 @@
 import * as React from 'react';
-import { Key, Trash, Edit } from 'styled-icons/fa-solid';
+import { Trash, Edit, Copy } from 'styled-icons/fa-solid';
 import {
 	AppSecretKey,
 	DeleteAppRow,
 	EditAppRow
-} from 'src/styles/SettingsFormStyles';
+} from '../../styles/SettingsFormStyles';
+import { copyToClipboard } from '../../services/clipboard';
 
 export class Tips extends React.Component {
 	render() {
@@ -68,12 +69,27 @@ interface SecretKeyProps {
 export class SecretKey extends React.Component<SecretKeyProps, {}> {
 	constructor(props) {
 		super(props);
+		this.copyClick = this.copyClick.bind(this);
+	}
+
+	icons: {
+		bookmark?: any;
+	} = {};
+
+	copyClick() {
+		copyToClipboard(this.props.secretKey);
+		alert(`Key '${this.props.secretKey}' copied to clipboard!`);
 	}
 
 	render() {
 		return (
-			<AppSecretKey>
-				<Key size={18} />
+			<AppSecretKey
+				title="click to copy"
+				onClick={() => {
+					this.copyClick();
+				}}
+			>
+				<Copy size={18} />
 				{this.props.secretKey}
 			</AppSecretKey>
 		);
@@ -99,25 +115,6 @@ export class DeleteApp extends React.Component<DeleteAppProps, {}> {
 			>
 				<Trash size={18} />
 			</DeleteAppRow>
-		);
-	}
-}
-
-interface EditAppProps {
-	secretKey: string;
-	handleClick: Function;
-}
-
-export class EditApp extends React.Component<EditAppProps, {}> {
-	constructor(props) {
-		super(props);
-	}
-
-	render() {
-		return (
-			<EditAppRow onClick={() => {}}>
-				<Edit size={18} />
-			</EditAppRow>
 		);
 	}
 }

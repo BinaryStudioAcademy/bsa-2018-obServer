@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Search as SearchIcon } from 'styled-icons/material';
-import ErrChart from 'src/components/charts/logs/ErrChart';
+import ErrChart from '../../components/charts/logs/ErrChart';
 
 import {
 	ChartWrapper,
@@ -21,10 +21,10 @@ import {
 	SillyLabel,
 	LogText,
 	NotFound
-} from 'src/styles/LogsStyles';
+} from '../../styles/LogsStyles';
 
 import { LOGS } from './mockData';
-import { filterLogs, calculateErrStats } from 'src/services/logstats/logs';
+import { filterLogs, calculateErrStats } from '../../services/logstats/logs';
 
 const LEVELS = {
 	0: <ErrorLabel>ERROR</ErrorLabel>,

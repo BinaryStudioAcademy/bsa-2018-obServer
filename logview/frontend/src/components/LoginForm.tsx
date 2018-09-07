@@ -9,7 +9,7 @@ import {
 	ErrorText,
 	Redirect,
 	RedirectRegister
-} from 'src/containers/Login/LoginStyles';
+} from '../containers/Login/LoginStyles';
 import { Link } from 'react-router-dom';
 
 interface LoginFormProps {

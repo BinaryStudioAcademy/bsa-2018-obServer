@@ -91,9 +91,20 @@ padding: 15px;
 margin-top: 50px;
 margin-bottom: 50px;
 display: grid;
-grid-template-columns: 1fr 1fr;
+grid-template-columns: 1fr;
 gap: 10px;
-${media.desktop`grid-template-columns: 1fr;`};
+}`;
+
+export const EditAppGroupInput = styled.div`
+border: 1px solid rgb(255, 234, 194);
+background: #f1f1f1;
+padding: 15px;
+display: grid;
+grid-template-columns: 1fr;
+gap: 10px;
+input {
+	background-color: rgb(255, 234, 194);
+}
 }`;
 
 export const SettingFormGroupOneInput = styled.div`
@@ -210,10 +221,34 @@ export const SettingInputWrapper = styled.div`
 	}
 `;
 
+export const ServerFormsWrapper = styled.div`
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 10px;
+	${media.desktop`grid-template-columns: 1fr;`};
+`;
+
+export const ServerFormsColumn = styled.div`
+	border-top: 3px solid ${colors.violet};
+	background: #f1f1f1;
+	padding: 15px 10px;
+	margin-bottom: 30px;
+`;
+
+export const EditAppFormButton = styled.div`
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 10px;
+`;
+
 export const AppSecretKey = styled.span`
+	cursor: pointer;
 	svg {
-		margin-right: 10px;
-		color: #ff9900;
+		margin-left: 5px;
+		margin-right: 5px;
+	}
+	&:hover {
+		color: ${colors.violet};
 	}
 `;
 
@@ -236,7 +271,7 @@ export const EditAppRow = styled.div`
 	}
 	&:hover {
 		svg {
-			color: ${colors.gradient};
+			color: ${colors.violet};
 		}
 	}
 `;

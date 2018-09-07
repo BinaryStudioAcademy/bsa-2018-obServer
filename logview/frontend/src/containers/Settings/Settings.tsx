@@ -3,7 +3,7 @@ import { Route, Link, RouteComponentProps, Redirect } from 'react-router-dom';
 import { UserEdit, Database, Server } from 'styled-icons/fa-solid';
 import UserSettings from './UserSettings';
 import DataSettings from './DataSettings';
-import AppsSettings from './AppsSettings';
+import ServerSettings from './ServerSettings';
 import {
 	SettingsMenuLink,
 	SettingsMenuWrapper
@@ -54,7 +54,7 @@ class Settings extends React.Component<
 					>
 						<Link to={`${match.url}/apps`}>
 							<Server size="24" />
-							Apps Settings
+							Server Settings
 						</Link>
 					</SettingsMenuLink>
 				</SettingsMenuWrapper>
@@ -76,7 +76,7 @@ class Settings extends React.Component<
 				<Route
 					exact
 					path={`${match.url}/apps`}
-					component={AppsSettings}
+					component={ServerSettings}
 				/>
 			</React.Fragment>
 		);

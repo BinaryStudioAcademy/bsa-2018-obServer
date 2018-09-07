@@ -1,7 +1,7 @@
 import * as React from 'react';
-import SettingCheckBox from 'src/components/settings/SettingCheckBox';
-import { SettingsState } from 'src/types/SettingsState';
-import { validatePortsString } from 'src/services/validate/validate';
+import SettingCheckBox from './SettingCheckBox';
+import { SettingsState } from '../../types/SettingsState';
+import { validatePortsString } from '../../services/validate/validate';
 import {
 	SettingFormGroup,
 	SettingFormGroupOneInput,
@@ -9,7 +9,7 @@ import {
 	SettingInput,
 	SettingsSubmitButton,
 	ErrorInputSettings
-} from 'src/styles/SettingsFormStyles';
+} from '../../styles/SettingsFormStyles';
 import {
 	Server,
 	Bell,

@@ -1,7 +1,7 @@
 import 'regenerator-runtime/runtime';
 import { takeLatest, put, call, all } from 'redux-saga/effects';
 import { appsAPI } from '../../services';
-import { FetchAppsList, AddNewApp, DeleteApp } from './actions';
+import { FetchAppsList, AddNewApp, DeleteApp, UpdateApp } from './actions';
 import * as constants from './constants';
 import { parseAppsData } from '../../services/reduxDataParser';
 
@@ -22,12 +22,13 @@ function* fetchAppsList(action: FetchAppsList) {
 
 function* addNewApp(action: AddNewApp) {
 	try {
-		const newApp = yield call(appsAPI.addNewApp, action.name);
+		const newApp = yield call(appsAPI.addNewApp, action.name, action.port);
 		yield put({
 			type: constants.ADD_NEW_APP_SUCCESS,
 			payload: {
 				id: newApp.data.id,
-				name: newApp.data.name
+				name: newApp.data.name,
+				port: newApp.data.port
 			}
 		});
 	} catch (error) {
@@ -37,10 +38,31 @@ function* addNewApp(action: AddNewApp) {
 	}
 }
 
+function* upateApp(action: UpdateApp) {
+	try {
+		const updatedApp = yield call(appsAPI.updateApp, {
+			id: action.id,
+			name: action.name,
+			port: action.port
+		});
+		yield put({
+			type: constants.UPDATE_APP_SUCCESS,
+			payload: {
+				id: updatedApp.data.id,
+				name: updatedApp.data.name,
+				port: updatedApp.data.port
+			}
+		});
+	} catch (error) {
+		yield put({
+			type: constants.UPDATE_APP_FAILED
+		});
+	}
+}
+
 function* deleteApp(action: DeleteApp) {
 	try {
 		yield call(appsAPI.deleteApp, action.id);
-		console.log('deleted app', deleteApp);
 		yield put({
 			type: constants.DELETE_APP_SUCCESS,
 			payload: action.id
@@ -56,6 +78,7 @@ export default function* settingsSaga() {
 	yield all([
 		takeLatest(constants.FETCH_APPS_LIST, fetchAppsList),
 		takeLatest(constants.ADD_NEW_APP, addNewApp),
+		takeLatest(constants.UPDATE_APP, upateApp),
 		takeLatest(constants.DELETE_APP, deleteApp)
 	]);
 }

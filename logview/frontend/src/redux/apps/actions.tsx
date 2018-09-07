@@ -72,10 +72,11 @@ export type AppsListAction =
 	| FetchAppsListFail
 	| FetchAppsListSuccess;
 
-export function addNewApp(name: string, id?: string): AddNewApp {
+export function addNewApp(name: string, port: number, id?: string): AddNewApp {
 	return {
 		type: constants.ADD_NEW_APP,
 		name,
+		port,
 		id
 	};
 }
@@ -87,11 +88,10 @@ export function deleteApp(id: string): DeleteApp {
 	};
 }
 
-export function updateApp(id: string, name: string): UpdateApp {
+export function updateApp(app: AppsState): UpdateApp {
 	return {
 		type: constants.UPDATE_APP,
-		id,
-		name
+		...app
 	};
 }
 
