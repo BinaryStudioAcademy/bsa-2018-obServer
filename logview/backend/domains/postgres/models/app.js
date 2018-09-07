@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 
-const app = (sequilize, DataTypes) => {
-	const App = sequilize.define(
+const app = (sequelize, DataTypes) => {
+	const App = sequelize.define(
 		'App',
 		{
 			id: {

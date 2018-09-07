@@ -15,6 +15,14 @@ const company = (sequilize, DataTypes) => {
 			type: DataTypes.STRING,
 			allowNull: false,
 			unique: true
+		},
+		logcollectAddress: {
+			type: DataTypes.STRING,
+			allowNull: true
+		},
+		logcollectPort: {
+			type: DataTypes.STRING,
+			allowNull: true
 		}
 	});
 	return Company;
