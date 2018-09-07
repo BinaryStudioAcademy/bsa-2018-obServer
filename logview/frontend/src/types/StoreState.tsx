@@ -1,4 +1,9 @@
-import { CpuLogState, MemoryLogState, HttpStatsState } from './LogsState';
+import {
+	CpuLogState,
+	MemoryLogState,
+	HttpStatsState,
+	NotificationState
+} from './LogsState';
 import { UserState } from './UserState';
 import { SettingsState } from './SettingsState';
 import { CompanyState, UserChangeCompanyState } from './CompanyState';
@@ -13,6 +18,7 @@ export interface StoreState {
 	cpuLogs: Array<CpuLogState>;
 	memoryLogs: Array<MemoryLogState>;
 	httpStats: Array<HttpStatsState>;
+	notificationLogs: Array<NotificationState>;
 	fetchingLogsStatus: string;
 	sockets: any;
 	userChangeCompany: UserChangeCompanyState;

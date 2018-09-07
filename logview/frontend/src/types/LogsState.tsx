@@ -32,3 +32,11 @@ export interface HttpStatsState {
 		requestsCount: number;
 	};
 }
+
+export interface NotificationState {
+	logType: string;
+	timestamp: string;
+	message: string;
+	companyId: string;
+	appId: string;
+}

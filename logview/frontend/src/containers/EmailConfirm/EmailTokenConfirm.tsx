@@ -43,12 +43,23 @@ class EmailTokenConfirm extends React.Component<
 			(fetchingUserStatus === 'success' ||
 				fetchingUserStatus === 'failed') && (
 				<LandingColumn>
-					<Title>Email Successfully Confirmed!</Title>
-					<RedirectLink>
-						<Link to="/dashboard/quickstart">
-							Proceed to Quickstart
-						</Link>
-					</RedirectLink>
+					{fetchingUserStatus === 'success' ? (
+						<React.Fragment>
+							<Title>Email Successfully Confirmed!</Title>
+							<RedirectLink>
+								<Link to="/dashboard/quickstart">
+									Proceed to Quickstart
+								</Link>
+							</RedirectLink>
+						</React.Fragment>
+					) : (
+						<React.Fragment>
+							<Title>
+								Sorry, your email couldn't be confirmed!
+							</Title>
+							<p>Try following the link again, please!</p>
+						</React.Fragment>
+					)}
 				</LandingColumn>
 			)
 		);

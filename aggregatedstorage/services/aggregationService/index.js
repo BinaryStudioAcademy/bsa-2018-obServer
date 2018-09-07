@@ -27,10 +27,14 @@ const sliceLogsByInterval = (logArray, interval) => {
     const logTime = new Date(item.timestamp);
 
     while(logTime.getTime() > timeInterval.getTime()) {
-      resultArray[++chunkIndex] = [];
+      chunkIndex += 1;
+      resultArray[chunkIndex] = [];
+      if (logTime.getTime() > timeInterval.getTime() + interval) {
+        resultArray[chunkIndex] = [{ isEmpty: true, timestamp: timeInterval.toISOString() }];
+      }
       timeInterval.setTime(timeInterval.getTime() + interval);
     }
-  
+    
     resultArray[chunkIndex].push(item);
     return resultArray;
   }, [[]]);

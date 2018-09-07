@@ -4,7 +4,8 @@ import {
 	cpuLogsReducer,
 	memoryLogsReducer,
 	httpStatsReducer,
-	fetchingLogsReducer
+	fetchingLogsReducer,
+	notificationReducer
 } from './logs/reducer';
 import { userReducer, fetchingState, isLoggedInState } from './user/reducer';
 import { settingsReducer, fetchingSettingsReducer } from './settings/reducer';
@@ -23,5 +24,6 @@ export default combineReducers<StoreState>({
 	fetchingLogsStatus: fetchingLogsReducer,
 	isLoggedIn: isLoggedInState,
 	sockets: socketsReducer,
-	userChangeCompany: companyChangeReducer
+	userChangeCompany: companyChangeReducer,
+	notificationLogs: notificationReducer
 });

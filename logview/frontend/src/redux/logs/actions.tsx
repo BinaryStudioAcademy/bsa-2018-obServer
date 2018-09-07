@@ -2,7 +2,8 @@ import * as constants from './constants';
 import {
 	CpuLogState,
 	MemoryLogState,
-	HttpStatsState
+	HttpStatsState,
+	NotificationState
 } from '../../types/LogsState';
 
 export interface GetLogs {
@@ -62,6 +63,21 @@ export interface GetNewHttpStatsFail {
 	type: constants.GET_NEW_HTTP_STATS_FAILED;
 }
 
+export interface GetNewNotification {
+	type: constants.GET_NEW_NOTIFICATION;
+}
+
+export interface GetNewNotificationSuccess {
+	type: constants.GET_NEW_NOTIFICATION_SUCCESS;
+	payload: {
+		notificationLogs: Array<NotificationState>;
+	};
+}
+
+export interface GetNewNotificationFail {
+	type: constants.GET_NEW_NOTIFICATION_FAILED;
+}
+
 export type LogAction =
 	| GetLogs
 	| GetLogsFail
@@ -74,7 +90,10 @@ export type LogAction =
 	| GetNewCpuLogSuccess
 	| GetNewHttpStats
 	| GetNewHttpStatsFail
-	| GetNewHttpStatsSuccess;
+	| GetNewHttpStatsSuccess
+	| GetNewNotification
+	| GetNewNotificationSuccess
+	| GetNewNotificationFail;
 
 export function getLogs(): GetLogs {
 	return {
@@ -140,5 +159,26 @@ export function getNewHttpStats(): GetNewHttpStats {
 	console.log('action getNewHttpStats');
 	return {
 		type: constants.GET_NEW_HTTP_STATS
+	};
+}
+
+export function getNewNotification(): GetNewNotification {
+	return {
+		type: constants.GET_NEW_NOTIFICATION
+	};
+}
+
+export function getNewNotificationSuccess(payload: {
+	notificationLogs: Array<NotificationState>;
+}): GetNewNotificationSuccess {
+	return {
+		type: constants.GET_NEW_NOTIFICATION_SUCCESS,
+		payload
+	};
+}
+
+export function getNewNotificationFail(): GetNewNotificationFail {
+	return {
+		type: constants.GET_NEW_NOTIFICATION_FAILED
 	};
 }
