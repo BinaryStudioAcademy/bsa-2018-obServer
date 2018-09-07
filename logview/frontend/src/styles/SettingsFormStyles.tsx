@@ -231,7 +231,7 @@ export const ServerFormsWrapper = styled.div`
 export const ServerFormsColumn = styled.div`
 	border-top: 3px solid ${colors.violet};
 	background: #f1f1f1;
-	padding: 15px 10px;
+	padding: 20px 15px;
 	margin-bottom: 30px;
 `;
 

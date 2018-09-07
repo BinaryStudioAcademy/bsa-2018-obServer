@@ -5,21 +5,23 @@ import {
 	SettingFormGroupLabel
 } from '../../styles/SettingsFormStyles';
 import { AppsState } from '../../types/AppsState';
+import { ServerState } from '../../types/ServerState';
 import AppsTabel from '../tabels/appsTable';
-import { AddAppForm } from './AppForms';
+import { AddAppForm, ServerDataForm } from './Forms';
 import { List } from 'styled-icons/fa-solid';
+import { SecretKey } from './Utils';
 
-interface SettingServerFormsState {
-	apps: Array<AppsState>;
-}
+interface SettingServerFormsState {}
 
 interface SettingServerFormsProps {
 	apps: Array<AppsState>;
+	server: ServerState;
 	actions: {
-		fetchAppsList: Function;
 		addNewApp: Function;
 		updateApp: Function;
 		deleteApp: Function;
+		changeServerSettings: Function;
+		fetchAppsList: Function;
 	};
 }
 
@@ -29,13 +31,17 @@ export default class SettingServerForms extends React.Component<
 > {
 	constructor(props) {
 		super(props);
-		this.state = {
-			apps: this.props.apps
-		};
 	}
 
 	render() {
-		const { addNewApp, deleteApp, updateApp } = this.props.actions;
+		const {
+			addNewApp,
+			deleteApp,
+			updateApp,
+			changeServerSettings,
+			fetchAppsList
+		} = this.props.actions;
+		const { server } = this.props;
 		return (
 			<ServerFormsWrapper>
 				<div>
@@ -48,6 +54,7 @@ export default class SettingServerForms extends React.Component<
 							data={this.props.apps}
 							deleteApp={deleteApp}
 							updateApp={updateApp}
+							fetchAppsList={fetchAppsList}
 						/>
 						<AddAppForm addNewApp={addNewApp} />
 					</ServerFormsColumn>
@@ -58,7 +65,12 @@ export default class SettingServerForms extends React.Component<
 						Your Server
 					</SettingFormGroupLabel>
 					<ServerFormsColumn>
-						<span>{443443}</span> - your secret key
+						<SecretKey secretKey={server.companyId} /> - your server
+						token
+						<ServerDataForm
+							server={server}
+							changeServerSettings={changeServerSettings}
+						/>
 					</ServerFormsColumn>
 				</div>
 			</ServerFormsWrapper>

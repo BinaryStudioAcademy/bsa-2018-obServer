@@ -1,20 +1,15 @@
 import * as React from 'react';
 import SettingCheckBox from './SettingCheckBox';
 import { SettingsState } from '../../types/SettingsState';
-import { validatePortsString } from '../../services/validate/validate';
 import {
 	SettingFormGroup,
-	SettingFormGroupOneInput,
 	SettingFormGroupLabel,
-	SettingInput,
-	SettingsSubmitButton,
-	ErrorInputSettings
+	SettingsSubmitButton
 } from '../../styles/SettingsFormStyles';
 import {
 	Server,
 	Bell,
 	ProjectDiagram,
-	Globe,
 	CheckSquare
 } from 'styled-icons/fa-solid';
 
@@ -33,8 +28,6 @@ interface SettingsDataState {
 	appsErrorLog?: boolean;
 	appsHttp?: boolean;
 	appsSoket?: boolean;
-	listeningPorts?: string;
-	validPorts?: boolean;
 }
 
 class SettingDataForm extends React.Component<
@@ -44,8 +37,7 @@ class SettingDataForm extends React.Component<
 	constructor(props) {
 		super(props);
 		this.state = {
-			...this.props.settings,
-			validPorts: true
+			...this.props.settings
 		};
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
@@ -64,13 +56,7 @@ class SettingDataForm extends React.Component<
 
 	handleSubmit(event: any) {
 		event.preventDefault();
-		const testPorts = validatePortsString(this.state.listeningPorts);
-
-		this.setState({
-			validPorts: testPorts
-		});
-
-		if (testPorts) this.props.onSubmit(this.state);
+		this.props.onSubmit(this.state);
 	}
 
 	render() {
@@ -150,29 +136,6 @@ class SettingDataForm extends React.Component<
 						onChange={this.handleChange}
 					/>
 				</SettingFormGroup>
-
-				<SettingFormGroupLabel>
-					<Globe size="18" />
-					Ports
-				</SettingFormGroupLabel>
-				<SettingFormGroupOneInput>
-					<SettingInput
-						type="text"
-						name="listeningPorts"
-						value={
-							this.state.listeningPorts
-								? this.state.listeningPorts
-								: ''
-						}
-						onChange={this.handleChange}
-					/>
-					{!this.state.validPorts && (
-						<ErrorInputSettings>
-							Enter number ports separated by commas:{' '}
-							<i>8080,3060,80 etc.</i>
-						</ErrorInputSettings>
-					)}
-				</SettingFormGroupOneInput>
 
 				<SettingsSubmitButton onClick={this.handleSubmit}>
 					<CheckSquare size="18" />

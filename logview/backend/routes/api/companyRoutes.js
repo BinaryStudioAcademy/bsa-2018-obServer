@@ -117,4 +117,42 @@ router.put(
 	apiResponse
 );
 
+router.get(
+	'/server',
+	isLoggedInMiddleware,
+	async (req, res, next) => {
+		try {
+			const company = await companyService.findById(req.user.companyId);
+			res.data = company;
+			res.err = null;
+		} catch (error) {
+			res.data = null;
+			res.err = error;
+		} finally {
+			next();
+		}
+	},
+	apiResponse
+);
+
+router.put(
+	'/server',
+	isLoggedInMiddleware,
+	async (req, res, next) => {
+		try {
+			await companyService.update(req.user.companyId, req.body);
+			const company = await companyService.findById(req.user.companyId);
+
+			res.data = company;
+			res.err = null;
+		} catch (error) {
+			res.data = null;
+			res.err = error;
+		} finally {
+			next();
+		}
+	},
+	apiResponse
+);
+
 module.exports = router;

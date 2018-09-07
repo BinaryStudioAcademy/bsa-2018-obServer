@@ -21,8 +21,7 @@ export function settingsReducer(
 				appsCPU: action.payload.appsCPU,
 				appsErrorLog: action.payload.appsErrorLog,
 				appsHttp: action.payload.appsHttp,
-				appsSoket: action.payload.appsSoket,
-				listeningPorts: action.payload.listeningPorts
+				appsSoket: action.payload.appsSoket
 			};
 		}
 		default:

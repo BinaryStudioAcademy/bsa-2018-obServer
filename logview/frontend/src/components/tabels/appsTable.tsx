@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { SecretKey, DeleteApp } from './Utils';
-import { EditAppForm } from '../settings/AppForms';
+import { EditAppForm } from '../settings/Forms';
 import {
 	AppSecretKey,
 	DeleteAppRow,
@@ -86,6 +86,7 @@ export default class AppsTabel extends React.Component<any, any> {
 			<EditAppForm
 				app={this.state.editApp}
 				updateApp={this.props.updateApp}
+				fetchAppsList={this.props.fetchAppsList}
 			/>
 		);
 	}

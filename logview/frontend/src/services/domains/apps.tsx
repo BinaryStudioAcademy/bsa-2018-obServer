@@ -12,7 +12,6 @@ export default {
 		return api.makeRequest(`/api/app/${appId}`, api.requestType.DELETE);
 	},
 	updateApp: (app: AppsState) => {
-		console.log('eeee', app);
 		return api.makeRequest(`/api/app/${app.id}`, api.requestType.PUT, {
 			name: app.name,
 			port: app.port

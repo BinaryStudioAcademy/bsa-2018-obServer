@@ -16,13 +16,13 @@ import {
 import { Profile as UserProfile, Submit } from '../../styles/Styles';
 import Select from '../../components/Select/Select';
 import ResourcesBlock from './ResourcesBlock/ResourcesBlock';
-import Notifications from 'src/components/Notifications/Notifications';
+import Notifications from '../../components/Notifications/Notifications';
 import { SettingsIcon } from '../../styles/IconStyles';
 import DashboardRoutes from './DashboardRoutes';
 import AppsSelector from './AppsSelector';
-import { getNewNotification } from 'src/redux/logs/actions';
-import { NotificationState } from 'src/types/LogsState';
-import { startChannel, stopChannel } from 'src/redux/sockets/actions';
+import { getNewNotification } from '../../redux/logs/actions';
+import { NotificationState } from '../../types/LogsState';
+import { startChannel, stopChannel } from '../../redux/sockets/actions';
 
 interface DashboardState {
 	active?: string;

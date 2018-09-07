@@ -14,6 +14,7 @@ import {
 import { userReducer, fetchingState, isLoggedInState } from './user/reducer';
 import { settingsReducer, fetchingSettingsReducer } from './settings/reducer';
 import { appsReducer, fetchingAppsReducer } from './apps/reducer';
+import { serverReducer, fetchingServerReducer } from './server/reducer';
 import { companyReducer } from './company/reducer';
 import { socketsReducer } from './sockets/reducer';
 
@@ -22,6 +23,7 @@ export default combineReducers<StoreState>({
 	companyUsers: companyReducer,
 	settings: settingsReducer,
 	apps: appsReducer,
+	server: serverReducer,
 	cpuLogs: cpuLogsReducer,
 	memoryLogs: memoryLogsReducer,
 	httpStats: httpStatsReducer,
@@ -29,6 +31,7 @@ export default combineReducers<StoreState>({
 	fetchingUserStatus: fetchingState,
 	fetchingSettingsStatus: fetchingSettingsReducer,
 	fetchingAppsStatus: fetchingAppsReducer,
+	fetchingServerStatus: fetchingServerReducer,
 	fetchingLogsStatus: fetchingLogsReducer,
 	isLoggedIn: isLoggedInState,
 	logMessages: logMessagesReducer,

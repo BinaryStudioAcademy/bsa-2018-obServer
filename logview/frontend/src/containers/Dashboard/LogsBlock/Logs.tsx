@@ -22,10 +22,10 @@ import {
 	NotFound
 } from '../../../styles/LogsStyles';
 
-import { filterLogs, calcErrStats } from 'src/services/logstats/logs';
-import { LOGS } from 'src/containers/Logs/mockData';
-import UpdateTimer from 'src/components/UpdateTimer/UpdateTimer';
-import { Submit } from 'src/styles/Styles';
+import { filterLogs, calcErrStats } from '../../../services/logstats/logs';
+import { LOGS } from '../../Logs/mockData';
+import UpdateTimer from '../../../components/UpdateTimer/UpdateTimer';
+import { Submit } from '../../../styles/Styles';
 import { RowContainer } from '../DashboardStyles';
 import { LogsContainer, LogsList } from './LogsStyles';
 import Select from '../../../components/Select/Select';

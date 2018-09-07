@@ -8,6 +8,7 @@ import {
 } from '../../styles/SettingsFormStyles';
 import { LoaderOval } from '../../components/loaders';
 import { AppsState } from '../../types/AppsState';
+import { ServerState } from '../../types/ServerState';
 import SettingServerForms from '../../components/settings/SettingServerForms';
 import {
 	fetchAppsList,
@@ -15,23 +16,37 @@ import {
 	updateApp,
 	deleteApp
 } from '../../redux/apps/actions';
+
+import {
+	fetchServerSettings,
+	changeServerSettings
+} from '../../redux/server/actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 interface ServerSettingsFormProps {
 	apps: Array<AppsState>;
+	server: ServerState;
 	actions: {
 		fetchAppsList: Function;
 		addNewApp: Function;
 		updateApp: Function;
 		deleteApp: Function;
+		fetchServerSettings: Function;
+		changeServerSettings: Function;
 	};
 	fetchingAppsStatus: string;
+	fetchingServerStatus: string;
+}
+
+interface ServerSettingsFormState {
+	apps: Array<AppsState>;
+	server: ServerState;
 }
 
 class ServerSettings extends React.Component<
 	ServerSettingsFormProps,
-	Array<AppsState>
+	ServerSettingsFormState
 > {
 	constructor(props) {
 		super(props);
@@ -39,13 +54,18 @@ class ServerSettings extends React.Component<
 
 	componentDidMount() {
 		this.props.actions.fetchAppsList();
+		this.props.actions.fetchServerSettings();
 	}
 
 	render() {
-		return this.props.fetchingAppsStatus === 'success' ? (
+		const fetching =
+			this.props.fetchingAppsStatus === 'success' &&
+			this.props.fetchingServerStatus === 'success';
+		return fetching ? (
 			<React.Fragment>
 				<SettingServerForms
 					apps={this.props.apps}
+					server={this.props.server}
 					actions={this.props.actions}
 				/>
 			</React.Fragment>
@@ -55,13 +75,27 @@ class ServerSettings extends React.Component<
 	}
 }
 
-const mapStateToProps = ({ fetchingAppsStatus, apps }) => ({
+const mapStateToProps = ({
 	fetchingAppsStatus,
-	apps
+	fetchingServerStatus,
+	apps,
+	server
+}) => ({
+	fetchingAppsStatus,
+	fetchingServerStatus,
+	apps,
+	server
 });
 const mapDispatchToProps = (dispatch: any) => ({
 	actions: bindActionCreators(
-		{ fetchAppsList, addNewApp, updateApp, deleteApp },
+		{
+			fetchAppsList,
+			addNewApp,
+			updateApp,
+			deleteApp,
+			fetchServerSettings,
+			changeServerSettings
+		},
 		dispatch
 	)
 });

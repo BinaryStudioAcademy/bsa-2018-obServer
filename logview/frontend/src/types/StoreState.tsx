@@ -9,6 +9,7 @@ import { UserState } from './UserState';
 import { SettingsState } from './SettingsState';
 import { CompanyState } from './CompanyState';
 import { AppsState } from './AppsState';
+import { ServerState } from './ServerState';
 
 export interface StoreState {
 	user: UserState;
@@ -18,6 +19,8 @@ export interface StoreState {
 	fetchingSettingsStatus: string;
 	settings: SettingsState;
 	apps: Array<AppsState>;
+	server: ServerState;
+	fetchingServerStatus: string;
 	fetchingAppsStatus: string;
 	cpuLogs: Array<CpuLogState>;
 	memoryLogs: Array<MemoryLogState>;

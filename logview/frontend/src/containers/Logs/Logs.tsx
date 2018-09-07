@@ -1,8 +1,8 @@
 import * as React from 'react';
 // components & their styles
-import ErrChart from 'src/components/charts/logs/ErrChart';
+import ErrChart from '../../components/charts/logs/ErrChart';
 import LogStatsTabel from '../../components/tabels/logStatsTabel';
-import { LoaderBars } from 'src/components/loaders';
+import { LoaderBars } from '../../components/loaders';
 import { SelectChartPage } from '../../styles/Styles';
 import {
 	ChartWrapper,
@@ -12,7 +12,7 @@ import {
 	Level,
 	TimeSpanPicker,
 	LogsList
-} from 'src/styles/LogsStyles';
+} from '../../styles/LogsStyles';
 // redux
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -21,11 +21,11 @@ import {
 	handleActiveApp,
 	handleTimeRange,
 	handleLogLevels
-} from 'src/redux/logs/actions';
+} from '../../redux/logs/actions';
 import { LogMessagesState, LogLevelsState } from '../../types/LogsState';
 
 // data & services
-import { filterLogs, calcErrStats } from 'src/services/logstats/logs';
+import { filterLogs, calcErrStats } from '../../services/logstats/logs';
 
 interface LogsProps {
 	actions: {

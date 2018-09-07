@@ -12,8 +12,8 @@ import {
 	Row,
 	Status
 } from './CompanyStyles';
-import { fetchCompanyUsers } from 'src/redux/company/actions';
-import { userInvite } from 'src/redux/user/actions';
+import { fetchCompanyUsers } from '../../redux/company/actions';
+import { userInvite } from '../../redux/user/actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import UserSingle from './UserSingle';

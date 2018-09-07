@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { getLogs, getNewCpuLog, getNewMemoryLog } from 'src/redux/logs/actions';
-import { CpuLogState, MemoryLogState } from 'src/types/LogsState';
+import { getLogs, getNewCpuLog, getNewMemoryLog } from '../redux/logs/actions';
+import { CpuLogState, MemoryLogState } from '../types/LogsState';
 
 interface FetchLogsProps {
 	actions: {

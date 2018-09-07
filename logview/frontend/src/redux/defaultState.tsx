@@ -16,8 +16,12 @@ export const defaultState: StoreState = {
 		appsCPU: undefined,
 		appsErrorLog: undefined,
 		appsHttp: undefined,
-		appsSoket: undefined,
-		listeningPorts: undefined
+		appsSoket: undefined
+	},
+	server: {
+		logcollectAddress: '',
+		logcollectPort: '',
+		companyId: ''
 	},
 	apps: [
 		{
@@ -105,6 +109,7 @@ export const defaultState: StoreState = {
 	fetchingUserStatus: 'unstarted',
 	fetchingSettingsStatus: 'unstarted',
 	fetchingAppsStatus: 'unstarted',
+	fetchingServerStatus: 'unstarted',
 	fetchingLogsStatus: 'unstarted',
 	isLoggedIn: false,
 	sockets: undefined
