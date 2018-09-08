@@ -3,22 +3,36 @@ import { Link, RouteComponentProps } from 'react-router-dom';
 import LogsBlock from './LogsBlock/Logs';
 import Profile from './Profile';
 import HttpBlock from './HttpBlock/HttpBlock';
-import { DashboardMain, DashboardNav, DashboardWrapper, RowContainer, CenteredContainer, Title } from './DashboardStyles';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import {
-	Profile as UserProfile, Submit,
-} from '../../styles/Styles';
+	DashboardMain,
+	DashboardNav,
+	DashboardWrapper,
+	RowContainer,
+	CenteredContainer,
+	Title
+} from './DashboardStyles';
+import { Profile as UserProfile, Submit } from '../../styles/Styles';
 import Select from 'src/components/Select/Select';
 import ResourcesBlock from './ResourcesBlock/ResourcesBlock';
-import Notifications from '../../components/Notifications/Notifications';
+import Notifications from 'src/components/Notifications/Notifications';
 import { SettingsIcon } from '../../styles/IconStyles';
 import DashboardRoutes from './DashboardRoutes';
+import { getNewNotification } from 'src/redux/logs/actions';
+import { NotificationState } from 'src/types/LogsState';
+import { startChannel, stopChannel } from 'src/redux/sockets/actions';
 
 interface DashboardState {
 	active?: string;
 }
 
 interface DashboardProps extends RouteComponentProps<{}, {}> {
-	actions: { userLogout: Function; fetchUser: Function };
+	actions: {
+		getNewNotification: Function;
+		startChannel: Function;
+	};
+	notifications: Array<NotificationState>;
 }
 
 class Dashboard extends React.Component<DashboardProps, DashboardState> {
@@ -26,59 +40,81 @@ class Dashboard extends React.Component<DashboardProps, DashboardState> {
 		super(props);
 
 		this.state = {
-			active: '',
+			active: ''
 		};
 
 		this.setActive = this.setActive.bind(this);
 	}
 
+	componentDidMount() {
+		this.props.actions.startChannel();
+	}
+
 	setActive(active) {
 		this.setState({ active });
 	}
-	
+
 	render() {
-		const { match, location } = this.props;
+		const { match, location, notifications } = this.props;
+		const data = notifications || [];
 		return (
-            <DashboardWrapper>
-                <DashboardNav>
-                    <RowContainer>
-                        <Title><Link to="/dashboard">obServer</Link></Title>
-						<CenteredContainer>
-	                        <Select onActive={false} options={['app1', 'app2', 'app3']}/>
-						</CenteredContainer>
-                    </RowContainer>
+			<DashboardWrapper>
+				<DashboardNav>
 					<RowContainer>
-						<CenteredContainer>							
+						<Title>
+							<Link to="/dashboard">obServer</Link>
+						</Title>
+						<CenteredContainer>
+							<Select
+								onActive={false}
+								options={['app1', 'app2', 'app3']}
+							/>
+						</CenteredContainer>
+					</RowContainer>
+					<RowContainer>
+						<CenteredContainer>
 							<Link to="/dashboard/settings">
-								<SettingsIcon size="25"/>
+								<SettingsIcon size="25" />
 							</Link>
 						</CenteredContainer>
-						<Notifications />
+						<Notifications data={data} />
 						<Profile />
 					</RowContainer>
-                </DashboardNav>
+				</DashboardNav>
 
-				<DashboardRoutes url={match.url}/>
-				
-                <DashboardMain>
-					{ location.pathname === '/dashboard' && (
+				<DashboardRoutes url={match.url} />
+
+				<DashboardMain>
+					{location.pathname === '/dashboard' && (
 						<React.Fragment>
 							<div>
 								<ResourcesBlock />
 							</div>
-							<div >
+							<div>
 								<HttpBlock />
 							</div>
-							<div >
+							<div>
 								<LogsBlock />
 							</div>
 						</React.Fragment>
 					)}
-				    
-                </DashboardMain>
-            </DashboardWrapper>
+				</DashboardMain>
+			</DashboardWrapper>
 		);
 	}
 }
 
-export default Dashboard;
+const mapStateToProps = ({ notificationsLogs }) => ({
+	notificationsLogs
+});
+
+const mapDispatchToProps = (dispatch: any) => ({
+	actions: bindActionCreators({ getNewNotification, startChannel }, dispatch)
+});
+
+const DashboardConnected = connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(Dashboard);
+
+export default DashboardConnected;

@@ -4,7 +4,12 @@ import {
 	cpuLogsReducer,
 	memoryLogsReducer,
 	httpStatsReducer,
-	fetchingLogsReducer
+	fetchingLogsReducer,
+	logMessagesReducer,
+	activeAppReducer,
+	timeRangeReducer,
+	logLevelsReducer,
+	notificationReducer
 } from './logs/reducer';
 import { userReducer, fetchingState, isLoggedInState } from './user/reducer';
 import { settingsReducer, fetchingSettingsReducer } from './settings/reducer';
@@ -20,7 +25,12 @@ export default combineReducers<StoreState>({
 	cpuLogs: cpuLogsReducer,
 	memoryLogs: memoryLogsReducer,
 	httpStats: httpStatsReducer,
+	logMessages: logMessagesReducer,
+	activeApp: activeAppReducer,
+	timeRange: timeRangeReducer,
+	logLevels: logLevelsReducer,
 	fetchingLogsStatus: fetchingLogsReducer,
 	isLoggedIn: isLoggedInState,
-	sockets: socketsReducer
+	sockets: socketsReducer,
+	notificationLogs: notificationReducer
 });

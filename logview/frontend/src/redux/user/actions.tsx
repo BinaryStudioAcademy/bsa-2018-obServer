@@ -254,7 +254,11 @@ export function userEmailActivation(
 	};
 }
 
-export function userInvite(email: string = '', name: string = '', admin: boolean = false) {
+export function userInvite(
+	email: string = '',
+	name: string = '',
+	admin: boolean = false
+) {
 	return {
 		type: constants.USER_INVITE,
 		email,
