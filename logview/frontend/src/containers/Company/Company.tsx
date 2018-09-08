@@ -146,7 +146,8 @@ class Company extends React.Component<CompanyProps, CompanyState> {
 								<UserSingle key={i} user={companyUser} />
 							))}
 						</React.Fragment>
-					)}
+					)
+				}
 			</CompanyUsers>
 		);
 	}

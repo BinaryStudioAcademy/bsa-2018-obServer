@@ -33,6 +33,7 @@ interface DashboardProps extends RouteComponentProps<{}, {}> {
 		startChannel: Function;
 	};
 	notifications: Array<NotificationState>;
+    fetchingUserStatus: string;
 }
 
 class Dashboard extends React.Component<DashboardProps, DashboardState> {
@@ -115,8 +116,9 @@ class Dashboard extends React.Component<DashboardProps, DashboardState> {
 	}
 }
 
-const mapStateToProps = ({ notificationsLogs }) => ({
-	notificationsLogs
+const mapStateToProps = ({ notificationsLogs, fetchingUserStatus }) => ({
+	notificationsLogs,
+	fetchingUserStatus
 });
 
 const mapDispatchToProps = (dispatch: any) => ({
