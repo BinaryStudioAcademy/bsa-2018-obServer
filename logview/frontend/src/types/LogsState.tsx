@@ -42,7 +42,7 @@ export interface LogMessagesState {
 	message: string;
 }
 
-export interface LogErrorState{ 
+export interface LogErrorState {
 	timestamp: number;
 	errors: number;
 }

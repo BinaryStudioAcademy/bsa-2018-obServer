@@ -1,7 +1,7 @@
 import { colors } from '../../styles/styles-utils';
 import { UserPopup } from '../../styles/ContainerStyles';
 import { UserText, CommentText } from '../../styles/TextStyles';
-import styled, { StyledFunction } from "styled-components"
+import styled, { StyledFunction } from 'styled-components';
 
 export const Select = UserPopup.extend`
 	width: 160px;
@@ -22,7 +22,7 @@ export const OptionActive = UserText.extend`
 	cursor: pointer;
 `;
 
-const option: StyledFunction<React.HTMLProps<HTMLElement>> = CommentText.extend
+const option: StyledFunction<React.HTMLProps<HTMLElement>> = CommentText.extend;
 
 export const Option = option`
 	border-bottom: none;

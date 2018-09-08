@@ -15,7 +15,7 @@ interface SelectState {
 
 interface SelectProps {
 	active: string;
-	options: Array<{name: string, value: string}>;
+	options: Array<{ name: string; value: string }>;
 	onActive: Function;
 }
 
@@ -61,10 +61,7 @@ class Select extends React.Component<SelectProps, SelectState> {
 				{this.state.popup && (
 					<Dropdown popup={this.state.popup}>
 						{this.props.options.map((option, i) => (
-							<Option
-								key={i}
-								onClick={this.handleClick}
-							>
+							<Option key={i} onClick={this.handleClick}>
 								<span title={option.value}>{option.name}</span>
 							</Option>
 						))}

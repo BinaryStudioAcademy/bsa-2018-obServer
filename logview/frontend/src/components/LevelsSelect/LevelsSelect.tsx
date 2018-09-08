@@ -4,7 +4,7 @@ import {
 	Select as StyledSelect,
 	OptionActive,
 	Option,
-    Dropdown,
+	Dropdown,
 	ActiveStatusIcon,
 	Span
 } from './LevelsSelectStyles';
@@ -18,7 +18,7 @@ interface SelectState {
 
 interface SelectProps {
 	options: Array<Options>;
-    onActive: Function;
+	onActive: Function;
 }
 
 class Select extends React.Component<SelectProps, SelectState> {
@@ -36,7 +36,7 @@ class Select extends React.Component<SelectProps, SelectState> {
 	}
 
 	componentDidMount() {
-		this.setState({options: this.props.options})
+		this.setState({ options: this.props.options });
 	}
 
 	handleClickOutside(evt) {
@@ -44,13 +44,13 @@ class Select extends React.Component<SelectProps, SelectState> {
 	}
 
 	handleClick(e) {
-		const newOptions = this.state.options.map( (el) => {
+		const newOptions = this.state.options.map(el => {
 			if (el.value === e.target.title) {
 				el.active = !el.active;
 			}
 			return el;
-		})
-		this.setState({options: newOptions});
+		});
+		this.setState({ options: newOptions });
 		this.props.onActive(newOptions);
 	}
 
@@ -68,11 +68,14 @@ class Select extends React.Component<SelectProps, SelectState> {
 				{this.state.popup && (
 					<Dropdown popup={this.state.popup}>
 						{this.props.options.map((option, i) => (
-							<Option key={i} >
-								<ActiveStatusIcon size="10" active={this.state.options[i].active} />
-								<Span 
-									title={option.value} 
-									active={this.state.options[i].active} 
+							<Option key={i}>
+								<ActiveStatusIcon
+									size="10"
+									active={this.state.options[i].active}
+								/>
+								<Span
+									title={option.value}
+									active={this.state.options[i].active}
 									onClick={this.handleClick}
 								>
 									{option.name}

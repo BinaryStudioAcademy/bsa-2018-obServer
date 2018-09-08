@@ -42,9 +42,7 @@ const LEVELS = {
 	5: <SillyLabel>SILLY</SillyLabel>
 };
 
-interface LogsProps {
-	
-}
+interface LogsProps {}
 
 interface LogsState {
 	filters: {

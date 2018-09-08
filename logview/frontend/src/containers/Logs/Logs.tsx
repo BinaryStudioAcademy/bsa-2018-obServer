@@ -22,7 +22,11 @@ import {
 	handleTimeRange,
 	handleLogLevels
 } from 'src/redux/logs/actions';
-import { LogMessagesState, LogLevelsState, LogErrorState } from '../../types/LogsState';
+import {
+	LogMessagesState,
+	LogLevelsState,
+	LogErrorState
+} from '../../types/LogsState';
 
 // data & services
 import { filterLogs, calcErrStats } from 'src/services/logstats/logs';

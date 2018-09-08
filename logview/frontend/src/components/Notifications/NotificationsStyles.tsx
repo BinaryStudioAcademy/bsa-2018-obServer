@@ -1,6 +1,25 @@
-import styled from 'styled-components';
+import styled, { StyledFunction } from 'styled-components';
 import transition from 'styled-transition-group';
-import { colors } from '../../styles/styles-utils';
+import { Notifications } from 'styled-icons/material';
+import { Circle } from 'styled-icons/fa-solid';
+
+export const NotificationActive = Circle.extend`
+	position: absolute;
+	right: 10px;
+	top: 0px;
+	color: red;
+`;
+
+export const NotificationIcon = Notifications.extend`
+	padding: 3px;
+	margin: 0 10px;
+	border-radius: 7px;
+	color: #a0a0a0;
+
+	&:hover {
+		color: #3d3d3d;
+	}
+`;
 
 export const NotificationPopup = transition.div`
     position: absolute;

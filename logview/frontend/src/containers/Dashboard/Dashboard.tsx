@@ -33,7 +33,7 @@ interface DashboardProps extends RouteComponentProps<{}, {}> {
 		startChannel: Function;
 	};
 	notifications: Array<NotificationState>;
-    fetchingUserStatus: string;
+	fetchingUserStatus: string;
 }
 
 class Dashboard extends React.Component<DashboardProps, DashboardState> {

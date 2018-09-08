@@ -1,13 +1,15 @@
 import * as React from 'react';
 import onClickOutside from 'react-onclickoutside';
-import { NotificationIcon } from '../../styles/Styles';
 import {
 	NotificationPopup,
 	Wrapper,
 	Timestamp,
 	Message,
-	Item
+	Item,
+	NotificationActive,
+	NotificationIcon
 } from './NotificationsStyles';
+import { NotificationState } from 'src/types/LogsState';
 
 interface NotificationsState {
 	popup: boolean;
@@ -15,6 +17,7 @@ interface NotificationsState {
 
 interface NotificationsProps {
 	options: Array<string>;
+	data: Array<NotificationState>;
 }
 
 class Notifications extends React.Component<
@@ -33,8 +36,6 @@ class Notifications extends React.Component<
 		this.togglePopup = this.togglePopup.bind(this);
 	}
 
-	componentDidMount() {}
-
 	handleClickOutside(evt) {
 		this.setState({ popup: false });
 	}
@@ -48,26 +49,32 @@ class Notifications extends React.Component<
 	}
 
 	render() {
+		const { data } = this.props;
 		return (
 			<Wrapper>
-				<NotificationIcon size="25" onClick={this.handleClick} />
+				<Wrapper>
+					<NotificationIcon size="25" onClick={this.handleClick} />
+					{ data && data.length > 0 && data.length && <NotificationActive size="10" /> }
+				</Wrapper>
+
 				<NotificationPopup
 					unmountOnExit
 					in={this.state.popup}
 					timeout={1000}
 				>
-					<Item>
-						<Timestamp>18/08/2018, 09:48:14</Timestamp>
-						<Message>Server down</Message>
-					</Item>
-					<Item>
-						<Timestamp>21/08/2018, 15:34:54</Timestamp>
-						<Message>CPU Critically High Load</Message>
-					</Item>
-					<Item>
-						<Timestamp>20/08/2018, 20:08:14</Timestamp>
-						<Message>-> Relax, we're doing fine</Message>
-					</Item>
+					{ data.length > 0 ? (
+						data.map((notif: any, index) => {
+							<Item key={index}>
+								<Timestamp>{notif.timestamp}</Timestamp>
+								<Message>{notif.message}</Message>
+							</Item>;
+						})
+					) : (
+						<Item>
+							<Timestamp>now</Timestamp>
+							<Message>Relax, everything's alright</Message>
+						</Item>
+					)}
 				</NotificationPopup>
 			</Wrapper>
 		);

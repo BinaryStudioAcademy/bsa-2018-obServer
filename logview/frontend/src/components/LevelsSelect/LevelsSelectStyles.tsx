@@ -1,7 +1,7 @@
 import { colors } from '../../styles/styles-utils';
 import { UserPopup } from '../../styles/ContainerStyles';
 import { UserText } from '../../styles/TextStyles';
-import styled, { StyledFunction } from "styled-components"
+import styled, { StyledFunction } from 'styled-components';
 import { Circle } from 'styled-icons/fa-solid';
 
 export const Select = UserPopup.extend`
@@ -70,12 +70,14 @@ interface CircleProps {
 	size: any;
 }
 
-const circle: StyledFunction<CircleProps & React.HTMLProps<HTMLElement>> = Circle.extend;
+const circle: StyledFunction<CircleProps & React.HTMLProps<HTMLElement>> =
+	Circle.extend;
 
 export const ActiveStatusIcon = circle`
     position: absolute;
     left: 25px;
 	margin-right: 5px;
+	transition-duration: 0.3s;
 	color: ${(props: { active: boolean }) =>
 		props.active ? '#1db954' : '#bebec5'};
 `;
@@ -84,7 +86,8 @@ interface SpanProps {
 	active: boolean;
 }
 
-const span: StyledFunction<SpanProps & React.HTMLProps<HTMLElement>> = styled.span;
+const span: StyledFunction<SpanProps & React.HTMLProps<HTMLElement>> =
+	styled.span;
 
 export const Span = span`
 
