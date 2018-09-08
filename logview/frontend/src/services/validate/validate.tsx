@@ -5,10 +5,11 @@ export function validate(type: string, str: string) {
 	} else if (type === 'password') {
 		return str.length > 7;
 	} else if (type === 'name') {
-		let re = /^[a-zA-Z]+/;
-		return re.test(String(str).toLowerCase());
+		let re = /^[a-zA-Z ]{2,30}$/;
+		return re.test(String(str));
 	} else if (type === 'company') {
-		return str.length > 2;
+		let re = /[!@#$%^&*]/;
+		return !re.test(String(str)) && str.length > 2;
 	}
 }
 

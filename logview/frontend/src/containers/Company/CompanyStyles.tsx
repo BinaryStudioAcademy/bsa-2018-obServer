@@ -28,7 +28,7 @@ export const UserItem = CompanyUserItem.extend`
 
 export const CompanyUsers = StyledCompanyUsers.extend`
 	align-items: unset;
-	margin: 80px;
+	margin: 80px 80px 0 80px;
 `;
 
 export const PlusCircleIcon = PlusCircle.extend`
