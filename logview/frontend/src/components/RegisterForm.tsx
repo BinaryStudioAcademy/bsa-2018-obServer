@@ -130,9 +130,10 @@ class RegisterForm extends React.Component<RegFormProps, RegFormState> {
 				/>
 				{!this.state.validateState.company && (
 					<ErrorText>
-						Company should be at least 3 characters long
+						Company can only contain letters and numbers
 					</ErrorText>
 				)}
+				<br />
 				<Submit onClick={this.handleSubmit}>sign up</Submit>
 
 				<RedirectLink>
