@@ -52,6 +52,7 @@ class PasswordResetForm extends React.Component<
 					value={this.state.email}
 					onChange={this.handleFieldChange}
 				/>
+				<br />
 				<Submit onClick={this.handleSubmit}>
 					Send password reset email
 				</Submit>
