@@ -1,7 +1,5 @@
 import * as React from 'react';
 import CoresLoadLineChart from 'src/components/charts/serverResources/CoresLoadLineChart';
-import PercentMemoryChart from 'src/components/charts/serverResources/PercentMemoryChart';
-import MemoryUsedChart from 'src/components/charts/serverResources/MemoryUsedChart';
 import { Timer } from 'styled-icons/material';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -17,10 +15,8 @@ import {
 	ChartInfo,
 	ChartHeader,
 	ChartWrapper,
-	ChartsPageWrapper,
 	ChartTimeRange
 } from 'src/containers/ServerResources/ServerResourcesStyles';
-import Select from 'src/components/Select/Select';
 import {
 	ChartsWrapper,
 	Title,
@@ -30,6 +26,8 @@ import {
 } from './ResourcesBlockStyles';
 import { Submit } from 'src/styles/Styles';
 import { Link } from 'react-router-dom';
+import { defaultState } from '../../../redux/defaultState';
+import initialValues from './ResourcesInitalValues';
 
 let timerID;
 
@@ -126,7 +124,11 @@ class ServerResources extends React.Component<
 								</ChartTimeRange>
 							</ChartHeader>
 							<CoresLoadLineChart
-								data={this.state.cpuLogs}
+								data={
+									this.state.cpuLogs.length > 2
+										? this.state.cpuLogs
+										: initialValues
+								}
 								timeRange="last 10 minutes"
 							/>
 						</Chart>

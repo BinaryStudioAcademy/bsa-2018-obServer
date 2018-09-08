@@ -22,7 +22,11 @@ import {
 	handleTimeRange,
 	handleLogLevels
 } from 'src/redux/logs/actions';
-import { LogMessagesState, LogLevelsState } from '../../types/LogsState';
+import {
+	LogMessagesState,
+	LogLevelsState,
+	LogErrorState
+} from '../../types/LogsState';
 
 // data & services
 import { filterLogs, calcErrStats } from 'src/services/logstats/logs';
@@ -45,11 +49,11 @@ interface LogsProps {
 
 interface LogsState {
 	filters: {
-		levels: { error; warn; info; verbose; debug; silly };
+		levels: LogLevelsState;
 		timespan: string;
 	};
-	filteredLogs: Array<{ timestamp; logLevel; message }>;
-	errStats: Array<{ timestamp; errors }>;
+	filteredLogs: Array<LogMessagesState>;
+	errStats: Array<LogErrorState>;
 }
 
 class Logs extends React.Component<LogsProps, LogsState> {

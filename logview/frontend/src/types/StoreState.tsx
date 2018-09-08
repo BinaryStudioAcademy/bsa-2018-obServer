@@ -3,11 +3,12 @@ import {
 	MemoryLogState,
 	HttpStatsState,
 	LogMessagesState,
-	NotificationState
+	NotificationState,
+	LogLevelsState
 } from './LogsState';
 import { UserState } from './UserState';
 import { SettingsState } from './SettingsState';
-import { CompanyState } from './CompanyState';
+import { CompanyState, UserChangeCompanyState } from './CompanyState';
 
 export interface StoreState {
 	user: UserState;
@@ -22,15 +23,9 @@ export interface StoreState {
 	logMessages: Array<LogMessagesState>;
 	activeApp: string;
 	timeRange: string;
-	logLevels: {
-		error: boolean;
-		warn: boolean;
-		info: boolean;
-		verbose: boolean;
-		debug: boolean;
-		silly: boolean;
-	};
+	logLevels: LogLevelsState;
 	notificationLogs: Array<NotificationState>;
 	fetchingLogsStatus: string;
 	sockets: any;
+	userChangeCompany: UserChangeCompanyState;
 }

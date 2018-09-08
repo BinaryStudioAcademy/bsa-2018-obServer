@@ -28,8 +28,10 @@ import UpdateTimer from 'src/components/UpdateTimer/UpdateTimer';
 import { Submit } from 'src/styles/Styles';
 import { RowContainer } from '../DashboardStyles';
 import { LogsContainer, LogsList } from './LogsStyles';
-import Select from 'src/components/Select/Select';
+import LevelsSelect from 'src/components/LevelsSelect/LevelsSelect';
 import { Link } from 'react-router-dom';
+import LevelsSelectData from './LevelsSelectData';
+import Options from 'src/components/LevelsSelect/LevelsSelectTypes';
 
 const LEVELS = {
 	0: <ErrorLabel>ERROR</ErrorLabel>,
@@ -40,9 +42,7 @@ const LEVELS = {
 	5: <SillyLabel>SILLY</SillyLabel>
 };
 
-interface LogsProps {
-	// 	actions: { };
-}
+interface LogsProps {}
 
 interface LogsState {
 	filters: {
@@ -58,7 +58,7 @@ interface LogsState {
 	};
 	filteredLogs: Array<{ timestamp; level; text }>;
 	errStats: Array<{ timestamp; errors }>;
-	active: string;
+	levelsSelectOptions: Array<Options>;
 }
 
 class Logs extends React.Component<LogsProps, LogsState> {
@@ -79,7 +79,7 @@ class Logs extends React.Component<LogsProps, LogsState> {
 			},
 			filteredLogs: [],
 			errStats: [{ timestamp: Date.now(), errors: 0 }],
-			active: ''
+			levelsSelectOptions: []
 		};
 
 		this.applyFilters = this.applyFilters.bind(this);
@@ -89,7 +89,7 @@ class Logs extends React.Component<LogsProps, LogsState> {
 	}
 
 	handleActive(data) {
-		this.setState({ active: data });
+		this.setState({ levelsSelectOptions: data });
 	}
 
 	handleLevelsChange(e) {
@@ -154,25 +154,12 @@ class Logs extends React.Component<LogsProps, LogsState> {
 		return (
 			<LogsContainer>
 				<LogsSearchForm>
-					<Select
+					<LevelsSelect
 						onActive={this.handleActive}
-						options={[
-							'error',
-							'warn',
-							'info',
-							'verbose',
-							'debug',
-							'silly'
-						]}
+						options={LevelsSelectData}
 					/>
 
-					{/* <TimeSpanPicker
-						name="timespan"
-						value={this.state.filters.timespan}
-						onChange={this.handleTimespanChange}
-					> */}
 					<UpdateTimer onActive={this.handleActive} />
-					{/* </TimeSpanPicker> */}
 
 					<Submit
 						onClick={e => {
