@@ -9,7 +9,7 @@ import {
 	NotificationActive,
 	NotificationIcon
 } from './NotificationsStyles';
-import { NotificationState } from 'src/types/LogsState';
+import { NotificationState } from '../../types/LogsState';
 
 interface NotificationsState {
 	popup: boolean;
@@ -54,7 +54,9 @@ class Notifications extends React.Component<
 			<Wrapper>
 				<Wrapper>
 					<NotificationIcon size="25" onClick={this.handleClick} />
-					{ data && data.length > 0 && data.length && <NotificationActive size="10" /> }
+					{data &&
+						data.length > 0 &&
+						data.length && <NotificationActive size="10" />}
 				</Wrapper>
 
 				<NotificationPopup
@@ -62,7 +64,7 @@ class Notifications extends React.Component<
 					in={this.state.popup}
 					timeout={1000}
 				>
-					{ data.length > 0 ? (
+					{data.length > 0 ? (
 						data.map((notif: any, index) => {
 							<Item key={index}>
 								<Timestamp>{notif.timestamp}</Timestamp>

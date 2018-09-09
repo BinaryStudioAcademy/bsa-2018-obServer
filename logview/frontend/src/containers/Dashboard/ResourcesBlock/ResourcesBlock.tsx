@@ -1,22 +1,26 @@
 import * as React from 'react';
-import CoresLoadLineChart from 'src/components/charts/serverResources/CoresLoadLineChart';
+import CoresLoadLineChart from '../../../components/charts/serverResources/CoresLoadLineChart';
 import { Timer } from 'styled-icons/material';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { getLogs, getNewCpuLog, getNewMemoryLog } from 'src/redux/logs/actions';
-import { startChannel, stopChannel } from 'src/redux/sockets/actions';
-import { CpuLogState, MemoryLogState } from 'src/types/LogsState';
+import {
+	getLogs,
+	getNewCpuLog,
+	getNewMemoryLog
+} from '../../../redux/logs/actions';
+import { startChannel, stopChannel } from '../../../redux/sockets/actions';
+import { CpuLogState, MemoryLogState } from '../../../types/LogsState';
 import {
 	cpuParser,
 	memoryParser,
 	memoryMbParser
-} from 'src/services/chartParser';
+} from '../../../services/chartParser';
 import {
 	ChartInfo,
 	ChartHeader,
 	ChartWrapper,
 	ChartTimeRange
-} from 'src/containers/ServerResources/ServerResourcesStyles';
+} from '../../ServerResources/ServerResourcesStyles';
 import {
 	ChartsWrapper,
 	Title,
@@ -24,7 +28,7 @@ import {
 	ChartGrid,
 	TitleSmall
 } from './ResourcesBlockStyles';
-import { Submit } from 'src/styles/Styles';
+import { Submit } from '../../../styles/Styles';
 import { Link } from 'react-router-dom';
 import { defaultState } from '../../../redux/defaultState';
 import initialValues from './ResourcesInitalValues';

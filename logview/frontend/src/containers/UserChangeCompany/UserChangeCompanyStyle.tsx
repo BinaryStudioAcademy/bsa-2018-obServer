@@ -1,5 +1,5 @@
 import styled, { StyledFunction } from 'styled-components';
-import { Submit } from 'src/styles/Styles';
+import { Submit } from '../../styles/Styles';
 import { colors } from '../../styles/styles-utils';
 import { Landing as CompanyChangeLanding } from '../../styles/ContainerStyles';
 const logo = require('src/assets/invite.png');

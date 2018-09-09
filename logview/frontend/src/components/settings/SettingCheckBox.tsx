@@ -5,7 +5,7 @@ import {
 	CheckBoxSwitch,
 	CheckBoxSwitchLabel,
 	CheckBoxSwitchWrapper
-} from '../../styles/SettingsFormStyles';
+} from 'src/styles/SettingsFormStyles';
 
 interface SettingCheckBoxProps {
 	name?: string;

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Loader from 'react-loader-spinner';
-import { LoaderWrapper } from 'src/styles/LoaderStyles';
+import { LoaderWrapper } from '../../styles/LoaderStyles';
 
 export class LoaderPuff extends React.Component {
 	render() {

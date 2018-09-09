@@ -4,8 +4,8 @@ import { bindActionCreators } from 'redux';
 import HttpTabel from '../../components/tabels/httpTabel';
 import HttpRoutesBarChart from '../../components/charts/http/routesChart';
 import HttpCountChart from '../../components/charts/http/countHttpChart';
-import { HttpStatsState } from 'src/types/LogsState';
-import { getNewHttpStats } from 'src/redux/logs/actions';
+import { HttpStatsState } from '../../types/LogsState';
+import { getNewHttpStats } from '../../redux/logs/actions';
 import {
 	ChartHeader,
 	Grid,
@@ -16,8 +16,8 @@ import {
 	SelectChartPage
 } from './HttpStatsStyles';
 import { Timer } from 'styled-icons/material';
-import { LoaderBars } from 'src/components/loaders';
-import { countHttpParser, countRoutesParser } from 'src/services/chartParser';
+import { LoaderBars } from '../../components/loaders';
+import { countHttpParser, countRoutesParser } from '../../services/chartParser';
 
 interface HttpProps {
 	actions: { getNewHttpStats: Function };

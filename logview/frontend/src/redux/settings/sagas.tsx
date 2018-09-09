@@ -15,8 +15,7 @@ function* changeSettings(action: ChangeSettings) {
 			appsCPU: action.appsCPU,
 			appsErrorLog: action.appsErrorLog,
 			appsHttp: action.appsHttp,
-			appsSoket: action.appsSoket,
-			listeningPorts: action.listeningPorts
+			appsSoket: action.appsSoket
 		});
 		yield put({
 			type: constants.CHANGE_SETTINGS_SUCCESS,

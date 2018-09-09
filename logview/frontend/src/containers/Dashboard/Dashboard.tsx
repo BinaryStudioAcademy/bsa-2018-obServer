@@ -14,14 +14,14 @@ import {
 	Title
 } from './DashboardStyles';
 import { Profile as UserProfile, Submit } from '../../styles/Styles';
-import Select from 'src/components/Select/Select';
 import ResourcesBlock from './ResourcesBlock/ResourcesBlock';
-import Notifications from 'src/components/Notifications/Notifications';
+import Notifications from '../../components/Notifications/Notifications';
 import { SettingsIcon } from '../../styles/IconStyles';
 import DashboardRoutes from './DashboardRoutes';
-import { getNewNotification } from 'src/redux/logs/actions';
-import { NotificationState } from 'src/types/LogsState';
-import { startChannel, stopChannel } from 'src/redux/sockets/actions';
+import AppsSelector from './AppsSelector';
+import { getNewNotification } from '../../redux/logs/actions';
+import { NotificationState } from '../../types/LogsState';
+import { startChannel, stopChannel } from '../../redux/sockets/actions';
 
 interface DashboardState {
 	active?: string;
@@ -52,9 +52,7 @@ class Dashboard extends React.Component<DashboardProps, DashboardState> {
 	}
 
 	setActive(active, value) {
-		console.log(value);
 		this.setState({ active });
-		console.log(active);
 	}
 
 	render() {
@@ -68,19 +66,7 @@ class Dashboard extends React.Component<DashboardProps, DashboardState> {
 							<Link to="/dashboard">obServer</Link>
 						</Title>
 						<CenteredContainer>
-							<Select
-								onActive={this.setActive}
-								options={[
-									{
-										value: 'some random id',
-										name: 'app1'
-									},
-									{
-										value: 'another random id',
-										name: 'app2'
-									}
-								]}
-							/>
+							<AppsSelector />
 						</CenteredContainer>
 					</RowContainer>
 					<RowContainer>

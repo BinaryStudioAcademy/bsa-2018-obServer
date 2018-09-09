@@ -10,7 +10,7 @@ import { ArrowDropDown } from 'styled-icons/material';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { userLogout, fetchUser } from 'src/redux/user/actions';
+import { userLogout, fetchUser } from '../../redux/user/actions';
 import { UserState } from '../../types/UserState';
 import onClickOutside from 'react-onclickoutside';
 

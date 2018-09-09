@@ -8,7 +8,7 @@ import {
 } from '../../styles/Styles';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { userEmailActivation } from 'src/redux/user/actions';
+import { userEmailActivation } from '../../redux/user/actions';
 import { History } from 'history';
 import queryString from 'query-string';
 import { LandingColumn } from '../../styles/ContainerStyles';

@@ -6,9 +6,9 @@ import {
 	RedirectLink,
 	ErrorText,
 	CenteredText
-} from 'src/styles/Styles';
+} from '../styles/Styles';
 import { Link } from 'react-router-dom';
-import { validateForm } from 'src/services/validate/validate';
+import { validateForm } from '../services/validate/validate';
 
 interface RegFormState {
 	name?: string;
