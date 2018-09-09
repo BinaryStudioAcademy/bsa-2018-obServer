@@ -1,10 +1,10 @@
-import { ChartsPageWrapper } from '../../../styles/Styles';
-import { colors } from '../../../styles/styles-utils';
+import { ChartsPageWrapper } from 'src/styles/Styles';
+import { colors } from 'src/styles/styles-utils';
 import {
 	Title as ResourcesTitle,
 	Chart as ResourcesChart,
 	ChartGrid as ResourcesChartGrid
-} from '../../ServerResources/ServerResourcesStyles';
+} from 'src/containers/ServerResources/ServerResourcesStyles';
 
 export const ChartsWrapper = ChartsPageWrapper.extend`
 	margin: 0;

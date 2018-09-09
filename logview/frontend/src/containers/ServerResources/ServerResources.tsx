@@ -29,6 +29,8 @@ import {
 } from './ServerResourcesStyles';
 import Select from '../../components/Select/Select';
 import UpdateTimer from '../../components/UpdateTimer/UpdateTimer';
+import { defaultState } from '../../redux/defaultState';
+import initialValues from 'src/containers/Dashboard/ResourcesBlock/ResourcesInitalValues';
 
 let timerID;
 
@@ -117,11 +119,6 @@ class ServerResources extends React.Component<
 			<ChartsPageWrapper>
 				<Title>Server Resources</Title>
 
-				<Select
-					onActive={this.handleActive}
-					options={['app1', 'app2', 'app3']}
-				/>
-
 				<ChartGrid>
 					<ChartWrapper>
 						<Chart>
@@ -133,7 +130,11 @@ class ServerResources extends React.Component<
 								</ChartTimeRange>
 							</ChartHeader>
 							<CoresLoadLineChart
-								data={this.state.cpuLogs}
+								data={
+									this.state.cpuLogs.length > 2
+										? this.state.cpuLogs
+										: initialValues
+								}
 								timeRange="last 10 minutes"
 							/>
 						</Chart>
@@ -165,7 +166,11 @@ class ServerResources extends React.Component<
 								</ChartTimeRange>
 							</ChartHeader>
 							<PercentMemoryChart
-								data={this.state.memoryLogs}
+								data={
+									this.state.memoryLogs.length > 2
+										? this.state.memoryLogs
+										: defaultState.memoryLogs
+								}
 								timeRange="last hour"
 							/>
 						</Chart>
@@ -184,7 +189,11 @@ class ServerResources extends React.Component<
 								</ChartTimeRange>
 							</ChartHeader>
 							<MemoryUsedChart
-								data={this.state.memoryMbLogs}
+								data={
+									this.state.memoryMbLogs.length > 2
+										? this.state.memoryMbLogs
+										: defaultState.memoryLogs
+								}
 								timeRange="last day"
 							/>
 						</Chart>

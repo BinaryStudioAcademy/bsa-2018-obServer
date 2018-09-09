@@ -9,7 +9,11 @@ import {
 	Chart
 } from '../../HttpStats/HttpStatsStyles';
 import { Timer } from 'styled-icons/material';
-import { httpStats, countRoutes, countHttp } from '../../HttpStats/mockData';
+import {
+	httpStats,
+	countRoutes,
+	countHttp
+} from 'src/containers/HttpStats/mockData';
 import { Grid, HttpContainer, Title } from './HttpBlockStyles';
 import { Submit } from '../../../styles/Styles';
 import { Link } from 'react-router-dom';

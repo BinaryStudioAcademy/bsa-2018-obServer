@@ -34,6 +34,7 @@ interface DashboardProps extends RouteComponentProps<{}, {}> {
 		startChannel: Function;
 	};
 	notifications: Array<NotificationState>;
+	fetchingUserStatus: string;
 }
 
 class Dashboard extends React.Component<DashboardProps, DashboardState> {
@@ -51,8 +52,10 @@ class Dashboard extends React.Component<DashboardProps, DashboardState> {
 		this.props.actions.startChannel();
 	}
 
-	setActive(active) {
+	setActive(active, value) {
+		console.log(value);
 		this.setState({ active });
+		console.log(active);
 	}
 
 	render() {
@@ -66,7 +69,19 @@ class Dashboard extends React.Component<DashboardProps, DashboardState> {
 							<Link to="/dashboard">obServer</Link>
 						</Title>
 						<CenteredContainer>
-							<AppsSelector />
+							<Select
+								onActive={this.setActive}
+								options={[
+									{
+										value: 'some random id',
+										name: 'app1'
+									},
+									{
+										value: 'another random id',
+										name: 'app2'
+									}
+								]}
+							/>
 						</CenteredContainer>
 					</RowContainer>
 					<RowContainer>
@@ -102,8 +117,9 @@ class Dashboard extends React.Component<DashboardProps, DashboardState> {
 	}
 }
 
-const mapStateToProps = ({ notificationsLogs }) => ({
-	notificationsLogs
+const mapStateToProps = ({ notificationsLogs, fetchingUserStatus }) => ({
+	notificationsLogs,
+	fetchingUserStatus
 });
 
 const mapDispatchToProps = (dispatch: any) => ({

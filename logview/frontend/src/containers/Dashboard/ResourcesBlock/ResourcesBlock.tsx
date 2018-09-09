@@ -1,7 +1,5 @@
 import * as React from 'react';
-import CoresLoadLineChart from '../../../components/charts/serverResources/CoresLoadLineChart';
-import PercentMemoryChart from '../../../components/charts/serverResources/PercentMemoryChart';
-import MemoryUsedChart from '../../../components/charts/serverResources/MemoryUsedChart';
+import CoresLoadLineChart from 'src/components/charts/serverResources/CoresLoadLineChart';
 import { Timer } from 'styled-icons/material';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -21,10 +19,8 @@ import {
 	ChartInfo,
 	ChartHeader,
 	ChartWrapper,
-	ChartsPageWrapper,
 	ChartTimeRange
-} from '../../ServerResources/ServerResourcesStyles';
-import Select from '../../../components/Select/Select';
+} from 'src/containers/ServerResources/ServerResourcesStyles';
 import {
 	ChartsWrapper,
 	Title,
@@ -34,6 +30,8 @@ import {
 } from './ResourcesBlockStyles';
 import { Submit } from '../../../styles/Styles';
 import { Link } from 'react-router-dom';
+import { defaultState } from '../../../redux/defaultState';
+import initialValues from './ResourcesInitalValues';
 
 let timerID;
 
@@ -103,7 +101,6 @@ class ServerResources extends React.Component<
 			this.setState({
 				currentCpuLog: this.props.cpuLogs[this.props.cpuLogs.length - 1]
 			});
-			console.log(this.state.currentCpuLog);
 		}, 1000);
 	}
 
@@ -131,7 +128,11 @@ class ServerResources extends React.Component<
 								</ChartTimeRange>
 							</ChartHeader>
 							<CoresLoadLineChart
-								data={this.state.cpuLogs}
+								data={
+									this.state.cpuLogs.length > 2
+										? this.state.cpuLogs
+										: initialValues
+								}
 								timeRange="last 10 minutes"
 							/>
 						</Chart>

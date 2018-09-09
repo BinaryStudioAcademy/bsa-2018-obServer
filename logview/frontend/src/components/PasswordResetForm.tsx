@@ -3,7 +3,7 @@ import {
 	Submit,
 	Title,
 	Input
-} from '../containers/PasswordReset/PasswordResetStyles';
+} from 'src/containers/PasswordReset/PasswordResetStyles';
 import { Link } from 'react-router-dom';
 
 interface PasswordResetFormProps {
@@ -52,6 +52,7 @@ class PasswordResetForm extends React.Component<
 					value={this.state.email}
 					onChange={this.handleFieldChange}
 				/>
+				<br />
 				<Submit onClick={this.handleSubmit}>
 					Send password reset email
 				</Submit>

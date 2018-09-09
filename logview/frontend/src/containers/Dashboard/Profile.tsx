@@ -56,29 +56,27 @@ class Profile extends React.Component<ProfileProps, ProfileState> {
 
 	render() {
 		return (
-			<React.Fragment>
-				<CenteredContainer>
-					<Select popup={this.state.popup}>
-						<OptionActive onClick={this.togglePopup}>
-							{this.props.user.name}
-							<ArrowDropDown size="20" />
-						</OptionActive>
-						{this.state.popup && (
-							<Dropdown popup={this.state.popup}>
-								<Option onClick={this.togglePopup}>
-									<Link to="/dashboard/company">company</Link>
-								</Option>
-								<Option onClick={this.togglePopup}>
-									<Link to="/dashboard/quickstart">help</Link>
-								</Option>
-								<Option onClick={this.handleLogout}>
-									<span>logout</span>
-								</Option>
-							</Dropdown>
-						)}
-					</Select>
-				</CenteredContainer>
-			</React.Fragment>
+			<CenteredContainer>
+				<Select popup={this.state.popup}>
+					<OptionActive onClick={this.togglePopup}>
+						{this.props.user.name}
+						<ArrowDropDown size="20" />
+					</OptionActive>
+					{this.state.popup && (
+						<Dropdown popup={this.state.popup}>
+							<Option onClick={this.togglePopup}>
+								<Link to="/dashboard/company">company</Link>
+							</Option>
+							<Option onClick={this.togglePopup}>
+								<Link to="/dashboard/quickstart">help</Link>
+							</Option>
+							<Option onClick={this.handleLogout}>
+								<span>logout</span>
+							</Option>
+						</Dropdown>
+					)}
+				</Select>
+			</CenteredContainer>
 		);
 	}
 }
