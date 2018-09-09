@@ -216,7 +216,7 @@ export const SettingsMenuLink = div`
 	 svg {
 		 margin-right: 10px;
 	 }
-	a п{
+	a {
 		font-size: 18px;
 		text-transform: uppercase;
 		margin-left: 15px;
