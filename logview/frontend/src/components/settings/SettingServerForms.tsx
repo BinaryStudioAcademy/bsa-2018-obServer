@@ -7,7 +7,8 @@ import {
 import { AppsState } from '../../types/AppsState';
 import { ServerState } from '../../types/ServerState';
 import AppsTabel from '../tabels/appsTable';
-import { AddAppForm, ServerDataForm } from './Forms';
+import AddAppForm from './AddNewAppForm';
+import ServerDataForm from './EditServerDataForm';
 import { List } from 'styled-icons/fa-solid';
 import { SecretKey } from './Utils';
 
