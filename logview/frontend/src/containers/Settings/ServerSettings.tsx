@@ -62,13 +62,11 @@ class ServerSettings extends React.Component<
 			this.props.fetchingAppsStatus === 'success' &&
 			this.props.fetchingServerStatus === 'success';
 		return fetching ? (
-			<React.Fragment>
-				<SettingServerForms
-					apps={this.props.apps}
-					server={this.props.server}
-					actions={this.props.actions}
-				/>
-			</React.Fragment>
+			<SettingServerForms
+				apps={this.props.apps}
+				server={this.props.server}
+				actions={this.props.actions}
+			/>
 		) : (
 			<LoaderOval />
 		);
