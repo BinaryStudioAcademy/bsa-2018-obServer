@@ -1,35 +1,27 @@
 const mongoose = require('mongoose');
 
 const socketsStats = mongoose.Schema({
+  companyId: {
+    type: String,
+    required: true
+  },
+  appId: {
+    type: String,
+    required: true
+  },
   rooms: [{
-    roomName: {
+    name: {
       type: String,
       required: true
     },
-    roomAmount: {
+    amount: {
       type: Number,
       required: true
     }
   }],
-  requests: {
-    frequency: {
-      type: Number,
-      required: true
-    }
-  },
-  responseTime: {
-    min: {
-      type: Number,
-      required: true
-    },
-    max: {
-      type: Number,
-      required: true
-    },
-    avg: {
-      type: Number,
-      required: true
-    }
+  roomsAmount: {
+    type: Number,
+    required: true
   },
   timestamp: {
     type: Date,
@@ -37,4 +29,6 @@ const socketsStats = mongoose.Schema({
   }
 });
 
-module.exports = socketsStats;
+const SocketsStats = mongoose.model('socketsStats', socketsStats);
+
+module.exports = SocketsStats;
