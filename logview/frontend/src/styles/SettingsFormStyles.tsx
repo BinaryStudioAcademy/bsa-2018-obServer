@@ -162,21 +162,21 @@ export const SettingsSubmitButton = styled.button`
 }`;
 
 export const SubmitAppButton = styled.button`
-	 float: right;
-	 padding: 12px 20px;
-	 margin: 10px 0;
-	 background-color: ${colors.violet};
-	 color: #fff;
-	 text-transform: uppercase;
-	 border: none;
-	 font-size: 18px;
-	 width: 100%;
-	 svg{
-		 margin-right: 15px;
-     }
-     &: hover {
+	float: right;
+	padding: 12px 20px;
+	margin: 10px 0;
+	background-color: ${colors.violet};
+	color: #fff;
+	text-transform: uppercase;
+	border: none;
+	font-size: 18px;
+	width: 100%;
+	svg {
+		margin-right: 15px;
+    }
+    &: hover {
 		background-color: ${colors['grey-darken']};
-     }
+    }
 }`;
 
 export const CloseAppFormButton = styled.button`
@@ -216,7 +216,7 @@ export const SettingsMenuLink = div`
 	 svg {
 		 margin-right: 10px;
 	 }
-	a п{
+	a {
 		font-size: 18px;
 		text-transform: uppercase;
 		margin-left: 15px;
