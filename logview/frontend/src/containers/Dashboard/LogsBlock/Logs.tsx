@@ -28,10 +28,10 @@ import UpdateTimer from '../../../components/UpdateTimer/UpdateTimer';
 import { Submit } from '../../../styles/Styles';
 import { RowContainer } from '../DashboardStyles';
 import { LogsContainer, LogsList } from './LogsStyles';
-import LevelsSelect from 'src/components/LevelsSelect/LevelsSelect';
+import LevelsSelect from '../../../components/LevelsSelect/LevelsSelect';
 import { Link } from 'react-router-dom';
 import LevelsSelectData from './LevelsSelectData';
-import Options from 'src/components/LevelsSelect/LevelsSelectTypes';
+import Options from '../../../components/LevelsSelect/LevelsSelectTypes';
 
 const LEVELS = {
 	0: <ErrorLabel>ERROR</ErrorLabel>,

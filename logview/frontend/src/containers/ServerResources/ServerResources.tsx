@@ -30,7 +30,7 @@ import {
 import Select from '../../components/Select/Select';
 import UpdateTimer from '../../components/UpdateTimer/UpdateTimer';
 import { defaultState } from '../../redux/defaultState';
-import initialValues from 'src/containers/Dashboard/ResourcesBlock/ResourcesInitalValues';
+import initialValues from '../Dashboard/ResourcesBlock/ResourcesInitalValues';
 
 let timerID;
 

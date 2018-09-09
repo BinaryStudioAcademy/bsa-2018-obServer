@@ -5,22 +5,22 @@ import {
 	SettingFormGroupLabel,
 	SettingInput,
 	SettingsSubmitButton
-} from '../../styles/SettingsFormStyles';
-import { LoaderOval } from '../../components/loaders';
-import { AppsState } from '../../types/AppsState';
-import { ServerState } from '../../types/ServerState';
-import SettingServerForms from '../../components/settings/SettingServerForms';
+} from 'src/styles/SettingsFormStyles';
+import { LoaderOval } from 'src/components/loaders';
+import { AppsState } from 'src/types/AppsState';
+import { ServerState } from 'src/types/ServerState';
+import SettingServerForms from 'src/components/settings/SettingServerForms';
 import {
 	fetchAppsList,
 	addNewApp,
 	updateApp,
 	deleteApp
-} from '../../redux/apps/actions';
+} from 'src/redux/apps/actions';
 
 import {
 	fetchServerSettings,
 	changeServerSettings
-} from '../../redux/server/actions';
+} from 'src/redux/server/actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 

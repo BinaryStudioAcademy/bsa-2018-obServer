@@ -1,6 +1,6 @@
 import * as constants from './constants';
 import { CompanyAction } from './actions';
-import { CompanyState, UserChangeCompanyState } from 'src/types/CompanyState';
+import { CompanyState, UserChangeCompanyState } from '../../types/CompanyState';
 import { defaultState } from '../defaultState';
 
 export function companyReducer(

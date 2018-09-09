@@ -3,7 +3,7 @@ import {
 	Submit,
 	Title,
 	Input
-} from 'src/containers/PasswordReset/PasswordResetStyles';
+} from '../containers/PasswordReset/PasswordResetStyles';
 import { Link } from 'react-router-dom';
 
 interface PasswordResetFormProps {

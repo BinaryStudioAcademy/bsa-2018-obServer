@@ -9,7 +9,7 @@ import {
 	NotificationActive,
 	NotificationIcon
 } from './NotificationsStyles';
-import { NotificationState } from 'src/types/LogsState';
+import { NotificationState } from '../../types/LogsState';
 
 interface NotificationsState {
 	popup: boolean;

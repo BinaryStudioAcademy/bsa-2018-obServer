@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { SecretKey, DeleteApp } from './Utils';
 import EditAppForm from '../settings/EditAppsForm';
-import { EditAppRow } from '../../styles/SettingsFormStyles';
+import { EditAppRow } from 'src/styles/SettingsFormStyles';
 import { Edit } from 'styled-icons/fa-solid';
 import ReactTable from 'react-table';
 import 'react-table/react-table.css';

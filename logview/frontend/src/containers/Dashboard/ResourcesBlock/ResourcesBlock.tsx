@@ -1,5 +1,5 @@
 import * as React from 'react';
-import CoresLoadLineChart from 'src/components/charts/serverResources/CoresLoadLineChart';
+import CoresLoadLineChart from '../../../components/charts/serverResources/CoresLoadLineChart';
 import { Timer } from 'styled-icons/material';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -20,7 +20,7 @@ import {
 	ChartHeader,
 	ChartWrapper,
 	ChartTimeRange
-} from 'src/containers/ServerResources/ServerResourcesStyles';
+} from '../../ServerResources/ServerResourcesStyles';
 import {
 	ChartsWrapper,
 	Title,

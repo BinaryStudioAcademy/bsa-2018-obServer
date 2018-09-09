@@ -6,9 +6,9 @@ import {
 	SettingInputWrapper,
 	SettingsSubmitButton,
 	ErrorInputSettings
-} from '../../styles/SettingsFormStyles';
+} from 'src/styles/SettingsFormStyles';
 import { User, CheckSquare } from 'styled-icons/fa-solid';
-import { UserState } from '../../types/UserState';
+import { UserState } from 'src/types/UserState';
 import { validateUsersNameData } from 'src/services/validate/validate';
 
 interface SettingsUserState {

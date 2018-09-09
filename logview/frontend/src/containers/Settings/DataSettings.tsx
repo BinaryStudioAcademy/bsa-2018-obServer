@@ -5,7 +5,7 @@ import {
 	SettingFormGroupLabel,
 	SettingInput,
 	SettingsSubmitButton
-} from '../../styles/SettingsFormStyles';
+} from 'src/styles/SettingsFormStyles';
 import {
 	Server,
 	Bell,
@@ -13,11 +13,11 @@ import {
 	Globe,
 	CheckSquare
 } from 'styled-icons/fa-solid';
-import { LoaderOval } from '../../components/loaders';
-import SettingDataForm from '../../components/settings/SettingDataForm';
-import { SettingsState } from '../../types/SettingsState';
+import { LoaderOval } from 'src/components/loaders';
+import SettingDataForm from 'src/components/settings/SettingDataForm';
+import { SettingsState } from 'src/types/SettingsState';
 
-import { changeSettings, fetchSettings } from '../../redux/settings/actions';
+import { changeSettings, fetchSettings } from 'src/redux/settings/actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 

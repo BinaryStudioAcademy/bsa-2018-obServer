@@ -21,7 +21,7 @@ import {
 	handleActiveApp,
 	handleTimeRange,
 	handleLogLevels
-} from 'src/redux/logs/actions';
+} from '../../redux/logs/actions';
 import {
 	LogMessagesState,
 	LogLevelsState,

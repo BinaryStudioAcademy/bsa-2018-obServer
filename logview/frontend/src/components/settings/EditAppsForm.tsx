@@ -7,13 +7,13 @@ import {
 	EditAppFormButton,
 	ErrorInputSettings,
 	CloseAppFormButton
-} from '../../styles/SettingsFormStyles';
+} from 'src/styles/SettingsFormStyles';
 import { Save, Reply } from 'styled-icons/fa-solid';
-import { AppsState } from '../../types/AppsState';
+import { AppsState } from 'src/types/AppsState';
 import {
 	validatePortNumber,
 	validateAppName
-} from '../../services/validate/validate';
+} from 'src/services/validate/validate';
 
 interface EditAppFormState {
 	appName: string;
