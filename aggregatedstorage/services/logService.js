@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const logRepository = require('../repositories/logRepository');
 const logTypes = require('../utils/logTypes');
 const { aggregateLogs, parseLogTypesFromIntervals, parseIntervals } = require('./aggregationService');
-const { logNeedRealtimeAggregation, aggregateRealTimeLog } = require('./realTimeAggregationService');
+const { logNeedRealtimeAggregation, aggregateRealTimeLog, isThisRealtimeLogMessage } = require('./realTimeAggregationService');
 
 class LogService {
   constructor() {
@@ -19,9 +19,11 @@ class LogService {
     } else {
       logRepository.create(logMessage, (err, doc) => {
         if (!err) {
-          const logWithLogType = doc.toObject();
-          logWithLogType.logType = logMessage.logType;
-          this.io.emit('newLog', logWithLogType);     
+          if (isThisRealtimeLogMessage(logMessage.logType)) {
+            const logWithLogType = doc.toObject();
+            logWithLogType.logType = logMessage.logType;
+            this.io.emit('newLog', logWithLogType);
+          }
         } else {
           callback(err);
         }

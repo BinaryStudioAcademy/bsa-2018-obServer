@@ -9,6 +9,17 @@ const logNeedRealtimeAggregation = (logType) => {
   return logTypesForRealtimeAggregation.indexOf(logType) > -1;
 };
 
+const isThisRealtimeLogMessage = (logType) => {
+  const logTypesForRealtimeSending = [
+    logTypes.CPU_APP,
+    logTypes.CPU_SERVER,
+    logTypes.MEMORY_APP,
+    logTypes.MEMORY_SERVER,
+  ];
+  
+  return logTypesForRealtimeSending.indexOf(logType) > -1;
+};
+
 const aggregateRealTimeLog = (logMessage) => {
   const companyId = logMessage.companyToken;
   const appId = logMessage.appId;
@@ -75,5 +86,6 @@ startRealTimeAvgLogs(15000);
 
 module.exports = {
   logNeedRealtimeAggregation,
-  aggregateRealTimeLog
+  aggregateRealTimeLog,
+  isThisRealtimeLogMessage
 };
