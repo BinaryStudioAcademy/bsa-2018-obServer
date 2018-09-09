@@ -14,7 +14,6 @@ import {
 	Title
 } from './DashboardStyles';
 import { Profile as UserProfile, Submit } from '../../styles/Styles';
-import Select from '../../components/Select/Select';
 import ResourcesBlock from './ResourcesBlock/ResourcesBlock';
 import Notifications from '../../components/Notifications/Notifications';
 import { SettingsIcon } from '../../styles/IconStyles';
@@ -53,9 +52,7 @@ class Dashboard extends React.Component<DashboardProps, DashboardState> {
 	}
 
 	setActive(active, value) {
-		console.log(value);
 		this.setState({ active });
-		console.log(active);
 	}
 
 	render() {
@@ -69,19 +66,7 @@ class Dashboard extends React.Component<DashboardProps, DashboardState> {
 							<Link to="/dashboard">obServer</Link>
 						</Title>
 						<CenteredContainer>
-							<Select
-								onActive={this.setActive}
-								options={[
-									{
-										value: 'some random id',
-										name: 'app1'
-									},
-									{
-										value: 'another random id',
-										name: 'app2'
-									}
-								]}
-							/>
+							<AppsSelector />
 						</CenteredContainer>
 					</RowContainer>
 					<RowContainer>

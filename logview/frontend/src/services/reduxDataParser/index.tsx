@@ -12,11 +12,14 @@ export function parseAppsData(appsData) {
 	return apps;
 }
 
-export function convertAppsDataToNames(appsData) {
+export function convertAppsDataToSelect(appsData) {
 	let apps = [];
 
 	appsData.forEach(app => {
-		apps.push(app.name);
+		apps.push({
+			value: app.id,
+			name: app.name
+		});
 	});
 
 	return apps;

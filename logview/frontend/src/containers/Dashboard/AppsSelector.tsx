@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { fetchAppsList } from '../../redux/apps/actions';
 import { AppsState } from '../../types/AppsState';
 import Select from '../../components/Select/Select';
-import { convertAppsDataToNames } from '../../services/reduxDataParser';
+import { convertAppsDataToSelect } from '../../services/reduxDataParser';
 
 interface AppsSelectorState {}
 
@@ -32,7 +32,7 @@ class AppsSelector extends React.Component<
 				{this.props.apps && (
 					<Select
 						onActive={false}
-						options={convertAppsDataToNames(this.props.apps)}
+						options={convertAppsDataToSelect(this.props.apps)}
 					/>
 				)}
 			</React.Fragment>
