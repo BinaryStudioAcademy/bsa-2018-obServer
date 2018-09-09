@@ -4,16 +4,20 @@ import {
 	SettingFormGroupLabel,
 	SettingInput,
 	SettingInputWrapper,
-	SettingsSubmitButton
+	SettingsSubmitButton,
+	ErrorInputSettings
 } from '../../styles/SettingsFormStyles';
-import { User, UserSecret, CheckSquare } from 'styled-icons/fa-solid';
+import { User, CheckSquare } from 'styled-icons/fa-solid';
 import { UserState } from '../../types/UserState';
+import { validateUsersNameData } from 'src/services/validate/validate';
 
 interface SettingsUserState {
 	name?: string;
 	email?: string;
 	company?: string;
 	companyId?: string;
+	validName?: boolean;
+	validCompanyName?: boolean;
 }
 
 interface SettingsUserFormProps {
@@ -28,7 +32,9 @@ class SettingUserForm extends React.Component<
 	constructor(props) {
 		super(props);
 		this.state = {
-			...this.props.user
+			...this.props.user,
+			validName: true,
+			validCompanyName: true
 		};
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
@@ -47,7 +53,17 @@ class SettingUserForm extends React.Component<
 
 	handleSubmit(event: any) {
 		event.preventDefault();
-		this.props.onSubmit(this.state);
+		const testName = validateUsersNameData(this.state.name);
+		const testCompanyName = validateUsersNameData(this.state.company);
+
+		this.setState({
+			validName: testName,
+			validCompanyName: testCompanyName
+		});
+
+		if (testName && testCompanyName) {
+			this.props.onSubmit(this.state);
+		}
 	}
 
 	render() {
@@ -67,6 +83,11 @@ class SettingUserForm extends React.Component<
 							value={this.state.name}
 							onChange={this.handleChange}
 						/>
+						{!this.state.validName && (
+							<ErrorInputSettings>
+								Enter the name of at least 3 symbols!
+							</ErrorInputSettings>
+						)}
 					</SettingInputWrapper>
 					<SettingInputWrapper>
 						<label>Company Name:</label>
@@ -77,6 +98,11 @@ class SettingUserForm extends React.Component<
 							value={this.state.company}
 							onChange={this.handleChange}
 						/>
+						{!this.state.validCompanyName && (
+							<ErrorInputSettings>
+								Enter the company name of at least 3 symbols!
+							</ErrorInputSettings>
+						)}
 					</SettingInputWrapper>
 				</SettingFormGroupInput>
 

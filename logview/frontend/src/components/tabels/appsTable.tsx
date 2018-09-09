@@ -1,12 +1,8 @@
 import * as React from 'react';
 import { SecretKey, DeleteApp } from './Utils';
 import { EditAppForm } from '../settings/Forms';
-import {
-	AppSecretKey,
-	DeleteAppRow,
-	EditAppRow
-} from '../../styles/SettingsFormStyles';
-import { Trash, Edit, Copy } from 'styled-icons/fa-solid';
+import { EditAppRow } from '../../styles/SettingsFormStyles';
+import { Edit } from 'styled-icons/fa-solid';
 import ReactTable from 'react-table';
 import 'react-table/react-table.css';
 

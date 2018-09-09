@@ -4,18 +4,25 @@ import {
 	EditAppGroupInput,
 	SettingInput,
 	SettingInputWrapper,
-	AddNewAppButton,
+	SubmitAppButton,
 	EditAppFormButton,
-	ErrorInputSettings
+	ErrorInputSettings,
+	CloseAppFormButton
 } from '../../styles/SettingsFormStyles';
-import { Plus, Save, ClosedCaptioning } from 'styled-icons/fa-solid';
+import { Plus, Save, Reply } from 'styled-icons/fa-solid';
 import { AppsState } from '../../types/AppsState';
 import { ServerState } from '../../types/ServerState';
-import { validatePortsString } from '../../services/validate/validate';
+import {
+	validatePortNumber,
+	validateServeIp,
+	validateAppName
+} from '../../services/validate/validate';
 
 interface NewAppFormState {
 	newAppName: string;
-	newAppPort: number;
+	newAppPort: string;
+	validPort: boolean;
+	validName: boolean;
 }
 
 interface NewAppFormProps {
@@ -30,7 +37,9 @@ export class AddAppForm extends React.Component<
 		super(props);
 		this.state = {
 			newAppName: '',
-			newAppPort: undefined
+			newAppPort: null,
+			validPort: true,
+			validName: true
 		};
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
@@ -58,7 +67,17 @@ export class AddAppForm extends React.Component<
 	handleSubmit(event: any) {
 		event.preventDefault();
 		const { newAppName, newAppPort } = this.state;
-		this.props.addNewApp(newAppName, newAppPort);
+		const testPort = validatePortNumber(newAppPort);
+		const testName = validateAppName(newAppName);
+
+		this.setState({
+			validPort: testPort,
+			validName: testName
+		});
+
+		if (testPort && testName) {
+			this.props.addNewApp(newAppName, newAppPort);
+		}
 	}
 
 	render() {
@@ -72,6 +91,11 @@ export class AddAppForm extends React.Component<
 							name="appName"
 							onChange={this.handleChange}
 						/>
+						{!this.state.validName && (
+							<ErrorInputSettings>
+								Enter the name of at least 3 symbols!
+							</ErrorInputSettings>
+						)}
 					</SettingInputWrapper>
 					<SettingInputWrapper>
 						<SettingInput
@@ -80,11 +104,17 @@ export class AddAppForm extends React.Component<
 							name="appPort"
 							onChange={this.handleChange}
 						/>
+						{!this.state.validPort && (
+							<ErrorInputSettings>
+								Enter number between the range of <b>0</b> and{' '}
+								<b>65535</b>.
+							</ErrorInputSettings>
+						)}
 					</SettingInputWrapper>
-					<AddNewAppButton onClick={this.handleSubmit}>
+					<SubmitAppButton onClick={this.handleSubmit}>
 						<Plus size="18" />
 						Add New App
-					</AddNewAppButton>
+					</SubmitAppButton>
 				</AddNewAppGroupInput>
 			</form>
 		);
@@ -93,7 +123,9 @@ export class AddAppForm extends React.Component<
 
 interface EditAppFormState {
 	appName: string;
-	appPort: number;
+	appPort: string;
+	validPort: boolean;
+	validName: boolean;
 }
 
 interface EditAppFormProps {
@@ -110,10 +142,13 @@ export class EditAppForm extends React.Component<
 		super(props);
 		this.state = {
 			appName: this.props.app.name,
-			appPort: this.props.app.port
+			appPort: `${this.props.app.port}`,
+			validPort: true,
+			validName: true
 		};
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
+		this.handleClose = this.handleClose.bind(this);
 	}
 
 	handleChange(event: any) {
@@ -135,13 +170,27 @@ export class EditAppForm extends React.Component<
 		}
 	}
 
+	handleClose() {
+		this.props.fetchAppsList();
+	}
+
 	handleSubmit(event: any) {
 		event.preventDefault();
-		this.props.updateApp({
-			id: this.props.app.id,
-			name: this.state.appName,
-			port: this.state.appPort
+		const testPort = validatePortNumber(this.state.appPort);
+		const testName = validateAppName(this.state.appName);
+
+		this.setState({
+			validPort: testPort,
+			validName: testName
 		});
+
+		if (testPort && testName) {
+			this.props.updateApp({
+				id: this.props.app.id,
+				name: this.state.appName,
+				port: this.state.appPort
+			});
+		}
 	}
 
 	render() {
@@ -158,6 +207,11 @@ export class EditAppForm extends React.Component<
 							value={appName}
 							onChange={this.handleChange}
 						/>
+						{!this.state.validName && (
+							<ErrorInputSettings>
+								Enter the name of at least 3 symbols!
+							</ErrorInputSettings>
+						)}
 					</SettingInputWrapper>
 					<SettingInputWrapper>
 						<label>App Port:</label>
@@ -168,20 +222,22 @@ export class EditAppForm extends React.Component<
 							value={appPort}
 							onChange={this.handleChange}
 						/>
+						{!this.state.validPort && (
+							<ErrorInputSettings>
+								Enter number between the range of <b>0</b> and{' '}
+								<b>65535</b>.
+							</ErrorInputSettings>
+						)}
 					</SettingInputWrapper>
 					<EditAppFormButton>
-						<AddNewAppButton
-							onClick={() => {
-								this.props.fetchAppsList;
-							}}
-						>
-							<ClosedCaptioning size="18" />
-							Close
-						</AddNewAppButton>
-						<AddNewAppButton onClick={this.handleSubmit}>
+						<CloseAppFormButton onClick={this.handleClose}>
+							<Reply size="18" />
+							Back to list
+						</CloseAppFormButton>
+						<SubmitAppButton onClick={this.handleSubmit}>
 							<Save size="18" />
 							Save Change
-						</AddNewAppButton>
+						</SubmitAppButton>
 					</EditAppFormButton>
 				</EditAppGroupInput>
 			</form>
@@ -240,23 +296,21 @@ export class ServerDataForm extends React.Component<
 
 	handleSubmit(event: any) {
 		event.preventDefault();
-		//const testPorts = validatePortsString(this.state.port);
+		const testPort = validatePortNumber(this.state.port);
+		const testIp = validateServeIp(this.state.ip);
 
-		/* this.setState({
-			validPort: testPorts
-		}); */
+		this.setState({
+			validPort: testPort,
+			validIp: testIp
+		});
 
-		//if (testPorts) this.props.onSubmit(this.state);
-		/* 		this.props.updateApp({
-					id: this.props.app.id,
-					name: this.state.appName,
-					port: this.state.appPort
-				}); */
-		this.props.changeServerSettings(
-			this.state.ip,
-			this.state.port,
-			this.state.ip
-		);
+		if (testPort && testIp) {
+			this.props.changeServerSettings(
+				this.state.ip,
+				this.state.port,
+				this.state.ip
+			);
+		}
 	}
 
 	render() {
@@ -273,8 +327,8 @@ export class ServerDataForm extends React.Component<
 						/>
 						{!this.state.validPort && (
 							<ErrorInputSettings>
-								Enter number ports separated by commas:{' '}
-								<i>8080,3060,80 etc.</i>
+								Enter number between the range of <b>0</b> and{' '}
+								<b>65535</b>.
 							</ErrorInputSettings>
 						)}
 					</SettingInputWrapper>
@@ -288,14 +342,14 @@ export class ServerDataForm extends React.Component<
 						/>
 						{!this.state.validIp && (
 							<ErrorInputSettings>
-								Enter ip: <i>8080,3060,80 etc.</i>
+								Enter valid IP address!
 							</ErrorInputSettings>
 						)}
 					</SettingInputWrapper>
-					<AddNewAppButton onClick={this.handleSubmit}>
+					<SubmitAppButton onClick={this.handleSubmit}>
 						<Save size="18" />
 						Save Change
-					</AddNewAppButton>
+					</SubmitAppButton>
 				</AddNewAppGroupInput>
 			</form>
 		);

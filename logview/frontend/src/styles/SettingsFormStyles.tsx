@@ -160,11 +160,29 @@ svg{
 }
 }`;
 
-export const AddNewAppButton = styled.button`
+export const SubmitAppButton = styled.button`
 float: right;
 padding: 12px 20px;
 margin: 10px 0;
 background-color: ${colors.violet};
+color: #fff;
+text-transform: uppercase;
+border: none;
+font-size: 18px;
+width: 100%;
+svg{
+	margin-right: 15px;
+}
+&: hover {
+	background-color: ${colors['grey-darken']};
+}
+}`;
+
+export const CloseAppFormButton = styled.button`
+float: right;
+padding: 12px 20px;
+margin: 10px 0;
+background-color: #cc0000;
 color: #fff;
 text-transform: uppercase;
 border: none;
@@ -252,6 +270,17 @@ export const AppSecretKey = styled.span`
 	}
 `;
 
+export const ServerSecretKey = styled.span`
+	cursor: pointer;
+	line-height: 2;
+	svg {
+		margin-left: 5px;
+		margin-right: 5px;
+	}
+	&:hover {
+		color: ${colors.violet};
+	}
+`;
 export const DeleteAppRow = styled.div`
 	text-align: center;
 	svg {

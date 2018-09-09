@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Copy } from 'styled-icons/fa-solid';
-import { AppSecretKey } from '../../styles/SettingsFormStyles';
+import { ServerSecretKey } from '../../styles/SettingsFormStyles';
 import { copyToClipboard } from '../../services/clipboard';
 
 interface SecretKeyProps {
@@ -24,7 +24,7 @@ export class SecretKey extends React.Component<SecretKeyProps, {}> {
 
 	render() {
 		return (
-			<AppSecretKey
+			<ServerSecretKey
 				title="click to copy"
 				onClick={() => {
 					this.copyClick();
@@ -32,7 +32,7 @@ export class SecretKey extends React.Component<SecretKeyProps, {}> {
 			>
 				<Copy size={18} />
 				{this.props.secretKey}
-			</AppSecretKey>
+			</ServerSecretKey>
 		);
 	}
 }
