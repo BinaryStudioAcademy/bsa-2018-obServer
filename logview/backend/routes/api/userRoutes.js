@@ -8,8 +8,6 @@ const apiResponse = require('express-api-response'),
 	(router = require('express').Router()),
 	(RESSET_PASSWORD_EXPIRES = 3600000);
 
-const eventEmitter = require('../../events');
-
 router.get(
 	'/',
 	async (req, res, next) => {

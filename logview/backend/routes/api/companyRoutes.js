@@ -2,7 +2,6 @@ const apiResponse = require('express-api-response'),
 	isLoggedInMiddleware = require('../../middleware/isLoggedInMiddleware'),
 	isAdminMiddleware = require('../../middleware/isAdminMiddleware'),
 	userService = require('../../services/userService'),
-	emailService = require('../../services/emailService'),
 	companyService = require('../../services/companyService');
 (settingService = require('../../services/settingService')),
 	(router = require('express').Router()),
@@ -102,8 +101,7 @@ router.put(
 			const setting = await settingService.findByCompanyId(
 				req.user.companyId
 			);
-
-			eventEmitter.emit('update company settings', setting);
+			eventEmitter.emit('update company settings', req.user.companyId);
 
 			res.data = setting;
 			res.err = null;
@@ -142,6 +140,7 @@ router.put(
 		try {
 			await companyService.update(req.user.companyId, req.body);
 			const company = await companyService.findById(req.user.companyId);
+			eventEmitter.emit('update company settings', req.user.companyId);
 
 			res.data = company;
 			res.err = null;
