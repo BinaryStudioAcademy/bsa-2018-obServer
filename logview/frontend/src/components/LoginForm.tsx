@@ -9,7 +9,7 @@ import {
 	ErrorText,
 	Redirect,
 	RedirectRegister
-} from 'src/containers/Login/LoginStyles';
+} from '../containers/Login/LoginStyles';
 import { Link } from 'react-router-dom';
 
 interface LoginFormProps {
@@ -20,7 +20,6 @@ interface LoginFormProps {
 interface LoginFormState {
 	email?: string;
 	password?: string;
-	remember?: boolean;
 	err?: boolean;
 }
 
@@ -31,12 +30,10 @@ class LoginForm extends React.Component<LoginFormProps, LoginFormState> {
 		this.state = {
 			email: '',
 			password: '',
-			remember: false,
 			err: false
 		};
 
 		this.handleFieldChange = this.handleFieldChange.bind(this);
-		this.handleCheckbox = this.handleCheckbox.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
 	}
 
@@ -52,10 +49,6 @@ class LoginForm extends React.Component<LoginFormProps, LoginFormState> {
 			password: this.state.password
 		};
 		this.props.onSubmit(obj);
-	}
-
-	handleCheckbox() {
-		this.setState({ remember: !this.state.remember });
 	}
 
 	render() {

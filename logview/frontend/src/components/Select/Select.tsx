@@ -1,6 +1,11 @@
 import * as React from 'react';
 import onClickOutside from 'react-onclickoutside';
-import { Select as StyledSelect, OptionActive, Option, Dropdown } from './SelectStyles';
+import {
+	Select as StyledSelect,
+	OptionActive,
+	Option,
+	Dropdown
+} from './SelectStyles';
 import { ArrowDropDown } from 'styled-icons/material';
 
 interface SelectState {
@@ -10,7 +15,7 @@ interface SelectState {
 
 interface SelectProps {
 	active: string;
-	options: Array<string>;
+	options: Array<{ name: string; value: string }>;
 	onActive: Function;
 }
 
@@ -29,7 +34,7 @@ class Select extends React.Component<SelectProps, SelectState> {
 	}
 
 	componentDidMount() {
-		this.setState({ active: this.props.options[0] });
+		this.setState({ active: this.props.options[0].name });
 	}
 
 	handleClickOutside(evt) {
@@ -39,7 +44,7 @@ class Select extends React.Component<SelectProps, SelectState> {
 	handleClick(e) {
 		this.setState({ active: e.target.innerHTML });
 		this.setState({ popup: !this.state.popup });
-		this.props.onActive(e.target.innerHTML);
+		this.props.onActive(e.target.innerHTML, e.target.title);
 	}
 
 	togglePopup() {
@@ -55,7 +60,11 @@ class Select extends React.Component<SelectProps, SelectState> {
 				</OptionActive>
 				{this.state.popup && (
 					<Dropdown popup={this.state.popup}>
-                        {this.props.options.map( (option, i) => <Option key={i} onClick={this.handleClick}><span>{option}</span></Option>)}
+						{this.props.options.map((option, i) => (
+							<Option key={i} onClick={this.handleClick}>
+								<span title={option.value}>{option.name}</span>
+							</Option>
+						))}
 					</Dropdown>
 				)}
 			</StyledSelect>

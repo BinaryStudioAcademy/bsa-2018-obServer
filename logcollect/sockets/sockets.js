@@ -8,7 +8,6 @@ const logcollectURL = `http://localhost:${port}`;
 
 module.exports = io => {
   const logviewSocket = ioClient.connect(logviewURL);
-
   io.set('origins', logcollectURL);
   io.origins('*:*');
 

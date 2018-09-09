@@ -3,10 +3,12 @@ const logTypes = require('../../utils/logTypes');
 module.exports = (slicedLogs) => {
   const aggregatedServerMemoryLogs = [];
   slicedLogs.forEach((logChunk, i) => {
-    if (logChunk.length === 0) {
+    if (logChunk[0].isEmpty) {
       aggregatedServerMemoryLogs.push({
-        logType: logTypes.MEMORY_SERVER,
-        data: null
+        totalMemory: 0,
+        usedMemory: 0,
+        usedMemoryPercentage: 0,
+        timestamp: logChunk[0].timestamp
       });
       return;
     }

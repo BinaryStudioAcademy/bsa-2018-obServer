@@ -1,17 +1,17 @@
 import * as React from 'react';
-import HttpTabel from 'src/components/tabels/httpTabel';
-import HttpRoutesBarChart from 'src/components/charts/http/routesChart';
-import HttpCountChart from 'src/components/charts/http/countHttpChart';
+import HttpTabel from '../../../components/tabels/httpTabel';
+import HttpRoutesBarChart from '../../../components/charts/http/routesChart';
+import HttpCountChart from '../../../components/charts/http/countHttpChart';
 import {
 	ChartHeader,
 	ChartWrapper,
 	ChartTimeRange,
 	Chart
-} from 'src/containers/HttpStats/HttpStatsStyles';
+} from '../../HttpStats/HttpStatsStyles';
 import { Timer } from 'styled-icons/material';
-import { httpStats, countRoutes, countHttp } from 'src/containers/HttpStats/mockData';
+import { httpStats, countRoutes, countHttp } from '../../HttpStats/mockData';
 import { Grid, HttpContainer, Title } from './HttpBlockStyles';
-import { Submit } from 'src/styles/Styles';
+import { Submit } from '../../../styles/Styles';
 import { Link } from 'react-router-dom';
 
 interface HttpStatsProps {}
@@ -74,7 +74,7 @@ class HttpStats extends React.Component<HttpStatsProps, HttpStatsState> {
 					</ChartWrapper>
 				</Grid>
 				<Submit>
-					<Link to='/dashboard/httpstats'>open http stats</Link>
+					<Link to="/dashboard/httpstats">open http stats</Link>
 				</Submit>
 			</HttpContainer>
 		);

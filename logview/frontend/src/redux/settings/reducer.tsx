@@ -1,6 +1,6 @@
 import * as constants from './constants';
 import { SettingsAction } from './actions';
-import { SettingsState } from 'src/types/SettingsState';
+import { SettingsState } from '../../types/SettingsState';
 import { defaultState } from '../defaultState';
 
 export function settingsReducer(
@@ -21,8 +21,7 @@ export function settingsReducer(
 				appsCPU: action.payload.appsCPU,
 				appsErrorLog: action.payload.appsErrorLog,
 				appsHttp: action.payload.appsHttp,
-				appsSoket: action.payload.appsSoket,
-				listeningPorts: action.payload.listeningPorts
+				appsSoket: action.payload.appsSoket
 			};
 		}
 		default:

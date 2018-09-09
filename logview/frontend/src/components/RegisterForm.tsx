@@ -6,9 +6,9 @@ import {
 	RedirectLink,
 	ErrorText,
 	CenteredText
-} from 'src/styles/Styles';
+} from '../styles/Styles';
 import { Link } from 'react-router-dom';
-import { validateForm } from 'src/services/validate/validate';
+import { validateForm } from '../services/validate/validate';
 
 interface RegFormState {
 	name?: string;
@@ -130,9 +130,10 @@ class RegisterForm extends React.Component<RegFormProps, RegFormState> {
 				/>
 				{!this.state.validateState.company && (
 					<ErrorText>
-						Company should be at least 3 characters long
+						Company can only contain letters and numbers
 					</ErrorText>
 				)}
+				<br />
 				<Submit onClick={this.handleSubmit}>sign up</Submit>
 
 				<RedirectLink>

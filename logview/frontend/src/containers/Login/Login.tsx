@@ -1,9 +1,9 @@
 import * as React from 'react';
-import LoginForm from 'src/components/LoginForm';
+import LoginForm from '../../components/LoginForm';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { userLogin } from 'src/redux/user/actions';
-import { Wrapper } from 'src/styles/Styles';
+import { userLogin } from '../../redux/user/actions';
+import { Wrapper } from '../../styles/Styles';
 import { Landing } from '../../styles/ContainerStyles';
 
 interface LoginFormProps {
