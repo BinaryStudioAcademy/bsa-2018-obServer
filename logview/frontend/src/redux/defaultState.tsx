@@ -99,5 +99,8 @@ export const defaultState: StoreState = {
 	fetchingSettingsStatus: 'unstarted',
 	fetchingLogsStatus: 'unstarted',
 	isLoggedIn: false,
-	sockets: undefined
+	sockets: undefined,
+	userChangeCompany: {
+		companyName: ''
+	}
 };

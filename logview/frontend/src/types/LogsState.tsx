@@ -42,6 +42,11 @@ export interface LogMessagesState {
 	message: string;
 }
 
+export interface LogErrorState {
+	timestamp: number;
+	errors: number;
+}
+
 export interface LogLevelsState {
 	error: boolean;
 	warn: boolean;

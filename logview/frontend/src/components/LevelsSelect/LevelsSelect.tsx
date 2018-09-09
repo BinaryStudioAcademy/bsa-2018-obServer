@@ -4,18 +4,20 @@ import {
 	Select as StyledSelect,
 	OptionActive,
 	Option,
-	Dropdown
-} from './SelectStyles';
+	Dropdown,
+	ActiveStatusIcon,
+	Span
+} from './LevelsSelectStyles';
 import { ArrowDropDown } from 'styled-icons/material';
+import Options from './LevelsSelectTypes';
 
 interface SelectState {
 	popup: boolean;
-	active: string;
+	options: Array<Options>;
 }
 
 interface SelectProps {
-	active: string;
-	options: Array<{ name: string; value: string }>;
+	options: Array<Options>;
 	onActive: Function;
 }
 
@@ -24,8 +26,8 @@ class Select extends React.Component<SelectProps, SelectState> {
 		super(props);
 
 		this.state = {
-			active: '',
-			popup: false
+			popup: false,
+			options: []
 		};
 
 		this.handleClickOutside = this.handleClickOutside.bind(this);
@@ -34,7 +36,7 @@ class Select extends React.Component<SelectProps, SelectState> {
 	}
 
 	componentDidMount() {
-		this.setState({ active: this.props.options[0].name });
+		this.setState({ options: this.props.options });
 	}
 
 	handleClickOutside(evt) {
@@ -42,9 +44,14 @@ class Select extends React.Component<SelectProps, SelectState> {
 	}
 
 	handleClick(e) {
-		this.setState({ active: e.target.innerHTML });
-		this.setState({ popup: !this.state.popup });
-		this.props.onActive(e.target.innerHTML, e.target.title);
+		const newOptions = this.state.options.map(el => {
+			if (el.value === e.target.title) {
+				el.active = !el.active;
+			}
+			return el;
+		});
+		this.setState({ options: newOptions });
+		this.props.onActive(newOptions);
 	}
 
 	togglePopup() {
@@ -55,14 +62,24 @@ class Select extends React.Component<SelectProps, SelectState> {
 		return (
 			<StyledSelect popup={this.state.popup}>
 				<OptionActive onClick={this.togglePopup}>
-					{this.state.active}
+					Select levels
 					<ArrowDropDown size="20" />
 				</OptionActive>
 				{this.state.popup && (
 					<Dropdown popup={this.state.popup}>
 						{this.props.options.map((option, i) => (
-							<Option key={i} onClick={this.handleClick}>
-								<span title={option.value}>{option.name}</span>
+							<Option key={i}>
+								<ActiveStatusIcon
+									size="10"
+									active={this.state.options[i].active}
+								/>
+								<Span
+									title={option.value}
+									active={this.state.options[i].active}
+									onClick={this.handleClick}
+								>
+									{option.name}
+								</Span>
 							</Option>
 						))}
 					</Dropdown>

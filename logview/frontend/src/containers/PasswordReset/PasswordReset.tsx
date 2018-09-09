@@ -54,7 +54,6 @@ class PasswordReset extends React.Component<LoginFormProps, LoginFormState> {
 						<Link to="/register">Sign up</Link>
 					</RedirectLink>
 				</AnimatedComponent>
-
 			</Landing>
 		);
 	}
