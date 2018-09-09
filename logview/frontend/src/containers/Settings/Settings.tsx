@@ -49,10 +49,10 @@ class Settings extends React.Component<
 					</SettingsMenuLink>
 					<SettingsMenuLink
 						active={
-							location.pathname === '/dashboard/settings/apps'
+							location.pathname === '/dashboard/settings/server'
 						}
 					>
-						<Link to={`${match.url}/apps`}>
+						<Link to={`${match.url}/server`}>
 							<Server size="24" />
 							Server Settings
 						</Link>
@@ -75,7 +75,7 @@ class Settings extends React.Component<
 				/>
 				<Route
 					exact
-					path={`${match.url}/apps`}
+					path={`${match.url}/server`}
 					component={ServerSettings}
 				/>
 			</React.Fragment>
