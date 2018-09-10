@@ -5,16 +5,13 @@ const MemoryStats = require('./utils/MemoryStats');
 const CPUStats = require('./utils/CPUStats');
 const SocketStats = require('./utils/SocketStats');
 const AppMonitor = require('./utils/AppMonitor');
-const pingInit = require('./utils/pingInit');
 
 class LogConnect {
-  constructor(logcollectPort, appId, portForPing) {
+  constructor(logcollectPort, appId) {
     this.appId = appId;
     
     const logcollectUrl = `http://localhost:${logcollectPort}/api/logs`;
     this.sendLog = requestHelper(logcollectUrl);
-
-    pingInit(this.sendLog, appId, portForPing);
   }
   httpStats() {
     return httpMiddleware(this.sendLog, this.appId);

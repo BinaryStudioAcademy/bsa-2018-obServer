@@ -16,9 +16,7 @@ module.exports = class MetricsService {
   }
 
   newLog(data) {
-    if (data.logType === 'PING_INIT') {
-      this.ping(data.data.pingPort, data.appId);
-    } else if (this.logSettings.filterData[data.logType]) {
+    if (this.logSettings.filterData[data.logType]) {
       this.sendMetrics(data, '/logs');
     }
   }
