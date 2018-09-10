@@ -94,6 +94,7 @@ class Logs extends React.Component<LogsProps, LogsState> {
 
 const mapStateToProps = ({
 	user,
+	fetchingUserStatus,
 	fetchingLogsStatus,
 	logMessages,
 	activeApp,
@@ -101,6 +102,7 @@ const mapStateToProps = ({
 	logLevels
 }) => ({
 	user,
+	fetchingUserStatus,
 	fetchingLogsStatus,
 	logMessages,
 	activeApp,
