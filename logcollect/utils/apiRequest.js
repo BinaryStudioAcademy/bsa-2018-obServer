@@ -1,10 +1,10 @@
 const axios = require('axios');
 
 module.exports = (url, companyToken) => {
-  return (data) => {
+  return (data, urlTail) => {
     return axios({
       method: 'post',
-      url: url,
+      url: url + urlTail,
       data: data,
       headers: { 'X-ACCESS-TOKEN': companyToken },
     }).catch((error) => {

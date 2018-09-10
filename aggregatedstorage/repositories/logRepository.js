@@ -5,6 +5,7 @@ const httpRepository = require('./logsRepositories/httpRepository');
 const memoryAppRepository = require('./logsRepositories/memoryAppRepository');
 const cpuAppRepository = require('./logsRepositories/cpuAppRepository');
 const logMessageRepository = require('./logsRepositories/appLogMessageRepository');
+const notificationRepository = require('./logsRepositories/notificationRepository');
 const logTypes = require('../utils/logTypes');
 
 class LogRepository {
@@ -27,6 +28,9 @@ class LogRepository {
         break;
       case logTypes.LOG_MESSAGE:
         logMessageRepository.create(log, callback);
+        break;
+      case logTypes.NOTIFICATION:
+        notificationRepository.create(log, callback);
         break;
       default:
         callback(new Error('Wrong log type'));
@@ -83,6 +87,15 @@ class LogRepository {
           break;
         case logTypes.LOG_MESSAGE:
           logMessageRepository.getByCompanyId(companyId, (err, logs) => {
+            if (!err) {
+              resolve(logs);
+            } else {
+              reject(err);
+            }
+          });
+          break;
+        case logTypes.NOTIFICATION:
+          notificationRepository.getByCompanyId(companyId, (err, logs) => {
             if (!err) {
               resolve(logs);
             } else {
