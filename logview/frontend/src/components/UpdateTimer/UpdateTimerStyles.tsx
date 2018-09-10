@@ -23,7 +23,7 @@ export const Select = UserPopup.extend`
 export const OptionActive = UserText.extend`
 	margin: 0;
 	border: none;
-	padding: 12px 20px;
+	padding: 12px 0;
     color: ${(props: any) => (props.popup ? 'white' : 'grey')};
 	cursor: pointer;
 `;

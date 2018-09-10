@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Timer } from 'styled-icons/material';
-import Select from '../Select/Select';
 import onClickOutside from 'react-onclickoutside';
 import {
 	Select as StyledSelect,
@@ -8,7 +7,6 @@ import {
 	Option,
 	Dropdown
 } from './UpdateTimerStyles';
-import { ArrowDropDown } from 'styled-icons/material';
 const options = [
 	'last 10 minutes',
 	'last 30 minutes',
@@ -29,6 +27,7 @@ interface UpdateTimerProps {
 	active: string;
 	options: Array<string>;
 	onActive: Function;
+	caller: string;
 }
 
 class UpdateTimer extends React.Component<UpdateTimerProps, UpdateTimerState> {
@@ -56,15 +55,11 @@ class UpdateTimer extends React.Component<UpdateTimerProps, UpdateTimerState> {
 	handleClick(e) {
 		this.setState({ active: e.target.innerHTML });
 		this.setState({ popup: !this.state.popup });
-		this.props.onActive(e.target.innerHTML);
+		this.props.onActive(e.target.innerHTML, this.props.caller);
 	}
 
 	togglePopup() {
 		this.setState({ popup: !this.state.popup });
-	}
-
-	handleActive(data) {
-		this.setState({ active: data });
 	}
 
 	render() {

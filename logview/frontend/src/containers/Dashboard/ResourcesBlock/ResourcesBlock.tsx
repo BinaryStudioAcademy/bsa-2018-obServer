@@ -30,7 +30,6 @@ import {
 } from './ResourcesBlockStyles';
 import { Submit } from '../../../styles/Styles';
 import { Link } from 'react-router-dom';
-import { defaultState } from '../../../redux/defaultState';
 import initialValues from './ResourcesInitalValues';
 import UpdateTimer from '../../../components/UpdateTimer/UpdateTimer';
 
