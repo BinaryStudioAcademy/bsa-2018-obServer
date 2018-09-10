@@ -8,7 +8,7 @@ router.get(
 	async (req, res, next) => {
 		try {
 			const headers = {
-				'X-COMPANY-TOKEN': req.header('X-COMPANY-TOKEN')
+				'X-COMPANY-TOKEN': req.user.companyId
 			};
 
 			if (req.header('X-APP-ID')) {
