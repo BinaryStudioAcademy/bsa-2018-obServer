@@ -3,6 +3,8 @@ const httpMiddleware = require('./middleware/http')
 const Logger = require('./utils/logger');
 const MemoryStats = require('./utils/MemoryStats');
 const CPUStats = require('./utils/CPUStats');
+const SocketStats = require('./utils/SocketStats');
+const AppMonitor = require('./utils/AppMonitor');
 
 class LogConnect {
   constructor(logcollectPort, appId) {
@@ -22,6 +24,12 @@ class LogConnect {
   }
   memoryStats() {
     return new MemoryStats(this.sendLog, this.appId).startMemoryMonitor();
+  }
+  socketStats(io) {
+    return new SocketStats(io, this.sendLog, this.appId).startSocketMonitor();
+  }
+  appMonitor() {
+    return new AppMonitor(this.sendLog, this.appId).startAppMonitor();
   }
 };
 
