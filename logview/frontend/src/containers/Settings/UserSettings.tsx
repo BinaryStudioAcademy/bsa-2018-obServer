@@ -40,12 +40,10 @@ class UserSettings extends React.Component<SettingsUserFormProps, UserState> {
 
 	render() {
 		return this.props.fetchingUserStatus === 'success' ? (
-			<React.Fragment>
-				<SettingUserForm
-					user={this.props.user}
-					onSubmit={this.handleSubmit}
-				/>
-			</React.Fragment>
+			<SettingUserForm
+				user={this.props.user}
+				onSubmit={this.handleSubmit}
+			/>
 		) : (
 			<LoaderOval />
 		);

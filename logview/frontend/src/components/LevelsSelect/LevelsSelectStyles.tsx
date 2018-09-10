@@ -63,6 +63,7 @@ export const Dropdown = UserPopup.extend`
 	border-top-left-radius: 0px;
 	border-top-right-radius: 0px;
 	width: 120px;
+	z-index: 10;
 `;
 
 interface CircleProps {
