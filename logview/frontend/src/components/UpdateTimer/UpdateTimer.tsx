@@ -17,7 +17,7 @@ const options = [
 	'last 12 hours',
 	'last day',
 	'last week',
-	'last month'
+	'last 30 days'
 ];
 
 interface UpdateTimerState {

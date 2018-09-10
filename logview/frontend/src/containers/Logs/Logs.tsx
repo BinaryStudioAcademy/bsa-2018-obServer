@@ -1,27 +1,25 @@
 import * as React from 'react';
 // components & their styles
+import LevelsSelect from 'src/components/LevelsSelect/LevelsSelect';
+import UpdateTimer from 'src/components/UpdateTimer/UpdateTimer';
+import LevelsSelectData from 'src/containers/Dashboard/LogsBlock/LevelsSelectData';
+import Options from 'src/components/LevelsSelect/LevelsSelectTypes';
 import ErrChart from 'src/components/charts/logs/ErrChart';
 import LogStatsTabel from '../../components/tabels/logStatsTabel';
 import { LoaderBars } from 'src/components/loaders';
+import { Autorenew } from 'styled-icons/material';
+import { Submit } from 'src/styles/Styles';
+import { RowContainer } from 'src/containers/Dashboard/DashboardStyles';
 import { SelectChartPage } from '../../styles/Styles';
 import {
 	ChartWrapper,
 	ChartHeader,
-	LogsSearchForm,
-	LevelPicker,
-	Level,
-	TimeSpanPicker,
-	LogsList
+	LogsSearchForm
 } from 'src/styles/LogsStyles';
 // redux
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import {
-	getLogMessages,
-	handleActiveApp,
-	handleTimeRange,
-	handleLogLevels
-} from 'src/redux/logs/actions';
+import { getLogMessages } from 'src/redux/logs/actions';
 import {
 	LogMessagesState,
 	LogLevelsState,
@@ -34,9 +32,6 @@ import { filterLogs, calcErrStats } from 'src/services/logstats/logs';
 interface LogsProps {
 	actions: {
 		getLogMessages: Function;
-		handleActiveApp: Function;
-		handleTimeRange: Function;
-		handleLogLevels: Function;
 	};
 	user: { companyId: string };
 	fetchingUserStatus: string;
@@ -48,59 +43,27 @@ interface LogsProps {
 }
 
 interface LogsState {
-	filters: {
-		levels: LogLevelsState;
-		timespan: string;
-	};
-	filteredLogs: Array<LogMessagesState>;
-	errStats: Array<LogErrorState>;
+	levelsSelectOptions: Array<Options>;
 }
 
 class Logs extends React.Component<LogsProps, LogsState> {
 	constructor(props: LogsProps) {
 		super(props);
-
-		this.state = {
-			filters: {
-				levels: {
-					error: true,
-					warn: true,
-					info: true,
-					verbose: false,
-					debug: false,
-					silly: false
-				},
-				timespan: 'last 10 minutes'
-			},
-			filteredLogs: [],
-			errStats: [{ timestamp: Date.now(), errors: 0 }]
-		};
-		this.handleLevels = this.handleLevels.bind(this);
-		this.handleTimeRange = this.handleTimeRange.bind(this);
-		this.handleActiveApp = this.handleActiveApp.bind(this);
 	}
 
 	componentDidMount() {
-		console.log('companyId: ', this.props.user.companyId);
-		this.props.actions.getLogMessages(this.props.user.companyId);
-		// doesn't work correctly if try to achieve directly, with no userFetching
-		// needed userFetching while login (activation)
+		if (this.props.user.companyId) {
+			this.props.actions.getLogMessages(this.props.user.companyId);
+		}
 	}
 
-	handleLevels(e) {
-		this.props.actions.handleLogLevels({
-			[e.currentTarget.name]: e.currentTarget.checked
-		});
+	componentDidUpdate(prevProps) {
+		if (this.props.user.companyId !== prevProps.user.companyId) {
+			this.props.actions.getLogMessages(this.props.user.companyId);
+		}
 	}
-
-	handleTimeRange(e) {
-		this.props.actions.handleTimeRange(e.currentTarget.value);
-	}
-
-	handleActiveApp(e) {}
 
 	render() {
-		console.log('State: ', this.state);
 		return (
 			<React.Fragment>
 				<ChartWrapper>
@@ -119,80 +82,16 @@ class Logs extends React.Component<LogsProps, LogsState> {
 					)}
 				</ChartWrapper>
 				<LogsSearchForm>
-					<LevelPicker>
-						<span>Select logs' levels</span>
-						<Level>
-							<input
-								type="checkbox"
-								name="error"
-								checked={this.props.logLevels.error}
-								onChange={this.handleLevels}
-							/>
-							Error
-						</Level>
-						<Level>
-							<input
-								type="checkbox"
-								name="warn"
-								checked={this.props.logLevels.warn}
-								onChange={this.handleLevels}
-							/>
-							Warn
-						</Level>
-						<Level>
-							<input
-								type="checkbox"
-								name="info"
-								checked={this.props.logLevels.info}
-								onChange={this.handleLevels}
-							/>
-							Info
-						</Level>
-						<Level>
-							<input
-								type="checkbox"
-								name="verbose"
-								checked={this.props.logLevels.verbose}
-								onChange={this.handleLevels}
-							/>
-							Verbose
-						</Level>
-						<Level>
-							<input
-								type="checkbox"
-								name="debug"
-								checked={this.props.logLevels.debug}
-								onChange={this.handleLevels}
-							/>
-							Debug
-						</Level>
-						<Level>
-							<input
-								type="checkbox"
-								name="silly"
-								checked={this.props.logLevels.silly}
-								onChange={this.handleLevels}
-							/>
-							Silly
-						</Level>
-					</LevelPicker>
-					<TimeSpanPicker
-						name="timespan"
-						value={this.props.timeRange}
-						onChange={this.handleTimeRange}
-					>
-						<option value="last 10 minutes">last 10 minutes</option>
-						<option value="last 30 minutes">last 30 minutes</option>
-						<option value="last hour">last hour</option>
-						<option value="last 5 hours">last 5 hours</option>
-						<option value="last 12 hours">last 12 hours</option>
-						<option value="last 24 hours">last 24 hours</option>
-						<option value="last week">last week</option>
-						<option value="last 30 days">last 30 days</option>
-					</TimeSpanPicker>
+					<Submit>
+						<RowContainer>
+							<Autorenew size="20px" />
+							<span> fetch logs</span>
+						</RowContainer>
+					</Submit>
+					<LevelsSelect />
+					<UpdateTimer />
 				</LogsSearchForm>
 				{this.props.fetchingLogsStatus === 'success' ? (
-					// <LogsList>
 					<LogStatsTabel
 						data={filterLogs(
 							this.props.logMessages,
@@ -202,7 +101,6 @@ class Logs extends React.Component<LogsProps, LogsState> {
 						)}
 					/>
 				) : (
-					// </LogsList>
 					<LoaderBars />
 				)}
 			</React.Fragment>
@@ -227,10 +125,7 @@ const mapStateToProps = ({
 });
 
 const mapDispatchToProps = (dispatch: any) => ({
-	actions: bindActionCreators(
-		{ getLogMessages, handleActiveApp, handleTimeRange, handleLogLevels },
-		dispatch
-	)
+	actions: bindActionCreators({ getLogMessages }, dispatch)
 });
 
 const LogsConnected = connect(
