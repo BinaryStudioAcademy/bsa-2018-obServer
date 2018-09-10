@@ -32,6 +32,7 @@ import { Submit } from '../../../styles/Styles';
 import { Link } from 'react-router-dom';
 import initialValues from './ResourcesInitalValues';
 import UpdateTimer from '../../../components/UpdateTimer/UpdateTimer';
+import ServerResourcesChart from '../../ServerResources/ServerResourcesChart';
 
 let timerID;
 
@@ -109,8 +110,8 @@ class ServerResources extends React.Component<
 		this.props.actions.stopChannel();
 	}
 
-	handleActive(activeApp) {
-		this.setState({ active: activeApp });
+	handleActive(data) {
+		this.setState({ active: data });
 	}
 
 	render() {
@@ -120,22 +121,12 @@ class ServerResources extends React.Component<
 
 				<ChartGrid>
 					<ChartWrapper>
-						<Chart>
-							<ChartHeader>
-								<h3>CPU Load, %</h3>
-								<ChartTimeRange>
-									<UpdateTimer />
-								</ChartTimeRange>
-							</ChartHeader>
-							<CoresLoadLineChart
-								data={
-									this.state.cpuLogs.length > 2
-										? this.state.cpuLogs
-										: initialValues
-								}
-								timeRange="last 10 minutes"
-							/>
-						</Chart>
+						<ServerResourcesChart
+							title="CPU Load, %"
+							logs={this.state.cpuLogs}
+							onActive={this.handleActive}
+							caller="cpuLoad"
+						/>
 						<ChartInfo>
 							<div>
 								<TitleSmall>Total CPU load:</TitleSmall>
