@@ -1,5 +1,5 @@
-import api from 'src/services/adapter';
-import { httpStats } from 'src/containers/HttpStats/mockData';
+import api from '../adapter';
+import { httpStats } from '../../containers/HttpStats/mockData';
 
 export default {
 	resoucesAverages: (headers: any) => {

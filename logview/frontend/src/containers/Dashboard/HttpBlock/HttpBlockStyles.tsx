@@ -1,5 +1,5 @@
-import { Grid as HttpGrid } from 'src/containers/HttpStats/HttpStatsStyles';
-import { Title as HttpTitle } from 'src/styles/TextStyles';
+import { Grid as HttpGrid } from '../../HttpStats/HttpStatsStyles';
+import { Title as HttpTitle } from '../../../styles/TextStyles';
 import styled from 'styled-components';
 
 export const Grid = HttpGrid.extend`

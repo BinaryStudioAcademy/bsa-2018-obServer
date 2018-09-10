@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { LogsList as LogsLists } from 'src/styles/LogsStyles';
+import { LogsList as LogsLists } from '../../../styles/LogsStyles';
 
 export const LogsContainer = styled.div`
 	grid-column-start: span 2;

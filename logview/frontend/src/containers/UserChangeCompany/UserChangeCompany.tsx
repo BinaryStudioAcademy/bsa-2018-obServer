@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { userChangeCompany } from 'src/redux/company/actions';
+import { userChangeCompany } from '../../redux/company/actions';
 import { Button, Logo, Title, Landing } from './UserChangeCompanyStyle';
 import queryString from 'query-string';
 const logo = require('src/assets/invite.png');

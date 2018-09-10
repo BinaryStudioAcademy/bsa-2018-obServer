@@ -27,6 +27,7 @@
     "dotenv": "^6.0.0",
     "express": "^4.16.3",
     "free-memory": "^1.0.0",
-    "socket.io": "^2.1.1"
+    "socket.io": "^2.1.1",
+    "tcp-ping": "^0.1.1"
   }
 }

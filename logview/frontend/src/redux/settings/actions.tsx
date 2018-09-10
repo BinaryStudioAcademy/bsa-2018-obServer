@@ -46,8 +46,7 @@ export function changeSettings(
 	appsCPU: boolean,
 	appsErrorLog: boolean,
 	appsHttp: boolean,
-	appsSoket: boolean,
-	listeningPorts: string
+	appsSoket: boolean
 ): ChangeSettings {
 	return {
 		type: constants.CHANGE_SETTINGS,
@@ -59,8 +58,7 @@ export function changeSettings(
 		appsCPU,
 		appsErrorLog,
 		appsHttp,
-		appsSoket,
-		listeningPorts
+		appsSoket
 	};
 }
 

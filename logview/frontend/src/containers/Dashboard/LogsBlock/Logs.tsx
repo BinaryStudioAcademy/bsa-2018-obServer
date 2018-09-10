@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Search as SearchIcon } from 'styled-icons/material';
-import ErrChart from 'src/components/charts/logs/ErrChart';
+import ErrChart from '../../../components/charts/logs/ErrChart';
 
 import {
 	ChartWrapper,
@@ -20,18 +20,18 @@ import {
 	SillyLabel,
 	LogText,
 	NotFound
-} from 'src/styles/LogsStyles';
+} from '../../../styles/LogsStyles';
 
-import { filterLogs, calcErrStats } from 'src/services/logstats/logs';
-import { LOGS } from 'src/containers/Logs/mockData';
-import UpdateTimer from 'src/components/UpdateTimer/UpdateTimer';
-import { Submit } from 'src/styles/Styles';
+import { filterLogs, calcErrStats } from '../../../services/logstats/logs';
+import { LOGS } from '../../Logs/mockData';
+import UpdateTimer from '../../../components/UpdateTimer/UpdateTimer';
+import { Submit } from '../../../styles/Styles';
 import { RowContainer } from '../DashboardStyles';
 import { LogsContainer, LogsList } from './LogsStyles';
-import LevelsSelect from 'src/components/LevelsSelect/LevelsSelect';
+import LevelsSelect from '../../../components/LevelsSelect/LevelsSelect';
 import { Link } from 'react-router-dom';
 import LevelsSelectData from './LevelsSelectData';
-import Options from 'src/components/LevelsSelect/LevelsSelectTypes';
+import Options from '../../../components/LevelsSelect/LevelsSelectTypes';
 
 const LEVELS = {
 	0: <ErrorLabel>ERROR</ErrorLabel>,

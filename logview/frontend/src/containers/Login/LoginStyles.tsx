@@ -8,7 +8,7 @@ import {
 	RedirectLink,
 	Submit,
 	ErrorText
-} from 'src/styles/Styles';
+} from '../../styles/Styles';
 
 export const RedirectRegister = RedirectLink.extend`
 	display: inherit;

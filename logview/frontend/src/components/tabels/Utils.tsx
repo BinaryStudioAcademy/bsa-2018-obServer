@@ -1,4 +1,11 @@
 import * as React from 'react';
+import { Trash, Edit, Copy } from 'styled-icons/fa-solid';
+import {
+	AppSecretKey,
+	DeleteAppRow,
+	EditAppRow
+} from '../../styles/SettingsFormStyles';
+import { copyToClipboard } from '../../services/clipboard';
 
 export class Tips extends React.Component {
 	render() {
@@ -51,6 +58,63 @@ export class Method extends React.Component<MethodProps, {}> {
 				{`  `}
 				{this.props.method}
 			</span>
+		);
+	}
+}
+
+interface SecretKeyProps {
+	secretKey: string;
+}
+
+export class SecretKey extends React.Component<SecretKeyProps, {}> {
+	constructor(props) {
+		super(props);
+		this.copyClick = this.copyClick.bind(this);
+	}
+
+	icons: {
+		bookmark?: any;
+	} = {};
+
+	copyClick() {
+		copyToClipboard(this.props.secretKey);
+		alert(`Key '${this.props.secretKey}' copied to clipboard!`);
+	}
+
+	render() {
+		return (
+			<AppSecretKey
+				title="click to copy"
+				onClick={() => {
+					this.copyClick();
+				}}
+			>
+				<Copy size={18} />
+				{this.props.secretKey}
+			</AppSecretKey>
+		);
+	}
+}
+
+interface DeleteAppProps {
+	secretKey: string;
+	handleClick: Function;
+}
+
+export class DeleteApp extends React.Component<DeleteAppProps, {}> {
+	constructor(props) {
+		super(props);
+	}
+
+	render() {
+		return (
+			<DeleteAppRow
+				onClick={() => {
+					this.props.handleClick(this.props.secretKey);
+				}}
+			>
+				<Trash size={18} />
+			</DeleteAppRow>
 		);
 	}
 }

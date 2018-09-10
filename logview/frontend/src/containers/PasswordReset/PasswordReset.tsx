@@ -1,6 +1,6 @@
 import * as React from 'react';
-import PasswordResetForm from 'src/components/PasswordResetForm';
-import PasswordResetSent from 'src/components/PasswordResetSent';
+import PasswordResetForm from '../../components/PasswordResetForm';
+import PasswordResetSent from '../../components/PasswordResetSent';
 import { userResetPassword } from '../../redux/user/actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';

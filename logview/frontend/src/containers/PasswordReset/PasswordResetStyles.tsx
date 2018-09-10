@@ -7,7 +7,7 @@ import {
 	Input as TextInput,
 	RedirectLink,
 	Row
-} from 'src/styles/Styles';
+} from '../../styles/Styles';
 
 export const AnimatedComponent = transition.div`
     display: flex;

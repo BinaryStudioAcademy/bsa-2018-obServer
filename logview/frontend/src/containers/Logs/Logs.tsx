@@ -27,7 +27,7 @@ import {
 } from '../../types/LogsState';
 
 // data & services
-import { filterLogs, calcErrStats } from 'src/services/logstats/logs';
+import { filterLogs, calcErrStats } from '../../services/logstats/logs';
 
 interface LogsProps {
 	actions: {

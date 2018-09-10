@@ -8,15 +8,14 @@ import {
 	cancelled,
 	fork
 } from 'redux-saga/effects';
-import * as constants from 'src/redux/sockets/constants';
-import * as logsConstants from 'src/redux/logs/constants';
+import * as constants from './constants';
+import * as logsConstants from '../logs/constants';
 import {} from './actions';
 import { logsAPI } from '../../services';
 import { delay } from 'redux-saga';
 import io from 'socket.io-client';
 import { eventChannel } from 'redux-saga';
 import { apply } from 'redux-saga/effects';
-import logsAdapter from '../../services/logsAdapter';
 
 const port = 3060;
 const url = `http://localhost:${port}`;
@@ -119,14 +118,6 @@ const listenServerSaga = function*() {
 						type: logsConstants.GET_NEW_CPU_LOG_SUCCESS,
 						payload: {
 							cpuLogs: newLogArr
-						}
-					});
-					break;
-				case 'NOTIFICATION':
-					yield put({
-						type: logsConstants.GET_NEW_NOTIFICATION_SUCCESS,
-						payload: {
-							notificationLogs: newLogArr
 						}
 					});
 					break;

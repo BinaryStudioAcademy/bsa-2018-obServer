@@ -5,14 +5,18 @@ import MemoryUsedChart from '../../components/charts/serverResources/MemoryUsedC
 import { Timer, Update } from 'styled-icons/material';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { getLogs, getNewCpuLog, getNewMemoryLog } from 'src/redux/logs/actions';
-import { startChannel, stopChannel } from 'src/redux/sockets/actions';
-import { CpuLogState, MemoryLogState } from 'src/types/LogsState';
+import {
+	getLogs,
+	getNewCpuLog,
+	getNewMemoryLog
+} from '../../redux/logs/actions';
+import { startChannel, stopChannel } from '../../redux/sockets/actions';
+import { CpuLogState, MemoryLogState } from '../../types/LogsState';
 import {
 	cpuParser,
 	memoryParser,
 	memoryMbParser
-} from 'src/services/chartParser';
+} from '../../services/chartParser';
 import {
 	Chart,
 	ChartInfo,
@@ -23,10 +27,10 @@ import {
 	ChartTimeRange,
 	Title
 } from './ServerResourcesStyles';
-import Select from 'src/components/Select/Select';
+import Select from '../../components/Select/Select';
 import UpdateTimer from '../../components/UpdateTimer/UpdateTimer';
 import { defaultState } from '../../redux/defaultState';
-import initialValues from 'src/containers/Dashboard/ResourcesBlock/ResourcesInitalValues';
+import initialValues from '../Dashboard/ResourcesBlock/ResourcesInitalValues';
 
 let timerID;
 

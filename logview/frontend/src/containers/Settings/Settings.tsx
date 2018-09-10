@@ -1,12 +1,13 @@
 import * as React from 'react';
 import { Route, Link, RouteComponentProps, Redirect } from 'react-router-dom';
-import { UserEdit, Database } from 'styled-icons/fa-solid';
+import { UserEdit, Database, Server } from 'styled-icons/fa-solid';
 import UserSettings from './UserSettings';
 import DataSettings from './DataSettings';
+import ServerSettings from './ServerSettings';
 import {
 	SettingsMenuLink,
 	SettingsMenuWrapper
-} from '../../styles/SettingsFormStyles';
+} from 'src/styles/SettingsFormStyles';
 
 interface MatchParams {}
 
@@ -46,6 +47,16 @@ class Settings extends React.Component<
 							Data Settings
 						</Link>
 					</SettingsMenuLink>
+					<SettingsMenuLink
+						active={
+							location.pathname === '/dashboard/settings/server'
+						}
+					>
+						<Link to={`${match.url}/server`}>
+							<Server size="24" />
+							Server Settings
+						</Link>
+					</SettingsMenuLink>
 				</SettingsMenuWrapper>
 				<Route
 					exact
@@ -61,6 +72,11 @@ class Settings extends React.Component<
 					exact
 					path={`${match.url}/data`}
 					component={DataSettings}
+				/>
+				<Route
+					exact
+					path={`${match.url}/server`}
+					component={ServerSettings}
 				/>
 			</React.Fragment>
 		);
