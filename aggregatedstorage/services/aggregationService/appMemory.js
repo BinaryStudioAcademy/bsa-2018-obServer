@@ -2,8 +2,12 @@ module.exports = (slicedLogs) => {
   const aggregatedMemoryLogs = [];
 
   slicedLogs.forEach((logsChunk) => {
-    if (logsChunk.length === 0) {
-      aggregatedMemoryLogs.push({});
+    if (logChunk[0].isEmpty) {
+      aggregatedMemoryLogs.push({
+        totalHeap: 0,
+        usedHeap: 0,
+        timestamp: logChunk[0].timestamp
+      });
       return;
     }
 

@@ -47,8 +47,7 @@ class DataSettings extends React.Component<SettingsFormProps, SettingsState> {
 			state.appsCPU,
 			state.appsErrorLog,
 			state.appsHttp,
-			state.appsSoket,
-			state.listeningPorts
+			state.appsSoket
 		);
 	}
 

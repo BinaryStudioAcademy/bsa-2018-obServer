@@ -1,28 +1,25 @@
 export interface CpuLogState {
 	logType: string;
-	data: {
-		cores: [
-			{
-				coreLoadPercentages: number;
-				coreName: string;
-			}
-		];
-	};
+	cores: [
+		{
+			coreLoadPercentages: number;
+			coreName: string;
+		}
+	];
+	totalLoadPercentage: number;
 	timestamp: string;
+	companyId: string;
 	companyToken: string;
 }
-
 export interface MemoryLogState {
+	companyId: string;
 	companyToken: string;
-	data: {
-		allMemory: number;
-		freeMemory: number;
-		freeMemoryPercentage: number;
-	};
+	allMemory: number;
+	freeMemory: number;
+	freeMemoryPercentage: number;
 	logType: string;
 	timestamp: string;
 }
-
 export interface HttpStatsState {
 	logType: string;
 	timestamp: string;
@@ -36,4 +33,33 @@ export interface HttpStatsState {
 		bodySizeResponse: number;
 		requestsCount: number;
 	};
+}
+
+export interface LogMessagesState {
+	appId: string;
+	timestamp: string;
+	logLevel: number;
+	message: string;
+}
+
+export interface LogErrorState {
+	timestamp: number;
+	errors: number;
+}
+
+export interface LogLevelsState {
+	error: boolean;
+	warn: boolean;
+	info: boolean;
+	verbose: boolean;
+	debug: boolean;
+	silly: boolean;
+}
+
+export interface NotificationState {
+	logType: string;
+	timestamp: string;
+	message: string;
+	companyId: string;
+	appId: string;
 }

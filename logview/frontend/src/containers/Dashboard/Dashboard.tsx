@@ -1,45 +1,39 @@
 import * as React from 'react';
-import { Route, Link, RouteComponentProps } from 'react-router-dom';
-import Quickstart from '../Quickstart/Quickstart';
-import Settings from '../Settings/Settings';
-import Logs from '../Logs/Logs';
-import Profile from '../Profile/Profile';
-import HttpStats from '../HttpStats/HttpStats';
-import SocketStats from '../SocketStats/SocketStats';
-import Company from '../Company/Company';
-import { UserState } from '../../types/UserState';
-import {
-	SideNav,
-	SideLink,
-	Title,
-	DashboardBackground,
-	Main,
-	UserBar,
-	Profile as UserProfile,
-	NotificationIcon
-} from '../../styles/Styles';
-import ServerResources from '../ServerResources/ServerResources';
-import { Dashboard as DashboardIcon } from 'styled-icons/material';
-import { FileAlt } from 'styled-icons/fa-regular';
-import { Server } from 'styled-icons/fa-solid';
-import { Settings as SettingsIcon } from 'styled-icons/feather';
-import { Terminal } from 'styled-icons/octicons';
-import { Http } from 'styled-icons/material';
-import { Superpowers } from 'styled-icons/fa-brands';
-import { UserPopup, Sidebar } from '../../styles/ContainerStyles';
-import { CommentText, UserText } from '../../styles/TextStyles';
-import { userLogout, fetchUser } from 'src/redux/user/actions';
-import { bindActionCreators } from 'redux';
+import { Link, RouteComponentProps } from 'react-router-dom';
+import LogsBlock from './LogsBlock/Logs';
+import Profile from './Profile';
+import HttpBlock from './HttpBlock/HttpBlock';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import {
+	DashboardMain,
+	DashboardNav,
+	DashboardWrapper,
+	RowContainer,
+	CenteredContainer,
+	Title
+} from './DashboardStyles';
+import { Profile as UserProfile, Submit } from '../../styles/Styles';
+import ResourcesBlock from './ResourcesBlock/ResourcesBlock';
+import Notifications from '../../components/Notifications/Notifications';
+import { SettingsIcon } from '../../styles/IconStyles';
+import DashboardRoutes from './DashboardRoutes';
+import AppsSelector from './AppsSelector';
+import { getNewNotification } from '../../redux/logs/actions';
+import { NotificationState } from '../../types/LogsState';
+import { startChannel, stopChannel } from '../../redux/sockets/actions';
 
 interface DashboardState {
 	active?: string;
-	popup?: boolean;
 }
 
 interface DashboardProps extends RouteComponentProps<{}, {}> {
-	actions: { userLogout: Function; fetchUser: Function };
-	user: UserState;
+	actions: {
+		getNewNotification: Function;
+		startChannel: Function;
+	};
+	notifications: Array<NotificationState>;
+	fetchingUserStatus: string;
 }
 
 class Dashboard extends React.Component<DashboardProps, DashboardState> {
@@ -47,175 +41,74 @@ class Dashboard extends React.Component<DashboardProps, DashboardState> {
 		super(props);
 
 		this.state = {
-			active: '',
-			popup: false
+			active: ''
 		};
 
 		this.setActive = this.setActive.bind(this);
-		this.togglePopup = this.togglePopup.bind(this);
-		this.handleLogout = this.handleLogout.bind(this);
-	}
-
-	setActive(active) {
-		this.setState({ active });
-	}
-
-	togglePopup() {
-		this.setState({ popup: !this.state.popup });
-	}
-
-	handleLogout() {
-		this.props.actions.userLogout();
 	}
 
 	componentDidMount() {
-		this.props.actions.fetchUser();
+		this.props.actions.startChannel();
+	}
+
+	setActive(active, value) {
+		this.setState({ active });
 	}
 
 	render() {
-		const { match } = this.props;
+		const { match, location, notifications } = this.props;
+		const data = notifications || [];
 		return (
-			<DashboardBackground>
-				<Sidebar>
-					<SideNav>
+			<DashboardWrapper>
+				<DashboardNav>
+					<RowContainer>
 						<Title>
-							obServer
-							<NotificationIcon size="18px" />
+							<Link to="/dashboard">obServer</Link>
 						</Title>
-						<div>
-							<SideLink
-								active={location.pathname === '/dashboard'}
-							>
-								<DashboardIcon size="20px" />
-								<Link to={`${match.url}`}>dashboard</Link>
-							</SideLink>
-							<SideLink
-								active={
-									location.pathname ===
-									'/dashboard/quickstart'
-								}
-							>
-								<FileAlt size="20px" />
-								<Link to={`${match.url}/quickstart`}>
-									quickstart
-								</Link>
-							</SideLink>
-							<SideLink
-								active={
-									location.pathname === '/dashboard/settings'
-								}
-							>
-								<SettingsIcon size="20px" />
-								<Link to={`${match.url}/settings`}>
-									settings
-								</Link>
-							</SideLink>
-							<SideLink
-								active={location.pathname === '/dashboard/logs'}
-							>
-								<Terminal size="20px" />
-								<Link to={`${match.url}/logs`}>logs</Link>
-							</SideLink>
-							<SideLink
-								active={
-									location.pathname === '/dashboard/resources'
-								}
-							>
-								<Server size="20px" />
-								<Link to={`${match.url}/resources`}>
-									resources
-								</Link>
-							</SideLink>
-							<SideLink
-								active={
-									location.pathname === '/dashboard/httpstats'
-								}
-							>
-								<Http size="20px" />
-								<Link to={`${match.url}/httpstats`}>
-									http stats
-								</Link>
-							</SideLink>
-							<SideLink
-								active={
-									location.pathname ===
-									'/dashboard/socketstats'
-								}
-							>
-								<Superpowers size="20px" />
-								<Link to={`${match.url}/socketstats`}>
-									socket stats
-								</Link>
-							</SideLink>
-						</div>
-					</SideNav>
-					<UserBar>
-						<UserProfile>
-							<UserPopup
-								popup={this.state.popup}
-								onClick={this.togglePopup}
-							>
-								{this.state.popup && (
-									<React.Fragment>
-										<CommentText>
-											<Link to={`${match.url}/profile`}>
-												profile
-											</Link>
-										</CommentText>
-										<CommentText>
-											<Link to={`${match.url}/company`}>
-												my company
-											</Link>
-										</CommentText>
-										<CommentText
-											onClick={this.handleLogout}
-										>
-											<span>logout</span>
-										</CommentText>
-									</React.Fragment>
-								)}
-								<UserText>{this.props.user.name}</UserText>
-							</UserPopup>
-						</UserProfile>
-					</UserBar>
-				</Sidebar>
-				<Main>
-					<Route
-						path={`${match.url}/quickstart`}
-						component={Quickstart}
-					/>
-					<Route
-						path={`${match.url}/settings`}
-						component={Settings}
-					/>
-					<Route path={`${match.url}/logs`} component={Logs} />
-					<Route
-						path={`${match.url}/resources`}
-						component={ServerResources}
-					/>
-					<Route
-						path={`${match.url}/httpstats`}
-						component={HttpStats}
-					/>
-					<Route
-						path={`${match.url}/socketstats`}
-						component={SocketStats}
-					/>
-					<Route path={`${match.url}/company`} component={Company} />
-					<Route path={`${match.url}/profile`} component={Profile} />
-				</Main>
-			</DashboardBackground>
+						<CenteredContainer>
+							<AppsSelector />
+						</CenteredContainer>
+					</RowContainer>
+					<RowContainer>
+						<CenteredContainer>
+							<Link to="/dashboard/settings">
+								<SettingsIcon size="25" />
+							</Link>
+						</CenteredContainer>
+						<Notifications data={data} />
+						<Profile />
+					</RowContainer>
+				</DashboardNav>
+
+				<DashboardRoutes url={match.url} />
+
+				<DashboardMain>
+					{location.pathname === '/dashboard' && (
+						<React.Fragment>
+							<div>
+								<ResourcesBlock />
+							</div>
+							<div>
+								<HttpBlock />
+							</div>
+							<div>
+								<LogsBlock />
+							</div>
+						</React.Fragment>
+					)}
+				</DashboardMain>
+			</DashboardWrapper>
 		);
 	}
 }
 
-const mapStateToProps = ({ fetchingUserStatus, user }) => ({
-	fetchingUserStatus,
-	user
+const mapStateToProps = ({ notificationsLogs, fetchingUserStatus }) => ({
+	notificationsLogs,
+	fetchingUserStatus
 });
 
 const mapDispatchToProps = (dispatch: any) => ({
-	actions: bindActionCreators({ userLogout, fetchUser }, dispatch)
+	actions: bindActionCreators({ getNewNotification, startChannel }, dispatch)
 });
 
 const DashboardConnected = connect(

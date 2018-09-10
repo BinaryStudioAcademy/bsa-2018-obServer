@@ -4,8 +4,8 @@ import { bindActionCreators } from 'redux';
 import HttpTabel from '../../components/tabels/httpTabel';
 import HttpRoutesBarChart from '../../components/charts/http/routesChart';
 import HttpCountChart from '../../components/charts/http/countHttpChart';
-import { HttpStatsState } from 'src/types/LogsState';
-import { getNewHttpStats } from 'src/redux/logs/actions';
+import { HttpStatsState } from '../../types/LogsState';
+import { getNewHttpStats } from '../../redux/logs/actions';
 import {
 	ChartHeader,
 	Grid,
@@ -111,7 +111,8 @@ class HttpStats extends React.Component<HttpProps, HttpState> {
 									</ChartHeader>
 									<HttpCountChart
 										data={countHttpParser(
-											this.props.httpStats
+											this.props.httpStats,
+											this.state.timeRange
 										)}
 										timeRange={this.state.timeRange}
 									/>

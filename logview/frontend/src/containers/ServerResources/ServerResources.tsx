@@ -2,16 +2,21 @@ import * as React from 'react';
 import CoresLoadLineChart from '../../components/charts/serverResources/CoresLoadLineChart';
 import PercentMemoryChart from '../../components/charts/serverResources/PercentMemoryChart';
 import MemoryUsedChart from '../../components/charts/serverResources/MemoryUsedChart';
-import { Timer } from 'styled-icons/material';
+import { Timer, Update } from 'styled-icons/material';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { getLogs, getNewCpuLog, getNewMemoryLog } from 'src/redux/logs/actions';
-import { CpuLogState, MemoryLogState } from 'src/types/LogsState';
+import {
+	getLogs,
+	getNewCpuLog,
+	getNewMemoryLog
+} from '../../redux/logs/actions';
+import { startChannel, stopChannel } from '../../redux/sockets/actions';
+import { CpuLogState, MemoryLogState } from '../../types/LogsState';
 import {
 	cpuParser,
 	memoryParser,
 	memoryMbParser
-} from 'src/services/chartParser';
+} from '../../services/chartParser';
 import {
 	Chart,
 	ChartInfo,
@@ -22,7 +27,10 @@ import {
 	ChartTimeRange,
 	Title
 } from './ServerResourcesStyles';
-import Select from 'src/components/Select/Select';
+import Select from '../../components/Select/Select';
+import UpdateTimer from '../../components/UpdateTimer/UpdateTimer';
+import { defaultState } from '../../redux/defaultState';
+import initialValues from '../Dashboard/ResourcesBlock/ResourcesInitalValues';
 
 let timerID;
 
@@ -31,6 +39,8 @@ interface ServerResourcesProps {
 		getLogs: Function;
 		getNewCpuLog: Function;
 		getNewMemoryLog: Function;
+		startChannel: Function;
+		stopChannel: Function;
 	};
 	memoryLogs: Array<MemoryLogState>;
 	cpuLogs: Array<CpuLogState>;
@@ -46,6 +56,7 @@ interface ServerResourcesState {
 	popup: boolean;
 	wrapperRef: any;
 	active: string;
+	initial: boolean;
 }
 
 class ServerResources extends React.Component<
@@ -64,14 +75,24 @@ class ServerResources extends React.Component<
 			currentMemoryLog: {},
 			popup: false,
 			wrapperRef: undefined,
-			active: ''
+			active: '',
+			initial: true
 		};
 
 		this.handleActive = this.handleActive.bind(this);
 	}
 
+	componentWillMount() {}
+
 	componentDidMount() {
 		clearInterval(timerID);
+		this.props.actions.startChannel();
+		if (this.state.initial) {
+			this.setState({ cpuLogs: cpuParser(this.props.cpuLogs) });
+			this.setState({ memoryLogs: memoryParser(this.props.memoryLogs) });
+			this.setState({ initial: false });
+		}
+
 		timerID = setInterval(() => {
 			this.setState({ cpuLogs: cpuParser(this.props.cpuLogs) });
 			this.setState({ memoryLogs: memoryParser(this.props.memoryLogs) });
@@ -86,6 +107,7 @@ class ServerResources extends React.Component<
 
 	componentWillUnmount() {
 		clearInterval(timerID);
+		this.props.actions.stopChannel();
 	}
 
 	handleActive(activeApp) {
@@ -97,22 +119,22 @@ class ServerResources extends React.Component<
 			<ChartsPageWrapper>
 				<Title>Server Resources</Title>
 
-				<Select
-					onActive={this.handleActive}
-					options={['app1', 'app2', 'app3']}
-				/>
-
 				<ChartGrid>
 					<ChartWrapper>
 						<Chart>
 							<ChartHeader>
 								<h3>CPU Load, %</h3>
 								<ChartTimeRange>
+									<UpdateTimer />
 									<Timer size="24px" /> last 10 minutes
 								</ChartTimeRange>
 							</ChartHeader>
 							<CoresLoadLineChart
-								data={this.state.cpuLogs}
+								data={
+									this.state.cpuLogs.length > 2
+										? this.state.cpuLogs
+										: initialValues
+								}
 								timeRange="last 10 minutes"
 							/>
 						</Chart>
@@ -144,7 +166,11 @@ class ServerResources extends React.Component<
 								</ChartTimeRange>
 							</ChartHeader>
 							<PercentMemoryChart
-								data={this.state.memoryLogs}
+								data={
+									this.state.memoryLogs.length > 2
+										? this.state.memoryLogs
+										: defaultState.memoryLogs
+								}
 								timeRange="last hour"
 							/>
 						</Chart>
@@ -163,7 +189,11 @@ class ServerResources extends React.Component<
 								</ChartTimeRange>
 							</ChartHeader>
 							<MemoryUsedChart
-								data={this.state.memoryMbLogs}
+								data={
+									this.state.memoryMbLogs.length > 2
+										? this.state.memoryMbLogs
+										: defaultState.memoryLogs
+								}
 								timeRange="last day"
 							/>
 						</Chart>
@@ -186,7 +216,7 @@ const mapStateToProps = ({ cpuLogs, memoryLogs }) => ({
 
 const mapDispatchToProps = (dispatch: any) => ({
 	actions: bindActionCreators(
-		{ getLogs, getNewCpuLog, getNewMemoryLog },
+		{ getLogs, getNewCpuLog, getNewMemoryLog, startChannel, stopChannel },
 		dispatch
 	)
 });

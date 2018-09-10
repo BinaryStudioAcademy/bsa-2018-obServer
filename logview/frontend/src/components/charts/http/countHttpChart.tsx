@@ -6,7 +6,6 @@ import {
 	YAxis,
 	CartesianGrid,
 	Tooltip,
-	Legend,
 	ResponsiveContainer
 } from 'recharts';
 
@@ -18,7 +17,7 @@ import {
 export default class HttpCountChart extends React.Component<any, any> {
 	render() {
 		return (
-			<ResponsiveContainer width="100%" aspect={2}>
+			<ResponsiveContainer width="100%" height="80%" aspect={2}>
 				<LineChart
 					data={this.props.data}
 					margin={{ top: 20, right: 40, left: 15, bottom: 20 }}
@@ -38,7 +37,7 @@ export default class HttpCountChart extends React.Component<any, any> {
 						dataKey="count"
 						strokeWidth={2}
 						stroke="#f70000"
-						activeDot={{ r: 8 }}
+						dot={false}
 					/>
 				</LineChart>
 			</ResponsiveContainer>

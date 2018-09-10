@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import { bindActionCreators } from '../../../../node_modules/redux';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import { userLogout } from 'src/redux/user/actions';
+import { userLogout } from '../../redux/user/actions';
 
 interface HomeProps {
 	onSubmit: Function;

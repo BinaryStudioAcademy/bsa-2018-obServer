@@ -26,25 +26,25 @@ export default class HttpTabel extends React.Component<any, any> {
 									Header: 'Timestamp',
 									id: 'timestamp',
 									accessor: d =>
-										moment(d.data.timestamp).format(
+										moment(d.timestamp).format(
 											'MMM DD YYYY, h:mm:ss a'
 										)
 								},
 								{
 									Header: 'Method',
 									id: 'method',
-									accessor: d => d.data.method,
+									accessor: d => d.method,
 									Cell: row => <Method method={row.value} />
 								},
 								{
 									Header: 'Route',
 									id: 'route',
-									accessor: d => d.data.route
+									accessor: d => d.route
 								},
 								{
 									Header: 'Requests Count',
 									id: 'requestsCount',
-									accessor: d => d.data.requestsCount
+									accessor: d => d.requestsCount
 								}
 							]
 						},
@@ -54,12 +54,12 @@ export default class HttpTabel extends React.Component<any, any> {
 								{
 									Header: 'Body Size Request',
 									id: 'bodySizeRequest',
-									accessor: d => d.data.bodySizeRequest
+									accessor: d => d.bodySizeRequest
 								},
 								{
 									Header: 'Body Size Response',
 									id: 'bodySizeResponse',
-									accessor: d => d.data.bodySizeResponse
+									accessor: d => d.bodySizeResponse
 								}
 							]
 						},
@@ -68,18 +68,18 @@ export default class HttpTabel extends React.Component<any, any> {
 							columns: [
 								{
 									Header: 'Response Time Min',
-									id: 'response Time Min',
-									accessor: d => d.data.responseTimeMin
+									id: 'responseTimeMin',
+									accessor: d => d.responseTimeMin
 								},
 								{
 									Header: 'Response Time Max',
 									id: 'responseTimeMax',
-									accessor: d => d.data.responseTimeMax
+									accessor: d => d.responseTimeMax
 								},
 								{
 									Header: 'Response Time Avg',
 									id: 'responseTimeAvg',
-									accessor: d => d.data.responseTimeAvg
+									accessor: d => d.responseTimeAvg
 								}
 							]
 						}

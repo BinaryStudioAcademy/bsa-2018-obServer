@@ -44,10 +44,6 @@ const setting = (sequilize, DataTypes) => {
 				allowNull: false,
 				defaultValue: true
 			},
-			listeningPorts: {
-				type: DataTypes.STRING,
-				allowNull: true
-			},
 			notificationServerIsDown: {
 				type: DataTypes.BOOLEAN,
 				allowNull: false,

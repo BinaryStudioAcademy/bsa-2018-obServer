@@ -1,34 +1,34 @@
-import { array } from 'prop-types';
+import moment from 'moment';
 
 export function cpuParser(cpuLogs) {
 	const logs = [];
 	cpuLogs.forEach((log, index) => {
 		if (index > 0) {
 			let obj = {};
-			log.data.cores.forEach(core => {
+			log.cores.forEach(core => {
 				obj[core.coreName] = core.coreLoadPercentages;
 			});
 			obj['timestamp'] = log.timestamp;
+			obj['totalLoadPercentages'] = log.totalLoadPercenteges;
 			logs.push(obj);
 		}
 	});
 	return logs;
 }
-
 export function memoryParser(memoryLogs) {
 	const logs = [];
 	memoryLogs.forEach((log, index) => {
 		if (index > 0) {
 			let obj = {};
-			obj['freeMemory'] = log.data.freeMemory;
-			obj['usedMemory'] = log.data.allMemory - log.data.freeMemory;
+			obj['freeMemory'] = log.freeMemory;
+			obj['usedMemory'] = log.allMemory - log.freeMemory;
 			obj['timestamp'] = log.timestamp;
+			obj['freeMemoryPercentage'] = log.freeMemoryPercentage;
 			logs.push(obj);
 		}
 	});
 	return logs;
 }
-
 export function memoryMbParser(memoryLogs) {
 	const logs = [];
 	memoryLogs.forEach((log, index) => {
@@ -43,23 +43,43 @@ export function memoryMbParser(memoryLogs) {
 export function httpParser(httpStats) {
 	const logs = [];
 	httpStats.forEach(array => {
-		array.forEach(log => {
-			let obj = log;
-			logs.push(obj);
-		});
+		if (array.length > 0) {
+			array.forEach(log => {
+				let obj = {};
+				obj['timestamp'] = log.timestamp;
+				obj['route'] = log.data.route;
+				obj['method'] = log.data.method;
+				obj['requestsCount'] = log.data.requestsCount;
+				obj['bodySizeRequest'] = log.data.bodySizeRequest;
+				obj['bodySizeResponse'] = log.data.bodySizeResponse;
+				obj['responseTimeMin'] = log.data.responseTimeMin;
+				obj['responseTimeMax'] = log.data.responseTimeMax;
+				obj['responseTimeAvg'] = log.data.responseTimeAvg;
+
+				logs.push(obj);
+			});
+		}
 	});
 	return logs;
 }
 
-export function countHttpParser(httpStats) {
+export function countHttpParser(httpStats, timeRange) {
 	const logs = [];
+	let prevTimeOX = '2018-09-03T17:02:16.121Z';
 	httpStats.forEach(array => {
-		array.forEach(log => {
-			let obj = {};
-			obj['count'] = log.data.requestsCount;
-			obj['timestamp'] = log.timestamp;
-			logs.push(obj);
-		});
+		let obj = {};
+		obj['count'] = 0;
+		obj['timestamp'] = moment(prevTimeOX)
+			.add(convertTimeRangeToInterval(timeRange), 'ms')
+			.format('YYYY-MM-DD HH:mm:ss');
+		if (array.length > 0) {
+			array.forEach(log => {
+				obj['count'] += log.data.requestsCount;
+				obj['timestamp'] = log.timestamp;
+			});
+		}
+		prevTimeOX = obj['timestamp'];
+		logs.push(obj);
 	});
 	return logs;
 }
@@ -68,10 +88,13 @@ export function countRoutesParser(httpStats) {
 	let logs = [],
 		counts = {};
 	httpStats.forEach(array => {
-		array.forEach(log => {
-			counts[log.data.route] =
-				(log.data.requestsCount || 0) + (counts[log.data.route] || 0);
-		});
+		if (array.length > 0) {
+			array.forEach(log => {
+				counts[log.data.route] =
+					(log.data.requestsCount || 0) +
+					(counts[log.data.route] || 0);
+			});
+		}
 	});
 
 	for (var route in counts) {

@@ -1,4 +1,4 @@
-import { StoreState } from 'src/types/StoreState';
+import { StoreState } from '../types/StoreState';
 
 export const defaultState: StoreState = {
 	user: {
@@ -16,34 +16,53 @@ export const defaultState: StoreState = {
 		appsCPU: undefined,
 		appsErrorLog: undefined,
 		appsHttp: undefined,
-		appsSoket: undefined,
-		listeningPorts: undefined
+		appsSoket: undefined
 	},
+	server: {
+		logcollectAddress: '',
+		logcollectPort: '',
+		companyId: ''
+	},
+	apps: [
+		{
+			name: undefined,
+			port: undefined,
+			id: undefined
+		}
+	],
 	cpuLogs: [
 		{
 			logType: '',
-			data: {
-				cores: [
-					{
-						coreLoadPercentages: 0,
-						coreName: 'core0'
-					}
-				]
-			},
+			cores: [
+				{
+					coreLoadPercentages: 0,
+					coreName: 'core0'
+				}
+			],
+			totalLoadPercentage: 0,
 			timestamp: '',
-			companyToken: ''
+			companyToken: '',
+			companyId: ''
 		}
 	],
 	memoryLogs: [
 		{
 			logType: '',
-			data: {
-				allMemory: 0,
-				freeMemory: 0,
-				freeMemoryPercentage: 0
-			},
+			allMemory: 0,
+			freeMemory: 0,
+			freeMemoryPercentage: 0,
 			timestamp: '',
-			companyToken: ''
+			companyToken: '',
+			companyId: ''
+		}
+	],
+	notificationLogs: [
+		{
+			logType: '',
+			timestamp: '',
+			message: '',
+			companyId: '',
+			appId: ''
 		}
 	],
 	companyUsers: [
@@ -71,8 +90,32 @@ export const defaultState: StoreState = {
 			}
 		]
 	],
+	logMessages: [
+		{
+			appId: '',
+			timestamp: '',
+			logLevel: 0,
+			message: ''
+		}
+	],
+	activeApp: '',
+	timeRange: 'last 10 minutes',
+	logLevels: {
+		error: true,
+		warn: true,
+		info: true,
+		verbose: false,
+		debug: false,
+		silly: false
+	},
 	fetchingUserStatus: 'unstarted',
 	fetchingSettingsStatus: 'unstarted',
+	fetchingAppsStatus: 'unstarted',
+	fetchingServerStatus: 'unstarted',
 	fetchingLogsStatus: 'unstarted',
-	isLoggedIn: false
+	isLoggedIn: false,
+	sockets: undefined,
+	userChangeCompany: {
+		companyName: ''
+	}
 };

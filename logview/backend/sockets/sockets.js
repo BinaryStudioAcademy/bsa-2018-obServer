@@ -1,5 +1,6 @@
 const ioClient = require('socket.io-client');
-const settingService = require('../services/settingService');
+const combineSettingService = require('../services/combineSettingService');
+const appService = require('../services/appService');
 const eventEmitter = require('../events');
 const port = process.env.APP_PORT;
 const aggregatedStoragePort = process.env.AGGREGATEDSTORAGE_PORT;
@@ -18,17 +19,23 @@ module.exports = io => {
 		});
 
 		socket.on('logcollect get settings', async companyId => {
-			const settings = await settingService.findByCompanyId(companyId);
+			const settings = await combineSettingService.combineByCompanyId(
+				companyId
+			);
 			socket.emit('logview post settings', settings);
 			socket.join(companyId);
 		});
 
-		eventEmitter.on('update company settings', settings => {
+		eventEmitter.on('update company settings', async companyId => {
+			const settings = await combineSettingService.combineByCompanyId(
+				companyId
+			);
 			io.to(socket.id).emit('logview post settings', settings);
 		});
 	});
 
 	aggrStoreSocket.on('newLog', log => {
+		console.log(log);
 		io.to(log.companyId).emit('newLog', log);
 	});
 };

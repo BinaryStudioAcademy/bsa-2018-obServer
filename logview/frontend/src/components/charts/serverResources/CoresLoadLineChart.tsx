@@ -51,7 +51,7 @@ export default class CoresLoadLineChart extends React.Component<any, any> {
 
 	render() {
 		return (
-			<ResponsiveContainer width="100%" aspect={2}>
+			<ResponsiveContainer width="100%" height="80%" aspect={2}>
 				<LineChart
 					data={this.props.data}
 					margin={{ top: 20, right: 0, left: -30, bottom: 20 }}

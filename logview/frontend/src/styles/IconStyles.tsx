@@ -1,14 +1,12 @@
-import { Notifications } from 'styled-icons/material';
+import { Settings } from 'styled-icons/feather';
 
-export const NotificationIcon = Notifications.extend`
+export const SettingsIcon = Settings.extend`
 	padding: 3px;
-	margin: 10px;
+	margin: 0 10px;
 	border-radius: 7px;
 	color: #a0a0a0;
-	border: 1.5px solid #a0a0a0;
 
 	&:hover {
 		color: #3d3d3d;
-		border: 1.5px solid #3d3d3d;
 	}
 `;

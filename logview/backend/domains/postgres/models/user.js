@@ -48,6 +48,11 @@ const user = (sequilize, DataTypes) => {
 			companyId: {
 				type: DataTypes.UUID,
 				allowNull: false
+			},
+			admin: {
+				type: DataTypes.BOOLEAN,
+				allowNull: false,
+				defaultValue: false
 			}
 		},
 		{

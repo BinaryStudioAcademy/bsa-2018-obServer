@@ -1,5 +1,5 @@
 import styled, { StyledFunction } from 'styled-components';
-import { Submit } from 'src/styles/Styles';
+import { Submit } from '../../styles/Styles';
 import { colors } from '../../styles/styles-utils';
 
 export const Title = styled.h2`
