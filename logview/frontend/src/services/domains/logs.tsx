@@ -8,9 +8,8 @@ export default {
 			{ headers: headers }
 		);
 	},
-	getHttpStats: (companyId: string, appId: string, interval: number) => {
+	getHttpStats: (appId: string, interval: number) => {
 		let headers = {};
-		headers['X-COMPANY-TOKEN'] = companyId;
 		headers['X-APP-ID'] = appId;
 
 		return api.makeRequest(

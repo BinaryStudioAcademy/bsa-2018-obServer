@@ -1,13 +1,12 @@
 import { put, call, all, takeLatest } from 'redux-saga/effects';
 import * as constants from './constants';
-import { GetNewHttpStats, getNewHttpStats, GetLogMessages } from './actions';
+import { GetNewHttpStats, GetLogMessages } from './actions';
 import { logsAPI } from '../../services';
 
 function* fetchHttpStats(action: GetNewHttpStats) {
 	try {
 		const currentHttpStats = yield call(
 			logsAPI.getHttpStats,
-			action.companyId,
 			action.appId,
 			action.interval
 		);

@@ -51,7 +51,6 @@ export interface GetNewCpuLogFail {
 
 export interface GetNewHttpStats {
 	type: constants.GET_NEW_HTTP_STATS;
-	companyId: string;
 	appId: string;
 	interval: number;
 }
@@ -197,13 +196,11 @@ export function getNewCpuLogsFail(): GetNewCpuLogFail {
 }
 
 export function getNewHttpStats(
-	companyId: string,
 	appId: string,
 	interval: number
 ): GetNewHttpStats {
 	return {
 		type: constants.GET_NEW_HTTP_STATS,
-		companyId,
 		appId,
 		interval
 	};

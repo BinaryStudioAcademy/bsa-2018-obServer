@@ -26,7 +26,7 @@ import {
 
 interface HttpProps {
 	actions: { getNewHttpStats: Function };
-	httpStats: HttpStatsState;
+	httpStats: Array<HttpStatsState>;
 	fetchingLogsStatus: string;
 }
 
@@ -50,7 +50,6 @@ class HttpStats extends React.Component<HttpProps, HttpState> {
 
 	componentDidMount() {
 		this.props.actions.getNewHttpStats(
-			'secret-company-token',
 			this.state.appId,
 			convertTimeRangeToInterval(this.state.timeRange)
 		);
@@ -59,7 +58,6 @@ class HttpStats extends React.Component<HttpProps, HttpState> {
 	handleTimeRange(event) {
 		this.setState({ timeRange: event.target.value });
 		this.props.actions.getNewHttpStats(
-			'secret-company-token',
 			this.state.appId,
 			convertTimeRangeToInterval(event.target.value)
 		);
@@ -68,7 +66,6 @@ class HttpStats extends React.Component<HttpProps, HttpState> {
 	handleActiveApp(event) {
 		this.setState({ appId: event.target.value });
 		this.props.actions.getNewHttpStats(
-			'secret-company-token',
 			event.target.value,
 			convertTimeRangeToInterval(this.state.timeRange)
 		);
@@ -97,7 +94,8 @@ class HttpStats extends React.Component<HttpProps, HttpState> {
 						<option value="last  month">last month</option>
 					</SelectChartPage>
 				</div>
-				{this.props.fetchingLogsStatus === 'success' ? (
+				{this.props.httpStats.length > 0 &&
+				this.props.fetchingLogsStatus === 'success' ? (
 					<div>
 						<Grid>
 							<ChartWrapper>
