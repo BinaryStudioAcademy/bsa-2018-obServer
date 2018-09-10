@@ -25,6 +25,7 @@ let socket;
 export const connect = () => {
 	socket = io(url);
 	return new Promise(resolve => {
+		console.log('CONNECTED');
 		socket.on('connect', () => {
 			resolve(socket);
 		});
@@ -94,11 +95,10 @@ const listenServerSaga = function*() {
 		yield fork(listenConnectSaga);
 		yield put({ type: constants.SERVER_ON });
 
-		const companyToken = 'secret-company-token';
+		const companyToken = JSON.parse(sessionStorage.getItem('observerUser'))
+			.companyId;
 		socket.emit('getLogs', companyToken);
-		const callback = yield call(logsAPI.resoucesAverages, {
-			'X-COMPANY-TOKEN': companyToken
-		});
+		const callback = yield call(logsAPI.resoucesAverages);
 
 		while (true) {
 			const newLog = yield take(socketChannel);

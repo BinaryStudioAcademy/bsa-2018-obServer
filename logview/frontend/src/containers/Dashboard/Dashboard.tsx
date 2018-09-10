@@ -48,6 +48,7 @@ class Dashboard extends React.Component<DashboardProps, DashboardState> {
 	}
 
 	componentDidMount() {
+		this.props.actions.getNewNotification();
 		this.props.actions.startChannel();
 	}
 

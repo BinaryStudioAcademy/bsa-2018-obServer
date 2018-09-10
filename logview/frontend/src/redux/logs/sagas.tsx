@@ -1,6 +1,11 @@
 import { put, call, all, takeLatest } from 'redux-saga/effects';
 import * as constants from './constants';
-import { GetNewHttpStats, getNewHttpStats, GetLogMessages } from './actions';
+import {
+	GetNewHttpStats,
+	getNewHttpStats,
+	GetLogMessages,
+	GetNewNotification
+} from './actions';
 import { logsAPI } from '../../services';
 
 function* fetchHttpStats(action: GetNewHttpStats) {
@@ -42,9 +47,27 @@ function* fetchLogMessages(action: GetLogMessages) {
 	}
 }
 
+function* fetchNotifications(action: GetNewNotification) {
+	try {
+		const res = yield call(logsAPI.getNotification);
+		console.log(res);
+		yield put({
+			type: constants.GET_NEW_NOTIFICATION_SUCCESS,
+			payload: {
+				notifications: res.notification
+			}
+		});
+	} catch (error) {
+		yield put({
+			type: constants.GET_NEW_NOTIFICATION_FAILED
+		});
+	}
+}
+
 export default function* logSaga() {
 	yield all([
 		takeLatest(constants.GET_NEW_HTTP_STATS, fetchHttpStats),
-		takeLatest(constants.GET_LOG_MESSAGES, fetchLogMessages)
+		takeLatest(constants.GET_LOG_MESSAGES, fetchLogMessages),
+		takeLatest(constants.GET_NEW_NOTIFICATION, fetchNotifications)
 	]);
 }
