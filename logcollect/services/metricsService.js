@@ -9,10 +9,10 @@ module.exports = class MetricsService {
   constructor(url, companyToken) {
     this.timersId = { ping: {} };
     this.sendMetrics = sendHelper(url, companyToken);
-    this.serverMonitor = new ServerMonitor(this.sendMetrics);
-    this.logSettings = {};
-    this.CPULoadCriticalTime = 5000;
-    this.CPULoadCriticalValue = 90;    
+    this.CPULoadCriticalTime = 180000;
+    this.CPULoadCriticalValue = 90;
+    this.serverMonitor = new ServerMonitor(this.sendMetrics, this.CPULoadCriticalValue, this.CPULoadCriticalTime);
+    this.logSettings = { filterData: {}, apps: {}, company: {} };   
   }
 
   newLog(data) {
@@ -32,7 +32,8 @@ module.exports = class MetricsService {
           [logTypes.HTTP_STATS]: settings.filterData.appsHttp,
           [logTypes.LOG]: settings.filterData.appsErrorLog,
           [logTypes.NOTIFICATION]: settings.filterData.notificationServerIsDown,
-          [logTypes.SOCKETS_STATS]: settings.filterData.appsSoket
+          [logTypes.SOCKETS_STATS]: settings.filterData.appsSoket,
+          notificationHighCpuLoad: settings.filterData.notificationHighRequest
         },
         apps: settings.apps,
         company: settings.company
@@ -67,15 +68,17 @@ module.exports = class MetricsService {
       if (app.port) {
         this.ping(app.port, app.id, app.name);
       }
-    });    
+    });
+    
+    this.serverMonitor.enableMonitorServer(this.logSettings.filterData.notificationHighCpuLoad);
   }
 
-  startCPUMonitor(delay = 1000) {
+  startCPUMonitor(delay = 3000) {
     if(!this.timersId.cpu) {
       this.timersId.cpu = setInterval(() => {
         cpuLoad((cpuData) => {
           this.newLog(MetricsService.createLogObject(logTypes.CPU_SERVER, cpuData));
-          this.serverMonitor.checkCriticalCPUValue(cpuData, this.CPULoadCriticalValue, this.CPULoadCriticalTime);          
+          this.serverMonitor.newCpuData(cpuData);         
         });
       }, delay);
     }

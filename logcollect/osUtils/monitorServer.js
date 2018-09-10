@@ -1,23 +1,42 @@
 class ServerMonitor {
-    constructor(sendLog) {
+    constructor(sendLog, cpuLoadCriticalValue, cpuLoadCriticalTime) {
         this.sendLog = sendLog;
+        this.cpuLoadCriticalValue = cpuLoadCriticalValue;
+        this.cpuLoadCriticalTime = cpuLoadCriticalTime;
+        this.enabled = true;
+        this.totalCpuLoad = 0;
+        this.counter = 0;
+        this.timer = setInterval(() => {
+          this.checkCriticalCpuValue();
+        }, this.cpuLoadCriticalTime);
     }
 
-    checkCriticalCPUValue(cpuData, criticalValue = 90, criticalTime = 10 * 1000) {
-        let state = false;
-        const cond = cpuData.totalLoad > criticalValue;
-        state |= cond;
-        setTimeout(() => {
-            if (state) {
-                console.log('CPU IS OVERLOAD');
-                
-                const notification = {
-                    message: `Server CPU load is critcally high: >${criticalValue}%`,
-                    error: {}
-                };
-                this.sendLog(ServerMonitor.createLogObject('NOTIFICATION', notification));  
-            }
-        }, criticalTime);
+    newCpuData(cpuData) {
+        this.totalCpuLoad += cpuData.totalLoad;
+        this.counter++;   
+    }
+
+    checkCriticalCpuValue() {
+      if (this.counter === 0) return;
+
+      if (Math.round(this.totalCpuLoad / this.counter) > this.cpuLoadCriticalValue && this.enabled) {
+        const notification = {
+          message: `Server CPU load is critcally high: >${this.cpuLoadCriticalValue}%`,
+          error: {}
+        };
+        this.sendLog(ServerMonitor.createLogObject('NOTIFICATION', notification), '/logs');
+      }
+
+      this.totalCpuLoad = 0;
+      this.counter = 0;
+    }
+
+    enableMonitorServer(isEnabled = false) {
+      this.enabled = isEnabled;
+    }
+
+    disableMonitorServer() {
+      this.enabled = false;
     }
 
     static createLogObject(logType, data) {
