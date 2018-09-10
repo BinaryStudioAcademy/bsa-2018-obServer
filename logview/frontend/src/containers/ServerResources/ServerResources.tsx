@@ -124,10 +124,7 @@ class ServerResources extends React.Component<
 						<Chart>
 							<ChartHeader>
 								<h3>CPU Load, %</h3>
-								<ChartTimeRange>
-									<UpdateTimer />
-									<Timer size="24px" /> last 10 minutes
-								</ChartTimeRange>
+								<UpdateTimer />
 							</ChartHeader>
 							<CoresLoadLineChart
 								data={
@@ -162,7 +159,7 @@ class ServerResources extends React.Component<
 							<ChartHeader>
 								<h3>Memory Load, %</h3>
 								<ChartTimeRange>
-									<Timer size="24px" /> last hour
+									<UpdateTimer />
 								</ChartTimeRange>
 							</ChartHeader>
 							<PercentMemoryChart
@@ -185,7 +182,7 @@ class ServerResources extends React.Component<
 							<ChartHeader>
 								<h3>Used Memory, MB</h3>
 								<ChartTimeRange>
-									<Timer size="24px" /> last day
+									<UpdateTimer />
 								</ChartTimeRange>
 							</ChartHeader>
 							<MemoryUsedChart

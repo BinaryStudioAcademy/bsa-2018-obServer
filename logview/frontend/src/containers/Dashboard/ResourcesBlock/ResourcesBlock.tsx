@@ -32,6 +32,7 @@ import { Submit } from '../../../styles/Styles';
 import { Link } from 'react-router-dom';
 import { defaultState } from '../../../redux/defaultState';
 import initialValues from './ResourcesInitalValues';
+import UpdateTimer from '../../../components/UpdateTimer/UpdateTimer';
 
 let timerID;
 
@@ -124,7 +125,7 @@ class ServerResources extends React.Component<
 							<ChartHeader>
 								<h3>CPU Load, %</h3>
 								<ChartTimeRange>
-									<Timer size="24px" /> last 10 minutes
+									<UpdateTimer />
 								</ChartTimeRange>
 							</ChartHeader>
 							<CoresLoadLineChart

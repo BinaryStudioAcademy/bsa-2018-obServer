@@ -5,7 +5,9 @@ import {
 	SettingInput,
 	SettingInputWrapper,
 	SettingsSubmitButton,
-	ErrorInputSettings
+	ErrorInputSettings,
+	SettingsForm,
+	SettingsWrapper
 } from 'src/styles/SettingsFormStyles';
 import { User, CheckSquare } from 'styled-icons/fa-solid';
 import { UserState } from 'src/types/UserState';
@@ -68,12 +70,12 @@ class SettingUserForm extends React.Component<
 
 	render() {
 		return (
-			<form>
+			<SettingsForm>
 				<SettingFormGroupLabel>
 					<User size="18" />
 					User Settings
 				</SettingFormGroupLabel>
-				<SettingFormGroupInput>
+				<SettingsWrapper>
 					<SettingInputWrapper>
 						<label>User Name:</label>
 						<SettingInput
@@ -104,13 +106,12 @@ class SettingUserForm extends React.Component<
 							</ErrorInputSettings>
 						)}
 					</SettingInputWrapper>
-				</SettingFormGroupInput>
+				</SettingsWrapper>
 
 				<SettingsSubmitButton onClick={this.handleSubmit}>
-					<CheckSquare size="18" />
 					Save All Change
 				</SettingsSubmitButton>
-			</form>
+			</SettingsForm>
 		);
 	}
 }
