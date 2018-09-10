@@ -30,8 +30,9 @@ import {
 } from './ResourcesBlockStyles';
 import { Submit } from '../../../styles/Styles';
 import { Link } from 'react-router-dom';
-import { defaultState } from '../../../redux/defaultState';
 import initialValues from './ResourcesInitalValues';
+import UpdateTimer from '../../../components/UpdateTimer/UpdateTimer';
+import ServerResourcesChart from '../../ServerResources/ServerResourcesChart';
 
 let timerID;
 
@@ -79,8 +80,6 @@ class ServerResources extends React.Component<
 			active: '',
 			initial: true
 		};
-
-		this.handleActive = this.handleActive.bind(this);
 	}
 
 	componentDidMount() {
@@ -109,10 +108,6 @@ class ServerResources extends React.Component<
 		this.props.actions.stopChannel();
 	}
 
-	handleActive(activeApp) {
-		this.setState({ active: activeApp });
-	}
-
 	render() {
 		return (
 			<ChartsWrapper>
@@ -120,22 +115,11 @@ class ServerResources extends React.Component<
 
 				<ChartGrid>
 					<ChartWrapper>
-						<Chart>
-							<ChartHeader>
-								<h3>CPU Load, %</h3>
-								<ChartTimeRange>
-									<Timer size="24px" /> last 10 minutes
-								</ChartTimeRange>
-							</ChartHeader>
-							<CoresLoadLineChart
-								data={
-									this.state.cpuLogs.length > 2
-										? this.state.cpuLogs
-										: initialValues
-								}
-								timeRange="last 10 minutes"
-							/>
-						</Chart>
+						<ServerResourcesChart
+							title="CPU Load, %"
+							logs={this.state.cpuLogs}
+							caller="cpuLoad"
+						/>
 						<ChartInfo>
 							<div>
 								<TitleSmall>Total CPU load:</TitleSmall>
