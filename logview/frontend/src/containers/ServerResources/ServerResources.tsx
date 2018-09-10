@@ -68,8 +68,6 @@ class ServerResources extends React.Component<
 			active: '',
 			initial: true
 		};
-
-		this.handleActive = this.handleActive.bind(this);
 	}
 
 	componentWillMount() {}
@@ -103,10 +101,6 @@ class ServerResources extends React.Component<
 		this.props.actions.stopChannel();
 	}
 
-	handleActive() {
-
-	}
-
 	render() {
 		return (
 			<ChartsPageWrapper>
@@ -117,7 +111,6 @@ class ServerResources extends React.Component<
 						<ServerResourcesChart
 							title="CPU Load, %"
 							logs={this.state.cpuLogs}
-							onActive={this.handleActive}
 							caller="cpuLoad"
 						/>
 						<ChartInfo>
@@ -143,7 +136,6 @@ class ServerResources extends React.Component<
 						<ServerResourcesChart 
 							title="Memory Load, %"
 							logs={this.state.memoryLogs}
-							onActive={this.handleActive}
 							caller="memoryLoad"
 						/>
 						<ChartInfo>
@@ -165,7 +157,6 @@ class ServerResources extends React.Component<
 						<ServerResourcesChart 
 							title="Used Memory, MB"
 							logs={this.state.memoryMbLogs}
-							onActive={this.handleActive}
 							caller="usedMemoryMb"
 						/>
 						<ChartInfo></ChartInfo>

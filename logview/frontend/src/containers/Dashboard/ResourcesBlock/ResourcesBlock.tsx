@@ -80,8 +80,6 @@ class ServerResources extends React.Component<
 			active: '',
 			initial: true
 		};
-
-		this.handleActive = this.handleActive.bind(this);
 	}
 
 	componentDidMount() {
@@ -110,10 +108,6 @@ class ServerResources extends React.Component<
 		this.props.actions.stopChannel();
 	}
 
-	handleActive(data) {
-		this.setState({ active: data });
-	}
-
 	render() {
 		return (
 			<ChartsWrapper>
@@ -124,7 +118,6 @@ class ServerResources extends React.Component<
 						<ServerResourcesChart
 							title="CPU Load, %"
 							logs={this.state.cpuLogs}
-							onActive={this.handleActive}
 							caller="cpuLoad"
 						/>
 						<ChartInfo>
