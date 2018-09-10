@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { fetchAppsList } from '../../redux/apps/actions';
 import { handleActiveApp } from 'src/redux/logs/actions';
 import { AppsState } from '../../types/AppsState';
+// import { FiltersState } from 'src/types/LogsState';
 import Select from '../../components/Select/Select';
 import { convertAppsDataToSelect } from '../../services/reduxDataParser';
 
@@ -16,7 +17,7 @@ interface AppsSelectorProps extends RouteComponentProps<{}, {}> {
 		handleActiveApp: Function;
 	};
 	apps: Array<AppsState>;
-	activeApp: string;
+	// filters: FiltersState;
 }
 
 class AppsSelector extends React.Component<
@@ -50,9 +51,9 @@ class AppsSelector extends React.Component<
 	}
 }
 
-const mapStateToProps = ({ apps, activeApp }) => ({
+const mapStateToProps = ({ apps, filters }) => ({
 	apps,
-	activeApp
+	filters
 });
 
 const mapDispatchToProps = (dispatch: any) => ({

@@ -4,7 +4,7 @@ import {
 	HttpStatsState,
 	LogMessagesState,
 	NotificationState,
-	LogLevelsState
+	FiltersState
 } from './LogsState';
 import { UserState } from './UserState';
 import { SettingsState } from './SettingsState';
@@ -27,9 +27,7 @@ export interface StoreState {
 	memoryLogs: Array<MemoryLogState>;
 	httpStats: Array<HttpStatsState>;
 	logMessages: Array<LogMessagesState>;
-	activeApp: string;
-	timeRange: string;
-	logLevels: LogLevelsState;
+	filters: FiltersState;
 	notificationLogs: Array<NotificationState>;
 	fetchingLogsStatus: string;
 	sockets: any;

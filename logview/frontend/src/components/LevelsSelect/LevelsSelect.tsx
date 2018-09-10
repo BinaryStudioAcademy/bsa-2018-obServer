@@ -13,7 +13,7 @@ import { ArrowDropDown } from 'styled-icons/material';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { handleLogLevels } from 'src/redux/logs/actions';
-import { LogLevelsState } from 'src/types/LogsState';
+import { FiltersState } from 'src/types/LogsState';
 
 interface SelectState {
 	popup: boolean;
@@ -23,7 +23,7 @@ interface SelectProps {
 	actions: {
 		handleLogLevels: Function;
 	};
-	logLevels: LogLevelsState;
+	filters: FiltersState;
 }
 
 class Select extends React.Component<SelectProps, SelectState> {
@@ -45,7 +45,7 @@ class Select extends React.Component<SelectProps, SelectState> {
 
 	handleClick(e) {
 		this.props.actions.handleLogLevels({
-			[e.target.title]: !this.props.logLevels[e.target.title]
+			[e.target.title]: !this.props.filters.logLevels[e.target.title]
 		});
 	}
 
@@ -54,7 +54,7 @@ class Select extends React.Component<SelectProps, SelectState> {
 	}
 
 	render() {
-		const keys = Object.keys(this.props.logLevels);
+		const keys = Object.keys(this.props.filters.logLevels);
 		return (
 			<StyledSelect popup={this.state.popup}>
 				<OptionActive onClick={this.togglePopup}>
@@ -67,11 +67,15 @@ class Select extends React.Component<SelectProps, SelectState> {
 							<Option key={i} onClick={this.handleClick}>
 								<ActiveStatusIcon
 									size="10"
-									active={this.props.logLevels[option]}
+									active={
+										this.props.filters.logLevels[option]
+									}
 								/>
 								<Span
 									title={keys[i]}
-									active={this.props.logLevels[option]}
+									active={
+										this.props.filters.logLevels[option]
+									}
 								>
 									{option}
 								</Span>
@@ -84,8 +88,8 @@ class Select extends React.Component<SelectProps, SelectState> {
 	}
 }
 
-const mapStateToProps = ({ logLevels }) => ({
-	logLevels
+const mapStateToProps = ({ filters }) => ({
+	filters
 });
 
 const mapDispatchToProps = (dispatch: any) => ({

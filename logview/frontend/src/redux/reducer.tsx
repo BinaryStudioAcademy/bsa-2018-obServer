@@ -6,9 +6,7 @@ import {
 	httpStatsReducer,
 	fetchingLogsReducer,
 	logMessagesReducer,
-	activeAppReducer,
-	timeRangeReducer,
-	logLevelsReducer,
+	filtersReducer,
 	notificationReducer
 } from './logs/reducer';
 import { userReducer, fetchingState, isLoggedInState } from './user/reducer';
@@ -35,9 +33,7 @@ export default combineReducers<StoreState>({
 	fetchingLogsStatus: fetchingLogsReducer,
 	isLoggedIn: isLoggedInState,
 	logMessages: logMessagesReducer,
-	activeApp: activeAppReducer,
-	timeRange: timeRangeReducer,
-	logLevels: logLevelsReducer,
+	filters: filtersReducer,
 	userChangeCompany: companyChangeReducer,
 	notificationLogs: notificationReducer
 });

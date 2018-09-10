@@ -18,7 +18,7 @@ import {
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getLogMessages } from 'src/redux/logs/actions';
-import { LogMessagesState, LogLevelsState } from '../../types/LogsState';
+import { LogMessagesState, FiltersState } from '../../types/LogsState';
 
 // data & services
 import { filterLogs, calcErrStats } from '../../services/logstats/logs';
@@ -33,7 +33,7 @@ interface LogsProps {
 	logMessages: Array<LogMessagesState>;
 	activeApp: string;
 	timeRange: string;
-	logLevels: LogLevelsState;
+	filters: FiltersState;
 }
 
 interface LogsState {}
@@ -64,10 +64,9 @@ class Logs extends React.Component<LogsProps, LogsState> {
 						<ErrChart
 							data={calcErrStats(
 								this.props.logMessages,
-								this.props.activeApp,
-								this.props.timeRange
+								this.props.filters
 							)}
-							timeRange={this.props.timeRange}
+							timeRange={this.props.filters.timeRange}
 						/>
 					) : (
 						<LoaderBars />
@@ -95,9 +94,7 @@ class Logs extends React.Component<LogsProps, LogsState> {
 					<LogStatsTabel
 						data={filterLogs(
 							this.props.logMessages,
-							this.props.activeApp,
-							this.props.timeRange,
-							this.props.logLevels
+							this.props.filters
 						)}
 					/>
 				) : (
@@ -112,16 +109,12 @@ const mapStateToProps = ({
 	user,
 	fetchingLogsStatus,
 	logMessages,
-	activeApp,
-	timeRange,
-	logLevels
+	filters
 }) => ({
 	user,
 	fetchingLogsStatus,
 	logMessages,
-	activeApp,
-	timeRange,
-	logLevels
+	filters
 });
 
 const mapDispatchToProps = (dispatch: any) => ({
