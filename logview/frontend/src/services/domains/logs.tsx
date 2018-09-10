@@ -27,7 +27,7 @@ export default {
 			{ headers: headers }
 		);
 	},
-	getNotification: () => {
+	getNotifications: () => {
 		return api.makeRequest(`/api/logs?notification=1`, api.requestType.GET);
 	}
 };

@@ -159,3 +159,12 @@ function defineStartDateValue(timespan) {
 			return 0;
 	}
 }
+
+function addZero(num) {
+	return num.toString().length === 1 ? `0${num.toString()}` : num.toString();
+}
+
+export function preetifyDate(data) {
+	return `${addZero(data.getDate())}.${addZero(data.getMonth() + 1)} 
+			${addZero(data.getHours())}:${addZero(data.getMinutes())}`;
+}

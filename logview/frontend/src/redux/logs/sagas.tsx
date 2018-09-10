@@ -49,12 +49,18 @@ function* fetchLogMessages(action: GetLogMessages) {
 
 function* fetchNotifications(action: GetNewNotification) {
 	try {
-		const res = yield call(logsAPI.getNotification);
-		console.log(res);
+		const res = yield call(logsAPI.getNotifications);
+		res.data.notification.map(item => {
+			item.logType = 'NOTIFICATION';
+			item.companyId = JSON.parse(
+				sessionStorage.getItem('observerUser')
+			).companyId;
+			delete item._id;
+		});
 		yield put({
 			type: constants.GET_NEW_NOTIFICATION_SUCCESS,
 			payload: {
-				notifications: res.notification
+				notificationLogs: res.data.notification
 			}
 		});
 	} catch (error) {

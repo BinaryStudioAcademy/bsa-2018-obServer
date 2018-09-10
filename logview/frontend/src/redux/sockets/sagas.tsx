@@ -121,6 +121,16 @@ const listenServerSaga = function*() {
 						}
 					});
 					break;
+				case 'NOTIFICATION':
+					delete newLogArr[0]['__v'];
+					delete newLogArr[0]['_id'];
+					yield put({
+						type: logsConstants.GET_NEW_NOTIFICATION_SUCCESS,
+						payload: {
+							notificationLogs: newLogArr
+						}
+					});
+					break;
 				default:
 					break;
 			}
