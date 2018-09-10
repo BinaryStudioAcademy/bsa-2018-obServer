@@ -23,6 +23,7 @@ import {
 	ChartTimeRange,
 	Title
 } from './ServerResourcesStyles';
+import { TitleSmall } from 'src/containers/Dashboard/ResourcesBlock/ResourcesBlockStyles';
 import Select from 'src/components/Select/Select';
 import UpdateTimer from '../../components/UpdateTimer/UpdateTimer';
 import { defaultState } from '../../redux/defaultState';
@@ -98,6 +99,10 @@ class ServerResources extends React.Component<
 			this.setState({
 				currentCpuLog: this.props.cpuLogs[this.props.cpuLogs.length - 1]
 			});
+			this.setState({
+				currentMemoryLog: this.props.memoryLogs[this.props.memoryLogs.length - 1]
+			});
+			console.log(this.state);
 		}, 1000);
 	}
 
@@ -136,8 +141,13 @@ class ServerResources extends React.Component<
 						</Chart>
 						<ChartInfo>
 							<div>
-								{this.state.currentCpuLog.data &&
-									this.state.currentCpuLog.data.cores.map(
+								<TitleSmall>Total CPU load:</TitleSmall>
+								{this.state.currentCpuLog.totalLoadPercentages}
+							</div>
+							<div>
+								<TitleSmall>Cores CPU load:</TitleSmall>
+								{this.state.currentCpuLog.cores &&
+									this.state.currentCpuLog.cores.map(
 										(el, i) => (
 											<div key={i}>
 												{el.coreName}:{' '}
@@ -146,11 +156,6 @@ class ServerResources extends React.Component<
 										)
 									)}
 							</div>
-							<div>
-								{this.state.currentCpuLog.timestamp !== '' &&
-									this.state.currentCpuLog.timestamp}
-							</div>
-							<div>a3</div>
 						</ChartInfo>
 					</ChartWrapper>
 					<ChartWrapper>
@@ -171,9 +176,18 @@ class ServerResources extends React.Component<
 							/>
 						</Chart>
 						<ChartInfo>
-							<div>a1</div>
-							<div>a2</div>
-							<div>a3</div>
+							<div>
+								<TitleSmall>All memory:</TitleSmall>
+								{this.state.currentMemoryLog.allMemory}
+							</div>
+							<div>
+								<TitleSmall>Used Memory:</TitleSmall>
+								{this.state.currentMemoryLog.allMemory - this.state.currentMemoryLog.freeMemory}
+							</div>
+							<div>
+								<TitleSmall>Free Memory:</TitleSmall>
+								{this.state.currentMemoryLog.freeMemory}
+							</div>
 						</ChartInfo>
 					</ChartWrapper>
 					<ChartWrapper>
@@ -193,11 +207,7 @@ class ServerResources extends React.Component<
 								timeRange="last day"
 							/>
 						</Chart>
-						<ChartInfo>
-							<div>a1</div>
-							<div>a2</div>
-							<div>a3</div>
-						</ChartInfo>
+						<ChartInfo></ChartInfo>
 					</ChartWrapper>
 				</ChartGrid>
 			</ChartsPageWrapper>

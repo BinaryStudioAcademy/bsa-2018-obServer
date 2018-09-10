@@ -26,7 +26,6 @@ import {
 } from './ResourcesBlockStyles';
 import { Submit } from 'src/styles/Styles';
 import { Link } from 'react-router-dom';
-import { defaultState } from '../../../redux/defaultState';
 import initialValues from './ResourcesInitalValues';
 
 let timerID;

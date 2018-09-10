@@ -69,23 +69,21 @@ class UpdateTimer extends React.Component<UpdateTimerProps, UpdateTimerState> {
 
 	render() {
 		return (
-			<React.Fragment>
-				<StyledSelect popup={this.state.popup}>
-					<OptionActive onClick={this.togglePopup}>
-						{this.state.active}
-						<ArrowDropDown size="20" />
-					</OptionActive>
-					{this.state.popup && (
-						<Dropdown popup={this.state.popup}>
-							{options.map((option, i) => (
-								<Option key={i} onClick={this.handleClick}>
-									<span>{option}</span>
-								</Option>
-							))}
-						</Dropdown>
-					)}
-				</StyledSelect>
-			</React.Fragment>
+			<StyledSelect popup={this.state.popup}>
+				<OptionActive onClick={this.togglePopup}>
+					{this.state.active}
+					<ArrowDropDown size="20" />
+				</OptionActive>
+				{this.state.popup && (
+					<Dropdown popup={this.state.popup}>
+						{options.map((option, i) => (
+							<Option key={i} onClick={this.handleClick}>
+								<span>{option}</span>
+							</Option>
+						))}
+					</Dropdown>
+				)}
+			</StyledSelect>
 		);
 	}
 }
