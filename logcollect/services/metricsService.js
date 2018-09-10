@@ -18,48 +18,58 @@ module.exports = class MetricsService {
   newLog(data) {
     if (data.logType === 'PING_INIT') {
       this.ping(data.data.pingPort, data.appId);
-    } else if (this.logSettings[data.logType]) {
+    } else if (this.logSettings.filterData[data.logType]) {
       this.sendMetrics(data, '/logs');
     }
   }
 
   newLogSettings(settings) {
     if (settings) {
-      this.logSettings[logTypes.CPU_SERVER] = settings.serverCPU;
-      this.logSettings[logTypes.MEMORY_SERVER] = settings.serverMemory;
-      this.logSettings[logTypes.CPU_APP] = settings.appsCPU;
-      this.logSettings[logTypes.MEMORY_APP] = settings.appsMemory;
-      this.logSettings[logTypes.HTTP_STATS] = settings.appsHttp;
-      this.logSettings[logTypes.LOG] = settings.appsErrorLog;
-      this.logSettings[logTypes.NOTIFICATION] = settings.notificationServerIsDown;
-      this.logSettings.listeningPorts = settings.listeningPorts;
-
+      this.logSettings = {
+        filterData: {
+          [logTypes.CPU_SERVER]: settings.filterData.serverCPU,
+          [logTypes.MEMORY_SERVER]: settings.filterData.serverMemory,
+          [logTypes.CPU_APP]: settings.filterData.appsCPU,
+          [logTypes.MEMORY_APP]: settings.filterData.appsMemory,
+          [logTypes.HTTP_STATS]: settings.filterData.appsHttp,
+          [logTypes.LOG]: settings.filterData.appsErrorLog,
+          [logTypes.NOTIFICATION]: settings.filterData.notificationServerIsDown,
+          [logTypes.SOCKETS_STATS]: settings.filterData.appsSoket
+        },
+        apps: settings.apps,
+        company: settings.company
+      };
       this.startOrStopServerMonitoringServices();
     }
   }
 
   startOrStopServerMonitoringServices() {
-    if (this.logSettings[logTypes.CPU_SERVER]) {
+    if (this.logSettings.filterData[logTypes.CPU_SERVER]) {
       this.startCPUMonitor();
     } else {
       this.stopCPUMonitor();
     }
 
-    if (this.logSettings[logTypes.MEMORY_SERVER]) {
+    if (this.logSettings.filterData[logTypes.MEMORY_SERVER]) {
       this.startMemoryMonitor();
     } else {
       this.stopMemoryMonitor();
     }
 
-    if (this.logSettings.listeningPorts) {
+    if (this.logSettings.company.logcollectPort) {
       setTimeout(() => { // temporary timeout, sending ping settings, need to wait for rawstorage start
         this.sendMetrics(
-          { port: this.logSettings.listeningPorts, enabled: this.logSettings[logTypes.NOTIFICATION] },
+          { port: this.logSettings.company.logcollectPort, enabled: this.logSettings.filterData[logTypes.NOTIFICATION] },
           '/ping'
         );
-      }, 4000);
-      
+      }, 4000);  
     }
+
+    this.logSettings.apps.forEach((app) => {
+      if (app.port) {
+        this.ping(app.port, app.id, app.name);
+      }
+    });    
   }
 
   startCPUMonitor(delay = 1000) {
@@ -97,16 +107,16 @@ module.exports = class MetricsService {
     this.ping();
   }
 
-  ping(appPort, appId, delay = 1000) {
+  ping(appPort, appId, appName, delay = 1000) {
     if(!this.timersId.ping[appId]) {
       this.timersId.ping[appId] = setInterval(() => {
         tcpPing.ping({ port: appPort }, (err, data) => {
           if (err) console.log(err);
           else if (this.checkBadPing(data)) {
             const notification = {
-              message: `App ${appId} is down`
+              message: `App ${appName} is down!`
             }; 
-            this.sendMetrics(MetricsService.createLogObject('NOTIFICATION', notification, appId ), '/logs');
+            this.newLog(MetricsService.createLogObject('NOTIFICATION', notification, appId ), '/logs');
             this.stopPing(appId);
           }
         });
