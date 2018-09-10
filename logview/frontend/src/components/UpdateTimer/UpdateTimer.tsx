@@ -9,6 +9,11 @@ import {
 	Dropdown
 } from '../Select/SelectStyles';
 import { ArrowDropDown } from 'styled-icons/material';
+// redux
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { handleTimeRange } from 'src/redux/logs/actions';
+
 const options = [
 	'last 10 minutes',
 	'last 30 minutes',
@@ -26,9 +31,12 @@ interface UpdateTimerState {
 }
 
 interface UpdateTimerProps {
+	actions: {
+		handleTimeRange: Function;
+	};
+	timeRange: string;
 	active: string;
 	options: Array<string>;
-	onActive: Function;
 }
 
 class UpdateTimer extends React.Component<UpdateTimerProps, UpdateTimerState> {
@@ -45,49 +53,52 @@ class UpdateTimer extends React.Component<UpdateTimerProps, UpdateTimerState> {
 		this.togglePopup = this.togglePopup.bind(this);
 	}
 
-	componentDidMount() {
-		this.setState({ active: options[0] });
-	}
-
 	handleClickOutside(evt) {
 		this.setState({ popup: false });
 	}
 
 	handleClick(e) {
-		this.setState({ active: e.target.innerHTML });
+		console.log('Clicked! ');
 		this.setState({ popup: !this.state.popup });
-		this.props.onActive(e.target.innerHTML);
+		this.props.actions.handleTimeRange(e.target.innerHTML);
 	}
 
 	togglePopup() {
 		this.setState({ popup: !this.state.popup });
 	}
 
-	handleActive(data) {
-		this.setState({ active: data });
-	}
-
 	render() {
 		return (
-			<React.Fragment>
-				<StyledSelect popup={this.state.popup}>
-					<OptionActive onClick={this.togglePopup}>
-						{this.state.active}
-						<ArrowDropDown size="20" />
-					</OptionActive>
-					{this.state.popup && (
-						<Dropdown popup={this.state.popup}>
-							{options.map((option, i) => (
-								<Option key={i} onClick={this.handleClick}>
-									<span>{option}</span>
-								</Option>
-							))}
-						</Dropdown>
-					)}
-				</StyledSelect>
-			</React.Fragment>
+			<StyledSelect popup={this.state.popup}>
+				<OptionActive onClick={this.togglePopup}>
+					{this.props.timeRange}
+					<ArrowDropDown size="20" />
+				</OptionActive>
+				{this.state.popup && (
+					<Dropdown popup={this.state.popup}>
+						{options.map((option, i) => (
+							<Option key={i} onClick={this.handleClick}>
+								<span>{option}</span>
+							</Option>
+						))}
+					</Dropdown>
+				)}
+			</StyledSelect>
 		);
 	}
 }
 
-export default onClickOutside(UpdateTimer);
+const mapStateToProps = ({ timeRange }) => ({
+	timeRange
+});
+
+const mapDispatchToProps = (dispatch: any) => ({
+	actions: bindActionCreators({ handleTimeRange }, dispatch)
+});
+
+const UpdateTimerConnected = connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(onClickOutside(UpdateTimer));
+
+export default UpdateTimerConnected;

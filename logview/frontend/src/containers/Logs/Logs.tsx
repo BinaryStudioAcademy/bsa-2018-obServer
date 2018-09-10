@@ -2,15 +2,13 @@ import * as React from 'react';
 // components & their styles
 import LevelsSelect from 'src/components/LevelsSelect/LevelsSelect';
 import UpdateTimer from 'src/components/UpdateTimer/UpdateTimer';
-import LevelsSelectData from 'src/containers/Dashboard/LogsBlock/LevelsSelectData';
-import Options from 'src/components/LevelsSelect/LevelsSelectTypes';
 import ErrChart from 'src/components/charts/logs/ErrChart';
 import LogStatsTabel from '../../components/tabels/logStatsTabel';
 import { LoaderBars } from 'src/components/loaders';
 import { Autorenew } from 'styled-icons/material';
 import { Submit } from 'src/styles/Styles';
 import { RowContainer } from 'src/containers/Dashboard/DashboardStyles';
-import { SelectChartPage } from '../../styles/Styles';
+// import { SelectChartPage } from '../../styles/Styles';
 import {
 	ChartWrapper,
 	ChartHeader,
@@ -20,11 +18,7 @@ import {
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getLogMessages } from 'src/redux/logs/actions';
-import {
-	LogMessagesState,
-	LogLevelsState,
-	LogErrorState
-} from '../../types/LogsState';
+import { LogMessagesState, LogLevelsState } from '../../types/LogsState';
 
 // data & services
 import { filterLogs, calcErrStats } from '../../services/logstats/logs';
@@ -42,9 +36,7 @@ interface LogsProps {
 	logLevels: LogLevelsState;
 }
 
-interface LogsState {
-	levelsSelectOptions: Array<Options>;
-}
+interface LogsState {}
 
 class Logs extends React.Component<LogsProps, LogsState> {
 	constructor(props: LogsProps) {
@@ -82,10 +74,18 @@ class Logs extends React.Component<LogsProps, LogsState> {
 					)}
 				</ChartWrapper>
 				<LogsSearchForm>
-					<Submit>
+					<Submit
+						onClick={e => {
+							e.preventDefault();
+							this.props.actions.getLogMessages(
+								this.props.user.companyId
+							);
+						}}
+						style={{ margin: '0px' }}
+					>
 						<RowContainer>
 							<Autorenew size="20px" />
-							<span> fetch logs</span>
+							<span> fetch new logs</span>
 						</RowContainer>
 					</Submit>
 					<LevelsSelect />
