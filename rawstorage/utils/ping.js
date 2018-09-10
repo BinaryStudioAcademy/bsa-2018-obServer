@@ -41,6 +41,7 @@ class Ping {
           logType,
           data,
           companyToken: companyId,
+          appId: '',
           timestamp: new Date()
         };
       }
