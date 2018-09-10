@@ -28,7 +28,7 @@ class SocketStats {
         if (!this.timers.socketsTimerID) {
             this.timers.socketsTimerID = setInterval(() => {
                 this.calcRoomsAmount(socketsData => {           
-                    const log = createLogObject('SOCKET_APP', socketsData, this.appId);
+                    const log = createLogObject('SOCKETS_STATS', socketsData, this.appId);
                     this.sendLog(log);
                 });
             }, delay);

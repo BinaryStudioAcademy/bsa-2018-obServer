@@ -15,7 +15,7 @@ class ServerMonitor {
                     message: `Server CPU load is critcally high: >${criticalValue}%`,
                     error: {}
                 };
-                this.sendLog(ServerMonitor.createLogObject('NOTIFICATION_SERVER', notification));  
+                this.sendLog(ServerMonitor.createLogObject('NOTIFICATION', notification));  
             }
         }, criticalTime);
     }
