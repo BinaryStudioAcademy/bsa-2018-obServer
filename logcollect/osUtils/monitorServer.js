@@ -3,7 +3,7 @@ class ServerMonitor {
         this.sendLog = sendLog;
     }
 
-    checkCriticalCPUValue(cpuData, criticalValue = 10, criticalTime = 10 * 1000) {
+    checkCriticalCPUValue(cpuData, criticalValue = 90, criticalTime = 10 * 1000) {
         let state = false;
         const cond = cpuData.totalLoad > criticalValue;
         state |= cond;
@@ -15,7 +15,7 @@ class ServerMonitor {
                     message: `Server CPU load is critcally high: >${criticalValue}%`,
                     error: {}
                 };
-                this.sendLog(ServerMonitor.createLogObject('NOTIFICATION_SERVER', notification));  
+                this.sendLog(ServerMonitor.createLogObject('NOTIFICATION', notification));  
             }
         }, criticalTime);
     }
