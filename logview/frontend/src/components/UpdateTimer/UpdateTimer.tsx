@@ -1,13 +1,12 @@
 import * as React from 'react';
 import { Timer } from 'styled-icons/material';
-import Select from '../Select/Select';
 import onClickOutside from 'react-onclickoutside';
 import {
 	Select as StyledSelect,
 	OptionActive,
 	Option,
 	Dropdown
-} from '../Select/SelectStyles';
+} from './UpdateTimerStyles';
 import { ArrowDropDown } from 'styled-icons/material';
 // redux
 import { connect } from 'react-redux';
@@ -37,6 +36,7 @@ interface UpdateTimerProps {
 	timeRange: string;
 	active: string;
 	options: Array<string>;
+	caller: string;
 }
 
 class UpdateTimer extends React.Component<UpdateTimerProps, UpdateTimerState> {
@@ -58,7 +58,6 @@ class UpdateTimer extends React.Component<UpdateTimerProps, UpdateTimerState> {
 	}
 
 	handleClick(e) {
-		console.log('Clicked! ');
 		this.setState({ popup: !this.state.popup });
 		this.props.actions.handleTimeRange(e.target.innerHTML);
 	}
@@ -71,8 +70,8 @@ class UpdateTimer extends React.Component<UpdateTimerProps, UpdateTimerState> {
 		return (
 			<StyledSelect popup={this.state.popup}>
 				<OptionActive onClick={this.togglePopup}>
+					<Timer size="25" />
 					{this.props.timeRange}
-					<ArrowDropDown size="20" />
 				</OptionActive>
 				{this.state.popup && (
 					<Dropdown popup={this.state.popup}>

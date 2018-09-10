@@ -1,14 +1,13 @@
 import * as React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { ConnectedRouter } from 'connected-react-router';
-import Login from '../containers/Login/Login';
-import Home from '../containers/Home/Home';
-import Register from '../containers/Register/Register';
-import PasswordReset from '../containers/PasswordReset/PasswordReset';
-import PasswordChange from '../containers/PasswordChange/PasswordChange';
-import EmailConfirm from '../containers/EmailConfirm/EmailConfirm';
-import EmailTokenConfirm from '../containers/EmailConfirm/EmailTokenConfirm';
-import NotFoundPage from '../containers/NotFoundPage/NotFoundPage';
+import Login from 'src/containers/Login/Login';
+import Register from 'src/containers/Register/Register';
+import PasswordReset from 'src/containers/PasswordReset/PasswordReset';
+import PasswordChange from 'src/containers/PasswordChange/PasswordChange';
+import EmailConfirm from 'src/containers/EmailConfirm/EmailConfirm';
+import EmailTokenConfirm from 'src/containers/EmailConfirm/EmailTokenConfirm';
+import NotFoundPage from 'src/containers/NotFoundPage/NotFoundPage';
 import history from './history';
 import '../styles/GlobalStyles';
 import Dashboard from '../containers/Dashboard/Dashboard';
@@ -17,6 +16,7 @@ import '../styles/GlobalStyles';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import UserChangeCompany from '../containers/UserChangeCompany/UserChangeCompany';
+import LandingPage from '../containers/LandingPage/LandingPage';
 
 interface RouterProps {
 	actions: { userIsLogged: Function };
@@ -45,12 +45,7 @@ class Router extends React.Component<RouterProps, RouterState> {
 			// 	fetchingUserStatus === 'failed') && (
 			<ConnectedRouter history={history}>
 				<Switch>
-					<PrivateRoute
-						exact
-						path="/"
-						component={Home}
-						loggedUser={this.state.loggedUser}
-					/>
+					<Route exact path="/" component={LandingPage} />
 					<UnauthorizedRoute
 						exact
 						path="/login"

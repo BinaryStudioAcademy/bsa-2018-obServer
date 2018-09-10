@@ -22,7 +22,6 @@ export const ChartHeader = styled.div`
 export const ChartTimeRange = styled.div`
 	text-align: right;
 	color: grey;
-	line-height: 60px;
 	border-bottom: 1px solid #d8dbdc;
 	margin-right: 10px;
 `;
