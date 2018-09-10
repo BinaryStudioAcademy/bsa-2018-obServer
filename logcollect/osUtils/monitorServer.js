@@ -1,13 +1,13 @@
 class ServerMonitor {
     constructor(sendLog) {
         this.sendLog = sendLog;
+        this.CPUAvg = [];
     }
 
     checkCriticalCPUValue(cpuData, criticalValue = 10, criticalTime = 10 * 1000) {
-        let state = false;
-        const cond = cpuData.totalLoad > criticalValue;
-        state |= cond;
+        this.CPUAvg.push(cpuData.totalLoad);        
         setTimeout(() => {
+            const state = this.CPUAvg.reduce((acc, curr) => acc + curr, 0) / this.CPUAvg.length >= criticalValue;
             if (state) {
                 console.log('CPU IS OVERLOAD');
                 
