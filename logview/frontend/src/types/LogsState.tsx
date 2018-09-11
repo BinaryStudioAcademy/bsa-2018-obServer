@@ -1,3 +1,5 @@
+import { ActiveAppState } from './AppsState';
+
 export interface CpuLogState {
 	logType: string;
 	cores: [
@@ -48,7 +50,7 @@ export interface LogErrorState {
 }
 
 export interface FiltersState {
-	activeApp: string;
+	activeApp: ActiveAppState;
 	timeRanges: {
 		logs: string;
 		errStats: string;

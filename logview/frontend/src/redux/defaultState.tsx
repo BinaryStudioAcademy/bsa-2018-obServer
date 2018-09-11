@@ -97,7 +97,7 @@ export const defaultState: StoreState = {
 		}
 	],
 	filters: {
-		activeApp: '',
+		activeApp: null,
 		timeRanges: {
 			logs: 'last 10 minutes',
 			errStats: 'last 10 minutes',

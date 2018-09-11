@@ -51,10 +51,7 @@ class ServerResourcesChart extends React.Component<
 			<Chart>
 				<ChartHeader>
 					<h3>{this.props.title}</h3>
-					<UpdateTimer
-						onActive={this.handleActive}
-						caller={this.props.caller}
-					/>
+					<UpdateTimer />
 				</ChartHeader>
 				{this.props.caller === 'cpuLoad' && (
 					<CoresLoadLineChart
