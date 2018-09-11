@@ -1,7 +1,7 @@
-import styled, { StyledFunction } from "styled-components";
-import { colors } from "src/styles/styles-utils";
-import { Submit } from "../../styles/Styles";
-import { Binoculars } from "styled-icons/fa-solid";
+import styled, { StyledFunction } from 'styled-components';
+import { colors } from 'src/styles/styles-utils';
+import { Submit } from '../../styles/Styles';
+import { Binoculars } from 'styled-icons/fa-solid';
 
 export const Background = styled.div`
 	position: absolute;
@@ -12,17 +12,17 @@ export const Background = styled.div`
 	background-size: 400% 400%;
 	animation: Gradient 15s ease infinite;
 
-    @keyframes Gradient {
-        0% {
-            background-position: 0% 50%
-        }
-        50% {
-            background-position: 100% 50%
-        }
-        100% {
-            background-position: 0% 50%
-        }
-    }
+	@keyframes Gradient {
+		0% {
+			background-position: 0% 50%;
+		}
+		50% {
+			background-position: 100% 50%;
+		}
+		100% {
+			background-position: 0% 50%;
+		}
+	}
 `;
 
 export const Title = styled.h1`
@@ -35,7 +35,7 @@ export const Title = styled.h1`
 `;
 
 export const Slogan = styled.p`
-    font-weight: 300;
+	font-weight: 300;
 	text-align: center;
 	position: absolute;
 	top: 40%;
@@ -63,16 +63,21 @@ interface ButtonProps {
 	primary?: boolean;
 }
 
-const button: StyledFunction<ButtonProps & React.HTMLProps<HTMLInputElement>> = Submit.extend;
+const button: StyledFunction<ButtonProps & React.HTMLProps<HTMLInputElement>> =
+	Submit.extend;
 
 export const Button = button`
 	background-image: none;
-	background: ${ (props: {primary?: boolean}) => props.primary ? "transparent" : "#3d3d3d"}
+	background: ${(props: { primary?: boolean }) =>
+		props.primary ? 'transparent' : '#3d3d3d'}
 	margin: 10px;
-	color: ${ (props: {primary?: boolean}) => props.primary ? "#3d3d3d" : "white"};
-	border: ${ (props: {primary?: boolean}) => props.primary ? "1px solid #3d3d3d" : "1px solid #3d3d3d"};
+	color: ${(props: { primary?: boolean }) =>
+		props.primary ? '#3d3d3d' : 'white'};
+	border: ${(props: { primary?: boolean }) =>
+		props.primary ? '1px solid #3d3d3d' : '1px solid #3d3d3d'};
 
 	a {
-		color: ${ (props: {primary?: boolean}) => props.primary ? "#3d3d3d" : "white"};
+		color: ${(props: { primary?: boolean }) =>
+			props.primary ? '#3d3d3d' : 'white'};
 	}
 `;

@@ -45,11 +45,7 @@ class Router extends React.Component<RouterProps, RouterState> {
 			// 	fetchingUserStatus === 'failed') && (
 			<ConnectedRouter history={history}>
 				<Switch>
-					<Route
-						exact
-						path="/"
-						component={LandingPage}
-					/>
+					<Route exact path="/" component={LandingPage} />
 					<UnauthorizedRoute
 						exact
 						path="/login"
