@@ -23,65 +23,52 @@ import {
 	httpParser,
 	convertTimeRangeToInterval
 } from 'src/services/chartParser';
+import { FiltersState } from '../../types/LogsState';
 
 interface HttpProps {
 	actions: { getNewHttpStats: Function };
 	httpStats: Array<HttpStatsState>;
 	fetchingLogsStatus: string;
+	filters: FiltersState;
 }
 
 interface HttpState {
 	timeRange: string;
-	appId: string;
 }
 
 class HttpStats extends React.Component<HttpProps, HttpState> {
 	constructor(props: HttpProps) {
 		super(props);
-
 		this.state = {
-			timeRange: 'last 10 minutes',
-			appId: 'MyAppId'
+			timeRange: 'last 10 minutes'
 		};
 
 		this.handleTimeRange = this.handleTimeRange.bind(this);
-		this.handleActiveApp = this.handleActiveApp.bind(this);
 	}
 
 	componentDidMount() {
-		this.props.actions.getNewHttpStats(
-			this.state.appId,
-			convertTimeRangeToInterval(this.state.timeRange)
-		);
+		const activeApp = this.props.filters.activeApp;
+		activeApp &&
+			this.props.actions.getNewHttpStats(
+				activeApp.value,
+				convertTimeRangeToInterval(this.state.timeRange)
+			);
 	}
 
 	handleTimeRange(event) {
 		this.setState({ timeRange: event.target.value });
+		const activeApp = this.props.filters.activeApp;
 		this.props.actions.getNewHttpStats(
-			this.state.appId,
+			activeApp.value,
 			convertTimeRangeToInterval(event.target.value)
-		);
-	}
-
-	handleActiveApp(event) {
-		this.setState({ appId: event.target.value });
-		this.props.actions.getNewHttpStats(
-			event.target.value,
-			convertTimeRangeToInterval(this.state.timeRange)
 		);
 	}
 
 	render() {
 		return (
 			<React.Fragment>
-				<Title>Http Stats</Title>
-
-				<div>
-					<SelectChartPage onChange={this.handleActiveApp}>
-						<option value="MyAppId">app1</option>
-						<option value="MyAppId">app2</option>
-						<option value="MyAppId">app4</option>
-					</SelectChartPage>
+				<Title>
+					Http Stats:
 					<SelectChartPage onChange={this.handleTimeRange}>
 						<option value="last 10 minutes">last 10 minutes</option>
 						<option value="last 30 minutes">last 30 minutes</option>
@@ -93,7 +80,7 @@ class HttpStats extends React.Component<HttpProps, HttpState> {
 						<option value="last week">last week</option>
 						<option value="last  month">last month</option>
 					</SelectChartPage>
-				</div>
+				</Title>
 				{this.props.httpStats.length > 0 &&
 				this.props.fetchingLogsStatus === 'success' ? (
 					<div>
@@ -143,9 +130,10 @@ class HttpStats extends React.Component<HttpProps, HttpState> {
 	}
 }
 
-const mapStateToProps = ({ httpStats, fetchingLogsStatus }) => ({
+const mapStateToProps = ({ httpStats, fetchingLogsStatus, filters }) => ({
 	httpStats,
-	fetchingLogsStatus
+	fetchingLogsStatus,
+	filters
 });
 const mapDispatchToProps = (dispatch: any) => ({
 	actions: bindActionCreators({ getNewHttpStats }, dispatch)

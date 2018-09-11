@@ -10,7 +10,6 @@ export default {
 	getHttpStats: (appId: string, interval: number) => {
 		let headers = {};
 		headers['X-APP-ID'] = appId;
-
 		return api.makeRequest(
 			`/api/logs/?httpInterval=${interval}`,
 			api.requestType.GET,
