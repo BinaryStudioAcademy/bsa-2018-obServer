@@ -101,7 +101,7 @@ export function notificationReducer(
 ): Array<NotificationState> {
 	switch (action.type) {
 		case constants.GET_NEW_NOTIFICATION_SUCCESS:
-			return [...action.payload.notificationLogs];
+			return [...state, ...action.payload.notificationLogs];
 		default:
 			return state;
 	}

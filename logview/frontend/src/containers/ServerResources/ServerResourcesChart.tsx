@@ -22,7 +22,6 @@ interface ServerResourcesChartState {
 interface ServerResourcesChartProps {
 	title: string;
 	logs: Array<any>;
-	onActive: Function;
 	caller: string;
 }
 
