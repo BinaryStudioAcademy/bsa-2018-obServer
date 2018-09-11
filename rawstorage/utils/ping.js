@@ -6,24 +6,27 @@ class Ping {
         this.timersId = {};
     }
 
-    startPing (address, port, companyId, delay = 1000) {
-        if(!this.timersId[address]) {
-          this.timersId[address] = setInterval(() => {
-            tcpPing.ping({ address: address, port: port }, (err, data) => {
-              if (err) console.log(err);
-              else if (this.checkBadPing(data)) {
-                const ipv4 = address.substr(0, 7) === '::ffff:' ? address.substr(7) : address;
-                const notification = {
-                  message: `Server on ${ipv4} is down`
-                };
-                logService.create(Ping.createLogObject('NOTIFICATION', notification, companyId), (err) => {
-                  if (err) console.log(err);
-                }); 
-                this.stopPing(address);
-              }
-            });
-          }, delay);
-        }
+    startPing (address, port, companyId, delay = 2000) {
+      let lastStatus = false;
+      if(!this.timersId[address]) {
+        this.timersId[address] = setInterval(() => {
+          tcpPing.ping({ address: address, port: port }, (err, data) => {
+            if (err) console.log(err);
+            else if (this.checkBadPing(data) && lastStatus) {
+              const ipv4 = address.substr(0, 7) === '::ffff:' ? address.substr(7) : address;
+              const notification = {
+                message: `Server on ${ipv4} is down`
+              };
+              logService.create(Ping.createLogObject('NOTIFICATION', notification, companyId), (err) => {
+                if (err) console.log(err);
+              }); 
+              lastStatus = false;
+            } else if (!this.checkBadPing(data)) {
+              lastStatus = true;
+            }
+          });
+        }, delay);
+      }
     }
 
     stopPing(address) {
@@ -41,6 +44,7 @@ class Ping {
           logType,
           data,
           companyToken: companyId,
+          appId: '',
           timestamp: new Date()
         };
       }
