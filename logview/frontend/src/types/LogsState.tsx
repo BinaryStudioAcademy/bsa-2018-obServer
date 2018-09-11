@@ -47,13 +47,17 @@ export interface LogErrorState {
 	errors: number;
 }
 
-export interface LogLevelsState {
-	error: boolean;
-	warn: boolean;
-	info: boolean;
-	verbose: boolean;
-	debug: boolean;
-	silly: boolean;
+export interface FiltersState {
+	activeApp: string;
+	timeRange: string;
+	logLevels: {
+		error: boolean;
+		warn: boolean;
+		info: boolean;
+		verbose: boolean;
+		debug: boolean;
+		silly: boolean;
+	};
 }
 
 export interface NotificationState {

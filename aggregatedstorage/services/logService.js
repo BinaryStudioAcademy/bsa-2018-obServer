@@ -54,6 +54,13 @@ class LogService {
       if (i === arr.length - 1) callback(null, aggregatedLogs);
     });
   }
+
+  // test service - should be deleted later
+  createLog(newLog) {
+    newLog.logType = 'LOG_MESSAGE';
+    return logRepository.create(newLog);
+  }
+ 
 } 
 
 module.exports = new LogService();

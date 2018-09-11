@@ -5,7 +5,7 @@ import {
 	MemoryLogState,
 	HttpStatsState,
 	LogMessagesState,
-	LogLevelsState,
+	FiltersState,
 	NotificationState
 } from '../../types/LogsState';
 import { defaultState } from '../defaultState';
@@ -72,38 +72,24 @@ export function logMessagesReducer(
 	}
 }
 
-export function activeAppReducer(
-	state: string = defaultState.activeApp,
+export function filtersReducer(
+	state: FiltersState = defaultState.filters,
 	action: LogAction
-): string {
+): FiltersState {
 	switch (action.type) {
 		case constants.HANDLE_ACTIVE_APP:
-			return action.payload;
-		default:
-			return state;
-	}
-}
-
-export function timeRangeReducer(
-	state: string = defaultState.timeRange,
-	action: LogAction
-): string {
-	switch (action.type) {
+			return { ...state, activeApp: action.payload };
 		case constants.HANDLE_TIME_RANGE:
-			return action.payload;
-		default:
-			return state;
-	}
-}
-
-export function logLevelsReducer(
-	state: LogLevelsState = defaultState.logLevels,
-	action: LogAction
-): LogLevelsState {
-	switch (action.type) {
+			return { ...state, timeRange: action.payload };
 		case constants.HANDLE_LOG_LEVEL:
 			let level = Object.keys(action.payload)[0];
-			return { ...state, [level]: action.payload[level] };
+			return {
+				...state,
+				logLevels: {
+					...state.logLevels,
+					[level]: action.payload[level]
+				}
+			};
 		default:
 			return state;
 	}

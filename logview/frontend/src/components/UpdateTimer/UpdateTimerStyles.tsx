@@ -6,25 +6,27 @@ import styled, { StyledFunction } from 'styled-components';
 export const Select = UserPopup.extend`
 	width: 160px;
 	padding: 0;
-    height: fit-content;
+	height: fit-content;
 	cursor: default;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-    border-bottom: ${(props: any) => (props.popup ? '1px solid transparent' : '1px solid grey')};
-    
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
+	border-bottom: ${(props: any) =>
+		props.popup ? '1px solid transparent' : '1px solid grey'};
 
-    &:hover {
-        border-bottom-left-radius: ${(props: any) => (props.popup ? '0px' : '5px')};
-        border-bottom-right-radius: ${(props: any) => (props.popup ? '0px' : '5px')};
-        border-bottom: 1px solid transparent;
-    }
+	&:hover {
+		border-bottom-left-radius: ${(props: any) =>
+			props.popup ? '0px' : '5px'};
+		border-bottom-right-radius: ${(props: any) =>
+			props.popup ? '0px' : '5px'};
+		border-bottom: 1px solid transparent;
+	}
 `;
 
 export const OptionActive = UserText.extend`
 	margin: 0;
 	border: none;
 	padding: 12px 0;
-    color: ${(props: any) => (props.popup ? 'white' : 'grey')};
+	color: ${(props: any) => (props.popup ? 'white' : 'grey')};
 	cursor: pointer;
 `;
 
@@ -48,5 +50,5 @@ export const Dropdown = UserPopup.extend`
 	border-top-left-radius: 0px;
 	border-top-right-radius: 0px;
 	width: 120px;
-    z-index: 10;
+	z-index: 10;
 `;

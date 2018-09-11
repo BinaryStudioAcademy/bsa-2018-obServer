@@ -9,16 +9,21 @@ import {
 	Span
 } from './LevelsSelectStyles';
 import { ArrowDropDown } from 'styled-icons/material';
-import Options from './LevelsSelectTypes';
+// redux
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { handleLogLevels } from 'src/redux/logs/actions';
+import { FiltersState } from 'src/types/LogsState';
 
 interface SelectState {
 	popup: boolean;
-	options: Array<Options>;
 }
 
 interface SelectProps {
-	options: Array<Options>;
-	onActive: Function;
+	actions: {
+		handleLogLevels: Function;
+	};
+	filters: FiltersState;
 }
 
 class Select extends React.Component<SelectProps, SelectState> {
@@ -26,8 +31,7 @@ class Select extends React.Component<SelectProps, SelectState> {
 		super(props);
 
 		this.state = {
-			popup: false,
-			options: []
+			popup: false
 		};
 
 		this.handleClickOutside = this.handleClickOutside.bind(this);
@@ -35,23 +39,14 @@ class Select extends React.Component<SelectProps, SelectState> {
 		this.togglePopup = this.togglePopup.bind(this);
 	}
 
-	componentDidMount() {
-		this.setState({ options: this.props.options });
-	}
-
 	handleClickOutside(evt) {
 		this.setState({ popup: false });
 	}
 
 	handleClick(e) {
-		const newOptions = this.state.options.map(el => {
-			if (el.value === e.target.title) {
-				el.active = !el.active;
-			}
-			return el;
+		this.props.actions.handleLogLevels({
+			[e.target.title]: !this.props.filters.logLevels[e.target.title]
 		});
-		this.setState({ options: newOptions });
-		this.props.onActive(newOptions);
 	}
 
 	togglePopup() {
@@ -59,6 +54,7 @@ class Select extends React.Component<SelectProps, SelectState> {
 	}
 
 	render() {
+		const keys = Object.keys(this.props.filters.logLevels);
 		return (
 			<StyledSelect popup={this.state.popup}>
 				<OptionActive onClick={this.togglePopup}>
@@ -67,18 +63,21 @@ class Select extends React.Component<SelectProps, SelectState> {
 				</OptionActive>
 				{this.state.popup && (
 					<Dropdown popup={this.state.popup}>
-						{this.props.options.map((option, i) => (
-							<Option key={i}>
+						{keys.map((option, i) => (
+							<Option key={i} onClick={this.handleClick}>
 								<ActiveStatusIcon
 									size="10"
-									active={this.state.options[i].active}
+									active={
+										this.props.filters.logLevels[option]
+									}
 								/>
 								<Span
-									title={option.value}
-									active={this.state.options[i].active}
-									onClick={this.handleClick}
+									title={keys[i]}
+									active={
+										this.props.filters.logLevels[option]
+									}
 								>
-									{option.name}
+									{option}
 								</Span>
 							</Option>
 						))}
@@ -89,4 +88,17 @@ class Select extends React.Component<SelectProps, SelectState> {
 	}
 }
 
-export default onClickOutside(Select);
+const mapStateToProps = ({ filters }) => ({
+	filters
+});
+
+const mapDispatchToProps = (dispatch: any) => ({
+	actions: bindActionCreators({ handleLogLevels }, dispatch)
+});
+
+const SelectConnected = connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(onClickOutside(Select));
+
+export default SelectConnected;

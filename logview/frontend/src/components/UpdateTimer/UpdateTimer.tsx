@@ -7,26 +7,34 @@ import {
 	Option,
 	Dropdown
 } from './UpdateTimerStyles';
+// import { ArrowDropDown } from 'styled-icons/material';
+// redux
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { handleTimeRange } from 'src/redux/logs/actions';
+import { FiltersState } from 'src/types/LogsState';
+
 const options = [
 	'last 10 minutes',
 	'last 30 minutes',
-	'last 1 hour',
+	'last hour',
 	'last 5 hours',
 	'last 12 hours',
-	'last day',
+	'last 24 hours',
 	'last week',
-	'last month'
+	'last 30 days'
 ];
 
 interface UpdateTimerState {
 	popup: boolean;
-	active: string;
 }
 
 interface UpdateTimerProps {
-	active: string;
+	actions: {
+		handleTimeRange: Function;
+	};
+	filters: FiltersState;
 	options: Array<string>;
-	onActive: Function;
 	caller: string;
 }
 
@@ -35,7 +43,6 @@ class UpdateTimer extends React.Component<UpdateTimerProps, UpdateTimerState> {
 		super(props);
 
 		this.state = {
-			active: '',
 			popup: false
 		};
 
@@ -44,18 +51,13 @@ class UpdateTimer extends React.Component<UpdateTimerProps, UpdateTimerState> {
 		this.togglePopup = this.togglePopup.bind(this);
 	}
 
-	componentDidMount() {
-		this.setState({ active: options[0] });
-	}
-
 	handleClickOutside(evt) {
 		this.setState({ popup: false });
 	}
 
 	handleClick(e) {
-		this.setState({ active: e.target.innerHTML });
 		this.setState({ popup: !this.state.popup });
-		this.props.onActive(e.target.innerHTML, this.props.caller);
+		this.props.actions.handleTimeRange(e.target.innerHTML);
 	}
 
 	togglePopup() {
@@ -67,7 +69,7 @@ class UpdateTimer extends React.Component<UpdateTimerProps, UpdateTimerState> {
 			<StyledSelect popup={this.state.popup}>
 				<OptionActive onClick={this.togglePopup}>
 					<Timer size="25" />
-					{this.state.active}
+					{this.props.filters.timeRange}
 				</OptionActive>
 				{this.state.popup && (
 					<Dropdown popup={this.state.popup}>
@@ -83,4 +85,17 @@ class UpdateTimer extends React.Component<UpdateTimerProps, UpdateTimerState> {
 	}
 }
 
-export default onClickOutside(UpdateTimer);
+const mapStateToProps = ({ filters }) => ({
+	filters
+});
+
+const mapDispatchToProps = (dispatch: any) => ({
+	actions: bindActionCreators({ handleTimeRange }, dispatch)
+});
+
+const UpdateTimerConnected = connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(onClickOutside(UpdateTimer));
+
+export default UpdateTimerConnected;

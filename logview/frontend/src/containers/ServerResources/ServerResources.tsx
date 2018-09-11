@@ -91,7 +91,9 @@ class ServerResources extends React.Component<
 				currentCpuLog: this.props.cpuLogs[this.props.cpuLogs.length - 1]
 			});
 			this.setState({
-				currentMemoryLog: this.props.memoryLogs[this.props.memoryLogs.length - 1]
+				currentMemoryLog: this.props.memoryLogs[
+					this.props.memoryLogs.length - 1
+				]
 			});
 		}, 1000);
 	}
@@ -133,7 +135,7 @@ class ServerResources extends React.Component<
 						</ChartInfo>
 					</ChartWrapper>
 					<ChartWrapper>
-						<ServerResourcesChart 
+						<ServerResourcesChart
 							title="Memory Load, %"
 							logs={this.state.memoryLogs}
 							caller="memoryLoad"
@@ -145,7 +147,8 @@ class ServerResources extends React.Component<
 							</div>
 							<div>
 								<TitleSmall>Used Memory:</TitleSmall>
-								{this.state.currentMemoryLog.allMemory - this.state.currentMemoryLog.freeMemory}
+								{this.state.currentMemoryLog.allMemory -
+									this.state.currentMemoryLog.freeMemory}
 							</div>
 							<div>
 								<TitleSmall>Free Memory:</TitleSmall>
@@ -154,12 +157,12 @@ class ServerResources extends React.Component<
 						</ChartInfo>
 					</ChartWrapper>
 					<ChartWrapper>
-						<ServerResourcesChart 
+						<ServerResourcesChart
 							title="Used Memory, MB"
 							logs={this.state.memoryMbLogs}
 							caller="usedMemoryMb"
 						/>
-						<ChartInfo></ChartInfo>
+						<ChartInfo />
 					</ChartWrapper>
 				</ChartGrid>
 			</ChartsPageWrapper>

@@ -6,9 +6,11 @@ const sendHelper = require('./utils/apiRequest');
 const Ping = require('./utils/ping');
 
 const app = express();
-const port = process.env.RAWSTORAGE_PORT;
-const aggrStorePort = process.env.AGGREGATEDSTORAGE_PORT;
-const aggregatedStorageUrl = `http://localhost:${aggrStorePort}/api/logs`;
+const { RAWSTORAGE_PORT, AGGREGATEDSTORAGE_HOST, AGGREGATEDSTORAGE_PORT } = process.env;
+const port = RAWSTORAGE_PORT || 3050;
+const aggrStorePort = AGGREGATEDSTORAGE_PORT || 3100;
+const aggrStoreHost = AGGREGATEDSTORAGE_HOST || 'localhost';
+const aggregatedStorageUrl = `http://${aggrStoreHost}:${aggrStorePort}/api/logs`;
 const sendMetrics = sendHelper(aggregatedStorageUrl);
 const ping = new Ping();
 
