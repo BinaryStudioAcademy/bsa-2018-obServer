@@ -89,7 +89,7 @@ module.exports = class MetricsService {
     delete this.timersId.cpu;
   }
 
-  startMemoryMonitor(delay = 1000) {
+  startMemoryMonitor(delay = 3000) {
     if(!this.timersId.memory) {
       this.timersId.memory = setInterval(() => {
         memoryStats((memData) => {
@@ -108,17 +108,20 @@ module.exports = class MetricsService {
     this.ping();
   }
 
-  ping(appPort, appId, appName, delay = 1000) {
+  ping(appPort, appId, appName, delay = 2000) {
+    let lastStatus = false;
     if(!this.timersId.ping[appId]) {
       this.timersId.ping[appId] = setInterval(() => {
         tcpPing.ping({ port: appPort }, (err, data) => {
           if (err) console.log(err);
-          else if (this.checkBadPing(data)) {
+          else if (this.checkBadPing(data) && lastStatus) {
             const notification = {
               message: `App ${appName} is down!`
             }; 
             this.newLog(MetricsService.createLogObject('NOTIFICATION', notification, appId ), '/logs');
-            this.stopPing(appId);
+            lastStatus = false;
+          } else if (!this.checkBadPing(data)) {
+            lastStatus = true;
           }
         });
       }, delay);
