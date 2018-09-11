@@ -87,7 +87,7 @@ export interface HandleActiveApp {
 
 export interface HandleTimeRange {
 	type: constants.HANDLE_TIME_RANGE;
-	payload: string;
+	payload: {};
 }
 
 export interface HandleLogLevels {
@@ -229,14 +229,14 @@ export function handleActiveApp(payload: string): HandleActiveApp {
 	};
 }
 
-export function handleTimeRange(payload: string): HandleTimeRange {
+export function handleTimeRange(payload: {}): HandleTimeRange {
 	return {
 		type: constants.HANDLE_TIME_RANGE,
 		payload
 	};
 }
 
-export function handleLogLevels(payload): HandleLogLevels {
+export function handleLogLevels(payload: {}): HandleLogLevels {
 	return {
 		type: constants.HANDLE_LOG_LEVEL,
 		payload

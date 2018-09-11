@@ -23,7 +23,7 @@ export function calcErrStats(logs, filters) {
 		return [{ timestamp: Date.now(), errors: 0 }];
 	}
 
-	switch (filters.timeRange) {
+	switch (filters.timeRanges) {
 		case 'last 10 minutes':
 			// 10 chart bars
 			return calcErrStatsByTime(errorLogs, startDateValue, 60000, 10);
@@ -126,7 +126,7 @@ export function filterLogs(logs, filters) {
 
 	// filter by date
 	let filteredByDate = [];
-	let startDateValue = defineStartDateValue(filters.timeRange);
+	let startDateValue = defineStartDateValue(filters.timeRanges);
 	filteredByLevel.length > 0
 		? (filteredByDate = filteredByLevel.filter(log => {
 				let timestamp = new Date(log.timestamp);

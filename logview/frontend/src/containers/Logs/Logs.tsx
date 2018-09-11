@@ -31,8 +31,6 @@ interface LogsProps {
 	fetchingUserStatus: string;
 	fetchingLogsStatus: string;
 	logMessages: Array<LogMessagesState>;
-	activeApp: string;
-	timeRange: string;
 	filters: FiltersState;
 }
 
@@ -69,7 +67,7 @@ class Logs extends React.Component<LogsProps, LogsState> {
 								this.props.logMessages,
 								this.props.filters
 							)}
-							timeRange={this.props.filters.timeRange}
+							timeRange={this.props.filters.timeRanges.errStats}
 						/>
 					) : (
 						<LoaderBars />

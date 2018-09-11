@@ -49,7 +49,16 @@ export interface LogErrorState {
 
 export interface FiltersState {
 	activeApp: string;
-	timeRange: string;
+	timeRanges: {
+		logs: string;
+		errStats: string;
+		CPU: string;
+		memory: string;
+		usedMemory: string;
+		routes: string;
+		requests: string;
+		httpTabel: string;
+	};
 	logLevels: {
 		error: boolean;
 		warn: boolean;
