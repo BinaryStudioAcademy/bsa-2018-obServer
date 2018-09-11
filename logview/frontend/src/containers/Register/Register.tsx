@@ -1,9 +1,9 @@
 import * as React from 'react';
-import RegisterForm from 'src/components/RegisterForm';
+import RegisterForm from '../../components/RegisterForm';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { userRegister } from '../../redux/user/actions';
-import { Wrapper } from 'src/styles/Styles';
+import { Wrapper } from '../../styles/Styles';
 import { Landing } from '../../styles/ContainerStyles';
 const logo = require('src/assets/logo.png');
 

@@ -4,23 +4,40 @@ import {
 	cpuLogsReducer,
 	memoryLogsReducer,
 	httpStatsReducer,
-	fetchingLogsReducer
+	fetchingLogsReducer,
+	logMessagesReducer,
+	activeAppReducer,
+	timeRangeReducer,
+	logLevelsReducer,
+	notificationReducer
 } from './logs/reducer';
 import { userReducer, fetchingState, isLoggedInState } from './user/reducer';
 import { settingsReducer, fetchingSettingsReducer } from './settings/reducer';
-import { companyReducer } from './company/reducer';
+import { appsReducer, fetchingAppsReducer } from './apps/reducer';
+import { serverReducer, fetchingServerReducer } from './server/reducer';
+import { companyReducer, companyChangeReducer } from './company/reducer';
 import { socketsReducer } from './sockets/reducer';
 
 export default combineReducers<StoreState>({
 	user: userReducer,
 	companyUsers: companyReducer,
-	fetchingSettingsStatus: fetchingSettingsReducer,
 	settings: settingsReducer,
-	fetchingUserStatus: fetchingState,
+	apps: appsReducer,
+	server: serverReducer,
 	cpuLogs: cpuLogsReducer,
 	memoryLogs: memoryLogsReducer,
 	httpStats: httpStatsReducer,
+	sockets: socketsReducer,
+	fetchingUserStatus: fetchingState,
+	fetchingSettingsStatus: fetchingSettingsReducer,
+	fetchingAppsStatus: fetchingAppsReducer,
+	fetchingServerStatus: fetchingServerReducer,
 	fetchingLogsStatus: fetchingLogsReducer,
 	isLoggedIn: isLoggedInState,
-	sockets: socketsReducer
+	logMessages: logMessagesReducer,
+	activeApp: activeAppReducer,
+	timeRange: timeRangeReducer,
+	logLevels: logLevelsReducer,
+	userChangeCompany: companyChangeReducer,
+	notificationLogs: notificationReducer
 });

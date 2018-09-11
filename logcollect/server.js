@@ -1,7 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
-const MetricsService = require('./metricsService');
+const MetricsService = require('./services/metricsService');
 const eventEmitter = require('./events');
 
 const port = process.env.LOGCOLLECT_PORT;
@@ -33,8 +33,9 @@ app.use(
 app.post(`${baseUrl}/config`, (req, res) => {
   console.log(req.body);
 
+  metricsService.startServerMonitor();
   metricsService.startCPUMonitor(3000);
-  metricsService.startMemoryMonitor(3000);
+  metricsService.startMemoryMonitor(3000);  
 
   res.send(req.body);
 });
@@ -47,7 +48,7 @@ app.post(`${baseUrl}/logs`, (req, res) => {
 sockets(io);
 
 eventEmitter.on('get new settings', settings => {
-  console.log('get new settings', settings);
+  metricsService.newLogSettings(settings);
 });
 
 app.listen(port, () => {

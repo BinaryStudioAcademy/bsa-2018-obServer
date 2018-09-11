@@ -1,12 +1,12 @@
-import api from 'src/services/adapter';
-import { httpStats } from 'src/containers/HttpStats/mockData';
+import api from '../adapter';
+import { httpStats } from '../../containers/HttpStats/mockData';
 
 export default {
 	resoucesAverages: (headers: any) => {
 		return api.makeRequest(
 			`/api/logs?serverMemoryInterval=3600000?serverCpuInterval=50000`,
 			api.requestType.GET,
-			{ 'headers': headers }
+			{ headers: headers }
 		);
 	},
 	getHttpStats: (companyId: string, appId: string) => {
@@ -20,5 +20,12 @@ export default {
 				api.requestType.GET,
 				companyId
 			); */
+	},
+	getLogMessages: (headers: any) => {
+		return api.makeRequest(
+			`/api/logs?logMessageInterval=36000000`,
+			api.requestType.GET,
+			{ headers: headers }
+		);
 	}
 };

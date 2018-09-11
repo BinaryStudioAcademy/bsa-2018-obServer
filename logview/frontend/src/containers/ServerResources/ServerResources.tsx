@@ -1,30 +1,28 @@
 import * as React from 'react';
-import CoresLoadLineChart from '../../components/charts/serverResources/CoresLoadLineChart';
-import PercentMemoryChart from '../../components/charts/serverResources/PercentMemoryChart';
-import MemoryUsedChart from '../../components/charts/serverResources/MemoryUsedChart';
-import { Timer, Update } from 'styled-icons/material';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { getLogs, getNewCpuLog, getNewMemoryLog } from 'src/redux/logs/actions';
-import { startChannel, stopChannel } from 'src/redux/sockets/actions'; 
-import { CpuLogState, MemoryLogState } from 'src/types/LogsState';
+import {
+	getLogs,
+	getNewCpuLog,
+	getNewMemoryLog
+} from '../../redux/logs/actions';
+import { startChannel, stopChannel } from '../../redux/sockets/actions';
+import { CpuLogState, MemoryLogState } from '../../types/LogsState';
 import {
 	cpuParser,
 	memoryParser,
 	memoryMbParser
-} from 'src/services/chartParser';
+} from '../../services/chartParser';
 import {
-	Chart,
 	ChartInfo,
-	ChartHeader,
 	ChartGrid,
 	ChartWrapper,
 	ChartsPageWrapper,
-	ChartTimeRange,
 	Title
 } from './ServerResourcesStyles';
-import Select from 'src/components/Select/Select';
-import UpdateTimer from '../../components/UpdateTimer/UpdateTimer';
+import { TitleSmall } from 'src/containers/Dashboard/ResourcesBlock/ResourcesBlockStyles';
+import intervalsInitialValues from './IntervalsInitialValues';
+import ServerResourcesChart from './ServerResourcesChart';
 
 let timerID;
 
@@ -44,7 +42,6 @@ interface ServerResourcesState {
 	cpuLogs: Array<any>;
 	memoryLogs: Array<any>;
 	memoryMbLogs: Array<any>;
-	interval: Number;
 	currentCpuLog: any;
 	currentMemoryLog: any;
 	popup: boolean;
@@ -64,7 +61,6 @@ class ServerResources extends React.Component<
 			cpuLogs: [],
 			memoryLogs: [],
 			memoryMbLogs: [],
-			interval: 1000,
 			currentCpuLog: {},
 			currentMemoryLog: {},
 			popup: false,
@@ -72,12 +68,9 @@ class ServerResources extends React.Component<
 			active: '',
 			initial: true
 		};
-
-		this.handleActive = this.handleActive.bind(this);
 	}
 
-	componentWillMount() {
-	}
+	componentWillMount() {}
 
 	componentDidMount() {
 		clearInterval(timerID);
@@ -87,7 +80,7 @@ class ServerResources extends React.Component<
 			this.setState({ memoryLogs: memoryParser(this.props.memoryLogs) });
 			this.setState({ initial: false });
 		}
-		
+
 		timerID = setInterval(() => {
 			this.setState({ cpuLogs: cpuParser(this.props.cpuLogs) });
 			this.setState({ memoryLogs: memoryParser(this.props.memoryLogs) });
@@ -97,16 +90,17 @@ class ServerResources extends React.Component<
 			this.setState({
 				currentCpuLog: this.props.cpuLogs[this.props.cpuLogs.length - 1]
 			});
+			this.setState({
+				currentMemoryLog: this.props.memoryLogs[
+					this.props.memoryLogs.length - 1
+				]
+			});
 		}, 1000);
 	}
 
 	componentWillUnmount() {
 		clearInterval(timerID);
-		this.props.actions.stopChannel()
-	}
-
-	handleActive(activeApp) {
-		this.setState({ active: activeApp });
+		this.props.actions.stopChannel();
 	}
 
 	render() {
@@ -114,30 +108,22 @@ class ServerResources extends React.Component<
 			<ChartsPageWrapper>
 				<Title>Server Resources</Title>
 
-				<Select
-					onActive={this.handleActive}
-					options={['app1', 'app2', 'app3']}
-				/>
-
 				<ChartGrid>
 					<ChartWrapper>
-						<Chart>
-							<ChartHeader>
-								<h3>CPU Load, %</h3>
-								<ChartTimeRange>
-									<UpdateTimer></UpdateTimer>
-									<Timer size="24px" /> last 10 minutes
-								</ChartTimeRange>
-							</ChartHeader>
-							<CoresLoadLineChart
-								data={this.state.cpuLogs}
-								timeRange="last 10 minutes"
-							/>
-						</Chart>
+						<ServerResourcesChart
+							title="CPU Load, %"
+							logs={this.state.cpuLogs}
+							caller="cpuLoad"
+						/>
 						<ChartInfo>
 							<div>
-								{this.state.currentCpuLog.data &&
-									this.state.currentCpuLog.data.cores.map(
+								<TitleSmall>Total CPU load:</TitleSmall>
+								{this.state.currentCpuLog.totalLoadPercentages}
+							</div>
+							<div>
+								<TitleSmall>Cores CPU load:</TitleSmall>
+								{this.state.currentCpuLog.cores &&
+									this.state.currentCpuLog.cores.map(
 										(el, i) => (
 											<div key={i}>
 												{el.coreName}:{' '}
@@ -146,50 +132,37 @@ class ServerResources extends React.Component<
 										)
 									)}
 							</div>
+						</ChartInfo>
+					</ChartWrapper>
+					<ChartWrapper>
+						<ServerResourcesChart
+							title="Memory Load, %"
+							logs={this.state.memoryLogs}
+							caller="memoryLoad"
+						/>
+						<ChartInfo>
 							<div>
-								{this.state.currentCpuLog.timestamp !== '' &&
-									this.state.currentCpuLog.timestamp}
+								<TitleSmall>All memory:</TitleSmall>
+								{this.state.currentMemoryLog.allMemory}
 							</div>
-							<div>a3</div>
+							<div>
+								<TitleSmall>Used Memory:</TitleSmall>
+								{this.state.currentMemoryLog.allMemory -
+									this.state.currentMemoryLog.freeMemory}
+							</div>
+							<div>
+								<TitleSmall>Free Memory:</TitleSmall>
+								{this.state.currentMemoryLog.freeMemory}
+							</div>
 						</ChartInfo>
 					</ChartWrapper>
 					<ChartWrapper>
-						<Chart>
-							<ChartHeader>
-								<h3>Memory Load, %</h3>
-								<ChartTimeRange>
-									<Timer size="24px" /> last hour
-								</ChartTimeRange>
-							</ChartHeader>
-							<PercentMemoryChart
-								data={this.state.memoryLogs}
-								timeRange="last hour"
-							/>
-						</Chart>
-						<ChartInfo>
-							<div>a1</div>
-							<div>a2</div>
-							<div>a3</div>
-						</ChartInfo>
-					</ChartWrapper>
-					<ChartWrapper>
-						<Chart>
-							<ChartHeader>
-								<h3>Used Memory, MB</h3>
-								<ChartTimeRange>
-									<Timer size="24px" /> last day
-								</ChartTimeRange>
-							</ChartHeader>
-							<MemoryUsedChart
-								data={this.state.memoryMbLogs}
-								timeRange="last day"
-							/>
-						</Chart>
-						<ChartInfo>
-							<div>a1</div>
-							<div>a2</div>
-							<div>a3</div>
-						</ChartInfo>
+						<ServerResourcesChart
+							title="Used Memory, MB"
+							logs={this.state.memoryMbLogs}
+							caller="usedMemoryMb"
+						/>
+						<ChartInfo />
 					</ChartWrapper>
 				</ChartGrid>
 			</ChartsPageWrapper>

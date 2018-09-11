@@ -8,5 +8,4 @@ export interface SettingsState {
 	appsErrorLog?: boolean;
 	appsHttp?: boolean;
 	appsSoket?: boolean;
-	listeningPorts?: string;
 }

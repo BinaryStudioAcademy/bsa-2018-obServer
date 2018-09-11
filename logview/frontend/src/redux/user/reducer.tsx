@@ -1,6 +1,6 @@
 import * as constants from './constants';
 import { UserAction } from './actions';
-import { UserState } from 'src/types/UserState';
+import { UserState } from '../../types/UserState';
 import { defaultState } from '../defaultState';
 
 export function userReducer(

@@ -18,6 +18,7 @@
     "dotenv": "^6.0.0",
     "express": "^4.16.3",
     "nodemon": "^1.18.3",
-    "mongoose": "^5.2.7"
+    "mongoose": "^5.2.7",
+    "tcp-ping": "^0.1.1"
   }
 }

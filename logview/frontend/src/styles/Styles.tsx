@@ -23,7 +23,6 @@ import {
 	SelectChartPage
 } from './ChartStyles';
 import { Input, InputWide } from './InputStyles';
-import { NotificationIcon } from './IconStyles';
 
 export {
 	Submit,
@@ -50,7 +49,6 @@ export {
 	SideNav,
 	SideLink,
 	UserBar,
-	NotificationIcon,
 	Profile,
 	DashboardBackground,
 	Main,

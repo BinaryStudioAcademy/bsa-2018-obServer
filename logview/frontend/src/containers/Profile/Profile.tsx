@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { fetchCompanyUsers } from 'src/redux/company/actions';
+import { fetchCompanyUsers } from '../../redux/company/actions';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 

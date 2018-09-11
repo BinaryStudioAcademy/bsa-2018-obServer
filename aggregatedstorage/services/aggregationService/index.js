@@ -27,10 +27,14 @@ const sliceLogsByInterval = (logArray, interval) => {
     const logTime = new Date(item.timestamp);
 
     while(logTime.getTime() > timeInterval.getTime()) {
-      resultArray[++chunkIndex] = [];
+      chunkIndex += 1;
+      resultArray[chunkIndex] = [];
+      if (logTime.getTime() > timeInterval.getTime() + interval) {
+        resultArray[chunkIndex] = [{ isEmpty: true, timestamp: timeInterval.toISOString() }];
+      }
       timeInterval.setTime(timeInterval.getTime() + interval);
     }
-  
+    
     resultArray[chunkIndex].push(item);
     return resultArray;
   }, [[]]);
@@ -62,7 +66,8 @@ const parseLogTypesFromIntervals = (intervals, appId) => {
   const serverLogs = {
     serverMemoryInterval: logTypes.MEMORY_SERVER,
     serverCpuInterval: logTypes.CPU_SERVER,
-    logMessageInterval: logTypes.LOG_MESSAGE
+    logMessageInterval: logTypes.LOG_MESSAGE,
+    notification: logTypes.NOTIFICATION
   }
 
   const intervalLogTypes = Object.assign({}, appLogs, serverLogs);
@@ -87,7 +92,8 @@ const parseIntervals = (intervals) => {
     serverCpuInterval: logTypes.CPU_SERVER,
     appCpuInterval: logTypes.CPU_APP,
     appMemoryInterval: logTypes.MEMORY_APP,
-    logMessageInterval: logTypes.LOG_MESSAGE
+    logMessageInterval: logTypes.LOG_MESSAGE,
+    notification: logTypes.NOTIFICATION
   }
 
   const parsedIntervals = {};
@@ -100,7 +106,10 @@ const parseIntervals = (intervals) => {
   return parsedIntervals;
 };
 
-const logDoNotNeedAggregation = logType => logType === logTypes.LOG_MESSAGE;
+const logDoNotNeedAggregation = logType => {
+  const logTypesDoNotNeedAggregation = [logTypes.LOG_MESSAGE, logTypes.NOTIFICATION];
+  return logTypesDoNotNeedAggregation.indexOf(logType) !== -1;
+}
 
 module.exports = {
   aggregateLogs,

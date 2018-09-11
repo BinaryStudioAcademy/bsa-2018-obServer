@@ -9,43 +9,24 @@ import ServerResources from '../ServerResources/ServerResources';
 import { Route, RouteComponentProps } from 'react-router-dom';
 
 interface DashboardProps {
-    url: string;
+	url: string;
 }
 
 class DashboardRoutes extends React.Component<DashboardProps, {}> {
-    render() {
+	render() {
 		const { url } = this.props;
-        return (
-            <React.Fragment>
-                <Route
-					path={`${url}/quickstart`}
-					component={Quickstart}
-				/>
-				<Route
-					path={`${url}/settings`}
-					component={Settings}
-				/>
-				<Route 
-					path={`${url}/logs`} 
-					component={Logs} />
-				<Route
-					path={`${url}/resources`}
-					component={ServerResources}
-				/>
-				<Route
-					path={`${url}/httpstats`}
-					component={HttpStats}
-				/>
-				<Route
-					path={`${url}/socketstats`}
-					component={SocketStats}
-				/>
-				<Route 
-					path={`${url}/company`} 
-					component={Company} />
-            </React.Fragment>
-        )
-    }
+		return (
+			<React.Fragment>
+				<Route path={`${url}/quickstart`} component={Quickstart} />
+				<Route path={`${url}/settings`} component={Settings} />
+				<Route path={`${url}/logs`} component={Logs} />
+				<Route path={`${url}/resources`} component={ServerResources} />
+				<Route path={`${url}/httpstats`} component={HttpStats} />
+				<Route path={`${url}/socketstats`} component={SocketStats} />
+				<Route path={`${url}/company`} component={Company} />
+			</React.Fragment>
+		);
+	}
 }
 
 export default DashboardRoutes;
