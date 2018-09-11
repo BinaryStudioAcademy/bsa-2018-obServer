@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { fetchAppsList } from '../../redux/apps/actions';
 import { handleActiveApp } from 'src/redux/logs/actions';
 import { AppsState } from '../../types/AppsState';
-// import { FiltersState } from 'src/types/LogsState';
+import { FiltersState } from 'src/types/LogsState';
 import Select from '../../components/Select/Select';
 import { convertAppsDataToSelect } from '../../services/reduxDataParser';
 
@@ -17,7 +17,7 @@ interface AppsSelectorProps extends RouteComponentProps<{}, {}> {
 		handleActiveApp: Function;
 	};
 	apps: Array<AppsState>;
-	// filters: FiltersState;
+	filters: FiltersState;
 }
 
 class AppsSelector extends React.Component<
@@ -26,6 +26,14 @@ class AppsSelector extends React.Component<
 > {
 	constructor(props: any) {
 		super(props);
+		this.onActive = this.onActive.bind(this);
+	}
+
+	onActive(name, value) {
+		this.props.actions.handleActiveApp({
+			name,
+			value
+		});
 	}
 
 	componentDidMount() {
@@ -33,16 +41,15 @@ class AppsSelector extends React.Component<
 	}
 
 	render() {
+		const name = this.props.filters.activeApp
+			? this.props.filters.activeApp.name
+			: 'choose app';
 		return (
 			<React.Fragment>
 				{this.props.apps && (
 					<Select
-						onActive={e =>
-							this.props.actions.handleActiveApp(
-								this.props.apps.filter(app => app.name === e)[0]
-									.id
-							)
-						}
+						active={name}
+						onActive={this.onActive}
 						options={convertAppsDataToSelect(this.props.apps)}
 					/>
 				)}
