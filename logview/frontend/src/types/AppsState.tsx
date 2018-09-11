@@ -3,3 +3,8 @@ export interface AppsState {
 	port: number;
 	id: string;
 }
+
+export interface ActiveAppState {
+	name: string;
+	value: number;
+}

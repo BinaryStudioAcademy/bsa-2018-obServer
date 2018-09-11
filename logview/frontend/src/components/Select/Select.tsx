@@ -24,17 +24,13 @@ class Select extends React.Component<SelectProps, SelectState> {
 		super(props);
 
 		this.state = {
-			active: '',
+			active: this.props.active,
 			popup: false
 		};
 
 		this.handleClickOutside = this.handleClickOutside.bind(this);
 		this.handleClick = this.handleClick.bind(this);
 		this.togglePopup = this.togglePopup.bind(this);
-	}
-
-	componentDidMount() {
-		this.setState({ active: this.props.options[0].name });
 	}
 
 	handleClickOutside(evt) {
