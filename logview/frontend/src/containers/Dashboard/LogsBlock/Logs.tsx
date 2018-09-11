@@ -1,180 +1,88 @@
 import * as React from 'react';
-import { Search as SearchIcon } from 'styled-icons/material';
-import ErrChart from '../../../components/charts/logs/ErrChart';
-
-import {
-	ChartWrapper,
-	ChartHeader,
-	LogsSearchForm,
-	LevelPicker,
-	Level,
-	TimeSpanPicker,
-	SearchButton,
-	LogItem,
-	LogDate,
-	ErrorLabel,
-	WarnLabel,
-	InfoLabel,
-	VerboseLabel,
-	DebugLabel,
-	SillyLabel,
-	LogText,
-	NotFound
-} from '../../../styles/LogsStyles';
-
-import { filterLogs, calcErrStats } from '../../../services/logstats/logs';
-import { LOGS } from '../../Logs/mockData';
-import UpdateTimer from '../../../components/UpdateTimer/UpdateTimer';
-import { Submit } from '../../../styles/Styles';
-import { RowContainer } from '../DashboardStyles';
-import { LogsContainer, LogsList } from './LogsStyles';
-import LevelsSelect from '../../../components/LevelsSelect/LevelsSelect';
+// components & their styles
+import LevelsSelect from 'src/components/LevelsSelect/LevelsSelect';
+import LogsUpdateTimer from 'src/components/UpdateTimer/LogsUpdateTimer';
+import { LogsContainer } from './LogsStyles';
+import LogStatsTabel from 'src/components/tabels/logStatsTabel';
+import { LoaderBars } from 'src/components/loaders';
+import { Autorenew } from 'styled-icons/material';
+import { Submit } from 'src/styles/Styles';
+import { RowContainer } from 'src/containers/Dashboard/DashboardStyles';
 import { Link } from 'react-router-dom';
-import LevelsSelectData from './LevelsSelectData';
-import Options from '../../../components/LevelsSelect/LevelsSelectTypes';
+import { LogsSearchForm } from 'src/styles/LogsStyles';
+// redux
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { getLogMessages } from 'src/redux/logs/actions';
+import { LogMessagesState, FiltersState } from 'src/types/LogsState';
 
-const LEVELS = {
-	0: <ErrorLabel>ERROR</ErrorLabel>,
-	1: <WarnLabel>WARN</WarnLabel>,
-	2: <InfoLabel>INFO</InfoLabel>,
-	3: <VerboseLabel>VERBOSE</VerboseLabel>,
-	4: <DebugLabel>DEBUG</DebugLabel>,
-	5: <SillyLabel>SILLY</SillyLabel>
-};
+// data & services
+import { filterLogs } from 'src/services/logstats/logs';
 
-interface LogsProps {}
-
-interface LogsState {
-	filters: {
-		levels: {
-			error: boolean;
-			warn: boolean;
-			info: boolean;
-			verbose: boolean;
-			debug: boolean;
-			silly: boolean;
-		};
-		timespan: string;
+interface LogsProps {
+	actions: {
+		getLogMessages: Function;
 	};
-	filteredLogs: Array<{ timestamp; level; text }>;
-	errStats: Array<{ timestamp; errors }>;
-	levelsSelectOptions: Array<Options>;
+	user: { companyId: string };
+	fetchingUserStatus: string;
+	fetchingLogsStatus: string;
+	logMessages: Array<LogMessagesState>;
+	filters: FiltersState;
 }
+
+interface LogsState {}
 
 class Logs extends React.Component<LogsProps, LogsState> {
 	constructor(props: LogsProps) {
 		super(props);
-
-		this.state = {
-			filters: {
-				levels: {
-					error: true,
-					warn: true,
-					info: true,
-					verbose: false,
-					debug: false,
-					silly: false
-				},
-				timespan: 'last 24 hours'
-			},
-			filteredLogs: [],
-			errStats: [{ timestamp: Date.now(), errors: 0 }],
-			levelsSelectOptions: []
-		};
-
-		this.applyFilters = this.applyFilters.bind(this);
-		this.handleLevelsChange = this.handleLevelsChange.bind(this);
-		this.handleTimespanChange = this.handleTimespanChange.bind(this);
-		this.handleActive = this.handleActive.bind(this);
 	}
 
-	handleActive(data) {
-		this.setState({ levelsSelectOptions: data });
+	componentDidMount() {
+		if (this.props.user.companyId) {
+			this.props.actions.getLogMessages(this.props.user.companyId);
+		}
 	}
 
-	handleLevelsChange(e) {
-		let nextState = {
-			...this.state,
-			filters: {
-				...this.state.filters,
-				levels: {
-					...this.state.filters.levels,
-					[e.currentTarget.name]: e.currentTarget.checked
-				}
-			}
-		};
-		this.setState(nextState);
-	}
-
-	handleTimespanChange(e) {
-		let nextState = {
-			...this.state,
-			filters: {
-				...this.state.filters,
-				timespan: e.currentTarget.value
-			},
-			errStats: calcErrStats(LOGS, '', e.currentTarget.value)
-		};
-		this.setState(nextState);
-	}
-
-	applyFilters(logs, filters) {
-		let filteredByDate = filterLogs(
-			logs,
-			'',
-			filters.timespan,
-			filters.levels
-		);
-		let nextState = {};
-		nextState = {
-			...this.state,
-			filteredLogs: filteredByDate
-		};
-		this.setState(nextState);
+	componentDidUpdate(prevProps) {
+		if (
+			this.props.user.companyId &&
+			this.props.user.companyId !== prevProps.user.companyId
+		) {
+			this.props.actions.getLogMessages(this.props.user.companyId);
+		}
 	}
 
 	render() {
-		let found;
-		if (this.state.filteredLogs.length === 0) {
-			found = <NotFound>Nothing found</NotFound>;
-		} else {
-			found = this.state.filteredLogs.map((logItem, i) => {
-				const date = new Date(logItem.timestamp);
-				const dateString = date.toLocaleString();
-				return (
-					<LogItem key={i}>
-						<LogDate>{dateString}</LogDate>
-						{LEVELS[logItem.level]}
-						<LogText>{logItem.text}</LogText>
-					</LogItem>
-				);
-			});
-		}
-
 		return (
 			<LogsContainer>
 				<LogsSearchForm>
-					<LevelsSelect
-						onActive={this.handleActive}
-						options={LevelsSelectData}
-					/>
-
-					<UpdateTimer onActive={this.handleActive} />
-
 					<Submit
 						onClick={e => {
 							e.preventDefault();
-							this.applyFilters(LOGS, this.state.filters);
+							this.props.actions.getLogMessages(
+								this.props.user.companyId
+							);
 						}}
-						style={{ margin: '0px 10px' }}
+						style={{ margin: '0px' }}
 					>
 						<RowContainer>
-							<SearchIcon size="20px" />
-							<span>Search</span>
+							<Autorenew size="20px" />
+							<span> fetch new logs</span>
 						</RowContainer>
 					</Submit>
+					<LevelsSelect />
+					<LogsUpdateTimer />
 				</LogsSearchForm>
-				<LogsList>{found}</LogsList>
+				{this.props.fetchingLogsStatus === 'success' ? (
+					<LogStatsTabel
+						data={filterLogs(
+							this.props.logMessages,
+							this.props.filters
+						)}
+					/>
+				) : (
+					<LoaderBars />
+				)}
 				<Submit>
 					<Link to="/dashboard/logs">open logs</Link>
 				</Submit>
@@ -183,4 +91,27 @@ class Logs extends React.Component<LogsProps, LogsState> {
 	}
 }
 
-export default Logs;
+const mapStateToProps = ({
+	user,
+	fetchingUserStatus,
+	fetchingLogsStatus,
+	logMessages,
+	filters
+}) => ({
+	user,
+	fetchingUserStatus,
+	fetchingLogsStatus,
+	logMessages,
+	filters
+});
+
+const mapDispatchToProps = (dispatch: any) => ({
+	actions: bindActionCreators({ getLogMessages }, dispatch)
+});
+
+const LogsConnected = connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(Logs);
+
+export default LogsConnected;

@@ -10,12 +10,9 @@ WORKDIR $APP_ROOT
 
 RUN curl -o- -L https://yarnpkg.com/install.sh | bash
 
-RUN yarn global add webpack
-
 WORKDIR $APP_ROOT
 
 RUN yarn
-RUN yarn build-prod
 
 EXPOSE 8080
 

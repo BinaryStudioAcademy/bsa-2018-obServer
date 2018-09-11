@@ -6,15 +6,19 @@ var amqp = require('amqplib/callback_api');
 const sockets = require('./sockets/sockets');
 const logService = require('./services/logService');
 
-const port = process.env.AGGREGATEDSTORAGE_PORT;
-const rabbitmqPort = process.env.RABBITMQ_EXTERNAL_PORT;
+const { 
+  AGGREGATEDSTORAGE_PORT, RABBITMQ_EXTERNAL_PORT, RABBITMQ_HOST
+} = process.env;
+
+const port = AGGREGATEDSTORAGE_PORT || 3100;
+const rabbitmqPort = RABBITMQ_EXTERNAL_PORT || 5672;
 const baseUrl = '/api';
 
 sockets(io);
 
 logService.init(io);
 
-amqp.connect(`amqp://localhost:${rabbitmqPort}`, function(err, conn) {
+amqp.connect(`amqp://${RABBITMQ_HOST || 'localhost'}:${rabbitmqPort}`, function(err, conn) {
   conn.createChannel(function(err, channel) {
     const queue = 'logs';
 
@@ -45,6 +49,26 @@ app.get(`${baseUrl}/logs`, (req, res) => {
   });
 });
 
+// test service - should be deleted later
+app.post(`${baseUrl}/logs`, (req, res) => {
+  const newLog = {
+    companyToken: req.header('X-COMPANY-TOKEN'),
+    appId: req.header('X-APP-ID') || null,
+    data: {
+      level: req.header('X-LEVEL') || null,
+      message: req.header('X-MESSAGE') || null
+    },
+    timestamp: new Date()
+  }
+  logService.createLog(newLog, (err, log) => {
+    if (!err) {
+      res.send(log);
+    } else {
+      res.status(404).send(err);
+    }
+  });
+});
+  
 server.listen(port, () => {
   console.log(`Log aggregated store app listening on port ${port}`);
 });

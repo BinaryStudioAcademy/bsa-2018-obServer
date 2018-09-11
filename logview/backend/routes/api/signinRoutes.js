@@ -17,7 +17,8 @@ router.post(
 				name: name,
 				email: email,
 				companyName: companyName,
-				admin: admin
+				admin: admin,
+				companyId: companyId
 			};
 			res.data = data;
 			res.err = null;
