@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const dbHost = process.env.MONGO_DB_HOST || 27017;
+const dbHost = process.env.MONGO_DB_HOST || 'localhost';
 const dbUrl = `mongodb://${dbHost}`;
 const port = process.env.AGGREGATED_DB_EXTERNAL_PORT || 27017;
 const dbName = 'aggregatedlogs';
