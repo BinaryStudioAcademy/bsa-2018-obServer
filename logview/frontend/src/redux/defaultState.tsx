@@ -96,15 +96,17 @@ export const defaultState: StoreState = {
 			message: ''
 		}
 	],
-	activeApp: '',
-	timeRange: 'last 10 minutes',
-	logLevels: {
-		error: true,
-		warn: true,
-		info: true,
-		verbose: false,
-		debug: false,
-		silly: false
+	filters: {
+		activeApp: '',
+		timeRange: 'last 10 minutes',
+		logLevels: {
+			error: true,
+			warn: true,
+			info: true,
+			verbose: false,
+			debug: false,
+			silly: false
+		}
 	},
 	fetchingUserStatus: 'unstarted',
 	fetchingSettingsStatus: 'unstarted',

@@ -49,6 +49,26 @@ app.get(`${baseUrl}/logs`, (req, res) => {
   });
 });
 
+// test service - should be deleted later
+app.post(`${baseUrl}/logs`, (req, res) => {
+  const newLog = {
+    companyToken: req.header('X-COMPANY-TOKEN'),
+    appId: req.header('X-APP-ID') || null,
+    data: {
+      level: req.header('X-LEVEL') || null,
+      message: req.header('X-MESSAGE') || null
+    },
+    timestamp: new Date()
+  }
+  logService.createLog(newLog, (err, log) => {
+    if (!err) {
+      res.send(log);
+    } else {
+      res.status(404).send(err);
+    }
+  });
+});
+  
 server.listen(port, () => {
   console.log(`Log aggregated store app listening on port ${port}`);
 });
