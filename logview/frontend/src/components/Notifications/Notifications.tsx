@@ -14,6 +14,7 @@ import { preetifyDate } from 'src/services/logstats/logs';
 
 interface NotificationsState {
 	popup: boolean;
+	newNotifications: boolean;
 	notifications: Array<any>;
 }
 
@@ -31,7 +32,8 @@ class Notifications extends React.Component<
 
 		this.state = {
 			popup: false,
-			notifications: []
+			notifications: [],
+			newNotifications: true
 		};
 
 		this.handleClickOutside = this.handleClickOutside.bind(this);
@@ -40,12 +42,19 @@ class Notifications extends React.Component<
 		this.parseNotification = this.parseNotification.bind(this);
 	}
 
+	componentDidUpdate(prevProps) {
+		if (this.props !== prevProps) {
+			this.setState({newNotifications: true});
+		}
+	}
+
 	handleClickOutside(evt) {
 		this.setState({ popup: false });
 	}
 
 	handleClick(e) {
 		this.setState({ popup: !this.state.popup });
+		this.setState({newNotifications: false});
 	}
 
 	togglePopup() {
@@ -67,9 +76,11 @@ class Notifications extends React.Component<
 			<Wrapper>
 				<Wrapper>
 					<NotificationIcon size="25" onClick={this.handleClick} />
-					{notifications &&
+					{
+						notifications &&
 						notifications.length > 0 &&
-						notifications.length && (
+						notifications.length &&
+						this.state.newNotifications && (
 							<NotificationActive size="10" />
 						)}
 				</Wrapper>

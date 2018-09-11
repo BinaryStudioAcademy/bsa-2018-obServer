@@ -1,7 +1,7 @@
 import * as React from 'react';
 // components & their styles
 import LevelsSelect from 'src/components/LevelsSelect/LevelsSelect';
-import UpdateTimer from 'src/components/UpdateTimer/UpdateTimer';
+import LogsUpdateTimer from 'src/components/UpdateTimer/LogsUpdateTimer';
 import ErrChart from 'src/components/charts/logs/ErrChart';
 import LogStatsTabel from '../../components/tabels/logStatsTabel';
 import { LoaderBars } from 'src/components/loaders';
@@ -91,7 +91,7 @@ class Logs extends React.Component<LogsProps, LogsState> {
 						</RowContainer>
 					</Submit>
 					<LevelsSelect />
-					<UpdateTimer />
+					<LogsUpdateTimer />
 				</LogsSearchForm>
 				{this.props.fetchingLogsStatus === 'success' ? (
 					<LogStatsTabel
