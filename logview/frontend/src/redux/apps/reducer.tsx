@@ -2,7 +2,6 @@ import * as constants from './constants';
 import { AppsListAction } from './actions';
 import { AppsState } from '../../types/AppsState';
 import { defaultState } from '../defaultState';
-import { appendFile } from 'fs';
 
 export function appsReducer(
 	state: Array<AppsState> = defaultState.apps,

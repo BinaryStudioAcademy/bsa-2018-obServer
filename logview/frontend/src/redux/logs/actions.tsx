@@ -6,6 +6,7 @@ import {
 	LogMessagesState,
 	NotificationState
 } from '../../types/LogsState';
+import { ActiveAppState } from 'src/types/AppsState';
 
 export interface GetLogs {
 	type: constants.GET_LOGS;
@@ -84,7 +85,7 @@ export interface GetLogMessagesFail {
 
 export interface HandleActiveApp {
 	type: constants.HANDLE_ACTIVE_APP;
-	payload: string;
+	payload: ActiveAppState;
 }
 
 export interface HandleTimeRange {
@@ -228,7 +229,7 @@ export function getLogMessagesFail(): GetLogMessagesFail {
 	};
 }
 
-export function handleActiveApp(payload: string): HandleActiveApp {
+export function handleActiveApp(payload: ActiveAppState): HandleActiveApp {
 	return {
 		type: constants.HANDLE_ACTIVE_APP,
 		payload
