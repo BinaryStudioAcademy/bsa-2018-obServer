@@ -1,24 +1,22 @@
-# Frontend setup 
-FROM node:8
+FROM node:8.11.4
 
-# RUN apk update && apk add nodejs && npm i -g nodemon
-RUN npm i -g nodemon
+ENV APP_ROOT /app
 
-# Create app directory
-WORKDIR /src/
+RUN mkdir $APP_ROOT
+WORKDIR $APP_ROOT
 
-RUN cd /src/
+COPY ./ ./
+WORKDIR $APP_ROOT
 
-# Install app dependencies
-# COPY package*.json ./
+RUN curl -o- -L https://yarnpkg.com/install.sh | bash
+
+RUN yarn global add webpack
+
+WORKDIR $APP_ROOT
 
 RUN yarn
-# If you are building your code for production
-# RUN yarn --only=production
+RUN yarn build-prod
 
-# RUN ls
+EXPOSE 8080
 
-# Bundle app source
-# COPY node_modules/ /src/
-
-# CMD ["nodemon", "/src/backend/server.js"]
+CMD ["yarn", "start-prod" ]

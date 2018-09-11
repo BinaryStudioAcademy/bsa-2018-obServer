@@ -1,60 +1,108 @@
 {
-  "name": "logview",
-  "version": "0.1.0",
-  "devDependencies": {
-    "awesome-typescript-loader": "^5.2.0",
-    "husky": "^1.0.0-rc.13",
-    "lint-staged": "^7.2.0",
-    "nodemon": "^1.18.3",
-    "prettier": "^1.14.0",
-    "source-map-loader": "^0.2.3",
-    "typescript": "^2.9.2",
-    "webpack-dev-middleware": "^3.1.3",
-    "webpack-hot-middleware": "^2.22.3"
-  },
-  "scripts": {
-    "start": "nodemon --legacy-watch ./backend/server.js",
-    "build": "webpack --config webpack.config.js",
-    "watch": "webpack --watch --config webpack.config.js",
-    "prettify": "prettier --write  './frontend/**/*.{js,tsx,json,css,md}' './backend/**/*.{js,json,css,md}'"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "*.{js,tsx,json,css,md}": [
-      "prettier --write",
-      "git add"
-    ]
-  },
-  "dependencies": {
-    "@types/react": "^16.4.7",
-    "@types/react-dom": "^16.0.6",
-    "babel-core": "^6.26.3",
-    "babel-loader": "^7.1.5",
-    "babel-preset-env": "^1.7.0",
-    "babel-preset-es2015": "^6.24.1",
-    "babel-preset-react": "^6.24.1",
-    "cnfg": "^1.2.0",
-    "connect-mongo": "^2.0.1",
-    "dotenv": "^6.0.0",
-    "express": "^4.16.3",
-    "express-api-response": "^0.4.0",
-    "express-session": "^1.15.6",
-    "pg": "^7.4.3",
-    "pg-hstore": "^2.3.2",
-    "react": "^16.4.1",
-    "react-dom": "^16.4.1",
-    "replacestream": "^4.0.3",
-    "sequelize": "^4.38.0",
-    "socket.io": "^2.1.1",
-    "ts-loader": "^4.4.2",
-    "tslint": "^5.11.0",
-    "tslint-loader": "^3.6.0",
-    "webpack": "^4.16.3",
-    "webpack-cli": "^3.1.0",
-    "webpack-command": "^0.4.1"
-  }
+	"name": "logview",
+	"version": "0.1.0",
+	"devDependencies": {
+		"@storybook/addon-actions": "^3.4.10",
+		"@storybook/addon-links": "^3.4.10",
+		"@storybook/addons": "^3.4.10",
+		"@storybook/react": "4.0.0-alpha.3",
+		"@types/node": "^10.5.6",
+		"@types/storybook__react": "^3.0.8",
+		"awesome-typescript-loader": "^5.2.0",
+		"babel-runtime": "^6.26.0",
+		"husky": "^1.0.0-rc.13",
+		"lint-staged": "^7.2.0",
+		"nodemon": "^1.18.3",
+		"opn": "^5.3.0",
+		"prettier": "^1.14.0",
+		"source-map-loader": "^0.2.3",
+		"typescript": "^2.9.2",
+		"webpack-dev-middleware": "^3.1.3",
+		"webpack-hot-middleware": "^2.22.3"
+	},
+	"scripts": {
+		"start": "nodemon --legacy-watch ./backend/server.js",
+		"watch-front": "nodemon ./scripts/front.js",
+		"build": "webpack --config webpack.config.js",
+		"build-prod": "webpack --config webpack.config.js",
+		"watch": "webpack --watch --config webpack.config.js",
+		"prettify": "prettier --write  frontend/**/*.{js,ts,tsx,json,css,md} backend/**/*.{js,json,css,md}",
+		"storybook": "start-storybook -p 6006",
+		"migrate": "./node_modules/.bin/sequelize db:migrate && ./node_modules/.bin/sequelize db:seed:all",
+		"start-prod": "ls && yarn migrate && nodemon --legacy-watch ./backend/server.js"
+	},
+	"husky": {
+		"hooks": {
+			"pre-commit": "lint-staged"
+		}
+	},
+	"lint-staged": {
+		"*.{js,ts,tsx,json,css,md}": [
+			"prettier --write",
+			"git add"
+		]
+	},
+	"dependencies": {
+		"@sendgrid/mail": "^6.3.1",
+		"@types/react": "^16.4.8",
+		"@types/react-dom": "^16.0.6",
+		"@types/react-redux": "^6.0.6",
+		"@types/react-router-dom": "^4.3.0",
+		"autobind-decorator": "^2.1.0",
+		"axios": "^0.18.0",
+		"babel-core": "^6.26.3",
+		"babel-loader": "^7.1.5",
+		"babel-preset-env": "^1.7.0",
+		"babel-preset-es2015": "^6.24.1",
+		"babel-preset-react": "^6.24.1",
+		"bcrypt": "^3.0.0",
+		"cnfg": "^1.2.0",
+		"connect-mongo": "^2.0.1",
+		"connect-session-sequelize": "^5.2.2",
+		"connected-react-router": "^4.3.0",
+		"cors": "^2.8.4",
+		"css-loader": "^1.0.0",
+		"dotenv": "^6.0.0",
+		"express": "^4.16.3",
+		"express-api-response": "^0.4.0",
+		"express-session": "^1.15.6",
+		"file-loader": "^1.1.11",
+		"history": "^4.7.2",
+		"install": "^0.12.1",
+		"moment": "^2.22.2",
+		"npm": "^6.4.0",
+		"passport": "^0.4.0",
+		"passport-local": "^1.0.0",
+		"pg": "^7.4.3",
+		"pg-hstore": "^2.3.2",
+		"query-string": "^6.1.0",
+		"react": "^16.4.2",
+		"react-dom": "^16.4.1",
+		"react-loader-spinner": "^2.1.0",
+		"react-onclickoutside": "^6.7.1",
+		"react-particles-js": "^2.3.0",
+		"react-redux": "^5.0.7",
+		"react-router-dom": "^4.3.1",
+		"react-table": "^6.8.6",
+		"react-transition-group": "^2.4.0",
+		"recharts": "^1.1.0",
+		"redux": "^4.0.0",
+		"redux-devtools-extension": "^2.13.5",
+		"redux-saga": "^0.16.0",
+		"replacestream": "^4.0.3",
+		"sequelize": "^4.38.0",
+		"sequelize-cli": "^4.0.0",
+		"socket.io": "^2.1.1",
+		"socket.io-client": "^2.1.1",
+		"style-loader": "^0.23.0",
+		"styled-components": "^3.4.2",
+		"styled-icons": "^2.3.2",
+		"styled-transition-group": "^1.0.0",
+		"ts-loader": "^4.4.2",
+		"tslint": "^5.11.0",
+		"tslint-loader": "^3.6.0",
+		"webpack": "^4.16.3",
+		"webpack-cli": "^3.1.0",
+		"webpack-command": "^0.4.1"
+	}
 }
