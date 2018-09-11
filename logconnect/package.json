@@ -1,6 +1,6 @@
 {
-  "name": "ob-server",
-  "version": "0.0.1",
+  "name": "observer-bsa",
+  "version": "0.1.0",
   "description": "obServer - service for monitoring your node.js app",
   "main": "index.js",
   "scripts": {
