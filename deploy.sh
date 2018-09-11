@@ -40,7 +40,7 @@ then
     docker pull rabbitmq && \ 
     docker pull $DOCKER_IMAGE_NAME && 
     docker stop $PROJECT_NAME && docker rm $PROJECT_NAME && docker rmi -f $DOCKER_IMAGE_NAME && \
-    docker run -it -d -p 80:3050 --env-file 'vars.env' --name=$PROJECT_NAME $DOCKER_IMAGE_NAME"
+    docker run -it -d -p 80:3050  --env-file 'vars.env' --link rabbitmq:rabbitmq --link mongodb:mongodb  --name=$PROJECT_NAME $DOCKER_IMAGE_NAME"
 elif [ "$TRAVIS_BRANCH" == "aggregated-store" ]
 then
     echo "RUN DOCKER COMMANDS FOR AGGREGATEDSTORE"

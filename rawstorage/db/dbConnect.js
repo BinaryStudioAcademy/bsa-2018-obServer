@@ -1,11 +1,14 @@
-const { MONGO_DB_HOST,  } = process
+const { MONGO_DB_HOST } = process.env;
 const mongoose = require('mongoose');
-const dbUrl = `mongodb://${MONGO_DB_HOST || 'localhost'}`;
-const port = process.env.RAW_DB_EXTERNAL_PORT;
+const host = MONGO_DB_HOST || 'localhost';
+const dbUrl = `mongodb://${host}`;
+const port = process.env.RAW_DB_EXTERNAL_PORT || 27017;
 const dbName = 'rawlogs';
 
 function DbConnectionHandler() {
-  mongoose.connect(`${dbUrl}:${port}/${dbName}`);
+  const dbStr = `${dbUrl}:${port}/${dbName}`;
+  console.log(`dbStr: ${dbStr}`);
+  mongoose.connect(dbStr);
 
   mongoose.set('debug', true);
 
