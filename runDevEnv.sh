@@ -28,11 +28,8 @@ export SENDGRID_API_KEY=SG.qm4bqxYASFqNoyobvLSQGA.oycdl36YVnUeQqJ2e3BIp9e4oR4Coy
 export HOST=localhost
 export DB_DIALECT=postgres
 
-<<<<<<< HEAD
-export COMPANY_TOKEN=6920b03c-152b-4a95-bfa9-5029fbc7fd6b
-=======
+
 export COMPANY_TOKEN=38ee144a-cb32-44cf-870f-d5fbaf8126a6
->>>>>>> ef846b7a8cac663a7f150dbb5bde6dde87c0c4d2
 export LOGCOLLECT_PORT=3070
 export RAWSTORAGE_PORT=3080
 export AGGREGATEDSTORAGE_PORT=3100
