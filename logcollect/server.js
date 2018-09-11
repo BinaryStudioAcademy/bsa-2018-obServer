@@ -1,7 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
-const MetricsService = require('./metricsService');
+const MetricsService = require('./services/metricsService');
 const eventEmitter = require('./events');
 
 const port = process.env.LOGCOLLECT_PORT;
@@ -12,8 +12,9 @@ const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 const sockets = require('./sockets/sockets');
 
-const rawStorePort = process.env.RAWSTORAGE_PORT;
-const rawStoreAddress = `http://localhost:${rawStorePort}/api/logs`; // raw store address we will get from config request
+const rawStorePort = process.env.RAWSTORAGE_PORT || 3050;
+const rawStoreHost = process.env.RAWSTORAGE_HOST || 'localhost';
+const rawStoreAddress = `http://${rawStoreHost}:${rawStorePort}/api/logs`; // raw store address we will get from config request
 const metricsService = new MetricsService(rawStoreAddress, companyToken);
 
 const baseUrl = '/api';
@@ -32,8 +33,9 @@ app.use(
 app.post(`${baseUrl}/config`, (req, res) => {
   console.log(req.body);
 
+  metricsService.startServerMonitor();
   metricsService.startCPUMonitor(3000);
-  metricsService.startMemoryMonitor(3000);
+  metricsService.startMemoryMonitor(3000);  
 
   res.send(req.body);
 });
@@ -46,7 +48,7 @@ app.post(`${baseUrl}/logs`, (req, res) => {
 sockets(io);
 
 eventEmitter.on('get new settings', settings => {
-  console.log('get new settings', settings);
+  metricsService.newLogSettings(settings);
 });
 
 app.listen(port, () => {

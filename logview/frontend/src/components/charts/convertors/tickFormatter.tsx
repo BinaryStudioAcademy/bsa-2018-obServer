@@ -31,14 +31,9 @@ export function convertNumberToPercent(number, fixed = 0) {
 export function convertXAxisTime(timeRange) {
 	switch (timeRange) {
 		case 'last 10 minutes':
-			return convertToMinuteSecond;
 		case 'last 30 minutes':
-			return convertToMinuteSecond;
-		case 'last 1 hour':
-			return convertToHourMinuteSecond;
+		case 'last hour':
 		case 'last 5 hours':
-		case 'last 3 hours':
-			return convertToHourMinuteSecond;
 		case 'last 12 hours':
 			return convertToHourMinuteSecond;
 		case 'last day':

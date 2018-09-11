@@ -3,6 +3,25 @@ import { media, colors } from './styles-utils';
 
 const userEditIcon = require('src/assets/edit.png');
 
+export const SettingsForm = styled.form`
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+`;
+
+export const SettingsWrapper = styled.div`
+	border-top: 3px solid ${colors.violet};
+	background: #f1f1f1;
+	padding: 15px;
+	margin-bottom: 50px;
+	width: 50%;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+`;
+
 export const CheckBoxSwitchWrapper = styled.div`
 	display: grid;
 	grid-template-columns: 70px 1fr;
@@ -81,7 +100,7 @@ export const SettingFormGroupInput = styled.div`
 	display: grid;
 	grid-template-columns: 1fr 1fr;
 	gap: 10px;
-${media.desktop`grid-template-columns: 1fr;`};
+	${media.desktop`grid-template-columns: 1fr;`};
 }`;
 
 export const AddNewAppGroupInput = styled.div`
@@ -149,6 +168,7 @@ export const SettingsSubmitButton = styled.button`
 	float: right;
 	padding: 10px 30px;
 	background-color: ${colors.violet};
+	border-radius: 5px;
 	color: #fff;
 	text-transform: uppercase;
 	border: none;
