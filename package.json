@@ -4,7 +4,7 @@
     "react-table": "^6.8.6"
   },
   "scripts": {
-    "start-servers": "nodemon logcollect/server.js & nodemon rawstorage/server.js & nodemon aggregatedstorage/server.js &",
+    "start-servers": "nodemon rawstorage/server.js & nodemon aggregatedstorage/server.js &",
     "stop-servers": "killall node"
   }
  }
