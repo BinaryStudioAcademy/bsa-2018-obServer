@@ -10,7 +10,7 @@ then
     export PROJECT_NAME=rawstorage
 elif [ "$TRAVIS_BRANCH" == "aggregated-store" ]
 then
-    export PROJECT_NAME=aggregated-storage
+    export PROJECT_NAME=aggregatedstorage
 fi
 
 export DOCKER_ACCOUNT_NAME=dmitriybeseda
@@ -49,7 +49,7 @@ then
     docker pull rabbitmq && \ 
     docker pull $DOCKER_IMAGE_NAME && 
     docker stop $PROJECT_NAME && docker rm $PROJECT_NAME && docker rmi -f $DOCKER_IMAGE_NAME && \
-    docker run -it -d -p 80:3100 --env-file 'vars.env' --name=$PROJECT_NAME $DOCKER_IMAGE_NAME"
+    docker run -it -d -p 80:3100 --env-file 'vars.env' --link rabbitmq:rabbitmq --link mongodb:mongodb --name=$PROJECT_NAME $DOCKER_IMAGE_NAME"
 fi
 
 # docker run -it -v /home/$USER/mongodata:/data/db -d -p 27017:27017 --name=mongodb mongo 
