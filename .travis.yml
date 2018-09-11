@@ -29,7 +29,7 @@ branches:
   only:
     - logview
     - raw-store
-    - aggreagted-store
+    - aggregated-store
 
 deploy:
   - provider: script
