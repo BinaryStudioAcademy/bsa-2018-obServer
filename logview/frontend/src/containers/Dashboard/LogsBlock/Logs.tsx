@@ -44,7 +44,10 @@ class Logs extends React.Component<LogsProps, LogsState> {
 	}
 
 	componentDidUpdate(prevProps) {
-		if (this.props.user.companyId !== prevProps.user.companyId) {
+		if (
+			this.props.user.companyId &&
+			this.props.user.companyId !== prevProps.user.companyId
+		) {
 			this.props.actions.getLogMessages(this.props.user.companyId);
 		}
 	}
