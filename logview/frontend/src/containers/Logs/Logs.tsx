@@ -99,8 +99,8 @@ class Logs extends React.Component<LogsProps, LogsState> {
 					</Submit>
 					<LevelsSelect />
 					<LogsUpdateTimer
-						caller="logs"
 						activeInterval={this.props.filters.timeRanges.logs}
+						caller="logs"
 					/>
 				</LogsSearchForm>
 				{this.props.fetchingLogsStatus === 'success' ? (

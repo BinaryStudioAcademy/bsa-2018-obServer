@@ -33,7 +33,7 @@ export function memoryMbParser(memoryLogs) {
 	const logs = [];
 	memoryLogs.forEach((log, index) => {
 		let obj = {};
-		obj['usedMemory'] = log.data.allMemory - log.data.freeMemory;
+		obj['usedMemory'] = log.allMemory - log.freeMemory;
 		obj['timestamp'] = log.timestamp;
 		logs.push(obj);
 	});
