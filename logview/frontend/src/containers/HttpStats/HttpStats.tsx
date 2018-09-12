@@ -35,30 +35,15 @@ interface HttpProps {
 	apps: Array<AppsState>;
 }
 
-interface HttpState {
-	timeRange: string;
-}
+interface HttpState {}
 
 class HttpStats extends React.Component<HttpProps, HttpState> {
 	constructor(props: HttpProps) {
 		super(props);
-		this.state = {
-			timeRange: this.props.filters.timeRange
-		};
-		this.handleTimeRange = this.handleTimeRange.bind(this);
 		this.onActiveTimeRange = this.onActiveTimeRange.bind(this);
 	}
 
 	componentDidMount() {
-		const activeApp = this.props.filters.activeApp;
-		activeApp &&
-			this.props.actions.getNewHttpStats(
-				activeApp.value,
-				convertTimeRangeToInterval(this.props.filters.timeRange)
-			);
-	}
-
-	handleTimeRange(event) {
 		const activeApp = this.props.filters.activeApp;
 		activeApp &&
 			this.props.actions.getNewHttpStats(
@@ -75,6 +60,17 @@ class HttpStats extends React.Component<HttpProps, HttpState> {
 				activeApp.value,
 				convertTimeRangeToInterval(this.props.filters.timeRange)
 			);
+	}
+
+	componentWillReceiveProps(nextProps) {
+		if (nextProps.filters.activeApp !== this.props.filters.activeApp) {
+			const activeApp = nextProps.filters.activeApp;
+			activeApp &&
+				this.props.actions.getNewHttpStats(
+					activeApp.value,
+					convertTimeRangeToInterval(this.props.filters.timeRange)
+				);
+		}
 	}
 
 	render() {
@@ -139,8 +135,7 @@ class HttpStats extends React.Component<HttpProps, HttpState> {
 													this.props.filters.timeRange
 												}
 												onActive={
-													this.props.actions
-														.handleTimeRange
+													this.onActiveTimeRange
 												}
 											/>
 										</ChartHeader>

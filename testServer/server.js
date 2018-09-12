@@ -1,7 +1,7 @@
 const express = require('express');
 const io = require('socket.io-client');
 var free = require("free-memory");
-const obServer = require('../logconnect')(3070, '574ec2cd-51aa-4045-b523-461c21ad1c24');
+const obServer = require('../logconnect')(3070, '8defa11e-9446-4b40-a307-7bccd1c76af6');
 
 const app = express();
 
