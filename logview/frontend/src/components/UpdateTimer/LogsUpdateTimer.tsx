@@ -36,6 +36,11 @@ interface UpdateTimerProps {
 	activeInterval: string;
 }
 
+interface ConnectProps {
+	caller: string;
+	activeInterval: string;
+}
+
 class UpdateTimer extends React.Component<UpdateTimerProps, UpdateTimerState> {
 	constructor(props: any) {
 		super(props);
@@ -91,7 +96,7 @@ const mapDispatchToProps = (dispatch: any) => ({
 	actions: bindActionCreators({ handleTimeRange }, dispatch)
 });
 
-const UpdateTimerConnected = connect(
+const UpdateTimerConnected = connect<{}, {}, ConnectProps>(
 	mapStateToProps,
 	mapDispatchToProps
 )(onClickOutside(UpdateTimer));
