@@ -6,7 +6,7 @@ import {
 	LogMessagesState,
 	NotificationState
 } from '../../types/LogsState';
-import { ActiveAppState } from 'src/types/AppsState';
+import { ActiveAppState } from '../../types/AppsState';
 
 export interface GetLogs {
 	type: constants.GET_LOGS;

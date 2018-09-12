@@ -7,7 +7,7 @@ import ServerSettings from './ServerSettings';
 import {
 	SettingsMenuLink,
 	SettingsMenuWrapper
-} from 'src/styles/SettingsFormStyles';
+} from '../../styles/SettingsFormStyles';
 
 interface MatchParams {}
 

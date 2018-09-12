@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Copy } from 'styled-icons/fa-solid';
-import { ServerSecretKey } from 'src/styles/SettingsFormStyles';
-import { copyToClipboard } from 'src/services/clipboard';
+import { ServerSecretKey } from '../../styles/SettingsFormStyles';
+import { copyToClipboard } from '../../services/clipboard';
 
 interface SecretKeyProps {
 	secretKey: string;
