@@ -91,7 +91,12 @@ const mapDispatchToProps = (dispatch: any) => ({
 	actions: bindActionCreators({ handleTimeRange }, dispatch)
 });
 
-const UpdateTimerConnected = connect(
+interface ConnectProps {
+	caller: string;
+	activeInterval: string;
+}
+
+const UpdateTimerConnected = connect<{}, {}, ConnectProps>(
 	mapStateToProps,
 	mapDispatchToProps
 )(onClickOutside(UpdateTimer));
