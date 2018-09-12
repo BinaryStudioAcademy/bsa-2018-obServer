@@ -19,7 +19,6 @@ import LogsUpdateTimer from 'src/components/UpdateTimer/LogsUpdateTimer';
 import { getNewHttpStats } from 'src/redux/logs/actions';
 import { FiltersState } from 'src/types/LogsState';
 import { AppsState } from 'src/types/AppsState';
-import HttpTabelDemo from 'src/components/tabels/httpTabelDemo';
 import {
 	countHttpParser,
 	countRoutesParser,
@@ -149,11 +148,6 @@ class HttpStats extends React.Component<HttpStatsProps, HttpStatsState> {
 									/>
 								</Chart>
 							</ChartWrapper>
-							<TableWrapper>
-								<HttpTabelDemo
-									data={httpParser(this.props.httpStats)}
-								/>
-							</TableWrapper>
 						</Grid>
 					) : (
 						<LoaderBars />
