@@ -25,7 +25,7 @@ export interface StoreState {
 	fetchingAppsStatus: string;
 	cpuLogs: Array<CpuLogState>;
 	memoryLogs: Array<MemoryLogState>;
-	httpStats: Array<HttpStatsState>;
+	httpStats: Array<Array<HttpStatsState>>;
 	logMessages: Array<LogMessagesState>;
 	filters: FiltersState;
 	notificationLogs: Array<NotificationState>;
