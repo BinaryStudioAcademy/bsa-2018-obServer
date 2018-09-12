@@ -12,6 +12,7 @@ export const HttpContainer = styled.div`
 	border-radius: 5px;
 	display: flex;
 	flex-direction: column;
+	padding: 10px 5px 30px;
 `;
 
 export const Title = HttpTitle.extend`

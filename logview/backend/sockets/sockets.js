@@ -6,7 +6,8 @@ const port = process.env.APP_PORT;
 const aggregatedStoragePort = process.env.AGGREGATEDSTORAGE_PORT;
 const aggregatedStorageHost = process.env.AGGREGATEDSTORAGE_HOST || 'localhost';
 const aggrStoreURL = `http://${aggregatedStorageHost}:${aggregatedStoragePort}`;
-const logviewURL = `http://localhost:${port}`;
+const { LOGVIEW_HOST } = process.env;
+const logviewURL = `http://${LOGVIEW_HOST || 'localhost'}:${port}`;
 
 module.exports = io => {
 	const aggrStoreSocket = ioClient.connect(aggrStoreURL);

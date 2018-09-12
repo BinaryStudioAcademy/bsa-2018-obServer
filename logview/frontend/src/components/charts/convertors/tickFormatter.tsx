@@ -5,7 +5,7 @@ export function convertToDayHourMinute(timestamp) {
 }
 
 export function convertToHourMinuteSecond(timestamp) {
-	return moment(timestamp).format('HH:mm');
+	return moment(timestamp).format('HH:mm:ss');
 }
 
 export function convertToMinuteSecond(timestamp) {
