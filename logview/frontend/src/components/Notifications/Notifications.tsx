@@ -44,7 +44,7 @@ class Notifications extends React.Component<
 
 	componentDidUpdate(prevProps) {
 		if (this.props !== prevProps) {
-			this.setState({newNotifications: true});
+			this.setState({ newNotifications: true });
 		}
 	}
 
@@ -54,7 +54,7 @@ class Notifications extends React.Component<
 
 	handleClick(e) {
 		this.setState({ popup: !this.state.popup });
-		this.setState({newNotifications: false});
+		this.setState({ newNotifications: false });
 	}
 
 	togglePopup() {
@@ -76,8 +76,7 @@ class Notifications extends React.Component<
 			<Wrapper>
 				<Wrapper>
 					<NotificationIcon size="25" onClick={this.handleClick} />
-					{
-						notifications &&
+					{notifications &&
 						notifications.length > 0 &&
 						notifications.length &&
 						this.state.newNotifications && (
