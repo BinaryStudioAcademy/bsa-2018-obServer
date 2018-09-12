@@ -60,13 +60,22 @@ class Logs extends React.Component<LogsProps, LogsState> {
 		return (
 			<React.Fragment>
 				<ChartWrapper>
-					<ChartHeader>Errors Statistics</ChartHeader>
+					<ChartHeader>
+						<h3>Errors Statistics</h3>
+						<LogsUpdateTimer
+							caller="errStats"
+							activeInterval={
+								this.props.filters.timeRanges.errStats
+							}
+						/>
+					</ChartHeader>
 					{this.props.fetchingLogsStatus === 'success' ? (
 						<ErrChart
-							data={calcErrStats(
-								this.props.logMessages,
-								this.props.filters
-							)}
+							data={calcErrStats(this.props.logMessages, {
+								activeApp: this.props.filters.activeApp,
+								timeRange: this.props.filters.timeRanges
+									.errStats
+							})}
 							timeRange={this.props.filters.timeRanges.errStats}
 						/>
 					) : (
