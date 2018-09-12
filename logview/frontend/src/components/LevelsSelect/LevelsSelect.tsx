@@ -26,6 +26,8 @@ interface SelectProps {
 	filters: FiltersState;
 }
 
+const keys = ['error', 'warn', 'info', 'verbose', 'debug', 'silly'];
+
 class Select extends React.Component<SelectProps, SelectState> {
 	constructor(props: any) {
 		super(props);
@@ -54,7 +56,6 @@ class Select extends React.Component<SelectProps, SelectState> {
 	}
 
 	render() {
-		const keys = Object.keys(this.props.filters.logLevels);
 		return (
 			<StyledSelect popup={this.state.popup}>
 				<OptionActive onClick={this.togglePopup}>
