@@ -7,8 +7,7 @@ import {
 	Option,
 	Dropdown
 } from './UpdateTimerStyles';
-// import { ArrowDropDown } from 'styled-icons/material';
-// redux
+
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { handleTimeRange } from 'src/redux/logs/actions';

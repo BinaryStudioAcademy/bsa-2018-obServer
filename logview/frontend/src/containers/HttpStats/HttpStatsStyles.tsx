@@ -1,5 +1,6 @@
 import { CommentText, UserText } from '../../styles/TextStyles';
 import { Chart, ChartInfo } from '../../styles/ChartStyles';
+import styled from 'styled-components';
 import {
 	ChartHeader,
 	ChartGridTwo as Grid,
@@ -13,6 +14,14 @@ import { Title } from '../../styles/Styles';
 
 export const ChartGrid = Grid.extend`
 	margin-top: 100px;
+`;
+
+export const TableWrapper = styled.div`
+	margin: auto;
+	margin: 10px;
+	background: white;
+	border-radius: 0.25rem;
+	display: flex;
 `;
 
 export {

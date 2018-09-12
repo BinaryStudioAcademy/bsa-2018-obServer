@@ -27,7 +27,5 @@ export const NoDataWrapper = styled.div`
 	margin: auto;
 	margin-top: 10%;
 	max-width: 900px;
-	border-radius: 20px;
 	padding: 15px 10px;
-	background: ${colors.blue};
 `;
