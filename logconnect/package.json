@@ -1,6 +1,6 @@
 {
   "name": "observer-bsa",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "obServer - service for monitoring your node.js app",
   "main": "index.js",
   "scripts": {
@@ -19,9 +19,9 @@
     "dotenv": "^6.0.0",
     "express": "^4.16.3",
     "free-memory": "^1.0.0",
+    "pidusage": "^2.0.16",
     "socket.io-client": "^2.1.1",
     "socket.io-monitor": "^2.0.1",
-    "tcp-ping": "^0.1.1",
-    "usage": "^0.7.1"
+    "tcp-ping": "^0.1.1"
   }
 }

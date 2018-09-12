@@ -1,5 +1,5 @@
 const createLogObject = require('./createLogObject');
-const usage = require('usage');
+const pidusage = require('pidusage');
 
 class CPUAppStats {
     constructor(sendLog, appId) {
@@ -9,12 +9,12 @@ class CPUAppStats {
     }
 
     calcCPU(callback) {
-        usage.lookup(process.pid, (err, data) => {
-            if (err) console.error(err);
-            else {
-                const cpuUsagePercentages  = Math.round(data.cpu * 100) / 100;
-                callback({ cpuUsagePercentages });
-            }
+        pidusage(process.pid, (err, data) => {
+          if (err) console.error(err);
+          else {
+              const cpuUsagePercentages  = Math.round(data.cpu * 100) / 100;
+              callback({ cpuUsagePercentages });
+          }
         });
     }
 
