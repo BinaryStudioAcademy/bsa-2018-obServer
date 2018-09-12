@@ -10,7 +10,8 @@ import {
 	FormStatusIcon,
 	UserItem,
 	Row,
-	Status
+	Status,
+	AdminSwitchGrid
 } from './CompanyStyles';
 import { fetchCompanyUsers } from '../../redux/company/actions';
 import { userInvite } from '../../redux/user/actions';
@@ -19,7 +20,7 @@ import { bindActionCreators } from 'redux';
 import UserSingle from './UserSingle';
 import { Title } from '../../styles/Styles';
 import { IconContainer } from './UserSingleStyles';
-import SettingCheckBox from '../../components/settings/SettingCheckBox';
+import AdminCheckBox from '../../components/AdminCheckBox';
 
 interface CompanyProps {
 	actions: { userInvite: Function; fetchCompanyUsers: Function };
@@ -115,14 +116,14 @@ class Company extends React.Component<CompanyProps, CompanyState> {
 							placeholder="email"
 							onChange={this.handleFieldChange}
 						/>
-						<div>
-							<p>Admin</p>
-							<SettingCheckBox
+						<AdminSwitchGrid>
+							<p>Admin:</p>
+							<AdminCheckBox
 								name="admin"
 								checked={this.state.admin}
 								onChange={this.handleCheckbox}
 							/>
-						</div>
+						</AdminSwitchGrid>
 						<Submit onClick={this.handleSubmit}>
 							{this.props.fetchingUserStatus === 'success'
 								? 'Sent'
