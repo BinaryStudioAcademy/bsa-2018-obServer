@@ -94,52 +94,57 @@ class HttpStats extends React.Component<HttpStatsProps, HttpStatsState> {
 				</HttpContainer>
 			);
 		} else {
-			return this.props.fetchingLogsStatus === 'success' ? (
+			return (
 				<HttpContainer>
 					<Title>Http Stats</Title>
-
-					<Grid>
-						<ChartWrapper>
-							<Chart>
-								<ChartHeader>
-									<h3>Request Count</h3>
-									<UpdateTimer
-										active={this.props.filters.timeRange}
-										onActive={this.onActiveTimeRange}
+					{this.props.fetchingLogsStatus === 'success' ? (
+						<Grid>
+							<ChartWrapper>
+								<Chart>
+									<ChartHeader>
+										<h3>Request Count</h3>
+										<UpdateTimer
+											active={
+												this.props.filters.timeRange
+											}
+											onActive={this.onActiveTimeRange}
+										/>
+									</ChartHeader>
+									<HttpCountChart
+										data={countHttpParser(
+											this.props.httpStats,
+											this.props.filters.timeRange
+										)}
+										timeRange={this.props.filters.timeRange}
 									/>
-								</ChartHeader>
-								<HttpCountChart
-									data={countHttpParser(
-										this.props.httpStats,
-										this.props.filters.timeRange
-									)}
-									timeRange={this.props.filters.timeRange}
-								/>
-							</Chart>
-						</ChartWrapper>
-						<ChartWrapper>
-							<Chart>
-								<ChartHeader>
-									<h3>Routes Count</h3>
-									<UpdateTimer
-										active={this.props.filters.timeRange}
-										onActive={this.onActiveTimeRange}
+								</Chart>
+							</ChartWrapper>
+							<ChartWrapper>
+								<Chart>
+									<ChartHeader>
+										<h3>Routes Count</h3>
+										<UpdateTimer
+											active={
+												this.props.filters.timeRange
+											}
+											onActive={this.onActiveTimeRange}
+										/>
+									</ChartHeader>
+									<HttpRoutesBarChart
+										data={countRoutesParser(
+											this.props.httpStats
+										)}
 									/>
-								</ChartHeader>
-								<HttpRoutesBarChart
-									data={countRoutesParser(
-										this.props.httpStats
-									)}
-								/>
-							</Chart>
-						</ChartWrapper>
-					</Grid>
+								</Chart>
+							</ChartWrapper>
+						</Grid>
+					) : (
+						<LoaderBars />
+					)}
 					<Submit>
 						<Link to="/dashboard/httpstats">open http stats</Link>
 					</Submit>
 				</HttpContainer>
-			) : (
-				<LoaderBars />
 			);
 		}
 	}
