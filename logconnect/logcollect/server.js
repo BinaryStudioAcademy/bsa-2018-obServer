@@ -1,21 +1,18 @@
-require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const MetricsService = require('./services/metricsService');
 const eventEmitter = require('./events');
 
 module.exports = (logcollectPort, companyId) => {
-  const port = logcollectPort; // process.env.LOGCOLLECT_PORT;
-  const companyToken = companyId; // process.env.COMPANY_TOKEN; 
+  const port = logcollectPort;
   const app = express();
 
   const server = require('http').createServer(app);
-  // const io = require('socket.io')(server);
   const getSettings = require('./sockets/sockets');
 
-  const rawStorePort = process.env.RAWSTORAGE_PORT || 3080;
-  const rawStoreAddress = `http://localhost:${rawStorePort}/api`;
-  const metricsService = new MetricsService(rawStoreAddress, companyToken);
+  const rawStorePort = 80;
+  const rawStoreAddress = `http://35.234.69.138:${rawStorePort}/api`;
+  const metricsService = new MetricsService(rawStoreAddress, companyId);
 
   const baseUrl = '/api';
 
@@ -29,16 +26,6 @@ module.exports = (logcollectPort, companyId) => {
       extended: false
     })
   );
-
-  // app.post(`${baseUrl}/config`, (req, res) => {
-  //   console.log(req.body);
-
-  //   metricsService.startServerMonitor();
-  //   metricsService.startCPUMonitor(3000);
-  //   metricsService.startMemoryMonitor(3000);  
-
-  //   res.send(req.body);
-  // });
 
   app.post(`${baseUrl}/logs`, (req, res) => {
     metricsService.newLog(req.body);
@@ -55,5 +42,3 @@ module.exports = (logcollectPort, companyId) => {
     console.log(`Logcollect service listening on port ${port}`);
   });
 }
-
-

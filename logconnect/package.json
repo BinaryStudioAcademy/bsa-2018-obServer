@@ -1,6 +1,6 @@
 {
   "name": "observer-bsa",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "obServer - service for monitoring your node.js app",
   "main": "index.js",
   "scripts": {
@@ -16,7 +16,6 @@
   "dependencies": {
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
-    "dotenv": "^6.0.0",
     "express": "^4.16.3",
     "free-memory": "^1.0.0",
     "pidusage": "^2.0.16",
