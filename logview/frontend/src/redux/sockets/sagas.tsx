@@ -99,6 +99,7 @@ const listenServerSaga = function*() {
 			.companyId;
 		socket.emit('getLogs', companyToken);
 		const callback = yield call(logsAPI.resoucesAverages);
+		console.log(callback);
 
 		while (true) {
 			const newLog = yield take(socketChannel);

@@ -6,5 +6,5 @@ export interface AppsState {
 
 export interface ActiveAppState {
 	name: string;
-	value: number;
+	value: string;
 }

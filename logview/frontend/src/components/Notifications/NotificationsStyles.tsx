@@ -54,6 +54,24 @@ export const NotificationPopup = transition.div`
         transform: translateX(50%);
         transition: all 300ms cubic-bezier(.04,.64,.44,1);
     }
+
+    &::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+        border-radius: 10px;
+        border: none;
+        background-color: #3d3d3d;
+    }
+
+    &::-webkit-scrollbar {
+        width: 12px;
+        background-color: #3d3d3d;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        border: none;
+        background-color: #555;
+    }
 `;
 
 export const Wrapper = styled.span`
