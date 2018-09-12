@@ -18,7 +18,7 @@ class Quickstart extends React.Component {
 					Here are some of the most common commands you’ll need.
 				</ContentBlock>
 				<ContentSubheader>
-					Adding observer as dependency into your project
+					Adding observer-bsa as dependency into your project
 				</ContentSubheader>
 				<ContentBlock>
 					Our logcollect and logconnect applications are included in
@@ -26,7 +26,7 @@ class Quickstart extends React.Component {
 					following:
 				</ContentBlock>
 				<Pre>
-					<Code>&nbsp;yarn add observer</Code>
+					<Code>&nbsp;yarn add observer-bsa</Code>
 				</Pre>
 				<ContentSubheader>
 					Adding observer to different categories of dependencies
@@ -37,28 +37,31 @@ class Quickstart extends React.Component {
 				</ContentBlock>
 				<Pre>
 					<Code>
-						&nbsp;yarn add observer --dev&nbsp;
+						&nbsp;yarn add observer-bsa --dev&nbsp;
 						<br />
-						&nbsp;yarn add observer --peer&nbsp;
+						&nbsp;yarn add observer-bsa --peer&nbsp;
 						<br />
-						&nbsp;yarn add observer --optional
+						&nbsp;yarn add observer-bsa --optional
 					</Code>
 				</Pre>
 				<ContentSubheader>Using observer in your code</ContentSubheader>
 				<ContentBlock>
-					In your express.js application add into index.js:
+					In your application add into index.js:
 				</ContentBlock>
 				<Pre>
 					<Code>
-						&nbsp;const logconnect =
-						require("observer").logconnect;&nbsp;
+						&nbsp;const observer =
+						require("observer-bsa")(logcollectPort, appId);&nbsp;
 						<br />
 						<br />
 						&nbsp;... <i>(your code here)</i>
 						&nbsp;
 						<br />
 						<br />
-						&nbsp;app.use(logconnect);
+						&nbsp;app.use(observer.httpStats()); // http statistic
+						for your Express.js app
+						&nbsp;obServer.logger().error('some error'); // error
+						log
 					</Code>
 				</Pre>
 				<ContentBlock>
@@ -67,22 +70,13 @@ class Quickstart extends React.Component {
 				</ContentBlock>
 				<Pre>
 					<Code>
-						&nbsp;const logcollect =
-						require("observer").logcollect;&nbsp;
-						<br />
-						&nbsp;logcollect.start("8080", &#123;&nbsp;
-						<br />
-						&#9;...options, <br />
-						&nbsp; &#9;token:&nbsp;
-						"123af12345b1a12345a6aa1234e123456ae1234b"&nbsp;
-						<br />
-						&nbsp;})
+						&nbsp;require("observer-bsa/logcollect")(logcollectPort,
+						companyId);&nbsp;
 					</Code>
 				</Pre>
 				<ContentBlock>
-					Several logconnect apps send data to logcollect (port :8080
-					in this case) and logcollect sends token (which serves as
-					id) to database.
+					Several logconnect apps send data to logcollect (port 3100
+					in this case).
 				</ContentBlock>
 				<ContentSubheader>Upgrading observer</ContentSubheader>
 				<Pre>
