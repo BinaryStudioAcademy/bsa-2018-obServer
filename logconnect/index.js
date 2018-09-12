@@ -12,24 +12,20 @@ class LogConnect {
     
     const logcollectUrl = `http://localhost:${logcollectPort}/api/logs`;
     this.sendLog = requestHelper(logcollectUrl);
+
+    new AppMonitor(this.sendLog, this.appId).startAppMonitor();
+    new CPUStats(this.sendLog, this.appId).startCPUMonitor();
+    new MemoryStats(this.sendLog, this.appId).startMemoryMonitor();
   }
+  
   httpStats() {
     return httpMiddleware(this.sendLog, this.appId);
   }
   logger() {
     return new Logger(this.sendLog, this.appId);
   }  
-  CPUStats() {
-    return new CPUStats(this.sendLog, this.appId).startCPUMonitor();
-  }
-  memoryStats() {
-    return new MemoryStats(this.sendLog, this.appId).startMemoryMonitor();
-  }
   socketStats(io) {
     return new SocketStats(io, this.sendLog, this.appId).startSocketMonitor();
-  }
-  appMonitor() {
-    return new AppMonitor(this.sendLog, this.appId).startAppMonitor();
   }
 };
 
