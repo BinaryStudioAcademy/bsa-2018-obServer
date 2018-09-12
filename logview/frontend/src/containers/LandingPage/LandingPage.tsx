@@ -14,7 +14,7 @@ import {
 import Particles from 'react-particles-js';
 import config from './particlesjs-config';
 import { Link } from 'react-router-dom';
-import ServerResourcesChart from '../ServerResources/ServerResourcesChart';
+const cpuChart = require('src/assets/LandingChartMock.png');
 
 class LandingPage extends React.Component {
 	render() {
@@ -43,7 +43,9 @@ class LandingPage extends React.Component {
 				
 				<div>
 					<ChatsShowcaseLeft>
-						<div>graphic left</div>
+						<div>
+							<img src={cpuChart} width="540px" />
+						</div>
 						<div>
 							desc
 						</div>
