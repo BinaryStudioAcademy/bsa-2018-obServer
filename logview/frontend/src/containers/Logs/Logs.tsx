@@ -89,14 +89,18 @@ class Logs extends React.Component<LogsProps, LogsState> {
 						</RowContainer>
 					</Submit>
 					<LevelsSelect />
-					<LogsUpdateTimer />
+					<LogsUpdateTimer
+						caller="logs"
+						activeInterval={this.props.filters.timeRanges.logs}
+					/>
 				</LogsSearchForm>
 				{this.props.fetchingLogsStatus === 'success' ? (
 					<LogStatsTabel
-						data={filterLogs(
-							this.props.logMessages,
-							this.props.filters
-						)}
+						data={filterLogs(this.props.logMessages, {
+							activeApp: this.props.filters.activeApp,
+							timeRange: this.props.filters.timeRanges.logs,
+							logLevels: this.props.filters.logLevels
+						})}
 					/>
 				) : (
 					<LoaderBars />

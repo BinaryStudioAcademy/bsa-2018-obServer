@@ -6,7 +6,7 @@ export function calcErrStats(logs, filters) {
 	let filteredByApp = [];
 	filters.activeApp
 		? (filteredByApp = logs.filter(log => {
-				return log.appId === filters.activeApp;
+				return log.appId === filters.activeApp.value;
 		  }))
 		: (filteredByApp = logs);
 	if (filteredByApp.length === 0) {
@@ -23,7 +23,7 @@ export function calcErrStats(logs, filters) {
 		return [{ timestamp: Date.now(), errors: 0 }];
 	}
 
-	switch (filters.timeRanges) {
+	switch (filters.timeRange) {
 		case 'last 10 minutes':
 			// 10 chart bars
 			return calcErrStatsByTime(errorLogs, startDateValue, 60000, 10);
@@ -37,7 +37,7 @@ export function calcErrStats(logs, filters) {
 			// 20 chart bars
 			return calcErrStatsByTime(errorLogs, startDateValue, 900000, 20);
 		case 'last 12 hours':
-			// 12 chart bars
+			// 24 chart bars
 			return calcErrStatsByTime(errorLogs, startDateValue, 1800000, 24);
 		case 'last 24 hours':
 			// 24 chart bars
@@ -46,7 +46,7 @@ export function calcErrStats(logs, filters) {
 			// 8 chart bars
 			return calcErrStatsByDate(errorLogs, startDateValue, 86400000, 8);
 		case 'last 30 days':
-			// 30 chart bars
+			// 31 chart bars
 			return calcErrStatsByDate(errorLogs, startDateValue, 86400000, 31);
 		default:
 			return [{ timestamp: Date.now(), errors: 0 }];
@@ -112,7 +112,7 @@ export function filterLogs(logs, filters) {
 	let filteredByApp = [];
 	filters.activeApp
 		? (filteredByApp = logs.filter(log => {
-				return log.appId === filters.activeApp;
+				return log.appId === filters.activeApp.value;
 		  }))
 		: (filteredByApp = logs);
 
@@ -126,7 +126,7 @@ export function filterLogs(logs, filters) {
 
 	// filter by date
 	let filteredByDate = [];
-	let startDateValue = defineStartDateValue(filters.timeRanges);
+	let startDateValue = defineStartDateValue(filters.timeRange);
 	filteredByLevel.length > 0
 		? (filteredByDate = filteredByLevel.filter(log => {
 				let timestamp = new Date(log.timestamp);
