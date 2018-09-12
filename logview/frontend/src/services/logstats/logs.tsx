@@ -4,7 +4,7 @@
 export function calcErrStats(logs, filters) {
 	// filter by app
 	let filteredByApp = [];
-	filters.activeApp.length > 0
+	filters.activeApp
 		? (filteredByApp = logs.filter(log => {
 				return log.appId === filters.activeApp;
 		  }))
@@ -110,7 +110,7 @@ export function filterLogs(logs, filters) {
 
 	// filter by app
 	let filteredByApp = [];
-	filters.activeApp.length > 0
+	filters.activeApp
 		? (filteredByApp = logs.filter(log => {
 				return log.appId === filters.activeApp;
 		  }))
