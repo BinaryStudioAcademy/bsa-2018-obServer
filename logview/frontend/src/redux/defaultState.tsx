@@ -23,13 +23,7 @@ export const defaultState: StoreState = {
 		logcollectPort: '',
 		companyId: ''
 	},
-	apps: [
-		{
-			name: undefined,
-			port: undefined,
-			id: undefined
-		}
-	],
+	apps: null,
 	cpuLogs: [
 		{
 			logType: '',
@@ -73,20 +67,22 @@ export const defaultState: StoreState = {
 		}
 	],
 	httpStats: [
-		{
-			logType: '',
-			timestamp: '',
-			data: {
-				route: '',
-				method: '',
-				responseTimeMin: 0,
-				responseTimeMax: 0,
-				responseTimeAvg: 0,
-				bodySizeRequest: 0,
-				bodySizeResponse: 0,
-				requestsCount: 0
+		[
+			{
+				logType: '',
+				timestamp: '',
+				data: {
+					route: '',
+					method: '',
+					responseTimeMin: 0,
+					responseTimeMax: 0,
+					responseTimeAvg: 0,
+					bodySizeRequest: 0,
+					bodySizeResponse: 0,
+					requestsCount: 0
+				}
 			}
-		}
+		]
 	],
 	logMessages: [
 		{

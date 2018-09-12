@@ -17,10 +17,9 @@ import io from 'socket.io-client';
 import { eventChannel } from 'redux-saga';
 import { apply } from 'redux-saga/effects';
 
-const port = 3060;
-const url = `http://localhost:${port}`;
-
 let socket;
+
+const url = window.location.origin;
 
 export const connect = () => {
 	socket = io(url);

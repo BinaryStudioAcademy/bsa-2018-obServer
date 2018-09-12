@@ -5,8 +5,9 @@ class Api {
 	requestType: any;
 
 	constructor() {
+		const url = window.location.origin;
 		this.adapter = axios.create({
-			baseURL: 'http://localhost:3060',
+			baseURL: url,
 			headers: {
 				'Content-Type': 'application/json'
 			}
