@@ -80,7 +80,14 @@ export function filtersReducer(
 		case constants.HANDLE_ACTIVE_APP:
 			return { ...state, activeApp: action.payload };
 		case constants.HANDLE_TIME_RANGE:
-			return { ...state, timeRange: action.payload };
+			let caller = Object.keys(action.payload)[0];
+			return {
+				...state,
+				timeRanges: {
+					...state.timeRanges,
+					[caller]: action.payload[caller]
+				}
+			};
 		case constants.HANDLE_LOG_LEVEL:
 			let level = Object.keys(action.payload)[0];
 			return {

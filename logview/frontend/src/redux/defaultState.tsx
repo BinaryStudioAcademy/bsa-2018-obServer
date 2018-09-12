@@ -94,7 +94,16 @@ export const defaultState: StoreState = {
 	],
 	filters: {
 		activeApp: null,
-		timeRange: 'last 10 minutes',
+		timeRanges: {
+			logs: 'last 10 minutes',
+			errStats: 'last 10 minutes',
+			CPU: 'last 10 minutes',
+			memory: 'last 10 minutes',
+			usedMemory: 'last 10 minutes',
+			routes: 'last 10 minutes',
+			requests: 'last 10 minutes',
+			httpTabel: 'last 10 minutes'
+		},
 		logLevels: {
 			error: true,
 			warn: true,
