@@ -4,7 +4,7 @@ import { Method, Tips } from './logStatsUtils';
 import ReactTable from 'react-table';
 import 'react-table/react-table.css';
 
-export default class LogStatsTabel extends React.Component<any, any> {
+export default class LogStatsTable extends React.Component<any, any> {
 	constructor(props) {
 		super(props);
 		this.state = {

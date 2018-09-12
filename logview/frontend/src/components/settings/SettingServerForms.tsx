@@ -3,8 +3,8 @@ import {
 	ServerFormsWrapper,
 	ServerFormsColumn,
 	SettingFormGroupLabel
-} from 'src/styles/SettingsFormStyles';
-import { AppsState } from 'src/types/AppsState';
+} from '../../styles/SettingsFormStyles';
+import { AppsState } from '../../types/AppsState';
 import { ServerState } from '../../types/ServerState';
 import AppsTabel from '../tabels/appsTable';
 import AddAppForm from './AddNewAppForm';

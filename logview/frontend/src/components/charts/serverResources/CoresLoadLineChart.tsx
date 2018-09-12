@@ -54,11 +54,11 @@ export default class CoresLoadLineChart extends React.Component<any, any> {
 			<ResponsiveContainer width="100%" height="80%" aspect={2}>
 				<LineChart
 					data={this.props.data}
-					margin={{ top: 20, right: 0, left: -30, bottom: 20 }}
+					margin={{ top: 20, right: 0, left: -10, bottom: 20 }}
 				>
 					<XAxis
 						dataKey="timestamp"
-						tickFormatter={convertXAxisTime(this.props.timeRange)}
+						tickFormatter={convertXAxisTime('last 10 minutes')}
 						strokeWidth={0}
 						minTickGap={20}
 						tick={{ transform: 'translate(0, 5)' }}

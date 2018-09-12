@@ -4,7 +4,7 @@ import { Method, Tips } from './Utils';
 import ReactTable from 'react-table';
 import 'react-table/react-table.css';
 
-export default class HttpTabel extends React.Component<any, any> {
+export default class HttpTable extends React.Component<any, any> {
 	constructor(props) {
 		super(props);
 		this.state = {

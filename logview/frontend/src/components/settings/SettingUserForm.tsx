@@ -8,10 +8,10 @@ import {
 	ErrorInputSettings,
 	SettingsForm,
 	SettingsWrapper
-} from 'src/styles/SettingsFormStyles';
+} from '../../styles/SettingsFormStyles';
 import { User, CheckSquare } from 'styled-icons/fa-solid';
-import { UserState } from 'src/types/UserState';
-import { validateUsersNameData } from 'src/services/validate/validate';
+import { UserState } from '../../types/UserState';
+import { validateUsersNameData } from '../../services/validate/validate';
 
 interface SettingsUserState {
 	name?: string;

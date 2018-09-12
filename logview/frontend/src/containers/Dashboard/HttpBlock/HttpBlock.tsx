@@ -5,27 +5,25 @@ import HttpRoutesBarChart from '../../../components/charts/http/routesChart';
 import HttpCountChart from '../../../components/charts/http/countHttpChart';
 import {
 	ChartHeader,
-	TableWrapper,
 	ChartWrapper,
 	Chart
 } from '../../HttpStats/HttpStatsStyles';
 import { Grid, HttpContainer, Title } from './HttpBlockStyles';
 import { Submit } from '../../../styles/Styles';
 import { Link } from 'react-router-dom';
-import NoApps from 'src/components/noData/NoApps';
-import NoActiveApps from 'src/components/noData/NoActiveApp';
-import NoStatsData from 'src/components/noData/NoStatsData';
-import LogsUpdateTimer from 'src/components/UpdateTimer/LogsUpdateTimer';
-import { getNewHttpStats } from 'src/redux/logs/actions';
-import { FiltersState } from 'src/types/LogsState';
-import { AppsState } from 'src/types/AppsState';
+import NoApps from '../../../components/noData/NoApps';
+import NoActiveApps from '../../../components/noData/NoActiveApp';
+import NoStatsData from '../../../components/noData/NoStatsData';
+import LogsUpdateTimer from '../../../components/UpdateTimer/LogsUpdateTimer';
+import { getNewHttpStats } from '../../../redux/logs/actions';
+import { FiltersState } from '../../../types/LogsState';
+import { AppsState } from '../../../types/AppsState';
 import {
 	countHttpParser,
 	countRoutesParser,
-	convertTimeRangeToInterval,
-	httpParser
-} from 'src/services/chartParser';
-import { LoaderBars } from 'src/components/loaders';
+	convertTimeRangeToInterval
+} from '../../../services/chartParser';
+import { LoaderBars } from '../../../components/loaders';
 
 interface HttpStatsProps {
 	actions: { getNewHttpStats: Function };

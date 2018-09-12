@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import HttpTabel from '../../components/tabels/httpTabel';
+import HttpTabel from '../../components/tabels/httpTable';
 import HttpRoutesBarChart from '../../components/charts/http/routesChart';
 import HttpCountChart from '../../components/charts/http/countHttpChart';
 import { HttpStatsState } from '../../types/LogsState';
@@ -13,19 +13,19 @@ import {
 	Title,
 	Chart
 } from './HttpStatsStyles';
-import { LoaderBars } from 'src/components/loaders';
+import { LoaderBars } from '../../components/loaders';
 import {
 	countHttpParser,
 	countRoutesParser,
 	httpParser,
 	convertTimeRangeToInterval
-} from 'src/services/chartParser';
+} from '../../services/chartParser';
 import { FiltersState } from '../../types/LogsState';
-import { AppsState } from 'src/types/AppsState';
-import LogsUpdateTimer from 'src/components/UpdateTimer/LogsUpdateTimer';
-import NoApps from 'src/components/noData/NoApps';
-import NoActiveApps from 'src/components/noData/NoActiveApp';
-import NoStatsData from 'src/components/noData/NoStatsData';
+import { AppsState } from '../../types/AppsState';
+import LogsUpdateTimer from '../../components/UpdateTimer/LogsUpdateTimer';
+import NoApps from '../../components/noData/NoApps';
+import NoActiveApps from '../../components/noData/NoActiveApp';
+import NoStatsData from '../../components/noData/NoStatsData';
 
 interface HttpProps {
 	actions: { getNewHttpStats: Function };
