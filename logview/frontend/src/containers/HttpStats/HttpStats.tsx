@@ -5,17 +5,14 @@ import HttpTabel from '../../components/tabels/httpTabel';
 import HttpRoutesBarChart from '../../components/charts/http/routesChart';
 import HttpCountChart from '../../components/charts/http/countHttpChart';
 import { HttpStatsState } from '../../types/LogsState';
-import { getNewHttpStats } from '../../redux/logs/actions';
+import { getNewHttpStats, handleTimeRange } from '../../redux/logs/actions';
 import {
 	ChartHeader,
 	Grid,
 	ChartWrapper,
-	ChartTimeRange,
 	Title,
-	Chart,
-	SelectChartPage
+	Chart
 } from './HttpStatsStyles';
-import { Timer } from 'styled-icons/material';
 import { LoaderBars } from 'src/components/loaders';
 import {
 	countHttpParser,
@@ -24,12 +21,16 @@ import {
 	convertTimeRangeToInterval
 } from 'src/services/chartParser';
 import { FiltersState } from '../../types/LogsState';
+import { AppsState } from 'src/types/AppsState';
+import UpdateTimer from 'src/components/UpdateTimer/UpdateTimer';
+import NoApps from 'src/components/noData/NoApps';
 
 interface HttpProps {
-	actions: { getNewHttpStats: Function };
+	actions: { getNewHttpStats: Function; handleTimeRange: Function };
 	httpStats: Array<HttpStatsState>;
 	fetchingLogsStatus: string;
 	filters: FiltersState;
+	apps: Array<AppsState>;
 }
 
 interface HttpState {
@@ -40,10 +41,10 @@ class HttpStats extends React.Component<HttpProps, HttpState> {
 	constructor(props: HttpProps) {
 		super(props);
 		this.state = {
-			timeRange: 'last 10 minutes'
+			timeRange: this.props.filters.timeRange
 		};
-
 		this.handleTimeRange = this.handleTimeRange.bind(this);
+		this.onActiveTimeRange = this.onActiveTimeRange.bind(this);
 	}
 
 	componentDidMount() {
@@ -51,37 +52,35 @@ class HttpStats extends React.Component<HttpProps, HttpState> {
 		activeApp &&
 			this.props.actions.getNewHttpStats(
 				activeApp.value,
-				convertTimeRangeToInterval(this.state.timeRange)
+				convertTimeRangeToInterval(this.props.filters.timeRange)
 			);
 	}
 
 	handleTimeRange(event) {
-		this.setState({ timeRange: event.target.value });
 		const activeApp = this.props.filters.activeApp;
-		this.props.actions.getNewHttpStats(
-			activeApp.value,
-			convertTimeRangeToInterval(event.target.value)
-		);
+		activeApp &&
+			this.props.actions.getNewHttpStats(
+				activeApp.value,
+				convertTimeRangeToInterval(this.props.filters.timeRange)
+			);
+	}
+
+	onActiveTimeRange(value) {
+		const activeApp = this.props.filters.activeApp;
+		this.props.actions.handleTimeRange(value);
+		activeApp &&
+			this.props.actions.getNewHttpStats(
+				activeApp.value,
+				convertTimeRangeToInterval(this.props.filters.timeRange)
+			);
 	}
 
 	render() {
 		return (
 			<React.Fragment>
-				<Title>
-					Http Stats:
-					<SelectChartPage onChange={this.handleTimeRange}>
-						<option value="last 10 minutes">last 10 minutes</option>
-						<option value="last 30 minutes">last 30 minutes</option>
-						<option value="last 1 hour">last 1 hour</option>
-						<option value="last 3 hours">last 3 hours</option>
-						<option value="last 5 hours">last 5 hours</option>
-						<option value="last 12 hours">last 12 hours</option>
-						<option value="last day">last day</option>
-						<option value="last week">last week</option>
-						<option value="last  month">last month</option>
-					</SelectChartPage>
-				</Title>
-				{this.props.httpStats.length > 0 &&
+				<Title>Http Stats</Title>
+				{this.props.apps &&
+				this.props.httpStats.length > 0 &&
 				this.props.fetchingLogsStatus === 'success' ? (
 					<div>
 						<Grid>
@@ -89,17 +88,19 @@ class HttpStats extends React.Component<HttpProps, HttpState> {
 								<Chart>
 									<ChartHeader>
 										<h3>Request Count</h3>
-										<ChartTimeRange>
-											<Timer size="24" />{' '}
-											{this.state.timeRange}
-										</ChartTimeRange>
+										<UpdateTimer
+											active={
+												this.props.filters.timeRange
+											}
+											onActive={this.onActiveTimeRange}
+										/>
 									</ChartHeader>
 									<HttpCountChart
 										data={countHttpParser(
 											this.props.httpStats,
-											this.state.timeRange
+											this.props.filters.timeRange
 										)}
-										timeRange={this.state.timeRange}
+										timeRange={this.props.filters.timeRange}
 									/>
 								</Chart>
 							</ChartWrapper>
@@ -107,10 +108,15 @@ class HttpStats extends React.Component<HttpProps, HttpState> {
 								<Chart>
 									<ChartHeader>
 										<h3>Routes Count</h3>
-										<ChartTimeRange>
-											<Timer size="24" />{' '}
-											{this.state.timeRange}
-										</ChartTimeRange>
+										<UpdateTimer
+											active={
+												this.props.filters.timeRange
+											}
+											onActive={
+												this.props.actions
+													.handleTimeRange
+											}
+										/>
 									</ChartHeader>
 									<HttpRoutesBarChart
 										data={countRoutesParser(
@@ -123,20 +129,21 @@ class HttpStats extends React.Component<HttpProps, HttpState> {
 						<HttpTabel data={httpParser(this.props.httpStats)} />
 					</div>
 				) : (
-					<LoaderBars />
+					<NoApps />
 				)}
 			</React.Fragment>
 		);
 	}
 }
 
-const mapStateToProps = ({ httpStats, fetchingLogsStatus, filters }) => ({
+const mapStateToProps = ({ httpStats, fetchingLogsStatus, filters, apps }) => ({
 	httpStats,
 	fetchingLogsStatus,
-	filters
+	filters,
+	apps
 });
 const mapDispatchToProps = (dispatch: any) => ({
-	actions: bindActionCreators({ getNewHttpStats }, dispatch)
+	actions: bindActionCreators({ getNewHttpStats, handleTimeRange }, dispatch)
 });
 
 const HttpStatsConnected = connect(

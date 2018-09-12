@@ -23,13 +23,7 @@ export const defaultState: StoreState = {
 		logcollectPort: '',
 		companyId: ''
 	},
-	apps: [
-		{
-			name: undefined,
-			port: undefined,
-			id: undefined
-		}
-	],
+	apps: null,
 	cpuLogs: [
 		{
 			logType: '',
