@@ -24,6 +24,8 @@ import { FiltersState } from '../../types/LogsState';
 import { AppsState } from 'src/types/AppsState';
 import UpdateTimer from 'src/components/UpdateTimer/UpdateTimer';
 import NoApps from 'src/components/noData/NoApps';
+import NoActiveApps from 'src/components/noData/NoActiveApp';
+import NoStatsData from 'src/components/noData/NoStatsData';
 
 interface HttpProps {
 	actions: { getNewHttpStats: Function; handleTimeRange: Function };
@@ -76,63 +78,90 @@ class HttpStats extends React.Component<HttpProps, HttpState> {
 	}
 
 	render() {
-		return (
-			<React.Fragment>
-				<Title>Http Stats</Title>
-				{this.props.apps &&
-				this.props.httpStats.length > 0 &&
-				this.props.fetchingLogsStatus === 'success' ? (
-					<div>
-						<Grid>
-							<ChartWrapper>
-								<Chart>
-									<ChartHeader>
-										<h3>Request Count</h3>
-										<UpdateTimer
-											active={
-												this.props.filters.timeRange
-											}
-											onActive={this.onActiveTimeRange}
-										/>
-									</ChartHeader>
-									<HttpCountChart
-										data={countHttpParser(
-											this.props.httpStats,
-											this.props.filters.timeRange
-										)}
-										timeRange={this.props.filters.timeRange}
-									/>
-								</Chart>
-							</ChartWrapper>
-							<ChartWrapper>
-								<Chart>
-									<ChartHeader>
-										<h3>Routes Count</h3>
-										<UpdateTimer
-											active={
-												this.props.filters.timeRange
-											}
-											onActive={
-												this.props.actions
-													.handleTimeRange
-											}
-										/>
-									</ChartHeader>
-									<HttpRoutesBarChart
-										data={countRoutesParser(
-											this.props.httpStats
-										)}
-									/>
-								</Chart>
-							</ChartWrapper>
-						</Grid>
-						<HttpTabel data={httpParser(this.props.httpStats)} />
-					</div>
-				) : (
+		if (!this.props.apps) {
+			return (
+				<React.Fragment>
+					<Title>Http Stats</Title>
 					<NoApps />
-				)}
-			</React.Fragment>
-		);
+				</React.Fragment>
+			);
+		} else if (!this.props.filters.activeApp) {
+			return (
+				<React.Fragment>
+					<Title>Http Stats</Title>
+					<NoActiveApps />
+				</React.Fragment>
+			);
+		} else if (this.props.httpStats.length === 0) {
+			return (
+				<React.Fragment>
+					<Title>Http Stats</Title>
+					<NoStatsData />
+				</React.Fragment>
+			);
+		} else {
+			return (
+				<React.Fragment>
+					<Title>Http Stats</Title>
+					{this.props.fetchingLogsStatus === 'success' ? (
+						<div>
+							<Grid>
+								<ChartWrapper>
+									<Chart>
+										<ChartHeader>
+											<h3>Request Count</h3>
+											<UpdateTimer
+												active={
+													this.props.filters.timeRange
+												}
+												onActive={
+													this.onActiveTimeRange
+												}
+											/>
+										</ChartHeader>
+										<HttpCountChart
+											data={countHttpParser(
+												this.props.httpStats,
+												this.props.filters.timeRange
+											)}
+											timeRange={
+												this.props.filters.timeRange
+											}
+										/>
+									</Chart>
+								</ChartWrapper>
+								<ChartWrapper>
+									<Chart>
+										<ChartHeader>
+											<h3>Routes Count</h3>
+											<UpdateTimer
+												active={
+													this.props.filters.timeRange
+												}
+												onActive={
+													this.props.actions
+														.handleTimeRange
+												}
+											/>
+										</ChartHeader>
+										<HttpRoutesBarChart
+											data={countRoutesParser(
+												this.props.httpStats
+											)}
+										/>
+									</Chart>
+								</ChartWrapper>
+							</Grid>
+							<HttpTabel
+								data={httpParser(this.props.httpStats)}
+							/>
+						</div>
+					) : (
+						<LoaderBars />
+					)}
+				</React.Fragment>
+			);
+		}
 	}
 }
 
