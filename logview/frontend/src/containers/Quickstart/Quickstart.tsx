@@ -18,80 +18,58 @@ class Quickstart extends React.Component {
 					Here are some of the most common commands you’ll need.
 				</ContentBlock>
 				<ContentSubheader>
-					Adding observer as dependency into your project
+					Adding observer-bsa as dependency into your project
 				</ContentSubheader>
 				<ContentBlock>
 					Our logcollect and logconnect applications are included in
-					observer npm package. To add them into your project, do the
+					observer-bsa npm package. To add them into your project, do the
 					following:
 				</ContentBlock>
 				<Pre>
-					<Code>&nbsp;yarn add observer</Code>
-				</Pre>
-				<ContentSubheader>
-					Adding observer to different categories of dependencies
-				</ContentSubheader>
-				<ContentBlock>
-					Add to devDependencies, peerDependencies, and{' '}
-					optionalDependencies respectively:
-				</ContentBlock>
-				<Pre>
-					<Code>
-						&nbsp;yarn add observer --dev&nbsp;
-						<br />
-						&nbsp;yarn add observer --peer&nbsp;
-						<br />
-						&nbsp;yarn add observer --optional
-					</Code>
+					<Code>&nbsp;npm install observer-bsa</Code>
 				</Pre>
 				<ContentSubheader>Using observer in your code</ContentSubheader>
-				<ContentBlock>
-					In your express.js application add into index.js:
+        <ContentBlock>
+          First of all you need to create logcollect app on your server, that contains only index.js:
 				</ContentBlock>
 				<Pre>
 					<Code>
-						&nbsp;const logconnect =
-						require("observer").logconnect;&nbsp;
-						<br />
+						&nbsp;require('observer-bsa/logcollect')(logcollectPort,
+						companyId);<br />
+            // logcollectPort - port on which your logcollect server will start<br />
+            // companyId - company id from obServer account settings
+					</Code>
+				</Pre>
+				<ContentBlock>
+					Your apps will send log data to logcollect
+				</ContentBlock>
+				<ContentBlock>
+          Adding observer-bsa as dependency into your project:
+				</ContentBlock>
+				<Pre>
+					<Code>
+						&nbsp;const observer =
+						require('observer-bsa')(logcollectPort, appId);<br />
+            // logcollectPort - port on which your logcollect is running<br />
+            // appId - app id from obServer account settings<br />
 						<br />
 						&nbsp;... <i>(your code here)</i>
 						&nbsp;
 						<br />
 						<br />
-						&nbsp;app.use(logconnect);
+						app.use(observer.httpStats()); // http statistic for your Express.js app<br />
+						obServer.logger().error('some error'); // error log
 					</Code>
 				</Pre>
-				<ContentBlock>
-					Then create on your server one more app, that contains only
-					index.js:
-				</ContentBlock>
-				<Pre>
-					<Code>
-						&nbsp;const logcollect =
-						require("observer").logcollect;&nbsp;
-						<br />
-						&nbsp;logcollect.start("8080", &#123;&nbsp;
-						<br />
-						&#9;...options, <br />
-						&nbsp; &#9;token:&nbsp;
-						"123af12345b1a12345a6aa1234e123456ae1234b"&nbsp;
-						<br />
-						&nbsp;})
-					</Code>
-				</Pre>
-				<ContentBlock>
-					Several logconnect apps send data to logcollect (port :8080
-					in this case) and logcollect sends token (which serves as
-					id) to database.
-				</ContentBlock>
+				
 				<ContentSubheader>Upgrading observer</ContentSubheader>
 				<Pre>
 					<Code>
-						&nbsp;yarn upgrade observer&nbsp;
+						&nbsp;yarn upgrade observer-bsaA&nbsp;
 						<br />
-						&nbsp;yarn upgrade observer@[version]&nbsp;
+						&nbsp;yarn upgrade observer-bsa@[version]&nbsp;
 						<br />
-						&nbsp;yarn upgrade observer@[tag]
+						&nbsp;yarn upgrade observer-bsa@[tag]
 					</Code>
 				</Pre>
 			</React.Fragment>
