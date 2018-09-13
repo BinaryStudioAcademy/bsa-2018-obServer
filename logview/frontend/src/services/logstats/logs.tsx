@@ -5,9 +5,7 @@ export function calcErrStats(logs, filters) {
 	// filter by app
 	let filteredByApp = [];
 	filters.activeApp
-		? (filteredByApp = logs.filter(log => {
-				return log.appId === filters.activeApp.value;
-		  }))
+		? (filteredByApp = filterByApp(logs, filters.activeApp.value))
 		: (filteredByApp = logs);
 	if (filteredByApp.length === 0) {
 		return [{ timestamp: Date.now(), errors: 0 }];
@@ -99,7 +97,35 @@ function calcErrStatsByTime(errorLogs, startDateValue, stepValue, stepsNumber) {
 }
 
 export function filterLogs(logs, filters) {
-	const levels = {
+	// filter by app
+	let filteredByApp = [];
+	filters.activeApp
+		? (filteredByApp = filterByApp(logs, filters.activeApp.value))
+		: (filteredByApp = logs);
+
+	// filter by log level
+	let filteredByLevel = [];
+	filteredByApp.length > 0
+		? (filteredByLevel = filterByLevel(filteredByApp, filters.logLevels))
+		: (filteredByLevel = filteredByApp);
+
+	// filter by date
+	let filteredByDate = [];
+	let startDateValue = defineStartDateValue(filters.timeRange);
+	filteredByLevel.length > 0
+		? (filteredByDate = filterByDate(filteredByLevel, startDateValue))
+		: (filteredByDate = filteredByLevel);
+	return filteredByDate;
+}
+
+function filterByApp(logs, appId) {
+	return logs.filter(log => {
+		return log.appId === appId;
+	});
+}
+
+function filterByLevel(logs, levels) {
+	const levelsKeys = {
 		0: 'error',
 		1: 'warn',
 		2: 'info',
@@ -108,32 +134,16 @@ export function filterLogs(logs, filters) {
 		5: 'silly'
 	};
 
-	// filter by app
-	let filteredByApp = [];
-	filters.activeApp
-		? (filteredByApp = logs.filter(log => {
-				return log.appId === filters.activeApp.value;
-		  }))
-		: (filteredByApp = logs);
+	return logs.filter(log => {
+		return levels[levelsKeys[log.logLevel]] === true;
+	});
+}
 
-	// filter by log level
-	let filteredByLevel = [];
-	filteredByApp.length > 0
-		? (filteredByLevel = filteredByApp.filter(log => {
-				return filters.logLevels[levels[log.logLevel]] === true;
-		  }))
-		: (filteredByLevel = filteredByApp);
-
-	// filter by date
-	let filteredByDate = [];
-	let startDateValue = defineStartDateValue(filters.timeRange);
-	filteredByLevel.length > 0
-		? (filteredByDate = filteredByLevel.filter(log => {
-				let timestamp = new Date(log.timestamp);
-				return timestamp.valueOf() >= startDateValue;
-		  }))
-		: (filteredByDate = filteredByLevel);
-	return filteredByDate;
+function filterByDate(logs, startDateValue) {
+	return logs.filter(log => {
+		let timestamp = new Date(log.timestamp);
+		return timestamp.valueOf() >= startDateValue;
+	});
 }
 
 function defineStartDateValue(timespan) {
