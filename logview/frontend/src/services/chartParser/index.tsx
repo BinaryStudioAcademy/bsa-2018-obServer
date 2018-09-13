@@ -76,7 +76,6 @@ export function countHttpParser(httpStats, timeRange) {
 			obj['timestamp'] = moment(prevTimeOX)
 				.add(convertTimeRangeToInterval(timeRange), 'ms')
 				.format('YYYY-MM-DD HH:mm:ss');
-			console.log('fggf', prevTimeOX, startTime);
 		}
 		if (array.length > 0) {
 			array.forEach(log => {
