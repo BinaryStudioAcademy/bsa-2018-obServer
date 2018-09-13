@@ -8,8 +8,8 @@ import {
 	LandingPageWrapper,
 	LandingMain,
 	ButtonWrapper,
-	ChatsShowcaseLeft,
-	ChatsShowcaseRight
+	LandingCharts,
+	ChatsShowcase
 } from './LandingPageStyles';
 import Particles from 'react-particles-js';
 import config from './particlesjs-config';
@@ -40,29 +40,33 @@ class LandingPage extends React.Component {
 					</LandingMain>
 				</Background>
 				
-				
-				<div>
-					<ChatsShowcaseLeft>
+				<h2>What we do?</h2>
+				<LandingCharts>
+					<ChatsShowcase>
 						<div>
-							<img src={cpuChart} width="540px" />
+							<img src={cpuChart} width="500px" />
 						</div>
 						<div>
-							desc
+							We track CPU, memory of your app and display it in user-friendly UI.
 						</div>
-					</ChatsShowcaseLeft>
-					<ChatsShowcaseRight>
+					</ChatsShowcase>
+					<ChatsShowcase>
 						<div>
-							desc
+							We track different HTTP requests stats, such as quantity of requests, routes and others.
 						</div>
-						<div>graphic right</div>
-					</ChatsShowcaseRight>
-					<ChatsShowcaseLeft>
-						<div>graphic left</div>
 						<div>
-							desc
+							<img src={cpuChart} width="500px" />
 						</div>
-					</ChatsShowcaseLeft>
-				</div>
+					</ChatsShowcase>
+					<ChatsShowcase>
+						<div>
+							<img src={cpuChart} width="500px" />
+						</div>
+						<div>
+							We show you different errors throughout the development of your app with handy history.
+						</div>
+					</ChatsShowcase>
+				</LandingCharts>
 			</LandingPageWrapper>
 		);
 	}

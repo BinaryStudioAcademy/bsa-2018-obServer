@@ -119,12 +119,11 @@ export const LandingPageWrapper = styled.div`
 	min-height: 600px;
 `;
 
-export const ChatsShowcaseRight = styled.div`
-	display: grid;
-	grid-template-columns: 0.4fr 1fr;
+export const ChatsShowcase = styled.div`
+	display: flex;
+	justify-content: center;
 `;
 
-export const ChatsShowcaseLeft = styled.div`
-	display: grid;
-	grid-template-columns: 1fr 0.4fr;
+export const LandingCharts = styled.div`
+	margin: 200px;
 `;

@@ -25,6 +25,7 @@ import AdminCheckBox from '../../components/AdminCheckBox';
 interface CompanyProps {
 	actions: { userInvite: Function; fetchCompanyUsers: Function };
 	companyUsers: Array<Object>;
+	user: any;
 	fetchingUserStatus: string;
 }
 
@@ -83,11 +84,10 @@ class Company extends React.Component<CompanyProps, CompanyState> {
 
 	render() {
 		const { companyUsers } = this.props;
-		const user = JSON.parse(sessionStorage.getItem('observerUser'));
 		return (
 			<CompanyUsers>
 				<Row>
-					<Title>{user.companyName}</Title>
+					<Title>{this.props.user.company}</Title>
 					<FormStatusIcon>
 						{!this.state.form ? (
 							<PlusCircleIcon
@@ -153,9 +153,10 @@ class Company extends React.Component<CompanyProps, CompanyState> {
 	}
 }
 
-const mapStateToProps = ({ fetchingUserStatus, companyUsers }) => ({
+const mapStateToProps = ({ fetchingUserStatus, companyUsers, user }) => ({
 	fetchingUserStatus,
-	companyUsers
+	companyUsers,
+	user
 });
 const mapDispatchToProps = (dispatch: any) => ({
 	actions: bindActionCreators({ userInvite, fetchCompanyUsers }, dispatch)
