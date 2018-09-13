@@ -65,22 +65,34 @@ export function httpParser(httpStats) {
 
 export function countHttpParser(httpStats, timeRange) {
 	const logs = [];
-	let prevTimeOX = '2018-09-03T17:02:16.121Z';
+	let prevTimeOX = null,
+		startTime = null;
+
 	httpStats.forEach(array => {
 		let obj = {};
 		obj['count'] = 0;
-		obj['timestamp'] = moment(prevTimeOX)
-			.add(convertTimeRangeToInterval(timeRange), 'ms')
-			.format('YYYY-MM-DD HH:mm:ss');
+
+		if (prevTimeOX !== null) {
+			obj['timestamp'] = moment(prevTimeOX)
+				.add(convertTimeRangeToInterval(timeRange), 'ms')
+				.format('YYYY-MM-DD HH:mm:ss');
+			console.log('fggf', prevTimeOX, startTime);
+		}
 		if (array.length > 0) {
 			array.forEach(log => {
 				obj['count'] += log.data.requestsCount;
-				obj['timestamp'] = log.timestamp;
+				if (startTime === null) {
+					startTime = log.timestamp;
+					prevTimeOX = log.timestamp;
+					obj['timestamp'] = log.timestamp;
+				}
 			});
 		}
+
 		prevTimeOX = obj['timestamp'];
 		logs.push(obj);
 	});
+
 	return logs;
 }
 

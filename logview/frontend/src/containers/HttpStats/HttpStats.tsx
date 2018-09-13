@@ -64,7 +64,7 @@ class HttpStats extends React.Component<HttpProps, HttpState> {
 				this.props.actions.getNewHttpStats(
 					activeApp.value,
 					convertTimeRangeToInterval(
-						this.props.filters.timeRanges.requests
+						nextProps.filters.timeRanges.requests
 					)
 				);
 		}

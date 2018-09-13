@@ -44,6 +44,11 @@ export default class HttpTableDemo extends React.Component<any, any> {
 								Header: 'Requests',
 								id: 'requestsCount',
 								accessor: d => d.requestsCount
+							},
+							{
+								Header: 'Response Time',
+								id: 'responseTimeAvg',
+								accessor: d => d.responseTimeAvg
 							}
 						]
 					}
