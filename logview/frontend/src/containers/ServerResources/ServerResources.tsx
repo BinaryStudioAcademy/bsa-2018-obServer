@@ -20,7 +20,7 @@ import {
 	ChartsPageWrapper,
 	Title
 } from './ServerResourcesStyles';
-import { TitleSmall } from 'src/containers/Dashboard/ResourcesBlock/ResourcesBlockStyles';
+import { TitleSmall } from '../Dashboard/ResourcesBlock/ResourcesBlockStyles';
 import intervalsInitialValues from './IntervalsInitialValues';
 import ServerResourcesChart from './ServerResourcesChart';
 

@@ -60,4 +60,10 @@ export const Status = styled.p`
 	margin-left: 30px;
 `;
 
+export const AdminSwitchGrid = styled.div`
+	display: grid;
+	grid-template-columns: 60px 1fr;
+	gap: 5px;
+`;
+
 export { ErrorText };

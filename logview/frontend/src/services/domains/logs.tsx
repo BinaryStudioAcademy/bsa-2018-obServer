@@ -1,5 +1,4 @@
 import api from '../adapter';
-import { httpStats } from '../../containers/HttpStats/mockData';
 
 export default {
 	resoucesAverages: () => {
@@ -8,17 +7,14 @@ export default {
 			api.requestType.GET
 		);
 	},
-	getHttpStats: (companyId: string, appId: string) => {
-		return new Promise((resolve, reject) => {
-			setTimeout(() => {
-				resolve(httpStats);
-			}, 2000);
-		});
-		/* 	return api.makeRequest(
-				`/api/logs/?serverMemoryInterval=3600000?serverCpuInterval=50000`,
-				api.requestType.GET,
-				companyId
-			); */
+	getHttpStats: (appId: string, interval: number) => {
+		let headers = {};
+		headers['X-APP-ID'] = appId;
+		return api.makeRequest(
+			`/api/logs/?httpInterval=${interval}`,
+			api.requestType.GET,
+			{ headers }
+		);
 	},
 	getLogMessages: (headers: any) => {
 		return api.makeRequest(

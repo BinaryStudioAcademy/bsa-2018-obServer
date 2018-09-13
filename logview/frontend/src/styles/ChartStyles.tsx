@@ -52,28 +52,12 @@ export const ChartGridTwo = styled.div`
 `;
 
 export const SelectChartPage = styled.select`
-	width: 170px;
-	padding: 5px 35px 5px 10px;
-	font-size: 16px;
 	border: none;
-	height: 34px;
 	margin: 2px;
-	-webkit-appearance: none;
-	-moz-appearance: none;
-	appearance: none;
-	background: url(https://static.thenounproject.com/png/72961-200.png) 96% /
-		15% no-repeat #eee;
+	padding: 10px;
 
-	&::-ms-expand {
-		display: none;
-	}
-
+	background: ${colors.violet};
 	&:focus {
 		outline-style: none;
-	}
-
-	@media screen and (min-width: 0\0) {
-		background: none\9;
-		padding: 5px\9;
 	}
 `;

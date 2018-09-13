@@ -6,7 +6,6 @@ import {
 	YAxis,
 	CartesianGrid,
 	Tooltip,
-	Legend,
 	ResponsiveContainer
 } from 'recharts';
 
@@ -38,7 +37,7 @@ export default class HttpCountChart extends React.Component<any, any> {
 						dataKey="count"
 						strokeWidth={2}
 						stroke="#f70000"
-						activeDot={{ r: 8 }}
+						dot={false}
 					/>
 				</LineChart>
 			</ResponsiveContainer>

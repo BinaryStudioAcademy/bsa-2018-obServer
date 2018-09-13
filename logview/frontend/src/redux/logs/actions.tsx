@@ -6,7 +6,7 @@ import {
 	LogMessagesState,
 	NotificationState
 } from '../../types/LogsState';
-import { ActiveAppState } from 'src/types/AppsState';
+import { ActiveAppState } from '../../types/AppsState';
 
 export interface GetLogs {
 	type: constants.GET_LOGS;
@@ -52,12 +52,14 @@ export interface GetNewCpuLogFail {
 
 export interface GetNewHttpStats {
 	type: constants.GET_NEW_HTTP_STATS;
+	appId: string;
+	interval: number;
 }
 
 export interface GetNewHttpStatsSuccess {
 	type: constants.GET_NEW_HTTP_STATS_SUCCESS;
 	payload: {
-		httpStats: Array<HttpStatsState>;
+		httpStats: Array<Array<HttpStatsState>>;
 	};
 }
 
@@ -88,7 +90,7 @@ export interface HandleActiveApp {
 
 export interface HandleTimeRange {
 	type: constants.HANDLE_TIME_RANGE;
-	payload: string;
+	payload: {};
 }
 
 export interface HandleLogLevels {
@@ -194,10 +196,14 @@ export function getNewCpuLogsFail(): GetNewCpuLogFail {
 	};
 }
 
-export function getNewHttpStats(): GetNewHttpStats {
-	console.log('action getNewHttpStats');
+export function getNewHttpStats(
+	appId: string,
+	interval: number
+): GetNewHttpStats {
 	return {
-		type: constants.GET_NEW_HTTP_STATS
+		type: constants.GET_NEW_HTTP_STATS,
+		appId,
+		interval
 	};
 }
 
@@ -230,14 +236,14 @@ export function handleActiveApp(payload: ActiveAppState): HandleActiveApp {
 	};
 }
 
-export function handleTimeRange(payload: string): HandleTimeRange {
+export function handleTimeRange(payload: {}): HandleTimeRange {
 	return {
 		type: constants.HANDLE_TIME_RANGE,
 		payload
 	};
 }
 
-export function handleLogLevels(payload): HandleLogLevels {
+export function handleLogLevels(payload: {}): HandleLogLevels {
 	return {
 		type: constants.HANDLE_LOG_LEVEL,
 		payload

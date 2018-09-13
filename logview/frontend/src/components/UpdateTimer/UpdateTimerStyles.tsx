@@ -28,6 +28,9 @@ export const OptionActive = UserText.extend`
 	padding: 12px 0;
 	color: ${(props: any) => (props.popup ? 'white' : 'grey')};
 	cursor: pointer;
+	svg {
+		margin-right: 5px;
+	}
 `;
 
 const option: StyledFunction<React.HTMLProps<HTMLElement>> = CommentText.extend;

@@ -49,9 +49,9 @@ export function memoryLogsReducer(
 }
 
 export function httpStatsReducer(
-	state: Array<HttpStatsState> = defaultState.httpStats,
+	state: Array<Array<HttpStatsState>> = defaultState.httpStats,
 	action: LogAction
-): Array<HttpStatsState> {
+): Array<Array<HttpStatsState>> {
 	switch (action.type) {
 		case constants.GET_NEW_HTTP_STATS_SUCCESS:
 			return [...action.payload.httpStats];
@@ -80,7 +80,14 @@ export function filtersReducer(
 		case constants.HANDLE_ACTIVE_APP:
 			return { ...state, activeApp: action.payload };
 		case constants.HANDLE_TIME_RANGE:
-			return { ...state, timeRange: action.payload };
+			let caller = Object.keys(action.payload)[0];
+			return {
+				...state,
+				timeRanges: {
+					...state.timeRanges,
+					[caller]: action.payload[caller]
+				}
+			};
 		case constants.HANDLE_LOG_LEVEL:
 			let level = Object.keys(action.payload)[0];
 			return {

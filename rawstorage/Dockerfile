@@ -14,6 +14,6 @@ WORKDIR $APP_ROOT
 
 RUN yarn
 
-EXPOSE 8080
+EXPOSE 8080 5632
 
 CMD ["yarn", "start-prod" ]

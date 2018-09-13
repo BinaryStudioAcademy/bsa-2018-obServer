@@ -4,9 +4,9 @@
 export function calcErrStats(logs, filters) {
 	// filter by app
 	let filteredByApp = [];
-	filters.activeApp.length > 0
+	filters.activeApp
 		? (filteredByApp = logs.filter(log => {
-				return log.appId === filters.activeApp;
+				return log.appId === filters.activeApp.value;
 		  }))
 		: (filteredByApp = logs);
 	if (filteredByApp.length === 0) {
@@ -37,7 +37,7 @@ export function calcErrStats(logs, filters) {
 			// 20 chart bars
 			return calcErrStatsByTime(errorLogs, startDateValue, 900000, 20);
 		case 'last 12 hours':
-			// 12 chart bars
+			// 24 chart bars
 			return calcErrStatsByTime(errorLogs, startDateValue, 1800000, 24);
 		case 'last 24 hours':
 			// 24 chart bars
@@ -46,7 +46,7 @@ export function calcErrStats(logs, filters) {
 			// 8 chart bars
 			return calcErrStatsByDate(errorLogs, startDateValue, 86400000, 8);
 		case 'last 30 days':
-			// 30 chart bars
+			// 31 chart bars
 			return calcErrStatsByDate(errorLogs, startDateValue, 86400000, 31);
 		default:
 			return [{ timestamp: Date.now(), errors: 0 }];
@@ -110,9 +110,9 @@ export function filterLogs(logs, filters) {
 
 	// filter by app
 	let filteredByApp = [];
-	filters.activeApp.length > 0
+	filters.activeApp
 		? (filteredByApp = logs.filter(log => {
-				return log.appId === filters.activeApp;
+				return log.appId === filters.activeApp.value;
 		  }))
 		: (filteredByApp = logs);
 

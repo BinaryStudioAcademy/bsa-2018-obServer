@@ -29,12 +29,26 @@ export const CheckBoxSwitchWrapper = styled.div`
 	padding: 10px 0;
 	line-height: 34px;
 `;
+export const CheckBoxSwitchWrapperAdmin = styled.div`
+	display: grid;
+	grid-template-columns: 70px 1fr;
+	gap: 10px;
+	padding: 15px 0;
+	line-height: 34px;
+`;
 
 export const CheckBoxSwitch = styled.label`
 	position: relative;
 	display: inline-block;
 	width: 60px;
 	height: 34px;
+`;
+
+export const CheckBoxSwitchAdmin = styled.label`
+	position: relative;
+	display: inline-block;
+	width: 42px;
+	height: 25px;
 `;
 
 export const CheckBoxSlider = styled.span`
@@ -63,6 +77,32 @@ export const CheckBoxSlider = styled.span`
 	}
 `;
 
+export const CheckBoxSliderAdmin = styled.span`
+	position: absolute;
+	cursor: pointer;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	border-radius: 34px;
+	background-color: #ccc;
+	-webkit-transition: 0.4s;
+	transition: 0.4s;
+
+	&:before {
+		position: absolute;
+		content: '';
+		height: 17px;
+		width: 17px;
+		left: 4px;
+		bottom: 4px;
+		border-radius: 50%;
+		background-color: white;
+		-webkit-transition: 0.4s;
+		transition: 0.4s;
+	}
+`;
+
 export const CheckBoxInput = styled.input`
 	display: none;
 
@@ -78,6 +118,24 @@ export const CheckBoxInput = styled.input`
 		-webkit-transform: translateX(26px);
 		-ms-transform: translateX(26px);
 		transform: translateX(26px);
+	}
+`;
+
+export const CheckBoxInputAdmin = styled.input`
+	display: none;
+
+	&:checked + span {
+		background-color: ${colors.violet};
+	}
+
+	&:focus + span {
+		box-shadow: 0 0 1px ${colors.violet};
+	}
+
+	&:checked + span:before {
+		-webkit-transform: translateX(17px);
+		-ms-transform: translateX(17px);
+		transform: translateX(17px);
 	}
 `;
 

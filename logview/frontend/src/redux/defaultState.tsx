@@ -23,13 +23,7 @@ export const defaultState: StoreState = {
 		logcollectPort: '',
 		companyId: ''
 	},
-	apps: [
-		{
-			name: undefined,
-			port: undefined,
-			id: undefined
-		}
-	],
+	apps: null,
 	cpuLogs: [
 		{
 			logType: '',
@@ -73,20 +67,22 @@ export const defaultState: StoreState = {
 		}
 	],
 	httpStats: [
-		{
-			logType: '',
-			timestamp: '',
-			data: {
-				route: '',
-				method: '',
-				responseTimeMin: 0,
-				responseTimeMax: 0,
-				responseTimeAvg: 0,
-				bodySizeRequest: 0,
-				bodySizeResponse: 0,
-				requestsCount: 0
+		[
+			{
+				logType: '',
+				timestamp: '',
+				data: {
+					route: '',
+					method: '',
+					responseTimeMin: 0,
+					responseTimeMax: 0,
+					responseTimeAvg: 0,
+					bodySizeRequest: 0,
+					bodySizeResponse: 0,
+					requestsCount: 0
+				}
 			}
-		}
+		]
 	],
 	logMessages: [
 		{
@@ -98,7 +94,16 @@ export const defaultState: StoreState = {
 	],
 	filters: {
 		activeApp: null,
-		timeRange: 'last 10 minutes',
+		timeRanges: {
+			logs: 'last 10 minutes',
+			errStats: 'last 10 minutes',
+			CPU: 'last 10 minutes',
+			memory: 'last 10 minutes',
+			usedMemory: 'last 10 minutes',
+			routes: 'last 10 minutes',
+			requests: 'last 10 minutes',
+			httpTabel: 'last 10 minutes'
+		},
 		logLevels: {
 			error: true,
 			warn: true,

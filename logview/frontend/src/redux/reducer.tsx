@@ -17,30 +17,6 @@ import { companyReducer, companyChangeReducer } from './company/reducer';
 import { socketsReducer } from './sockets/reducer';
 import { USER_LOGOUT } from './user/constants'; // USER_LOGOUT_SUCCESS
 
-// till testing LOG_OUT state nulling, if that is OK - delete this
-
-// export default combineReducers<StoreState>({
-// 	user: userReducer,
-// 	companyUsers: companyReducer,
-// 	settings: settingsReducer,
-// 	apps: appsReducer,
-// 	server: serverReducer,
-// 	cpuLogs: cpuLogsReducer,
-// 	memoryLogs: memoryLogsReducer,
-// 	httpStats: httpStatsReducer,
-// 	sockets: socketsReducer,
-// 	fetchingUserStatus: fetchingState,
-// 	fetchingSettingsStatus: fetchingSettingsReducer,
-// 	fetchingAppsStatus: fetchingAppsReducer,
-// 	fetchingServerStatus: fetchingServerReducer,
-// 	fetchingLogsStatus: fetchingLogsReducer,
-// 	isLoggedIn: isLoggedInState,
-// 	logMessages: logMessagesReducer,
-// 	filters: filtersReducer,
-// 	userChangeCompany: companyChangeReducer,
-// 	notificationLogs: notificationReducer
-// });
-
 const appReducer = combineReducers<StoreState>({
 	user: userReducer,
 	companyUsers: companyReducer,

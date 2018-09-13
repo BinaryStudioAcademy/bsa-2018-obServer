@@ -7,12 +7,10 @@ import {
 	Option,
 	Dropdown
 } from './UpdateTimerStyles';
-// import { ArrowDropDown } from 'styled-icons/material';
-// redux
+
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { handleTimeRange } from 'src/redux/logs/actions';
-import { FiltersState } from 'src/types/LogsState';
+import { handleTimeRange } from '../../redux/logs/actions';
 
 const options = [
 	'last 10 minutes',
@@ -33,9 +31,13 @@ interface UpdateTimerProps {
 	actions: {
 		handleTimeRange: Function;
 	};
-	filters: FiltersState;
-	options: Array<string>;
 	caller: string;
+	activeInterval: string;
+}
+
+interface ConnectProps {
+	caller: string;
+	activeInterval: string;
 }
 
 class UpdateTimer extends React.Component<UpdateTimerProps, UpdateTimerState> {
@@ -51,13 +53,15 @@ class UpdateTimer extends React.Component<UpdateTimerProps, UpdateTimerState> {
 		this.togglePopup = this.togglePopup.bind(this);
 	}
 
-	handleClickOutside(evt) {
+	handleClickOutside() {
 		this.setState({ popup: false });
 	}
 
 	handleClick(e) {
 		this.setState({ popup: !this.state.popup });
-		this.props.actions.handleTimeRange(e.target.innerHTML);
+		this.props.actions.handleTimeRange({
+			[this.props.caller]: e.target.innerHTML
+		});
 	}
 
 	togglePopup() {
@@ -68,8 +72,8 @@ class UpdateTimer extends React.Component<UpdateTimerProps, UpdateTimerState> {
 		return (
 			<StyledSelect popup={this.state.popup}>
 				<OptionActive onClick={this.togglePopup}>
-					<Timer size="25" />
-					{this.props.filters.timeRange}
+					<Timer size="18" />
+					{this.props.activeInterval}
 				</OptionActive>
 				{this.state.popup && (
 					<Dropdown popup={this.state.popup}>
@@ -85,15 +89,13 @@ class UpdateTimer extends React.Component<UpdateTimerProps, UpdateTimerState> {
 	}
 }
 
-const mapStateToProps = ({ filters }) => ({
-	filters
-});
+const mapStateToProps = ({}) => ({});
 
 const mapDispatchToProps = (dispatch: any) => ({
 	actions: bindActionCreators({ handleTimeRange }, dispatch)
 });
 
-const UpdateTimerConnected = connect(
+const UpdateTimerConnected = connect<{}, {}, ConnectProps>(
 	mapStateToProps,
 	mapDispatchToProps
 )(onClickOutside(UpdateTimer));
