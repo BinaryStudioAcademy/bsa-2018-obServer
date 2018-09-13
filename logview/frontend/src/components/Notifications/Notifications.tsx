@@ -10,7 +10,6 @@ import {
 	NotificationIcon
 } from './NotificationsStyles';
 import { NotificationState } from '../../types/LogsState';
-import { preetifyDate } from '../../services/logstats/logs';
 
 interface NotificationsState {
 	popup: boolean;
@@ -64,8 +63,8 @@ class Notifications extends React.Component<
 	parseNotification(arr): Array<any> {
 		const parsedData = arr.slice(1).reverse();
 		parsedData.map(item => {
-			const parsedDate = new Date(item.timestamp);
-			item.timestamp = preetifyDate(parsedDate);
+			const date = new Date(item.timestamp);			
+			item.timestamp = date.toLocaleString();
 		});
 		return parsedData;
 	}
