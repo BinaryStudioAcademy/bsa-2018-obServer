@@ -4,8 +4,7 @@ import { Submit } from '../../styles/Styles';
 import { Binoculars } from 'styled-icons/fa-solid';
 
 export const Background = styled.div`
-	width: 100vw;
-	height: 60vh;
+	height: 100vh;
 	color: #fff;
 	background: linear-gradient(
 		-45deg,
@@ -119,11 +118,22 @@ export const LandingPageWrapper = styled.div`
 	min-height: 600px;
 `;
 
-export const ChatsShowcase = styled.div`
+export const InfoBlock = styled.div`
+	margin: 50px 0;
 	display: flex;
 	justify-content: center;
 `;
 
-export const LandingCharts = styled.div`
-	margin: 200px;
+export const LandingInfo = styled.div`
+	margin: 50px 200px 200px 200px;
+`;
+
+export const InfoDescription = styled.div`
+	max-width: 200px;
+	text-align: center;
+	margin: 50px;
+`;
+
+export const TitleSmall = Title.extend`
+	font-size: 48px;
 `;

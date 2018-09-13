@@ -8,8 +8,9 @@ import {
 	LandingPageWrapper,
 	LandingMain,
 	ButtonWrapper,
-	LandingCharts,
-	ChatsShowcase
+	LandingInfo,
+	InfoBlock,
+	InfoDescription
 } from './LandingPageStyles';
 import Particles from 'react-particles-js';
 import config from './particlesjs-config';
@@ -21,13 +22,13 @@ class LandingPage extends React.Component {
 		return (
 			<LandingPageWrapper>
 				<Background>
-					<Particles params={config} width="100%" height="60vh" />
+					<Particles params={config} width="100%" height="100vh" />
 					<LandingMain>
 						<Title>
 							<ObserverIcon size="60" color="#3d3d3d" />
 							obServer
 						</Title>
-						<Slogan>You code. We track.</Slogan>
+						<Slogan>You produce. We track.</Slogan>
 						<ButtonWrapper>
 							<Button primary>
 								<Link to="/login">sign in</Link>
@@ -40,33 +41,36 @@ class LandingPage extends React.Component {
 					</LandingMain>
 				</Background>
 				
-				<h2>What we do?</h2>
-				<LandingCharts>
-					<ChatsShowcase>
+				<Title>What we do?</Title>
+				<LandingInfo>
+					<InfoBlock>
 						<div>
 							<img src={cpuChart} width="500px" />
 						</div>
-						<div>
+						<InfoDescription>
+							<Title>
+
+							</Title>
 							We track CPU, memory of your app and display it in user-friendly UI.
-						</div>
-					</ChatsShowcase>
-					<ChatsShowcase>
-						<div>
+						</InfoDescription>
+					</InfoBlock>
+					<InfoBlock>
+						<InfoDescription>
 							We track different HTTP requests stats, such as quantity of requests, routes and others.
-						</div>
+						</InfoDescription>
 						<div>
 							<img src={cpuChart} width="500px" />
 						</div>
-					</ChatsShowcase>
-					<ChatsShowcase>
+					</InfoBlock>
+					<InfoBlock>
 						<div>
 							<img src={cpuChart} width="500px" />
 						</div>
-						<div>
+						<InfoDescription>
 							We show you different errors throughout the development of your app with handy history.
-						</div>
-					</ChatsShowcase>
-				</LandingCharts>
+						</InfoDescription>
+					</InfoBlock>
+				</LandingInfo>
 			</LandingPageWrapper>
 		);
 	}
