@@ -12,8 +12,8 @@ import { ArrowDropDown } from 'styled-icons/material';
 // redux
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { handleLogLevels } from 'src/redux/logs/actions';
-import { FiltersState } from 'src/types/LogsState';
+import { handleLogLevels } from '../../redux/logs/actions';
+import { FiltersState } from '../../types/LogsState';
 
 interface SelectState {
 	popup: boolean;

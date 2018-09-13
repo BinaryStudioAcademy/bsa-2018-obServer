@@ -1,5 +1,5 @@
 import styled, { StyledFunction } from 'styled-components';
-import { colors } from 'src/styles/styles-utils';
+import { colors } from '../../styles/styles-utils';
 import { Submit } from '../../styles/Styles';
 import { Binoculars } from 'styled-icons/fa-solid';
 
@@ -7,7 +7,13 @@ export const Background = styled.div`
 	width: 100vw;
 	height: 60vh;
 	color: #fff;
-	background: linear-gradient(-45deg, ${colors.blue}, #9aa8b1, #afafaf, ${colors.violet});
+	background: linear-gradient(
+		-45deg,
+		${colors.blue},
+		#9aa8b1,
+		#afafaf,
+		${colors.violet}
+	);
 	background-size: 400% 400%;
 	animation: Gradient 15s ease infinite;
 	min-height: 600px;
@@ -31,7 +37,7 @@ export const Title = styled.h1`
 	right: 0;
 	font-size: 60px;
 	font-weight: bold;
-    letter-spacing: 3px;
+	letter-spacing: 3px;
 	margin-bottom: 0;
 	color: #3d3d3d;
 	left: 0;
@@ -50,7 +56,7 @@ export const LandingMain = styled.div`
 	position: absolute;
 	left: 0;
 	top: 0;
-	padding-top: 100px; 
+	padding-top: 100px;
 	display: flex;
 	justify-content: space-between;
 	flex-direction: column;

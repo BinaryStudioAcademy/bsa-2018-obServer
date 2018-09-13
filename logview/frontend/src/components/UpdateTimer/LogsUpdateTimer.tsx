@@ -10,7 +10,7 @@ import {
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { handleTimeRange } from 'src/redux/logs/actions';
+import { handleTimeRange } from '../../redux/logs/actions';
 
 const options = [
 	'last 10 minutes',
@@ -72,7 +72,7 @@ class UpdateTimer extends React.Component<UpdateTimerProps, UpdateTimerState> {
 		return (
 			<StyledSelect popup={this.state.popup}>
 				<OptionActive onClick={this.togglePopup}>
-					<Timer size="25" />
+					<Timer size="18" />
 					{this.props.activeInterval}
 				</OptionActive>
 				{this.state.popup && (

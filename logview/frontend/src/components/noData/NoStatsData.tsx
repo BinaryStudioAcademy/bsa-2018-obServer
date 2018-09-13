@@ -5,7 +5,7 @@ import {
 	NoDataButton,
 	NoDataWrapper,
 	NoDataTitle
-} from 'src/styles/NoDataStyles';
+} from '../../styles/NoDataStyles';
 
 class NoStatsData extends React.Component {
 	render() {

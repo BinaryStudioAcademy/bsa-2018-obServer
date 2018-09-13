@@ -1,23 +1,23 @@
 import * as React from 'react';
 // components & their styles
-import LevelsSelect from 'src/components/LevelsSelect/LevelsSelect';
-import LogsUpdateTimer from 'src/components/UpdateTimer/LogsUpdateTimer';
+import LevelsSelect from '../../../components/LevelsSelect/LevelsSelect';
+import LogsUpdateTimer from '../../../components/UpdateTimer/LogsUpdateTimer';
 import { LogsContainer } from './LogsStyles';
-import LogStatsTabel from 'src/components/tabels/logStatsTabel';
-import { LoaderBars } from 'src/components/loaders';
+import LogStatsTabel from '../../../components/tabels/logStatsTable';
+import { LoaderBars } from '../../../components/loaders';
 import { Autorenew } from 'styled-icons/material';
-import { Submit } from 'src/styles/Styles';
-import { RowContainer } from 'src/containers/Dashboard/DashboardStyles';
+import { Submit } from '../../../styles/Styles';
+import { RowContainer } from '../DashboardStyles';
 import { Link } from 'react-router-dom';
-import { LogsSearchForm } from 'src/styles/LogsStyles';
+import { LogsSearchForm } from '../../../styles/LogsStyles';
 // redux
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { getLogMessages } from 'src/redux/logs/actions';
-import { LogMessagesState, FiltersState } from 'src/types/LogsState';
+import { getLogMessages } from '../../../redux/logs/actions';
+import { LogMessagesState, FiltersState } from '../../../types/LogsState';
 
 // data & services
-import { filterLogs } from 'src/services/logstats/logs';
+import { filterLogs } from '../../../services/logstats/logs';
 
 interface LogsProps {
 	actions: {
