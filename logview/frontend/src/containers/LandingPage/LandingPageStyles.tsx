@@ -1,7 +1,8 @@
 import styled, { StyledFunction } from 'styled-components';
 import { colors } from '../../styles/styles-utils';
-import { Submit } from '../../styles/Styles';
+import { Submit, RedirectLink } from '../../styles/Styles';
 import { Binoculars } from 'styled-icons/fa-solid';
+import { Github as GitHubIcon} from 'styled-icons/fa-brands/Github';
 
 export const Background = styled.div`
 	height: 100vh;
@@ -55,7 +56,7 @@ export const LandingMain = styled.div`
 	position: absolute;
 	left: 0;
 	top: 0;
-	padding-top: 100px;
+	padding-top: 200px;
 	display: flex;
 	justify-content: space-between;
 	flex-direction: column;
@@ -118,22 +119,86 @@ export const LandingPageWrapper = styled.div`
 	min-height: 600px;
 `;
 
-export const InfoBlock = styled.div`
-	margin: 50px 0;
-	display: flex;
-	justify-content: center;
+export const LandingInfo = styled.div`
+    display: flex;
+    flex-direction: column;
+	align-items: center;
+	padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+	max-width: 80%;
 `;
 
-export const LandingInfo = styled.div`
-	margin: 50px 200px 200px 200px;
+export const InfoBlock = styled.div`
+    margin-top: 2.25rem;
+    margin-bottom: 2.25rem;
+    display: flex;
+    margin-right: -15px;
+    margin-left: -15px;
+	align-items: center;
 `;
 
 export const InfoDescription = styled.div`
-	max-width: 200px;
-	text-align: center;
-	margin: 50px;
+    max-width: 50%;
+	position: relative;
+    width: 100%;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+	font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+	margin-left: 15px;
 `;
 
 export const TitleSmall = Title.extend`
 	font-size: 48px;
+`;
+
+export const InfoTitle = styled.h3`
+	font-size: 1.5rem;
+	margin-bottom: 0.75rem;
+    font-family: inherit;
+    font-weight: 600;
+    line-height: 1.2;
+    color: inherit;
+`;
+
+export const InfoImage = styled.img`
+	width: 100%;
+	height: auto;
+	vertical-align: middle;
+`;
+
+export const InfoImageContainer = styled.div`
+	max-width: 50%;
+`;
+
+export const Footer = styled.div`
+	min-height: 120px;
+	background: #3d3d3d;
+	color: #afafaf;
+	margin-top: 200px;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+`;
+
+export const FooterTitle = styled.div`
+	margin: 10px 0 0 40px;
+`;
+
+export const FooterLinkText = styled.span`
+	margin-left: 10px;
+`;
+
+export const FooterLink = RedirectLink.extend`
+	margin: 10px 0 0 40px;
+`;
+
+export const GetStartedBar = styled.div``;
+
+export const GitHub = GitHubIcon.extend`
+	color: ${colors.violet};
 `;
