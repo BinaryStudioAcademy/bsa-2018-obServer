@@ -3,9 +3,9 @@ import { RouteComponentProps } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { fetchAppsList } from '../../redux/apps/actions';
-import { handleActiveApp } from 'src/redux/logs/actions';
+import { handleActiveApp } from '../../redux/logs/actions';
 import { AppsState } from '../../types/AppsState';
-import { FiltersState } from 'src/types/LogsState';
+import { FiltersState } from '../../types/LogsState';
 import Select from '../../components/Select/Select';
 import { convertAppsDataToSelect } from '../../services/reduxDataParser';
 

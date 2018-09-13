@@ -5,12 +5,12 @@ import {
 	SettingInputWrapper,
 	SubmitAppButton,
 	ErrorInputSettings
-} from 'src/styles/SettingsFormStyles';
+} from '../../styles/SettingsFormStyles';
 import { Plus } from 'styled-icons/fa-solid';
 import {
 	validatePortNumber,
 	validateAppName
-} from 'src/services/validate/validate';
+} from '../../services/validate/validate';
 
 interface NewAppFormState {
 	newAppName: string;

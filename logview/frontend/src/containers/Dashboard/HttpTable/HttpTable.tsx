@@ -1,29 +1,23 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import HttpRoutesBarChart from '../../../components/charts/http/routesChart';
-import HttpCountChart from '../../../components/charts/http/countHttpChart';
-import {
-	ChartHeader,
-	ChartWrapper,
-	Chart
-} from '../../HttpStats/HttpStatsStyles';
-import { Grid, HttpContainer, Title } from './HttpBlockStyles';
+
+import { TableWrapper } from '../../HttpStats/HttpStatsStyles';
+import { HttpContainer, Title } from '../HttpBlock/HttpBlockStyles';
 import { Submit } from '../../../styles/Styles';
 import { Link } from 'react-router-dom';
 import NoApps from '../../../components/noData/NoApps';
 import NoActiveApps from '../../../components/noData/NoActiveApp';
 import NoStatsData from '../../../components/noData/NoStatsData';
-import LogsUpdateTimer from '../../../components/UpdateTimer/LogsUpdateTimer';
 import { getNewHttpStats } from '../../../redux/logs/actions';
 import { FiltersState } from '../../../types/LogsState';
 import { AppsState } from '../../../types/AppsState';
 import {
-	countHttpParser,
-	countRoutesParser,
+	httpParser,
 	convertTimeRangeToInterval
 } from '../../../services/chartParser';
 import { LoaderBars } from '../../../components/loaders';
+import HttpTableDemo from 'src/components/tabels/httpTableDemo';
 
 interface HttpStatsProps {
 	actions: { getNewHttpStats: Function };
@@ -35,7 +29,7 @@ interface HttpStatsProps {
 
 interface HttpStatsState {}
 
-class HttpStats extends React.Component<HttpStatsProps, HttpStatsState> {
+class HttpTable extends React.Component<HttpStatsProps, HttpStatsState> {
 	constructor(props: HttpStatsProps) {
 		super(props);
 	}
@@ -72,14 +66,14 @@ class HttpStats extends React.Component<HttpStatsProps, HttpStatsState> {
 		if (!this.props.apps) {
 			return (
 				<HttpContainer>
-					<Title>Http Stats</Title>
+					<Title>Http Stats Table</Title>
 					<NoApps />
 				</HttpContainer>
 			);
 		} else if (!this.props.filters.activeApp) {
 			return (
 				<HttpContainer>
-					<Title>Http Stats</Title>
+					<Title>Http Stats Table</Title>
 					<NoActiveApps />
 					<Submit>
 						<Link to="/dashboard/httpstats">open http stats</Link>
@@ -89,7 +83,7 @@ class HttpStats extends React.Component<HttpStatsProps, HttpStatsState> {
 		} else if (this.props.httpStats.length === 0) {
 			return (
 				<HttpContainer>
-					<Title>Http Stats</Title>
+					<Title>Http Stats Table</Title>
 					<NoStatsData />
 					<Submit>
 						<Link to="/dashboard/httpstats">open http stats</Link>
@@ -97,64 +91,21 @@ class HttpStats extends React.Component<HttpStatsProps, HttpStatsState> {
 				</HttpContainer>
 			);
 		} else {
-			return (
+			return this.props.fetchingLogsStatus === 'success' ? (
 				<HttpContainer>
-					<Title>Http Stats</Title>
-					{this.props.fetchingLogsStatus === 'success' ? (
-						<Grid>
-							<ChartWrapper>
-								<Chart>
-									<ChartHeader>
-										<h3>Request Count</h3>
-										<LogsUpdateTimer
-											caller="requests"
-											activeInterval={
-												this.props.filters.timeRanges
-													.requests
-											}
-										/>
-									</ChartHeader>
-									<HttpCountChart
-										data={countHttpParser(
-											this.props.httpStats,
-											this.props.filters.timeRanges
-												.requests
-										)}
-										timeRange={
-											this.props.filters.timeRanges
-												.requests
-										}
-									/>
-								</Chart>
-							</ChartWrapper>
-							<ChartWrapper>
-								<Chart>
-									<ChartHeader>
-										<h3>Routes Count</h3>
-										<LogsUpdateTimer
-											caller="requests"
-											activeInterval={
-												this.props.filters.timeRanges
-													.requests
-											}
-										/>
-									</ChartHeader>
-									<HttpRoutesBarChart
-										data={countRoutesParser(
-											this.props.httpStats
-										)}
-									/>
-								</Chart>
-							</ChartWrapper>
-						</Grid>
-					) : (
-						<LoaderBars />
-					)}
+					<Title>Http Stats Table</Title>
+					<TableWrapper>
+						<HttpTableDemo
+							data={httpParser(this.props.httpStats)}
+						/>
+					</TableWrapper>
 					<br />
 					<Submit>
 						<Link to="/dashboard/httpstats">open http stats</Link>
 					</Submit>
 				</HttpContainer>
+			) : (
+				<LoaderBars />
 			);
 		}
 	}
@@ -166,13 +117,14 @@ const mapStateToProps = ({ httpStats, fetchingLogsStatus, filters, apps }) => ({
 	filters,
 	apps
 });
+
 const mapDispatchToProps = (dispatch: any) => ({
 	actions: bindActionCreators({ getNewHttpStats }, dispatch)
 });
 
-const HttpStatsConnected = connect(
+const HttpTableConnected = connect(
 	mapStateToProps,
 	mapDispatchToProps
-)(HttpStats);
+)(HttpTable);
 
-export default HttpStatsConnected;
+export default HttpTableConnected;

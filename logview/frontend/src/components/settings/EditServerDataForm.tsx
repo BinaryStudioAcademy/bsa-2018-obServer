@@ -5,13 +5,13 @@ import {
 	SettingInputWrapper,
 	SubmitAppButton,
 	ErrorInputSettings
-} from 'src/styles/SettingsFormStyles';
+} from '../../styles/SettingsFormStyles';
 import { Save } from 'styled-icons/fa-solid';
 import { ServerState } from '../../types/ServerState';
 import {
 	validatePortNumber,
 	validateServeIp
-} from 'src/services/validate/validate';
+} from '../../services/validate/validate';
 
 interface ServerDataFormState {
 	port: string;

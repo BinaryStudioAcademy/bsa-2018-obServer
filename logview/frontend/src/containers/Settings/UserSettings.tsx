@@ -5,11 +5,11 @@ import {
 	SettingFormGroupLabel,
 	SettingInput,
 	SettingsSubmitButton
-} from 'src/styles/SettingsFormStyles';
-import { LoaderOval } from 'src/components/loaders';
-import { UserState } from 'src/types/UserState';
-import SettingUserForm from 'src/components/settings/SettingUserForm';
-import { userChange, fetchUser } from 'src/redux/user/actions';
+} from '../../styles/SettingsFormStyles';
+import { LoaderOval } from '../../components/loaders';
+import { UserState } from '../../types/UserState';
+import SettingUserForm from '../../components/settings/SettingUserForm';
+import { userChange, fetchUser } from '../../redux/user/actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 

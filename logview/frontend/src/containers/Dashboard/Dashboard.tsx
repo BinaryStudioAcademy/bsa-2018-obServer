@@ -13,15 +13,15 @@ import {
 	CenteredContainer,
 	Title
 } from './DashboardStyles';
-import { Profile as UserProfile, Submit } from '../../styles/Styles';
 import ResourcesBlock from './ResourcesBlock/ResourcesBlock';
 import Notifications from '../../components/Notifications/Notifications';
 import { SettingsIcon } from '../../styles/IconStyles';
 import DashboardRoutes from './DashboardRoutes';
 import AppsSelector from './AppsSelector';
 import { getNewNotification } from '../../redux/logs/actions';
-import { NotificationState } from '../../types/LogsState';
+import { NotificationState, HttpStatsState } from '../../types/LogsState';
 import { startChannel, stopChannel } from '../../redux/sockets/actions';
+import HttpTable from './HttpTable/HttpTable';
 
 interface DashboardState {
 	active?: string;
@@ -34,6 +34,7 @@ interface DashboardProps extends RouteComponentProps<{}, {}> {
 	};
 	notificationLogs: Array<NotificationState>;
 	fetchingUserStatus: string;
+	httpStats: Array<HttpStatsState>;
 }
 
 class Dashboard extends React.Component<DashboardProps, DashboardState> {
@@ -96,6 +97,9 @@ class Dashboard extends React.Component<DashboardProps, DashboardState> {
 							<div>
 								<LogsBlock />
 							</div>
+							<div>
+								<HttpTable />
+							</div>
 						</React.Fragment>
 					)}
 				</DashboardMain>
@@ -104,9 +108,10 @@ class Dashboard extends React.Component<DashboardProps, DashboardState> {
 	}
 }
 
-const mapStateToProps = ({ notificationLogs, fetchingUserStatus }) => ({
+const mapStateToProps = ({ notificationLogs, fetchingUserStatus, httpStats }) => ({
 	notificationLogs,
-	fetchingUserStatus
+	fetchingUserStatus,
+	httpStats
 });
 
 const mapDispatchToProps = (dispatch: any) => ({

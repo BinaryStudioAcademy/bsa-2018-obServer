@@ -1,23 +1,23 @@
 import * as React from 'react';
 // components & their styles
-import LevelsSelect from 'src/components/LevelsSelect/LevelsSelect';
-import LogsUpdateTimer from 'src/components/UpdateTimer/LogsUpdateTimer';
-import ErrChart from 'src/components/charts/logs/ErrChart';
-import LogStatsTabel from '../../components/tabels/logStatsTabel';
-import { LoaderBars } from 'src/components/loaders';
+import LevelsSelect from '../../components/LevelsSelect/LevelsSelect';
+import LogsUpdateTimer from '../../components/UpdateTimer/LogsUpdateTimer';
+import ErrChart from '../../components/charts/logs/ErrChart';
+import LogStatsTabel from '../../components/tabels/logStatsTable';
+import { LoaderBars } from '../../components/loaders';
 import { Autorenew } from 'styled-icons/material';
-import { Submit } from 'src/styles/Styles';
-import { RowContainer } from 'src/containers/Dashboard/DashboardStyles';
+import { Submit } from '../../styles/Styles';
+import { RowContainer } from '../Dashboard/DashboardStyles';
 // import { SelectChartPage } from '../../styles/Styles';
 import {
 	ChartWrapper,
 	ChartHeader,
 	LogsSearchForm
-} from 'src/styles/LogsStyles';
+} from '../../styles/LogsStyles';
 // redux
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { getLogMessages } from 'src/redux/logs/actions';
+import { getLogMessages } from '../../redux/logs/actions';
 import { LogMessagesState, FiltersState } from '../../types/LogsState';
 
 // data & services
@@ -31,8 +31,6 @@ interface LogsProps {
 	fetchingUserStatus: string;
 	fetchingLogsStatus: string;
 	logMessages: Array<LogMessagesState>;
-	activeApp: string;
-	timeRange: string;
 	filters: FiltersState;
 }
 
@@ -69,7 +67,7 @@ class Logs extends React.Component<LogsProps, LogsState> {
 								this.props.logMessages,
 								this.props.filters
 							)}
-							timeRange={this.props.filters.timeRange}
+							timeRange={this.props.filters.timeRanges.errStats}
 						/>
 					) : (
 						<LoaderBars />
@@ -91,14 +89,18 @@ class Logs extends React.Component<LogsProps, LogsState> {
 						</RowContainer>
 					</Submit>
 					<LevelsSelect />
-					<LogsUpdateTimer />
+					<LogsUpdateTimer
+						activeInterval={this.props.filters.timeRanges.logs}
+						caller="logs"
+					/>
 				</LogsSearchForm>
 				{this.props.fetchingLogsStatus === 'success' ? (
 					<LogStatsTabel
-						data={filterLogs(
-							this.props.logMessages,
-							this.props.filters
-						)}
+						data={filterLogs(this.props.logMessages, {
+							activeApp: this.props.filters.activeApp,
+							timeRange: this.props.filters.timeRanges.logs,
+							logLevels: this.props.filters.logLevels
+						})}
 					/>
 				) : (
 					<LoaderBars />
