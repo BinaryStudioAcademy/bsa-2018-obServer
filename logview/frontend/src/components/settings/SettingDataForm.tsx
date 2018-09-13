@@ -1,11 +1,11 @@
 import * as React from 'react';
 import SettingCheckBox from './SettingCheckBox';
-import { SettingsState } from 'src/types/SettingsState';
+import { SettingsState } from '../../types/SettingsState';
 import {
 	SettingFormGroup,
 	SettingFormGroupLabel,
 	SettingsSubmitButton
-} from 'src/styles/SettingsFormStyles';
+} from '../../styles/SettingsFormStyles';
 import {
 	Server,
 	Bell,

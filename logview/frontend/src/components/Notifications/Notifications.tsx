@@ -10,7 +10,7 @@ import {
 	NotificationIcon
 } from './NotificationsStyles';
 import { NotificationState } from '../../types/LogsState';
-import { preetifyDate } from 'src/services/logstats/logs';
+import { preetifyDate } from '../../services/logstats/logs';
 
 interface NotificationsState {
 	popup: boolean;

@@ -110,22 +110,25 @@ export function countRoutesParser(httpStats) {
 export function convertTimeRangeToInterval(timeRange) {
 	switch (timeRange) {
 		case 'last 10 minutes':
-		case 'last 30 minutes':
-			return 60000;
-		case 'last 1 hour':
-			return 300000;
-		case 'last 3 hours':
 			return 600000;
-		case 'last 5 hours':
-			return 900000;
-		case 'last 12 hours':
+		case 'last 30 minutes':
 			return 1800000;
+		case 'last 1 hour':
+		case 'last hour':
+			return 3600000;
+		case 'last 3 hours':
+			return 10800000;
+		case 'last 5 hours':
+			return 18000000;
+		case 'last 12 hours':
+			return 43200000;
 		case 'last day':
 		case 'last 24 hours':
-			return 3600000;
+			return 86400000;
 		case 'last week':
+			return 604800000;
 		case 'last 30 days':
 		case 'last  month':
-			return 86400000;
+			return 2592000000;
 	}
 }

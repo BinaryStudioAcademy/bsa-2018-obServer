@@ -23,12 +23,12 @@ export default class PercentMemoryChart extends React.Component<any, any> {
 				<AreaChart
 					data={this.props.data}
 					stackOffset="expand"
-					margin={{ top: 20, right: 0, left: -30, bottom: 20 }}
+					margin={{ top: 20, right: 0, left: -10, bottom: 20 }}
 				>
 					<CartesianGrid strokeDasharray="3 3" />
 					<XAxis
 						dataKey="timestamp"
-						tickFormatter={convertXAxisTime(this.props.timeRange)}
+						tickFormatter={convertXAxisTime('last 10 minutes')}
 						strokeWidth={0}
 						minTickGap={20}
 						tick={{ transform: 'translate(0, 5)' }}

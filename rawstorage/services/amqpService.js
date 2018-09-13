@@ -4,7 +4,9 @@ const queue = 'logs';
 let logChannel = null;
 const { RABBITMQ_HOST, RABBITMQ_EXTERNAL_PORT } = process.env;
 const port = RABBITMQ_EXTERNAL_PORT || 5672;
-const host = RABBITMQ_HOST || 'localhost';;
+const host = RABBITMQ_HOST || 'localhost';
+// const host = '35.234.107.91';
+
 const connectionString = `amqp://${host}:${port}`;
 console.log(`connectionString to rabbitmq: ${connectionString}`);
 amqp.connect(connectionString, (err, conn) => {

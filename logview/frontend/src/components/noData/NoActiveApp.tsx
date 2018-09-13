@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { NoDataWrapper, NoDataTitle } from 'src/styles/NoDataStyles';
+import { NoDataWrapper, NoDataTitle } from '../../styles/NoDataStyles';
 
 class NoActiveApps extends React.Component {
 	render() {
