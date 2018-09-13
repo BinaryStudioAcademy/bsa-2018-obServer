@@ -21,6 +21,7 @@ import UserSingle from './UserSingle';
 import { Title } from '../../styles/Styles';
 import { IconContainer } from './UserSingleStyles';
 import AdminCheckBox from '../../components/AdminCheckBox';
+import { validateUsernameFrom } from 'src/services/validate/validate';
 
 interface CompanyProps {
 	actions: { userInvite: Function; fetchCompanyUsers: Function };
@@ -34,6 +35,10 @@ interface CompanyState {
 	err?: boolean;
 	form?: boolean;
 	admin?: boolean;
+	validateState?: {
+		name: boolean;
+		email: boolean;
+	};
 }
 
 class Company extends React.Component<CompanyProps, CompanyState> {
@@ -45,7 +50,11 @@ class Company extends React.Component<CompanyProps, CompanyState> {
 			name: '',
 			err: false,
 			form: false,
-			admin: false
+			admin: false,
+			validateState: {
+				name: true,
+				email: true
+			}
 		};
 
 		this.handleFieldChange = this.handleFieldChange.bind(this);
@@ -68,13 +77,25 @@ class Company extends React.Component<CompanyProps, CompanyState> {
 
 	handleSubmit(e: any) {
 		e.preventDefault();
+		let obj = {
+			name: this.state.name,
+			email: this.state.email
+		};
 
-		this.props.actions.userInvite(
-			this.state.email,
-			this.state.name,
-			this.state.admin
-		);
-		this.setState({ form: !this.state.form });
+		let validateState = validateUsernameFrom(obj);
+		let errors = [];
+		for (let errorStatus in validateState) {
+			errors.push(validateState[errorStatus]);
+		}
+		errors.indexOf(false) !== -1
+			? this.setState({ validateState: validateState })		
+			: (this.props.actions.userInvite(
+					this.state.email,
+					this.state.name,
+					this.state.admin
+				),
+				this.setState({ form: !this.state.form })
+			)
 	}
 
 	handleForm() {
@@ -111,11 +132,17 @@ class Company extends React.Component<CompanyProps, CompanyState> {
 							placeholder="name"
 							onChange={this.handleFieldChange}
 						/>
+						{!this.state.validateState.name && (
+							<ErrorText>Name can only contain latin letters</ErrorText>
+						)}
 						<Input
 							name="email"
 							placeholder="email"
 							onChange={this.handleFieldChange}
 						/>
+						{!this.state.validateState.email && (
+							<ErrorText>Email is not valid, ex. "email@domain.name"</ErrorText>
+						)}
 						<AdminSwitchGrid>
 							<p>Admin:</p>
 							<AdminCheckBox
