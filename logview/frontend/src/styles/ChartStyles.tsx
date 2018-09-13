@@ -15,6 +15,7 @@ export const ChartWrapper = styled.div`
 `;
 
 export const ChartHeader = styled.div`
+	margin: 0 20px;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;

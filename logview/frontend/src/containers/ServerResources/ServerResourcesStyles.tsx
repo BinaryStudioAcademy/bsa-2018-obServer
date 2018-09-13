@@ -17,6 +17,7 @@ export const ChartGrid = Grid.extend`
 
 export const TimerWrapper = styled.div`
 	margin: 0;
+	margin-right: 10px;
 	color: grey;
 	border-bottom: 1px solid #afafaf;
 	padding: 12px 0;
