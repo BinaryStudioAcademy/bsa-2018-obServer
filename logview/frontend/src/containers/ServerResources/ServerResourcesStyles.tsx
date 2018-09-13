@@ -9,9 +9,17 @@ import {
 	UserBar
 } from '../../styles/Styles';
 import { Title } from '../../styles/Styles';
+import styled from 'styled-components';
 
 export const ChartGrid = Grid.extend`
 	margin-top: 100px;
+`;
+
+export const TimerWrapper = styled.div`
+	margin: 0;
+	color: grey;
+	border-bottom: 1px solid #afafaf;
+	padding: 12px 0;
 `;
 
 export {

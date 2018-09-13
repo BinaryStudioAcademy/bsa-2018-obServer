@@ -17,6 +17,7 @@ export const ChartWrapper = styled.div`
 export const ChartHeader = styled.div`
 	display: flex;
 	justify-content: space-between;
+	align-items: center;
 `;
 
 export const ChartTimeRange = styled.div`
