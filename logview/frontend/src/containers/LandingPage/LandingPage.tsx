@@ -14,7 +14,7 @@ import {
 import Particles from 'react-particles-js';
 import config from './particlesjs-config';
 import { Link } from 'react-router-dom';
-const cpuChart = require('src/assets/LandingChartMock.png');
+const cpuChart = require('assets/LandingChartMock.png');
 
 class LandingPage extends React.Component {
 	render() {
@@ -36,31 +36,23 @@ class LandingPage extends React.Component {
 								<Link to="/register">sign up</Link>
 							</Button>
 						</ButtonWrapper>
-						
 					</LandingMain>
 				</Background>
-				
-				
+
 				<div>
 					<ChatsShowcaseLeft>
 						<div>
 							<img src={cpuChart} width="540px" />
 						</div>
-						<div>
-							desc
-						</div>
+						<div>desc</div>
 					</ChatsShowcaseLeft>
 					<ChatsShowcaseRight>
-						<div>
-							desc
-						</div>
+						<div>desc</div>
 						<div>graphic right</div>
 					</ChatsShowcaseRight>
 					<ChatsShowcaseLeft>
 						<div>graphic left</div>
-						<div>
-							desc
-						</div>
+						<div>desc</div>
 					</ChatsShowcaseLeft>
 				</div>
 			</LandingPageWrapper>

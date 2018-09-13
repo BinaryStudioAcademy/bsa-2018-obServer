@@ -2,7 +2,7 @@ import styled, { StyledFunction } from 'styled-components';
 import { Submit } from '../../styles/Styles';
 import { colors } from '../../styles/styles-utils';
 import { Landing as CompanyChangeLanding } from '../../styles/ContainerStyles';
-const logo = require('src/assets/invite.png');
+const logo = require('assets/invite.png');
 
 export const Button = Submit.extend`
 	background: ${colors['grey-darken']};

@@ -9,7 +9,7 @@ import {
 } from './NotFoundPageStyles';
 import { Link } from 'react-router-dom';
 
-const image = require('src/assets/not-found.png');
+const image = require('assets/not-found.png');
 
 class NotFoundPage extends React.Component {
 	render() {
