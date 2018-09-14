@@ -37,4 +37,5 @@ export const Logo = styled.img`
 
 export const Button = Submit.extend`
 	background: ${colors['grey-darken']};
+	margin: 0;
 `;

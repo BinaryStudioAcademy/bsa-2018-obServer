@@ -21,7 +21,7 @@ class NotFoundPage extends React.Component {
 						<Title>404</Title>
 						<SubTitle>This page does not exist</SubTitle>
 						<Button>
-							<Link to="/">Home</Link>
+							<Link to="/dashboard">Home</Link>
 						</Button>
 					</Block>
 				</Wrapper>

@@ -4,13 +4,13 @@ import {
 	getNewCpuLog,
 	getNewMemoryLog
 } from '../../redux/logs/actions';
-import { Chart, ChartHeader } from './ServerResourcesStyles';
-import UpdateTimer from '../../components/UpdateTimer/UpdateTimer';
+import { Chart, ChartHeader, TimerWrapper } from './ServerResourcesStyles';
 import CoresLoadLineChart from '../../components/charts/serverResources/CoresLoadLineChart';
 import PercentMemoryChart from '../../components/charts/serverResources/PercentMemoryChart';
 import MemoryUsedChart from '../../components/charts/serverResources/MemoryUsedChart';
 import initialValues from '../Dashboard/ResourcesBlock/ResourcesInitalValues';
 import intervalsInitialValues from './IntervalsInitialValues';
+import { Timer } from 'styled-icons/material';
 
 interface ServerResourcesChartState {
 	intervals: Array<{
@@ -51,7 +51,10 @@ class ServerResourcesChart extends React.Component<
 			<Chart>
 				<ChartHeader>
 					<h3>{this.props.title}</h3>
-					<UpdateTimer />
+					<TimerWrapper>
+						<Timer size="25" />
+						<span>real-time</span>
+					</TimerWrapper>
 				</ChartHeader>
 				{this.props.caller === 'cpuLoad' && (
 					<CoresLoadLineChart
