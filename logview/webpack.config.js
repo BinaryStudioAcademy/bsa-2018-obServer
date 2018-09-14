@@ -82,5 +82,5 @@ module.exports = {
 			}
 		]
 	},
-	mode: 'development'
+	mode: NODE_ENV === 'propduction' ? 'production' : 'development'
 };
