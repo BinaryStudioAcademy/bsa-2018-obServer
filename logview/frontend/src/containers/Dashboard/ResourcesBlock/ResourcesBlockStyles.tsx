@@ -12,6 +12,7 @@ export const ChartsWrapper = ChartsPageWrapper.extend`
 	border-radius: 5px;
 	display: flex;
 	flex-direction: column;
+	padding: 10px 5px 30px;
 `;
 
 export const Title = ResourcesTitle.extend`

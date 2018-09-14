@@ -31,7 +31,8 @@ module.exports = {
 
 	resolve: {
 		alias: {
-			src: path.resolve(__dirname, './frontend/src')
+			src: path.resolve(__dirname, './frontend/src'),
+			assets: path.resolve(__dirname, './frontend/src/assets')
 		},
 		extensions: ['.js', '.ts', '.tsx', 'json', 'jpg', 'png', 'svg'],
 		modules: [path.resolve(__dirname, './node_modules/')],

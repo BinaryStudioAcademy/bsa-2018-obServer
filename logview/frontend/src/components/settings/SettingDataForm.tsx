@@ -12,6 +12,7 @@ import {
 	ProjectDiagram,
 	CheckSquare
 } from 'styled-icons/fa-solid';
+import { Save } from 'styled-icons/fa-solid';
 
 interface SettingsFormProps {
 	settings: SettingsState;
@@ -138,8 +139,8 @@ class SettingDataForm extends React.Component<
 				</SettingFormGroup>
 
 				<SettingsSubmitButton onClick={this.handleSubmit}>
-					<CheckSquare size="18" />
-					Save All Change
+					<Save size="18" />
+					Save All Changes
 				</SettingsSubmitButton>
 			</form>
 		);

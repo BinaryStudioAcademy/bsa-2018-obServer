@@ -28,10 +28,8 @@ import {
 	ChartGrid,
 	TitleSmall
 } from './ResourcesBlockStyles';
-import { Submit } from '../../../styles/Styles';
+import { Submit } from '../DashboardStyles';
 import { Link } from 'react-router-dom';
-import initialValues from './ResourcesInitalValues';
-import UpdateTimer from '../../../components/UpdateTimer/UpdateTimer';
 import ServerResourcesChart from '../../ServerResources/ServerResourcesChart';
 
 let timerID;
