@@ -6,7 +6,8 @@ import HttpCountChart from '../../../components/charts/http/countHttpChart';
 import {
 	ChartHeader,
 	ChartWrapper,
-	Chart
+	Chart,
+	RefreshButton
 } from '../../HttpStats/HttpStatsStyles';
 import { Grid, HttpContainer, Title } from './HttpBlockStyles';
 import { Submit } from '../../../styles/Styles';
@@ -24,6 +25,7 @@ import {
 	convertTimeRangeToInterval
 } from '../../../services/chartParser';
 import { LoaderBars } from '../../../components/loaders';
+import { SyncAlt } from 'styled-icons/fa-solid';
 
 interface HttpStatsProps {
 	actions: { getNewHttpStats: Function };
@@ -38,6 +40,7 @@ interface HttpStatsState {}
 class HttpStats extends React.Component<HttpStatsProps, HttpStatsState> {
 	constructor(props: HttpStatsProps) {
 		super(props);
+		this.refresh = this.refresh.bind(this);
 	}
 
 	componentDidMount() {
@@ -66,6 +69,17 @@ class HttpStats extends React.Component<HttpStatsProps, HttpStatsState> {
 					)
 				);
 		}
+	}
+
+	refresh() {
+		const activeApp = this.props.filters.activeApp;
+		activeApp &&
+			this.props.actions.getNewHttpStats(
+				activeApp.value,
+				convertTimeRangeToInterval(
+					this.props.filters.timeRanges.requests
+				)
+			);
 	}
 
 	render() {
@@ -99,7 +113,12 @@ class HttpStats extends React.Component<HttpStatsProps, HttpStatsState> {
 		} else {
 			return (
 				<HttpContainer>
-					<Title>Http Stats</Title>
+					<Title>
+						Http Stats
+						<RefreshButton onClick={this.refresh}>
+							<SyncAlt size={22} />
+						</RefreshButton>
+					</Title>
 					{this.props.fetchingLogsStatus === 'success' ? (
 						<Grid>
 							<ChartWrapper>

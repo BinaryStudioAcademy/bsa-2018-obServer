@@ -11,7 +11,8 @@ import {
 	Grid,
 	ChartWrapper,
 	Title,
-	Chart
+	Chart,
+	RefreshButton
 } from './HttpStatsStyles';
 import { LoaderBars } from '../../components/loaders';
 import {
@@ -26,6 +27,7 @@ import LogsUpdateTimer from '../../components/UpdateTimer/LogsUpdateTimer';
 import NoApps from '../../components/noData/NoApps';
 import NoActiveApps from '../../components/noData/NoActiveApp';
 import NoStatsData from '../../components/noData/NoStatsData';
+import { SyncAlt } from 'styled-icons/fa-solid';
 
 interface HttpProps {
 	actions: { getNewHttpStats: Function };
@@ -40,6 +42,7 @@ interface HttpState {}
 class HttpStats extends React.Component<HttpProps, HttpState> {
 	constructor(props: HttpProps) {
 		super(props);
+		this.refresh = this.refresh.bind(this);
 	}
 
 	componentDidMount() {
@@ -70,6 +73,17 @@ class HttpStats extends React.Component<HttpProps, HttpState> {
 		}
 	}
 
+	refresh() {
+		const activeApp = this.props.filters.activeApp;
+		activeApp &&
+			this.props.actions.getNewHttpStats(
+				activeApp.value,
+				convertTimeRangeToInterval(
+					this.props.filters.timeRanges.requests
+				)
+			);
+	}
+
 	render() {
 		if (!this.props.apps) {
 			return (
@@ -95,7 +109,12 @@ class HttpStats extends React.Component<HttpProps, HttpState> {
 		} else {
 			return (
 				<React.Fragment>
-					<Title>Http Stats</Title>
+					<Title>
+						Http Stats
+						<RefreshButton onClick={this.refresh}>
+							<SyncAlt size={22} />
+						</RefreshButton>
+					</Title>
 					{this.props.fetchingLogsStatus === 'success' ? (
 						<div>
 							<Grid>
