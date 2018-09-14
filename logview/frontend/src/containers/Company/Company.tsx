@@ -89,14 +89,13 @@ class Company extends React.Component<CompanyProps, CompanyState> {
 			errors.push(validateState[errorStatus]);
 		}
 		errors.indexOf(false) !== -1
-			? this.setState({ validateState: validateState })		
+			? this.setState({ validateState: validateState })
 			: (this.props.actions.userInvite(
 					this.state.email,
 					this.state.name,
 					this.state.admin
-				),
-				this.setState({ form: !this.state.form })
-			)
+			  ),
+			  this.setState({ form: !this.state.form }));
 	}
 
 	handleForm() {
@@ -133,7 +132,9 @@ class Company extends React.Component<CompanyProps, CompanyState> {
 							onChange={this.handleFieldChange}
 						/>
 						{!this.state.validateState.name && (
-							<ErrorText>Name can only contain latin letters</ErrorText>
+							<ErrorText>
+								Name can only contain latin letters
+							</ErrorText>
 						)}
 						<Input
 							name="email"
@@ -141,7 +142,9 @@ class Company extends React.Component<CompanyProps, CompanyState> {
 							onChange={this.handleFieldChange}
 						/>
 						{!this.state.validateState.email && (
-							<ErrorText>Email is not valid, ex. "email@domain.name"</ErrorText>
+							<ErrorText>
+								Email is not valid, ex. "email@domain.name"
+							</ErrorText>
 						)}
 						<AdminSwitchGrid>
 							<p>Admin:</p>

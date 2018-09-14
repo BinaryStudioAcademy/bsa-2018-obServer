@@ -2,7 +2,7 @@ import styled, { StyledFunction } from 'styled-components';
 import { colors } from '../../styles/styles-utils';
 import { Submit, RedirectLink } from '../../styles/Styles';
 import { Binoculars } from 'styled-icons/fa-solid';
-import { Github as GitHubIcon} from 'styled-icons/fa-brands/Github';
+import { Github as GitHubIcon } from 'styled-icons/fa-brands/Github';
 
 export const Background = styled.div`
 	height: 100vh;
@@ -120,36 +120,36 @@ export const LandingPageWrapper = styled.div`
 `;
 
 export const LandingInfo = styled.div`
-    display: flex;
-    flex-direction: column;
+	display: flex;
+	flex-direction: column;
 	align-items: center;
 	padding-right: 15px;
-    padding-left: 15px;
-    margin-right: auto;
-    margin-left: auto;
+	padding-left: 15px;
+	margin-right: auto;
+	margin-left: auto;
 	max-width: 80%;
 `;
 
 export const InfoBlock = styled.div`
-    margin-top: 2.25rem;
-    margin-bottom: 2.25rem;
-    display: flex;
-    margin-right: -15px;
-    margin-left: -15px;
+	margin-top: 2.25rem;
+	margin-bottom: 2.25rem;
+	display: flex;
+	margin-right: -15px;
+	margin-left: -15px;
 	justify-content: center;
 	align-items: center;
 `;
 
 export const InfoDescription = styled.div`
-    max-width: 50%;
+	max-width: 50%;
 	position: relative;
-    width: 100%;
-    min-height: 1px;
-    padding-right: 15px;
-    padding-left: 15px;
+	width: 100%;
+	min-height: 1px;
+	padding-right: 15px;
+	padding-left: 15px;
 	font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.5;
+	font-weight: 400;
+	line-height: 1.5;
 	margin-left: 15px;
 `;
 
@@ -160,10 +160,10 @@ export const TitleSmall = Title.extend`
 export const InfoTitle = styled.h3`
 	font-size: 1.5rem;
 	margin-bottom: 0.75rem;
-    font-family: inherit;
-    font-weight: 600;
-    line-height: 1.2;
-    color: inherit;
+	font-family: inherit;
+	font-weight: 600;
+	line-height: 1.2;
+	color: inherit;
 `;
 
 export const InfoImage = styled.img`
@@ -208,7 +208,7 @@ export const GetStartedBar = styled.div`
 	justify-content: center;
 	font-size: 20px;
 	padding: 40px 0;
-	
+
 	div {
 		margin: 0;
 	}

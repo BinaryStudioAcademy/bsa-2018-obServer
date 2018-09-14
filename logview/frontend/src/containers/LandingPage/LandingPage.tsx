@@ -50,10 +50,9 @@ class LandingPage extends React.Component {
 								<Link to="/register">sign up</Link>
 							</Button>
 						</ButtonWrapper>
-						
 					</LandingMain>
 				</Background>
-				
+
 				<Title>What we do?</Title>
 				<LandingInfo>
 					<InfoBlock>
@@ -61,32 +60,29 @@ class LandingPage extends React.Component {
 							<InfoImage src={cpu} />
 						</InfoImageContainer>
 						<InfoDescription>
-							<InfoTitle>
-								The tracking of cpu
-							</InfoTitle>
-							We track CPU, memory of your app and display it in user-friendly UI.
+							<InfoTitle>The tracking of cpu</InfoTitle>
+							We track CPU, memory of your app and display it in
+							user-friendly UI.
 						</InfoDescription>
 					</InfoBlock>
 					<InfoBlock>
 						<InfoDescription>
-							<InfoTitle>
-								The tracking of Http
-							</InfoTitle>
-							We track different HTTP requests stats, such as quantity of requests, routes and others.
+							<InfoTitle>The tracking of Http</InfoTitle>
+							We track different HTTP requests stats, such as
+							quantity of requests, routes and others.
 						</InfoDescription>
 						<InfoImageContainer>
-							<Https size="200px"/>
+							<Https size="200px" />
 						</InfoImageContainer>
 					</InfoBlock>
 					<InfoBlock>
 						<InfoImageContainer>
-							<Bug size="200px"/>
+							<Bug size="200px" />
 						</InfoImageContainer>
 						<InfoDescription>
-							<InfoTitle>
-								Errog/Bug tracing
-							</InfoTitle>
-							We show you different errors throughout the development of your app with handy history.
+							<InfoTitle>Errog/Bug tracing</InfoTitle>
+							We show you different errors throughout the
+							development of your app with handy history.
 						</InfoDescription>
 					</InfoBlock>
 					<InfoBlock>
@@ -94,7 +90,8 @@ class LandingPage extends React.Component {
 							<InfoTitle>
 								Notify you when your app is down
 							</InfoTitle>
-							Be sure that you will always know when your server is down
+							Be sure that you will always know when your server
+							is down
 						</InfoDescription>
 						<InfoImageContainer>
 							<Notifications size="200px" />
@@ -119,9 +116,11 @@ class LandingPage extends React.Component {
 						Binary Studio Academy 2018. obServer Project.
 					</FooterTitle>
 					<FooterLink>
-						<GitHub size="20"/>
+						<GitHub size="20" />
 						<FooterLinkText>
-							<a href="https://github.com/BinaryStudioAcademy/bsa-2018-obServer">GitHub</a>
+							<a href="https://github.com/BinaryStudioAcademy/bsa-2018-obServer">
+								GitHub
+							</a>
 						</FooterLinkText>
 					</FooterLink>
 				</Footer>

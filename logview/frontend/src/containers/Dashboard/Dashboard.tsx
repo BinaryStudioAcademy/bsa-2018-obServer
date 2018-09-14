@@ -68,7 +68,7 @@ class Dashboard extends React.Component<DashboardProps, DashboardState> {
 					<RowContainer>
 						<Title>
 							<Link to="/dashboard">
-								<Binoculars size="25"/>
+								<Binoculars size="25" />
 								obServer
 							</Link>
 						</Title>
@@ -112,7 +112,11 @@ class Dashboard extends React.Component<DashboardProps, DashboardState> {
 	}
 }
 
-const mapStateToProps = ({ notificationLogs, fetchingUserStatus, httpStats }) => ({
+const mapStateToProps = ({
+	notificationLogs,
+	fetchingUserStatus,
+	httpStats
+}) => ({
 	notificationLogs,
 	fetchingUserStatus,
 	httpStats

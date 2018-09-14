@@ -55,7 +55,11 @@ class LoginForm extends React.Component<LoginFormProps, LoginFormState> {
 	render() {
 		return (
 			<Form>
-				<Title><Link to="/"><Binoculars size="25" /> obServer</Link></Title>
+				<Title>
+					<Link to="/">
+						<Binoculars size="25" /> obServer
+					</Link>
+				</Title>
 				<Row>
 					<div>Sign in</div>
 					<Redirect>

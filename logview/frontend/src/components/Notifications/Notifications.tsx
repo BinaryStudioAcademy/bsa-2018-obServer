@@ -63,7 +63,7 @@ class Notifications extends React.Component<
 	parseNotification(arr): Array<any> {
 		const parsedData = arr.slice(1).reverse();
 		parsedData.map(item => {
-			const date = new Date(item.timestamp);			
+			const date = new Date(item.timestamp);
 			item.timestamp = date.toLocaleString();
 		});
 		return parsedData;
