@@ -36,6 +36,23 @@ export function validateForm(obj: {
 	return res;
 }
 
+export function validateUsernameFrom(obj: {
+	name: string;
+	email: string;
+}) {
+	let res: {
+		name: boolean;
+		email: boolean;
+	} = {
+		name: false,
+		email: false
+	};
+	for (let el in obj) {
+		res[el] = validate(el, obj[el]);
+	}
+	return res;
+}
+
 export function validatePortsString(ports: string): boolean {
 	const portsRegExp = /^[0-9]+(,[0-9]+)*$/;
 	let testPorts: boolean;
