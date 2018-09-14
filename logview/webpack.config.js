@@ -1,5 +1,6 @@
 const NODE_ENV = process.env.NODE_ENV;
 const path = require('path');
+const webpack = require('webpack');
 
 // const stats = {
 // 	context: '/frontend/src/'
@@ -82,5 +83,8 @@ module.exports = {
 			}
 		]
 	},
-	mode: NODE_ENV === 'propduction' ? 'production' : 'development'
+	mode: NODE_ENV === 'production' ? 'production' : 'development',
+	optimization: {
+		minimize: NODE_ENV === 'production' ? true : false
+	}
 };
