@@ -7,6 +7,7 @@ import {
 } from '../../styles/TextStyles';
 import { UserPopup } from '../../styles/ContainerStyles';
 import { colors, media } from '../../styles/styles-utils';
+import { Submit as SubmitButton } from '../../styles/Styles';
 
 export const DashboardWrapper = styled.div`
 	margin: 20px;
@@ -102,4 +103,12 @@ export const Title = DashboardTitle.extend`
 	svg {
 		margin-right: 5px;
 	}
+`;
+
+export const Submit = SubmitButton.extend`
+	padding: 0;
+
+	a {
+		padding: 10px 40px;
+	}	
 `;

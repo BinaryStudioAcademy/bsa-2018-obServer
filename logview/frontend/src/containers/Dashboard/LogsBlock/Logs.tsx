@@ -6,7 +6,7 @@ import { LogsContainer } from './LogsStyles';
 import LogStatsTabel from '../../../components/tabels/logStatsTable';
 import { LoaderBars } from '../../../components/loaders';
 import { Autorenew } from 'styled-icons/material';
-import { Submit } from '../../../styles/Styles';
+import { Submit } from '../DashboardStyles';
 import { RowContainer } from '../DashboardStyles';
 import { Link } from 'react-router-dom';
 import { LogsSearchForm } from '../../../styles/LogsStyles';

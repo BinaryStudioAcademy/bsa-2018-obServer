@@ -151,7 +151,7 @@ export const InfoDescription = styled.div`
 	font-size: 1rem;
 	font-weight: 400;
 	line-height: 1.5;
-	margin-left: 15px;
+	margin-left: 55px;
 `;
 
 export const TitleSmall = Title.extend`

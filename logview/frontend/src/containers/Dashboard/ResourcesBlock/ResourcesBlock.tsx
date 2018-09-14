@@ -28,7 +28,7 @@ import {
 	ChartGrid,
 	TitleSmall
 } from './ResourcesBlockStyles';
-import { Submit } from '../../../styles/Styles';
+import { Submit } from '../DashboardStyles';
 import { Link } from 'react-router-dom';
 import ServerResourcesChart from '../../ServerResources/ServerResourcesChart';
 
