@@ -22,6 +22,7 @@ import { getNewNotification } from '../../redux/logs/actions';
 import { NotificationState, HttpStatsState } from '../../types/LogsState';
 import { startChannel, stopChannel } from '../../redux/sockets/actions';
 import HttpTable from './HttpTable/HttpTable';
+import { Binoculars } from 'styled-icons/fa-solid';
 
 interface DashboardState {
 	active?: string;
@@ -66,7 +67,10 @@ class Dashboard extends React.Component<DashboardProps, DashboardState> {
 				<DashboardNav>
 					<RowContainer>
 						<Title>
-							<Link to="/dashboard">obServer</Link>
+							<Link to="/dashboard">
+								<Binoculars size="25" />
+								obServer
+							</Link>
 						</Title>
 						<CenteredContainer>
 							<AppsSelector />
@@ -108,7 +112,11 @@ class Dashboard extends React.Component<DashboardProps, DashboardState> {
 	}
 }
 
-const mapStateToProps = ({ notificationLogs, fetchingUserStatus, httpStats }) => ({
+const mapStateToProps = ({
+	notificationLogs,
+	fetchingUserStatus,
+	httpStats
+}) => ({
 	notificationLogs,
 	fetchingUserStatus,
 	httpStats
