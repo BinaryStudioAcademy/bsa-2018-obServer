@@ -20,7 +20,8 @@ import {
 	FooterLinkText,
 	FooterLink,
 	GetStartedBar,
-	GitHub
+	GitHub,
+	ArrowDown
 } from './LandingPageStyles';
 import Particles from 'react-particles-js';
 import config from './particlesjs-config';
@@ -28,9 +29,14 @@ import { Link } from 'react-router-dom';
 import { Https } from 'styled-icons/material/Https';
 import { Bug } from 'styled-icons/fa-solid/Bug';
 import { Notifications } from 'styled-icons/material';
+import scroll from './scroll';
 const cpu = require('src/assets/cpu.png');
 
 class LandingPage extends React.Component {
+	handleScroll() {
+		scroll(document.getElementById('scroll'));
+	}
+
 	render() {
 		return (
 			<LandingPageWrapper>
@@ -50,10 +56,11 @@ class LandingPage extends React.Component {
 								<Link to="/register">sign up</Link>
 							</Button>
 						</ButtonWrapper>
+						<ArrowDown size="50" onClick={this.handleScroll} />
 					</LandingMain>
 				</Background>
 
-				<Title>What we do?</Title>
+				<Title id="scroll">What we do?</Title>
 				<LandingInfo>
 					<InfoBlock>
 						<InfoImageContainer>
@@ -80,7 +87,7 @@ class LandingPage extends React.Component {
 							<Bug size="200px" />
 						</InfoImageContainer>
 						<InfoDescription>
-							<InfoTitle>Errog/Bug tracing</InfoTitle>
+							<InfoTitle>Error/Bug tracing</InfoTitle>
 							We show you different errors throughout the
 							development of your app with handy history.
 						</InfoDescription>

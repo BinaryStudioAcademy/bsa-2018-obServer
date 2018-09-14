@@ -3,6 +3,7 @@ import { colors } from '../../styles/styles-utils';
 import { Submit, RedirectLink } from '../../styles/Styles';
 import { Binoculars } from 'styled-icons/fa-solid';
 import { Github as GitHubIcon } from 'styled-icons/fa-brands/Github';
+import { ArrowAltCircleDown } from 'styled-icons/fa-solid';
 
 export const Background = styled.div`
 	height: 100vh;
@@ -220,4 +221,14 @@ export const GetStartedBar = styled.div`
 
 export const GitHub = GitHubIcon.extend`
 	color: ${colors.violet};
+`;
+
+export const ArrowDown = ArrowAltCircleDown.extend`
+	margin-top: 200px;
+	color: #3d3d3d;
+	transition-duration: 0.3s;
+
+	&:hover {
+		color: white;
+	}
 `;
