@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { userChangeCompany } from '../../redux/company/actions';
 import { Button, Logo, Title, Landing } from './UserChangeCompanyStyle';
 import queryString from 'query-string';
-const logo = require('src/assets/invite.png');
+const logo = require('assets/invite.png');
 
 interface UserChangeCompanyProps {
 	actions: {

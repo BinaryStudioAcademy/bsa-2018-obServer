@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import { userRegister } from '../../redux/user/actions';
 import { Wrapper } from '../../styles/Styles';
 import { Landing } from '../../styles/ContainerStyles';
-const logo = require('src/assets/logo.png');
+const logo = require('assets/logo.png');
 
 interface LoginFormProps {
 	actions: { userRegister: Function };
