@@ -87,7 +87,8 @@ export default class AddAppForm extends React.Component<
 						/>
 						{!this.state.validName && (
 							<ErrorInputSettings>
-								Enter the latin letters name of at least 3 symbols!
+								Enter the latin letters name of at least 3
+								symbols!
 							</ErrorInputSettings>
 						)}
 					</SettingInputWrapper>

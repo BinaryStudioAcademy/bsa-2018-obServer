@@ -4,6 +4,16 @@ import { colors } from './styles-utils';
 export const Title = styled.h2`
 	font-family: 'Merriweather', serif;
 	text-align: center;
+
+	a {
+		text-decoration: none;
+		color: #3d3d3d;
+		transition-duration: 0.3s;
+	}
+
+	a:hover {
+		color: ${colors.violet};
+	}
 `;
 
 export const CenteredText = styled.p`
@@ -18,7 +28,6 @@ export const RedirectLink = styled.p`
 	align-items: center;
 	a {
 		text-decoration: none;
-		color: rgba(127, 120, 206, 1);
 		color: ${colors.violet};
 		font-size: 16px;
 	}

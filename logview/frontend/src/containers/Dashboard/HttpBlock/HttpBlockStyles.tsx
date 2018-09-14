@@ -17,4 +17,7 @@ export const HttpContainer = styled.div`
 
 export const Title = HttpTitle.extend`
 	margin-top: 20px;
+	display: flex; 
+	align-items: center;
+	justify-content: center;
 `;

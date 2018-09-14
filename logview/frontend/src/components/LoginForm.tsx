@@ -11,6 +11,7 @@ import {
 	RedirectRegister
 } from '../containers/Login/LoginStyles';
 import { Link } from 'react-router-dom';
+import { Binoculars } from 'styled-icons/fa-solid';
 
 interface LoginFormProps {
 	onSubmit: Function;
@@ -54,7 +55,11 @@ class LoginForm extends React.Component<LoginFormProps, LoginFormState> {
 	render() {
 		return (
 			<Form>
-				<Title>obServer</Title>
+				<Title>
+					<Link to="/">
+						<Binoculars size="25" /> obServer
+					</Link>
+				</Title>
 				<Row>
 					<div>Sign in</div>
 					<Redirect>

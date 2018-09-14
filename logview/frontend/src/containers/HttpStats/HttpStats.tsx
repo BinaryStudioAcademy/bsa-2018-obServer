@@ -27,7 +27,7 @@ import LogsUpdateTimer from '../../components/UpdateTimer/LogsUpdateTimer';
 import NoApps from '../../components/noData/NoApps';
 import NoActiveApps from '../../components/noData/NoActiveApp';
 import NoStatsData from '../../components/noData/NoStatsData';
-import { SyncAlt } from 'styled-icons/fa-solid';
+import { Refresh } from 'styled-icons/material/Refresh';
 
 interface HttpProps {
 	actions: { getNewHttpStats: Function };
@@ -112,7 +112,7 @@ class HttpStats extends React.Component<HttpProps, HttpState> {
 					<Title>
 						Http Stats
 						<RefreshButton onClick={this.refresh}>
-							<SyncAlt size={22} />
+							<Refresh size="20" />
 						</RefreshButton>
 					</Title>
 					{this.props.fetchingLogsStatus === 'success' ? (

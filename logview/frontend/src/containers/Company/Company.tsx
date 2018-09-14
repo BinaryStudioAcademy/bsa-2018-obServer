@@ -26,6 +26,7 @@ import { validateUsernameFrom } from 'src/services/validate/validate';
 interface CompanyProps {
 	actions: { userInvite: Function; fetchCompanyUsers: Function };
 	companyUsers: Array<Object>;
+	user: any;
 	fetchingUserStatus: string;
 }
 
@@ -88,14 +89,13 @@ class Company extends React.Component<CompanyProps, CompanyState> {
 			errors.push(validateState[errorStatus]);
 		}
 		errors.indexOf(false) !== -1
-			? this.setState({ validateState: validateState })		
+			? this.setState({ validateState: validateState })
 			: (this.props.actions.userInvite(
 					this.state.email,
 					this.state.name,
 					this.state.admin
-				),
-				this.setState({ form: !this.state.form })
-			)
+			  ),
+			  this.setState({ form: !this.state.form }));
 	}
 
 	handleForm() {
@@ -104,11 +104,10 @@ class Company extends React.Component<CompanyProps, CompanyState> {
 
 	render() {
 		const { companyUsers } = this.props;
-		const user = JSON.parse(sessionStorage.getItem('observerUser'));
 		return (
 			<CompanyUsers>
 				<Row>
-					<Title>{user.companyName}</Title>
+					<Title>{this.props.user.company}</Title>
 					<FormStatusIcon>
 						{!this.state.form ? (
 							<PlusCircleIcon
@@ -133,7 +132,9 @@ class Company extends React.Component<CompanyProps, CompanyState> {
 							onChange={this.handleFieldChange}
 						/>
 						{!this.state.validateState.name && (
-							<ErrorText>Name can only contain latin letters</ErrorText>
+							<ErrorText>
+								Name can only contain latin letters
+							</ErrorText>
 						)}
 						<Input
 							name="email"
@@ -141,7 +142,9 @@ class Company extends React.Component<CompanyProps, CompanyState> {
 							onChange={this.handleFieldChange}
 						/>
 						{!this.state.validateState.email && (
-							<ErrorText>Email is not valid, ex. "email@domain.name"</ErrorText>
+							<ErrorText>
+								Email is not valid, ex. "email@domain.name"
+							</ErrorText>
 						)}
 						<AdminSwitchGrid>
 							<p>Admin:</p>
@@ -180,9 +183,10 @@ class Company extends React.Component<CompanyProps, CompanyState> {
 	}
 }
 
-const mapStateToProps = ({ fetchingUserStatus, companyUsers }) => ({
+const mapStateToProps = ({ fetchingUserStatus, companyUsers, user }) => ({
 	fetchingUserStatus,
-	companyUsers
+	companyUsers,
+	user
 });
 const mapDispatchToProps = (dispatch: any) => ({
 	actions: bindActionCreators({ userInvite, fetchCompanyUsers }, dispatch)

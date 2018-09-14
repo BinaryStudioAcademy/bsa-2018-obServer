@@ -36,10 +36,7 @@ export function validateForm(obj: {
 	return res;
 }
 
-export function validateUsernameFrom(obj: {
-	name: string;
-	email: string;
-}) {
+export function validateUsernameFrom(obj: { name: string; email: string }) {
 	let res: {
 		name: boolean;
 		email: boolean;
