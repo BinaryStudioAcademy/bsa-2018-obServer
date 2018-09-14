@@ -10,7 +10,9 @@ import {
 	UserBar,
 	SelectChartPage
 } from '../../styles/Styles';
-import { Title } from '../../styles/Styles';
+import { Title as TextTitle } from '../../styles/Styles';
+import { Refresh } from 'styled-icons/material/Refresh'
+import { Submit } from '../PasswordReset/PasswordResetStyles';
 
 export const ChartGrid = Grid.extend`
 	margin-top: 100px;
@@ -24,6 +26,18 @@ export const TableWrapper = styled.div`
 	display: flex;
 `;
 
+export const RefreshButton = Submit.extend`
+	display: inline;
+	margin: 0;
+	margin-left: 10px;
+`;
+
+export const Title = TextTitle.extend`
+	display: flex; 
+	align-items: center;
+	justify-content: center;
+`;
+
 export {
 	CommentText,
 	UserText,
@@ -34,7 +48,6 @@ export {
 	ChartsPageWrapper,
 	ChartTimeRange,
 	UserBar,
-	Title,
 	Grid,
 	SelectChartPage
 };

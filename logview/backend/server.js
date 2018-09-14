@@ -7,16 +7,13 @@ const bodyParser = require('body-parser'),
 	sessionSecret = require('./config/session').secret,
 	webpack = require('webpack'),
 	webpackConfig = require('../webpack.config.js'),
-	webpackDevMiddleware = require('webpack-dev-middleware'),
-	webpackHotMiddleware = require('webpack-hot-middleware'),
 	passport = require('passport'),
-	Sequelize = require('sequelize'),
 	cors = require('cors'),
 	port = process.env.APP_PORT;
 
 const app = express();
-const compiler = webpack(webpackConfig);
 const distPath = path.resolve(__dirname + '/../dist');
+const frontendPath = path.resolve(__dirname + '/../dist/frontend');
 const resourcesPath = path.resolve(__dirname + '/../resources');
 
 const postgresDb = require('./dbconnect/postgres');
@@ -33,6 +30,9 @@ apiResponse.options({
 });
 
 if (process.env.NODE_ENV !== 'production') {
+	const compiler = webpack(webpackConfig);
+	(webpackDevMiddleware = require('webpack-dev-middleware')),
+		(webpackHotMiddleware = require('webpack-hot-middleware'));
 	app.use(
 		webpackDevMiddleware(compiler, {
 			noInfo: true,
@@ -56,6 +56,7 @@ app.use(
 app.use(bodyParser.json({ limit: '5mb' }));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/dist', express.static(distPath));
+app.use('/frontend', express.static(frontendPath));
 app.use('/resources', express.static(resourcesPath));
 app.use(passport.initialize());
 app.use(passport.session());

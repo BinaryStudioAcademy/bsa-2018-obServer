@@ -1,9 +1,9 @@
-const sendHelper = require('../utils/apiRequest');
-const logTypes = require('../utils/logTypes');
-const cpuLoad = require('../osUtils/cpu');
-const memoryStats = require('../osUtils/memory');
-const ServerMonitor = require('../osUtils/monitorServer');
-const tcpPing = require('tcp-ping');
+const sendHelper = require("../utils/apiRequest");
+const logTypes = require("../utils/logTypes");
+const cpuLoad = require("../osUtils/cpu");
+const memoryStats = require("../osUtils/memory");
+const ServerMonitor = require("../osUtils/monitorServer");
+const tcpPing = require("tcp-ping");
 
 module.exports = class MetricsService {
   constructor(url, companyToken) {
@@ -12,12 +12,12 @@ module.exports = class MetricsService {
     this.serverMonitor = new ServerMonitor(this.sendMetrics);
     this.logSettings = {};
     this.CPULoadCriticalTime = 5000;
-    this.CPULoadCriticalValue = 90;    
+    this.CPULoadCriticalValue = 90;
   }
 
   newLog(data) {
     if (this.logSettings.filterData[data.logType]) {
-      this.sendMetrics(data, '/logs');
+      this.sendMetrics(data, "/logs");
     }
   }
 
@@ -30,7 +30,7 @@ module.exports = class MetricsService {
           [logTypes.CPU_APP]: settings.filterData.appsCPU,
           [logTypes.MEMORY_APP]: settings.filterData.appsMemory,
           [logTypes.HTTP_STATS]: settings.filterData.appsHttp,
-          [logTypes.LOG]: settings.filterData.appsErrorLog,
+          [logTypes.LOG_MESSAGE]: settings.filterData.appsErrorLog,
           [logTypes.NOTIFICATION]: settings.filterData.notificationServerIsDown,
           [logTypes.SOCKETS_STATS]: settings.filterData.appsSoket
         },
@@ -55,27 +55,37 @@ module.exports = class MetricsService {
     }
 
     if (this.logSettings.company.logcollectPort) {
-      setTimeout(() => { // temporary timeout, sending ping settings, need to wait for rawstorage start
+      setTimeout(() => {
+        // temporary timeout, sending ping settings, need to wait for rawstorage start
         this.sendMetrics(
-          { port: this.logSettings.company.logcollectPort, enabled: this.logSettings.filterData[logTypes.NOTIFICATION] },
-          '/ping'
+          {
+            port: this.logSettings.company.logcollectPort,
+            enabled: this.logSettings.filterData[logTypes.NOTIFICATION]
+          },
+          "/ping"
         );
-      }, 4000);  
+      }, 4000);
     }
 
-    this.logSettings.apps.forEach((app) => {
+    this.logSettings.apps.forEach(app => {
       if (app.port) {
         this.ping(app.port, app.id, app.name);
       }
-    });    
+    });
   }
 
   startCPUMonitor(delay = 1000) {
-    if(!this.timersId.cpu) {
+    if (!this.timersId.cpu) {
       this.timersId.cpu = setInterval(() => {
-        cpuLoad((cpuData) => {
-          this.newLog(MetricsService.createLogObject(logTypes.CPU_SERVER, cpuData));
-          this.serverMonitor.checkCriticalCPUValue(cpuData, this.CPULoadCriticalValue, this.CPULoadCriticalTime);          
+        cpuLoad(cpuData => {
+          this.newLog(
+            MetricsService.createLogObject(logTypes.CPU_SERVER, cpuData)
+          );
+          this.serverMonitor.checkCriticalCPUValue(
+            cpuData,
+            this.CPULoadCriticalValue,
+            this.CPULoadCriticalTime
+          );
         });
       }, delay);
     }
@@ -87,10 +97,12 @@ module.exports = class MetricsService {
   }
 
   startMemoryMonitor(delay = 1000) {
-    if(!this.timersId.memory) {
+    if (!this.timersId.memory) {
       this.timersId.memory = setInterval(() => {
-        memoryStats((memData) => {
-          this.newLog(MetricsService.createLogObject(logTypes.MEMORY_SERVER, memData));
+        memoryStats(memData => {
+          this.newLog(
+            MetricsService.createLogObject(logTypes.MEMORY_SERVER, memData)
+          );
         });
       }, delay);
     }
@@ -106,15 +118,22 @@ module.exports = class MetricsService {
   }
 
   ping(appPort, appId, appName, delay = 1000) {
-    if(!this.timersId.ping[appId]) {
+    if (!this.timersId.ping[appId]) {
       this.timersId.ping[appId] = setInterval(() => {
         tcpPing.ping({ port: appPort }, (err, data) => {
           if (err) console.log(err);
           else if (this.checkBadPing(data)) {
             const notification = {
               message: `App ${appName} is down!`
-            }; 
-            this.newLog(MetricsService.createLogObject('NOTIFICATION', notification, appId ), '/logs');
+            };
+            this.newLog(
+              MetricsService.createLogObject(
+                "NOTIFICATION",
+                notification,
+                appId
+              ),
+              "/logs"
+            );
             this.stopPing(appId);
           }
         });
@@ -124,12 +143,12 @@ module.exports = class MetricsService {
 
   checkBadPing(data) {
     const { avg, results } = data;
-    return isNaN(avg) && results[0].hasOwnProperty('err') ? true : false;
+    return isNaN(avg) && results[0].hasOwnProperty("err") ? true : false;
   }
 
   stopPing(appId) {
     clearInterval(this.timersId.ping[appId]);
-    delete this.timersId.ping[appId]; 
+    delete this.timersId.ping[appId];
   }
 
   static createLogObject(logType, data, appId) {
@@ -140,4 +159,4 @@ module.exports = class MetricsService {
       ...(appId && { appId })
     };
   }
-}
+};

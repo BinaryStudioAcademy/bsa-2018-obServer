@@ -1,6 +1,7 @@
 import { css } from 'styled-components';
 
 const sizes = {
+	dashboard: 1450 as number,
 	desktop: 850 as number,
 	tablet: 768 as number,
 	phone: 376 as number
@@ -17,6 +18,7 @@ export const media = Object.keys(sizes).reduce(
 		return accumulator;
 	},
 	{
+		dashboard: undefined as any,
 		desktop: undefined as any,
 		tablet: undefined as any,
 		phone: undefined as any

@@ -6,10 +6,11 @@ import HttpCountChart from '../../../components/charts/http/countHttpChart';
 import {
 	ChartHeader,
 	ChartWrapper,
-	Chart
+	Chart,
+	RefreshButton
 } from '../../HttpStats/HttpStatsStyles';
 import { Grid, HttpContainer, Title } from './HttpBlockStyles';
-import { Submit } from '../../../styles/Styles';
+import { Submit } from '../DashboardStyles';
 import { Link } from 'react-router-dom';
 import NoApps from '../../../components/noData/NoApps';
 import NoActiveApps from '../../../components/noData/NoActiveApp';
@@ -24,6 +25,8 @@ import {
 	convertTimeRangeToInterval
 } from '../../../services/chartParser';
 import { LoaderBars } from '../../../components/loaders';
+import { SyncAlt } from 'styled-icons/fa-solid';
+import { Refresh } from 'styled-icons/material';
 
 interface HttpStatsProps {
 	actions: { getNewHttpStats: Function };
@@ -38,6 +41,7 @@ interface HttpStatsState {}
 class HttpStats extends React.Component<HttpStatsProps, HttpStatsState> {
 	constructor(props: HttpStatsProps) {
 		super(props);
+		this.refresh = this.refresh.bind(this);
 	}
 
 	componentDidMount() {
@@ -62,10 +66,21 @@ class HttpStats extends React.Component<HttpStatsProps, HttpStatsState> {
 				this.props.actions.getNewHttpStats(
 					activeApp.value,
 					convertTimeRangeToInterval(
-						this.props.filters.timeRanges.requests
+						nextProps.filters.timeRanges.requests
 					)
 				);
 		}
+	}
+
+	refresh() {
+		const activeApp = this.props.filters.activeApp;
+		activeApp &&
+			this.props.actions.getNewHttpStats(
+				activeApp.value,
+				convertTimeRangeToInterval(
+					this.props.filters.timeRanges.requests
+				)
+			);
 	}
 
 	render() {
@@ -99,7 +114,12 @@ class HttpStats extends React.Component<HttpStatsProps, HttpStatsState> {
 		} else {
 			return (
 				<HttpContainer>
-					<Title>Http Stats</Title>
+					<Title>
+						Http Stats
+						<RefreshButton onClick={this.refresh}>
+							<Refresh size="20" />
+						</RefreshButton>
+					</Title>
 					{this.props.fetchingLogsStatus === 'success' ? (
 						<Grid>
 							<ChartWrapper>

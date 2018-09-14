@@ -6,7 +6,8 @@ import {
 	Title as DashboardTitle
 } from '../../styles/TextStyles';
 import { UserPopup } from '../../styles/ContainerStyles';
-import { colors } from '../../styles/styles-utils';
+import { colors, media } from '../../styles/styles-utils';
+import { Submit as SubmitButton } from '../../styles/Styles';
 
 export const DashboardWrapper = styled.div`
 	margin: 20px;
@@ -26,6 +27,7 @@ export const CenteredContainer = styled.div`
 export const DashboardMain = styled.div`
 	display: grid;
 	grid-template-columns: 2fr 1fr;
+	${media.dashboard`grid-template-columns: 1fr;`};
 	grid-gap: 50px;
 	margin: 5%;
 `;
@@ -97,4 +99,16 @@ export const Title = DashboardTitle.extend`
 	a:hover {
 		color: ${colors.violet};
 	}
+
+	svg {
+		margin-right: 5px;
+	}
+`;
+
+export const Submit = SubmitButton.extend`
+	padding: 0;
+
+	a {
+		padding: 10px 40px;
+	}	
 `;

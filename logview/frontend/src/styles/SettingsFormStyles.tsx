@@ -1,7 +1,8 @@
 import styled, { StyledFunction } from 'styled-components';
 import { media, colors } from './styles-utils';
 
-const userEditIcon = require('src/assets/edit.png');
+// const userEditIcon = require('assets/edit.png');
+const userEditIcon = require('assets/edit.png');
 
 export const SettingsForm = styled.form`
 	display: flex;

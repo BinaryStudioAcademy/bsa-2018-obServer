@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { userChangeCompany } from '../../redux/company/actions';
 import { Button, Logo, Title, Landing } from './UserChangeCompanyStyle';
 import queryString from 'query-string';
-const logo = require('src/assets/invite.png');
+const logo = require('assets/invite.png');
 
 interface UserChangeCompanyProps {
 	actions: {
@@ -29,9 +29,9 @@ class UserChangeCompany extends React.Component<
 		return (
 			<Landing>
 				<Logo src={logo} />
-				<Title>You joined to companyName</Title>
+				<Title>You've joined new company!</Title>
 				<Button>
-					<Link to="/">Proceed to home</Link>
+					<Link to="/login">Sign in to continue</Link>
 				</Button>
 			</Landing>
 		);

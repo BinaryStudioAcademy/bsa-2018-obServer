@@ -12,6 +12,7 @@ import {
 import { User, CheckSquare } from 'styled-icons/fa-solid';
 import { UserState } from '../../types/UserState';
 import { validateUsersNameData } from '../../services/validate/validate';
+import { Save } from 'styled-icons/fa-solid';
 
 interface SettingsUserState {
 	name?: string;
@@ -109,7 +110,8 @@ class SettingUserForm extends React.Component<
 				</SettingsWrapper>
 
 				<SettingsSubmitButton onClick={this.handleSubmit}>
-					Save All Change
+					<Save size="18" />
+					Save All Changes
 				</SettingsSubmitButton>
 			</SettingsForm>
 		);
