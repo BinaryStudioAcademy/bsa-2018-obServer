@@ -29,9 +29,9 @@ class UserChangeCompany extends React.Component<
 		return (
 			<Landing>
 				<Logo src={logo} />
-				<Title>You joined to companyName</Title>
+				<Title>You've joined new company!</Title>
 				<Button>
-					<Link to="/">Proceed to home</Link>
+					<Link to="/login">Sign in to continue</Link>
 				</Button>
 			</Landing>
 		);

@@ -25,8 +25,10 @@ import {
 import Particles from 'react-particles-js';
 import config from './particlesjs-config';
 import { Link } from 'react-router-dom';
-const httpChart = require('src/assets/LandingChartMock.png');
-const cpuChart = require('src/assets/LandingCpuChart.png');
+import { Https } from 'styled-icons/material/Https';
+import { Bug } from 'styled-icons/fa-solid/Bug';
+import { Notifications } from 'styled-icons/material';
+const cpu = require('src/assets/cpu.png');
 
 class LandingPage extends React.Component {
 	render() {
@@ -56,7 +58,7 @@ class LandingPage extends React.Component {
 				<LandingInfo>
 					<InfoBlock>
 						<InfoImageContainer>
-							<InfoImage src={cpuChart} />
+							<InfoImage src={cpu} />
 						</InfoImageContainer>
 						<InfoDescription>
 							<InfoTitle>
@@ -73,12 +75,12 @@ class LandingPage extends React.Component {
 							We track different HTTP requests stats, such as quantity of requests, routes and others.
 						</InfoDescription>
 						<InfoImageContainer>
-							<InfoImage src={httpChart} />
+							<Https size="200px"/>
 						</InfoImageContainer>
 					</InfoBlock>
 					<InfoBlock>
 						<InfoImageContainer>
-							<InfoImage src={cpuChart} />
+							<Bug size="200px"/>
 						</InfoImageContainer>
 						<InfoDescription>
 							<InfoTitle>
@@ -95,15 +97,23 @@ class LandingPage extends React.Component {
 							Be sure that you will always know when your server is down
 						</InfoDescription>
 						<InfoImageContainer>
-							<InfoImage src={cpuChart} />
+							<Notifications size="200px" />
 						</InfoImageContainer>
 					</InfoBlock>
 				</LandingInfo>
 
 				<GetStartedBar>
-
+					<p>Start your journey with us!</p>
+					<ButtonWrapper>
+						<Button primary>
+							<Link to="/login">sign in</Link>
+						</Button>
+						<Button>
+							<Link to="/register">sign up</Link>
+						</Button>
+					</ButtonWrapper>
 				</GetStartedBar>
-				
+
 				<Footer>
 					<FooterTitle>
 						Binary Studio Academy 2018. obServer Project.

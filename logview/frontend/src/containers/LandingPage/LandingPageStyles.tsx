@@ -136,6 +136,7 @@ export const InfoBlock = styled.div`
     display: flex;
     margin-right: -15px;
     margin-left: -15px;
+	justify-content: center;
 	align-items: center;
 `;
 
@@ -179,14 +180,15 @@ export const Footer = styled.div`
 	min-height: 120px;
 	background: #3d3d3d;
 	color: #afafaf;
-	margin-top: 200px;
 	display: flex;
 	flex-direction: column;
+	align-items: center;
+	justify-content: center;
 	width: 100%;
 `;
 
 export const FooterTitle = styled.div`
-	margin: 10px 0 0 40px;
+	margin-top: 10px;
 `;
 
 export const FooterLinkText = styled.span`
@@ -194,10 +196,27 @@ export const FooterLinkText = styled.span`
 `;
 
 export const FooterLink = RedirectLink.extend`
-	margin: 10px 0 0 40px;
+	margin-top: 10px;
 `;
 
-export const GetStartedBar = styled.div``;
+export const GetStartedBar = styled.div`
+	margin-top: 200px;
+	background: #afafaf;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	font-size: 20px;
+	padding: 40px 0;
+	
+	div {
+		margin: 0;
+	}
+
+	p {
+		margin-top: 0;
+	}
+`;
 
 export const GitHub = GitHubIcon.extend`
 	color: ${colors.violet};

@@ -98,4 +98,8 @@ export const Title = DashboardTitle.extend`
 	a:hover {
 		color: ${colors.violet};
 	}
+
+	svg {
+		margin-right: 5px;
+	}
 `;
