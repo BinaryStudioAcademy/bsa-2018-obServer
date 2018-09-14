@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { RefreshButton } from '../../HttpStats/HttpStatsStyles';
 import { TableWrapper } from '../../HttpStats/HttpStatsStyles';
 import { HttpContainer, Title } from '../HttpBlock/HttpBlockStyles';
-import { Submit } from '../../../styles/Styles';
+import { Submit } from '../DashboardStyles';
 import { Link } from 'react-router-dom';
 import NoApps from '../../../components/noData/NoApps';
 import NoActiveApps from '../../../components/noData/NoActiveApp';
@@ -18,7 +18,7 @@ import {
 } from '../../../services/chartParser';
 import { LoaderBars } from '../../../components/loaders';
 import HttpTableDemo from 'src/components/tabels/httpTableDemo';
-import { SyncAlt } from 'styled-icons/fa-solid';
+import { Refresh } from 'styled-icons/material';
 
 interface HttpStatsProps {
 	actions: { getNewHttpStats: Function };
@@ -109,7 +109,7 @@ class HttpTable extends React.Component<HttpStatsProps, HttpStatsState> {
 					<Title>
 						Http Stats Table
 						<RefreshButton onClick={this.refresh}>
-							<SyncAlt size={22} />
+							<Refresh size="20" />
 						</RefreshButton>
 					</Title>
 					<TableWrapper>
