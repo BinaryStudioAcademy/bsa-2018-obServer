@@ -24,6 +24,10 @@ export const TableWrapper = styled.div`
 	display: flex;
 `;
 
+export const RefreshButton = styled.button`
+	margin-left: 10px;
+`;
+
 export {
 	CommentText,
 	UserText,

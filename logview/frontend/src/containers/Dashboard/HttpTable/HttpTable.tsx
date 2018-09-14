@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-
+import { RefreshButton } from '../../HttpStats/HttpStatsStyles';
 import { TableWrapper } from '../../HttpStats/HttpStatsStyles';
 import { HttpContainer, Title } from '../HttpBlock/HttpBlockStyles';
 import { Submit } from '../../../styles/Styles';
@@ -18,6 +18,7 @@ import {
 } from '../../../services/chartParser';
 import { LoaderBars } from '../../../components/loaders';
 import HttpTableDemo from 'src/components/tabels/httpTableDemo';
+import { SyncAlt } from 'styled-icons/fa-solid';
 
 interface HttpStatsProps {
 	actions: { getNewHttpStats: Function };
@@ -32,6 +33,7 @@ interface HttpStatsState {}
 class HttpTable extends React.Component<HttpStatsProps, HttpStatsState> {
 	constructor(props: HttpStatsProps) {
 		super(props);
+		this.refresh = this.refresh.bind(this);
 	}
 
 	componentDidMount() {
@@ -56,10 +58,21 @@ class HttpTable extends React.Component<HttpStatsProps, HttpStatsState> {
 				this.props.actions.getNewHttpStats(
 					activeApp.value,
 					convertTimeRangeToInterval(
-						this.props.filters.timeRanges.requests
+						nextProps.filters.timeRanges.requests
 					)
 				);
 		}
+	}
+
+	refresh() {
+		const activeApp = this.props.filters.activeApp;
+		activeApp &&
+			this.props.actions.getNewHttpStats(
+				activeApp.value,
+				convertTimeRangeToInterval(
+					this.props.filters.timeRanges.requests
+				)
+			);
 	}
 
 	render() {
@@ -93,7 +106,12 @@ class HttpTable extends React.Component<HttpStatsProps, HttpStatsState> {
 		} else {
 			return this.props.fetchingLogsStatus === 'success' ? (
 				<HttpContainer>
-					<Title>Http Stats Table</Title>
+					<Title>
+						Http Stats Table
+						<RefreshButton onClick={this.refresh}>
+							<SyncAlt size={22} />
+						</RefreshButton>
+					</Title>
 					<TableWrapper>
 						<HttpTableDemo
 							data={httpParser(this.props.httpStats)}
